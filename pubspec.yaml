@@ -1,0 +1,70 @@
+name: quiz_app
+description: A new Flutter project.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.17.5 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  firebase_core: ^2.1.0
+  cloud_firestore: ^4.0.2
+  firebase_auth: ^4.0.2
+  firebase_storage: ^11.0.2
+  google_sign_in: ^5.4.2
+  freezed_annotation: ^2.1.0
+  state_notifier: ^0.7.2+1
+  hooks_riverpod: ^1.0.4
+  intro_slider: ^4.0.0
+  url_launcher: ^6.1.5
+  cached_network_image: ^3.2.2
+  lottie: ^1.4.3
+  sign_in_with_apple: ^4.1.0
+  #  BottomNavigationBar
+  convex_bottom_bar: ^3.1.0+1
+  curved_navigation_bar: ^1.0.3
+  bottom_navy_bar: ^6.0.0
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+  freezed: ^2.1.1
+  build_runner: ^2.2.1
+  json_serializable: ^6.4.0
+  flutter_native_splash: ^2.2.7
+  flutter_launcher_icons: ^0.10.0
+
+flutter_native_splash:
+  image: "assets/sample_logo.png"
+  color: "FFFFFF"
+
+flutter_icons:
+#  android: "launcher_icon"
+  android: true
+  ios: true
+  image_path: "assets/sample_logo2.png"
+  min_sdk_android: 21
+  web:
+    generate: true
+    image_path: "assets/sample_logo2.png"
+#    adaptive_icon_background: "#ffffff"
+#    background_color: "#ffffff"
+#    theme_color: "#ffffff"
+    windows:
+      generate: true
+      image_path: "assets/sample_logo2.png"
+      icon_size: 48
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/
