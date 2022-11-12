@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:quiz_app/Model/user.dart';
+import 'package:quiz_app/domain/user/user.dart';
 
 final newUserEmailProvider = StateProvider((ref) => "");
 final newUserPasswordProvider = StateProvider((ref) => "");
