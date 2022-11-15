@@ -12,9 +12,11 @@ abstract class Quiz implements _$Quiz {
 
   const factory Quiz({
     required int id,
+    required String categoryDocRef,
+    required String quizDocRef,
     required String title,
     required String description,
-    required bool optionsShuffled,
+    required bool questionsShuffled,
     required String imagePath,
     required int categoryId,
     required List<Question> questions,
@@ -22,9 +24,11 @@ abstract class Quiz implements _$Quiz {
 
   factory Quiz.empty() => const Quiz(
         id: 0,
+        categoryDocRef: "",
+        quizDocRef: "",
         title: "",
         description: "",
-        optionsShuffled: false,
+        questionsShuffled: false,
         imagePath: "",
         categoryId: 0,
         questions: [],

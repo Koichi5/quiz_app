@@ -21,6 +21,7 @@ Category _$CategoryFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Category {
   int get id => throw _privateConstructorUsedError;
+  String get categoryDocRef => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get imagePath => throw _privateConstructorUsedError;
 
@@ -35,7 +36,7 @@ abstract class $CategoryCopyWith<$Res> {
   factory $CategoryCopyWith(Category value, $Res Function(Category) then) =
       _$CategoryCopyWithImpl<$Res, Category>;
   @useResult
-  $Res call({int id, String name, String imagePath});
+  $Res call({int id, String categoryDocRef, String name, String imagePath});
 }
 
 /// @nodoc
@@ -52,6 +53,7 @@ class _$CategoryCopyWithImpl<$Res, $Val extends Category>
   @override
   $Res call({
     Object? id = null,
+    Object? categoryDocRef = null,
     Object? name = null,
     Object? imagePath = null,
   }) {
@@ -60,6 +62,10 @@ class _$CategoryCopyWithImpl<$Res, $Val extends Category>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
+      categoryDocRef: null == categoryDocRef
+          ? _value.categoryDocRef
+          : categoryDocRef // ignore: cast_nullable_to_non_nullable
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -79,7 +85,7 @@ abstract class _$$_CategoryCopyWith<$Res> implements $CategoryCopyWith<$Res> {
       __$$_CategoryCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String name, String imagePath});
+  $Res call({int id, String categoryDocRef, String name, String imagePath});
 }
 
 /// @nodoc
@@ -94,6 +100,7 @@ class __$$_CategoryCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? categoryDocRef = null,
     Object? name = null,
     Object? imagePath = null,
   }) {
@@ -102,6 +109,10 @@ class __$$_CategoryCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
+      categoryDocRef: null == categoryDocRef
+          ? _value.categoryDocRef
+          : categoryDocRef // ignore: cast_nullable_to_non_nullable
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -118,7 +129,10 @@ class __$$_CategoryCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Category extends _Category {
   const _$_Category(
-      {required this.id, required this.name, required this.imagePath})
+      {required this.id,
+      required this.categoryDocRef,
+      required this.name,
+      required this.imagePath})
       : super._();
 
   factory _$_Category.fromJson(Map<String, dynamic> json) =>
@@ -127,13 +141,15 @@ class _$_Category extends _Category {
   @override
   final int id;
   @override
+  final String categoryDocRef;
+  @override
   final String name;
   @override
   final String imagePath;
 
   @override
   String toString() {
-    return 'Category(id: $id, name: $name, imagePath: $imagePath)';
+    return 'Category(id: $id, categoryDocRef: $categoryDocRef, name: $name, imagePath: $imagePath)';
   }
 
   @override
@@ -142,6 +158,8 @@ class _$_Category extends _Category {
         (other.runtimeType == runtimeType &&
             other is _$_Category &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.categoryDocRef, categoryDocRef) ||
+                other.categoryDocRef == categoryDocRef) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.imagePath, imagePath) ||
                 other.imagePath == imagePath));
@@ -149,7 +167,8 @@ class _$_Category extends _Category {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, imagePath);
+  int get hashCode =>
+      Object.hash(runtimeType, id, categoryDocRef, name, imagePath);
 
   @JsonKey(ignore: true)
   @override
@@ -168,6 +187,7 @@ class _$_Category extends _Category {
 abstract class _Category extends Category {
   const factory _Category(
       {required final int id,
+      required final String categoryDocRef,
       required final String name,
       required final String imagePath}) = _$_Category;
   const _Category._() : super._();
@@ -176,6 +196,8 @@ abstract class _Category extends Category {
 
   @override
   int get id;
+  @override
+  String get categoryDocRef;
   @override
   String get name;
   @override

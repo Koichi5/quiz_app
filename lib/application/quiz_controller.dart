@@ -96,7 +96,8 @@ class QuizController {
       if (takenQuestions.length >= quiz.questions.length) {
         return null;
       }
-      if (quiz.optionsShuffled) {
+      // Change quiz.optionsShuffled to quiz.questionShuffled
+      if (quiz.questionsShuffled) {
         index = Random().nextInt(quiz.questions.length);
         if (takenQuestions.contains(index) == false) {
           takenQuestions.add(index);

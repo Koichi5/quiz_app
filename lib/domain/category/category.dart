@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../quiz/quiz.dart';
+
 part 'category.freezed.dart';
 part 'category.g.dart';
 
-// Github repository set "id" as "int" but set as "String".
 
 @freezed
 abstract class Category implements _$Category {
@@ -12,11 +13,12 @@ abstract class Category implements _$Category {
 
   const factory Category({
     required int id,
+    required String categoryDocRef,
     required String name,
     required String imagePath,
   }) = _Category;
 
-  factory Category.empty() => const Category(id: 0, name: "", imagePath: "");
+  factory Category.empty() => const Category(id: 0, categoryDocRef: "", name: "", imagePath: "");
 
   factory Category.fromJson(json) => _$CategoryFromJson(json);
 

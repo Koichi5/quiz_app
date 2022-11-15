@@ -21,9 +21,11 @@ Quiz _$QuizFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Quiz {
   int get id => throw _privateConstructorUsedError;
+  String get categoryDocRef => throw _privateConstructorUsedError;
+  String get quizDocRef => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
-  bool get optionsShuffled => throw _privateConstructorUsedError;
+  bool get questionsShuffled => throw _privateConstructorUsedError;
   String get imagePath => throw _privateConstructorUsedError;
   int get categoryId => throw _privateConstructorUsedError;
   List<Question> get questions => throw _privateConstructorUsedError;
@@ -40,9 +42,11 @@ abstract class $QuizCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
+      String categoryDocRef,
+      String quizDocRef,
       String title,
       String description,
-      bool optionsShuffled,
+      bool questionsShuffled,
       String imagePath,
       int categoryId,
       List<Question> questions});
@@ -62,9 +66,11 @@ class _$QuizCopyWithImpl<$Res, $Val extends Quiz>
   @override
   $Res call({
     Object? id = null,
+    Object? categoryDocRef = null,
+    Object? quizDocRef = null,
     Object? title = null,
     Object? description = null,
-    Object? optionsShuffled = null,
+    Object? questionsShuffled = null,
     Object? imagePath = null,
     Object? categoryId = null,
     Object? questions = null,
@@ -74,6 +80,14 @@ class _$QuizCopyWithImpl<$Res, $Val extends Quiz>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
+      categoryDocRef: null == categoryDocRef
+          ? _value.categoryDocRef
+          : categoryDocRef // ignore: cast_nullable_to_non_nullable
+              as String,
+      quizDocRef: null == quizDocRef
+          ? _value.quizDocRef
+          : quizDocRef // ignore: cast_nullable_to_non_nullable
+              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -82,9 +96,9 @@ class _$QuizCopyWithImpl<$Res, $Val extends Quiz>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      optionsShuffled: null == optionsShuffled
-          ? _value.optionsShuffled
-          : optionsShuffled // ignore: cast_nullable_to_non_nullable
+      questionsShuffled: null == questionsShuffled
+          ? _value.questionsShuffled
+          : questionsShuffled // ignore: cast_nullable_to_non_nullable
               as bool,
       imagePath: null == imagePath
           ? _value.imagePath
@@ -110,9 +124,11 @@ abstract class _$$_QuizCopyWith<$Res> implements $QuizCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
+      String categoryDocRef,
+      String quizDocRef,
       String title,
       String description,
-      bool optionsShuffled,
+      bool questionsShuffled,
       String imagePath,
       int categoryId,
       List<Question> questions});
@@ -128,9 +144,11 @@ class __$$_QuizCopyWithImpl<$Res> extends _$QuizCopyWithImpl<$Res, _$_Quiz>
   @override
   $Res call({
     Object? id = null,
+    Object? categoryDocRef = null,
+    Object? quizDocRef = null,
     Object? title = null,
     Object? description = null,
-    Object? optionsShuffled = null,
+    Object? questionsShuffled = null,
     Object? imagePath = null,
     Object? categoryId = null,
     Object? questions = null,
@@ -140,6 +158,14 @@ class __$$_QuizCopyWithImpl<$Res> extends _$QuizCopyWithImpl<$Res, _$_Quiz>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
+      categoryDocRef: null == categoryDocRef
+          ? _value.categoryDocRef
+          : categoryDocRef // ignore: cast_nullable_to_non_nullable
+              as String,
+      quizDocRef: null == quizDocRef
+          ? _value.quizDocRef
+          : quizDocRef // ignore: cast_nullable_to_non_nullable
+              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -148,9 +174,9 @@ class __$$_QuizCopyWithImpl<$Res> extends _$QuizCopyWithImpl<$Res, _$_Quiz>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      optionsShuffled: null == optionsShuffled
-          ? _value.optionsShuffled
-          : optionsShuffled // ignore: cast_nullable_to_non_nullable
+      questionsShuffled: null == questionsShuffled
+          ? _value.questionsShuffled
+          : questionsShuffled // ignore: cast_nullable_to_non_nullable
               as bool,
       imagePath: null == imagePath
           ? _value.imagePath
@@ -173,9 +199,11 @@ class __$$_QuizCopyWithImpl<$Res> extends _$QuizCopyWithImpl<$Res, _$_Quiz>
 class _$_Quiz extends _Quiz {
   const _$_Quiz(
       {required this.id,
+      required this.categoryDocRef,
+      required this.quizDocRef,
       required this.title,
       required this.description,
-      required this.optionsShuffled,
+      required this.questionsShuffled,
       required this.imagePath,
       required this.categoryId,
       required final List<Question> questions})
@@ -187,11 +215,15 @@ class _$_Quiz extends _Quiz {
   @override
   final int id;
   @override
+  final String categoryDocRef;
+  @override
+  final String quizDocRef;
+  @override
   final String title;
   @override
   final String description;
   @override
-  final bool optionsShuffled;
+  final bool questionsShuffled;
   @override
   final String imagePath;
   @override
@@ -205,7 +237,7 @@ class _$_Quiz extends _Quiz {
 
   @override
   String toString() {
-    return 'Quiz(id: $id, title: $title, description: $description, optionsShuffled: $optionsShuffled, imagePath: $imagePath, categoryId: $categoryId, questions: $questions)';
+    return 'Quiz(id: $id, categoryDocRef: $categoryDocRef, quizDocRef: $quizDocRef, title: $title, description: $description, questionsShuffled: $questionsShuffled, imagePath: $imagePath, categoryId: $categoryId, questions: $questions)';
   }
 
   @override
@@ -214,11 +246,15 @@ class _$_Quiz extends _Quiz {
         (other.runtimeType == runtimeType &&
             other is _$_Quiz &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.categoryDocRef, categoryDocRef) ||
+                other.categoryDocRef == categoryDocRef) &&
+            (identical(other.quizDocRef, quizDocRef) ||
+                other.quizDocRef == quizDocRef) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
                 other.description == description) &&
-            (identical(other.optionsShuffled, optionsShuffled) ||
-                other.optionsShuffled == optionsShuffled) &&
+            (identical(other.questionsShuffled, questionsShuffled) ||
+                other.questionsShuffled == questionsShuffled) &&
             (identical(other.imagePath, imagePath) ||
                 other.imagePath == imagePath) &&
             (identical(other.categoryId, categoryId) ||
@@ -232,9 +268,11 @@ class _$_Quiz extends _Quiz {
   int get hashCode => Object.hash(
       runtimeType,
       id,
+      categoryDocRef,
+      quizDocRef,
       title,
       description,
-      optionsShuffled,
+      questionsShuffled,
       imagePath,
       categoryId,
       const DeepCollectionEquality().hash(_questions));
@@ -256,9 +294,11 @@ class _$_Quiz extends _Quiz {
 abstract class _Quiz extends Quiz {
   const factory _Quiz(
       {required final int id,
+      required final String categoryDocRef,
+      required final String quizDocRef,
       required final String title,
       required final String description,
-      required final bool optionsShuffled,
+      required final bool questionsShuffled,
       required final String imagePath,
       required final int categoryId,
       required final List<Question> questions}) = _$_Quiz;
@@ -269,11 +309,15 @@ abstract class _Quiz extends Quiz {
   @override
   int get id;
   @override
+  String get categoryDocRef;
+  @override
+  String get quizDocRef;
+  @override
   String get title;
   @override
   String get description;
   @override
-  bool get optionsShuffled;
+  bool get questionsShuffled;
   @override
   String get imagePath;
   @override
