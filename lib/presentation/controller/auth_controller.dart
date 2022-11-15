@@ -38,8 +38,8 @@ class AuthController extends StateNotifier<User?> {
     }
   }
 
-  Future<void> signUpWithEmailAndPassword(String email, String password) async {
-    await _reader(authRepositoryProvider).signUp(email, password);
+  Future<void> createUserWithEmailAndPassword(String email, String password) async {
+    await _reader(authRepositoryProvider).createUserWithEmailAndPassword(email, password);
   }
 
   Future<User?> signInWithEmailAndPassword(String email, String password) async {

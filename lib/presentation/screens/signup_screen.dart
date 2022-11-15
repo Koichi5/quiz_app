@@ -12,13 +12,13 @@ class SignupScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final nameControllerProvider = ref.watch(nameControllerStateProvider);
-    final emailControllerProvider = ref.watch(emailControllerStateProvider);
+    final nameControllerProvider = ref.watch(signupNameControllerStateProvider);
+    final emailControllerProvider = ref.watch(signupEmailControllerStateProvider);
     final passwordControllerProvider =
-        ref.watch(passwordControllerStateProvider);
-    final obscureText = ref.watch(obscureTextStateProvider);
+        ref.watch(signupPasswordControllerStateProvider);
+    final obscureText = ref.watch(signupObscureTextStateProvider);
     final obscureTextControllerNotifier =
-        ref.watch(obscureTextStateProvider.notifier);
+        ref.watch(signupObscureTextStateProvider.notifier);
     final signupValidator = ref.watch(signupValidatorProvider);
     final signupValidatorNotifier = ref.watch(signupValidatorProvider.notifier);
     return Scaffold(
@@ -103,7 +103,7 @@ class SignupScreen extends HookConsumerWidget {
                   width: MediaQuery.of(context).size.width * 0.9,
                   child: TextButton(
                       onPressed: () {
-                        // Navigator.pushNamed(context, '/sign_in');
+                        Navigator.pushNamed(context, '/login');
                       },
                       child: const Text(
                         "アカウントをお持ちの方はこちら",

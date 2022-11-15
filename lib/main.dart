@@ -7,6 +7,7 @@ import 'package:quiz_app/presentation/screens/login_screen.dart';
 import 'package:quiz_app/presentation/screens/signup_screen.dart';
 
 import 'color_schemes.g.dart';
+import 'presentation/screens/intro_slider_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,9 +30,9 @@ class MyApp extends StatelessWidget {
       routes: {
         '/home' : (BuildContext context) => const HomeScreen(),
         '/signup' : (BuildContext context) => const SignupScreen(),
-        'login' : (BuildContext context) => const LoginScreen(),
+        '/login' : (BuildContext context) => const LoginScreen(),
       },
-      home: const SignupScreen(),
+      home: const IntroSliderScreen(),
     );
   }
 }

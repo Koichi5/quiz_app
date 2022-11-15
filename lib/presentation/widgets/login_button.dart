@@ -5,11 +5,10 @@ import 'package:quiz_app/presentation/screens/home_screen.dart';
 
 import '../../domain/repository/auth_repository.dart';
 import '../controller/auth_controller.dart';
-import '../controller/validator/signup_validator_provider.dart';
+import '../controller/validator/login_validator_provider.dart';
 
-class SignUpButton extends HookConsumerWidget {
-  const SignUpButton(this.name, this.email, this.password, {super.key});
-  final String name;
+class LoginButton extends HookConsumerWidget {
+  const LoginButton(this.email, this.password, {super.key});
   final String email;
   final String password;
   @override
@@ -24,12 +23,12 @@ class SignUpButton extends HookConsumerWidget {
         width: MediaQuery.of(context).size.width * 0.9,
         child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-                backgroundColor: ref.watch(signupValidatorProvider).form.isValid
+                backgroundColor: ref.watch(loginValidatorProvider).form.isValid
                     ? Theme.of(context).colorScheme.primary
                     : Theme.of(context).colorScheme.secondary),
             onPressed: () async {
-              if (ref.watch(signupValidatorProvider).form.isValid) {
-                await authControllerProviderNotifier.createUserWithEmailAndPassword(
+              if (ref.watch(loginValidatorProvider).form.isValid) {
+                await authControllerProviderNotifier.signInWithEmailAndPassword(
                     email, password);
                 User? user = authRepositoryProviderNotifier.getCurrentUser();
                 if (user != null) {
@@ -41,7 +40,7 @@ class SignUpButton extends HookConsumerWidget {
               }
             },
             child: Text(
-              "新 規 登 録",
+              "ロ グ イ ン",
               style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
             )),
       ),

@@ -1,4 +1,3 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -10,7 +9,7 @@ import '../../general/general_provider.dart';
 
 abstract class BaseAuthRepository {
   Stream<User?> get authStateChanges;
-  Future<UserCredential> signUp(String email, String password);
+  Future<UserCredential> createUserWithEmailAndPassword(String email, String password);
   Future<User?> signInWithEmailAndPassword(String email, String password);
   Future<User?> signInWithGoogle();
   Future<UserCredential> signInWithApple();
@@ -19,7 +18,7 @@ abstract class BaseAuthRepository {
 }
 
 final authRepositoryProvider =
-Provider<AuthRepository>((ref) => AuthRepository(ref.read));
+    Provider<AuthRepository>((ref) => AuthRepository(ref.read));
 
 class AuthRepository implements BaseAuthRepository {
   //_read to _reader
@@ -32,10 +31,10 @@ class AuthRepository implements BaseAuthRepository {
       _reader(firebaseAuthProvider).authStateChanges();
 
   @override
-  Future<UserCredential> signUp(String email, String password) async {
+  Future<UserCredential> createUserWithEmailAndPassword(String email, String password) async {
     try {
       final result =
-      await _reader(firebaseAuthProvider).createUserWithEmailAndPassword(
+          await _reader(firebaseAuthProvider).createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -51,7 +50,7 @@ class AuthRepository implements BaseAuthRepository {
     User? user;
     try {
       await _reader(firebaseAuthProvider)
-          .createUserWithEmailAndPassword(email: email, password: password);
+          .signInWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
       throw CustomException(message: e.message);
     }
@@ -62,12 +61,12 @@ class AuthRepository implements BaseAuthRepository {
   Future<User?> signInWithGoogle() async {
     final GoogleSignIn googleSignIn = GoogleSignIn();
     final GoogleSignInAccount? googleSignInAccount =
-    await googleSignIn.signIn();
+        await googleSignIn.signIn();
     User? user;
 
     if (googleSignInAccount != null) {
       final GoogleSignInAuthentication googleSignInAuthentication =
-      await googleSignInAccount.authentication;
+          await googleSignInAccount.authentication;
 
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleSignInAuthentication.accessToken,
@@ -76,8 +75,8 @@ class AuthRepository implements BaseAuthRepository {
 
       try {
         final UserCredential userCredential =
-        await _reader(firebaseAuthProvider)
-            .signInWithCredential(credential);
+            await _reader(firebaseAuthProvider)
+                .signInWithCredential(credential);
 
         //User を返す場合
         // final user = userCredential.user;
