@@ -8,8 +8,8 @@ part of 'quiz.dart';
 
 _$_Quiz _$$_QuizFromJson(Map<String, dynamic> json) => _$_Quiz(
       id: json['id'] as int,
-      categoryDocRef: json['categoryDocRef'] as String,
-      quizDocRef: json['quizDocRef'] as String,
+      categoryDocRef: json['categoryDocRef'] as String?,
+      quizDocRef: json['quizDocRef'] as String?,
       title: json['title'] as String,
       description: json['description'] as String,
       questionsShuffled: json['questionsShuffled'] as bool,

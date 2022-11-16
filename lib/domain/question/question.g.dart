@@ -8,6 +8,9 @@ part of 'question.dart';
 
 _$_Question _$$_QuestionFromJson(Map<String, dynamic> json) => _$_Question(
       id: json['id'] as String,
+      categoryDocRef: json['categoryDocRef'] as String?,
+      quizDocRef: json['quizDocRef'] as String?,
+      questionDocRef: json['questionDocRef'] as String?,
       text: json['text'] as String,
       duration: json['duration'] as int,
       optionsShuffled: json['optionsShuffled'] as bool,
@@ -19,6 +22,9 @@ _$_Question _$$_QuestionFromJson(Map<String, dynamic> json) => _$_Question(
 Map<String, dynamic> _$$_QuestionToJson(_$_Question instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'categoryDocRef': instance.categoryDocRef,
+      'quizDocRef': instance.quizDocRef,
+      'questionDocRef': instance.questionDocRef,
       'text': instance.text,
       'duration': instance.duration,
       'optionsShuffled': instance.optionsShuffled,

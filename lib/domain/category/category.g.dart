@@ -8,7 +8,7 @@ part of 'category.dart';
 
 _$_Category _$$_CategoryFromJson(Map<String, dynamic> json) => _$_Category(
       id: json['id'] as int,
-      categoryDocRef: json['categoryDocRef'] as String,
+      categoryDocRef: json['categoryDocRef'] as String?,
       name: json['name'] as String,
       imagePath: json['imagePath'] as String,
     );

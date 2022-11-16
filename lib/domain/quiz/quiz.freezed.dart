@@ -21,8 +21,8 @@ Quiz _$QuizFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Quiz {
   int get id => throw _privateConstructorUsedError;
-  String get categoryDocRef => throw _privateConstructorUsedError;
-  String get quizDocRef => throw _privateConstructorUsedError;
+  String? get categoryDocRef => throw _privateConstructorUsedError;
+  String? get quizDocRef => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   bool get questionsShuffled => throw _privateConstructorUsedError;
@@ -42,8 +42,8 @@ abstract class $QuizCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
-      String categoryDocRef,
-      String quizDocRef,
+      String? categoryDocRef,
+      String? quizDocRef,
       String title,
       String description,
       bool questionsShuffled,
@@ -66,8 +66,8 @@ class _$QuizCopyWithImpl<$Res, $Val extends Quiz>
   @override
   $Res call({
     Object? id = null,
-    Object? categoryDocRef = null,
-    Object? quizDocRef = null,
+    Object? categoryDocRef = freezed,
+    Object? quizDocRef = freezed,
     Object? title = null,
     Object? description = null,
     Object? questionsShuffled = null,
@@ -80,14 +80,14 @@ class _$QuizCopyWithImpl<$Res, $Val extends Quiz>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      categoryDocRef: null == categoryDocRef
+      categoryDocRef: freezed == categoryDocRef
           ? _value.categoryDocRef
           : categoryDocRef // ignore: cast_nullable_to_non_nullable
-              as String,
-      quizDocRef: null == quizDocRef
+              as String?,
+      quizDocRef: freezed == quizDocRef
           ? _value.quizDocRef
           : quizDocRef // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -124,8 +124,8 @@ abstract class _$$_QuizCopyWith<$Res> implements $QuizCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
-      String categoryDocRef,
-      String quizDocRef,
+      String? categoryDocRef,
+      String? quizDocRef,
       String title,
       String description,
       bool questionsShuffled,
@@ -144,8 +144,8 @@ class __$$_QuizCopyWithImpl<$Res> extends _$QuizCopyWithImpl<$Res, _$_Quiz>
   @override
   $Res call({
     Object? id = null,
-    Object? categoryDocRef = null,
-    Object? quizDocRef = null,
+    Object? categoryDocRef = freezed,
+    Object? quizDocRef = freezed,
     Object? title = null,
     Object? description = null,
     Object? questionsShuffled = null,
@@ -158,14 +158,14 @@ class __$$_QuizCopyWithImpl<$Res> extends _$QuizCopyWithImpl<$Res, _$_Quiz>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      categoryDocRef: null == categoryDocRef
+      categoryDocRef: freezed == categoryDocRef
           ? _value.categoryDocRef
           : categoryDocRef // ignore: cast_nullable_to_non_nullable
-              as String,
-      quizDocRef: null == quizDocRef
+              as String?,
+      quizDocRef: freezed == quizDocRef
           ? _value.quizDocRef
           : quizDocRef // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -199,8 +199,8 @@ class __$$_QuizCopyWithImpl<$Res> extends _$QuizCopyWithImpl<$Res, _$_Quiz>
 class _$_Quiz extends _Quiz {
   const _$_Quiz(
       {required this.id,
-      required this.categoryDocRef,
-      required this.quizDocRef,
+      this.categoryDocRef,
+      this.quizDocRef,
       required this.title,
       required this.description,
       required this.questionsShuffled,
@@ -215,9 +215,9 @@ class _$_Quiz extends _Quiz {
   @override
   final int id;
   @override
-  final String categoryDocRef;
+  final String? categoryDocRef;
   @override
-  final String quizDocRef;
+  final String? quizDocRef;
   @override
   final String title;
   @override
@@ -294,8 +294,8 @@ class _$_Quiz extends _Quiz {
 abstract class _Quiz extends Quiz {
   const factory _Quiz(
       {required final int id,
-      required final String categoryDocRef,
-      required final String quizDocRef,
+      final String? categoryDocRef,
+      final String? quizDocRef,
       required final String title,
       required final String description,
       required final bool questionsShuffled,
@@ -309,9 +309,9 @@ abstract class _Quiz extends Quiz {
   @override
   int get id;
   @override
-  String get categoryDocRef;
+  String? get categoryDocRef;
   @override
-  String get quizDocRef;
+  String? get quizDocRef;
   @override
   String get title;
   @override

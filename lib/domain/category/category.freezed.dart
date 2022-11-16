@@ -21,7 +21,7 @@ Category _$CategoryFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Category {
   int get id => throw _privateConstructorUsedError;
-  String get categoryDocRef => throw _privateConstructorUsedError;
+  String? get categoryDocRef => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get imagePath => throw _privateConstructorUsedError;
 
@@ -36,7 +36,7 @@ abstract class $CategoryCopyWith<$Res> {
   factory $CategoryCopyWith(Category value, $Res Function(Category) then) =
       _$CategoryCopyWithImpl<$Res, Category>;
   @useResult
-  $Res call({int id, String categoryDocRef, String name, String imagePath});
+  $Res call({int id, String? categoryDocRef, String name, String imagePath});
 }
 
 /// @nodoc
@@ -53,7 +53,7 @@ class _$CategoryCopyWithImpl<$Res, $Val extends Category>
   @override
   $Res call({
     Object? id = null,
-    Object? categoryDocRef = null,
+    Object? categoryDocRef = freezed,
     Object? name = null,
     Object? imagePath = null,
   }) {
@@ -62,10 +62,10 @@ class _$CategoryCopyWithImpl<$Res, $Val extends Category>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      categoryDocRef: null == categoryDocRef
+      categoryDocRef: freezed == categoryDocRef
           ? _value.categoryDocRef
           : categoryDocRef // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -85,7 +85,7 @@ abstract class _$$_CategoryCopyWith<$Res> implements $CategoryCopyWith<$Res> {
       __$$_CategoryCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String categoryDocRef, String name, String imagePath});
+  $Res call({int id, String? categoryDocRef, String name, String imagePath});
 }
 
 /// @nodoc
@@ -100,7 +100,7 @@ class __$$_CategoryCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? categoryDocRef = null,
+    Object? categoryDocRef = freezed,
     Object? name = null,
     Object? imagePath = null,
   }) {
@@ -109,10 +109,10 @@ class __$$_CategoryCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      categoryDocRef: null == categoryDocRef
+      categoryDocRef: freezed == categoryDocRef
           ? _value.categoryDocRef
           : categoryDocRef // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -130,7 +130,7 @@ class __$$_CategoryCopyWithImpl<$Res>
 class _$_Category extends _Category {
   const _$_Category(
       {required this.id,
-      required this.categoryDocRef,
+      this.categoryDocRef,
       required this.name,
       required this.imagePath})
       : super._();
@@ -141,7 +141,7 @@ class _$_Category extends _Category {
   @override
   final int id;
   @override
-  final String categoryDocRef;
+  final String? categoryDocRef;
   @override
   final String name;
   @override
@@ -187,7 +187,7 @@ class _$_Category extends _Category {
 abstract class _Category extends Category {
   const factory _Category(
       {required final int id,
-      required final String categoryDocRef,
+      final String? categoryDocRef,
       required final String name,
       required final String imagePath}) = _$_Category;
   const _Category._() : super._();
@@ -197,7 +197,7 @@ abstract class _Category extends Category {
   @override
   int get id;
   @override
-  String get categoryDocRef;
+  String? get categoryDocRef;
   @override
   String get name;
   @override

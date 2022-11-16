@@ -12,8 +12,8 @@ abstract class Quiz implements _$Quiz {
 
   const factory Quiz({
     required int id,
-    required String categoryDocRef,
-    required String quizDocRef,
+    String? categoryDocRef,
+    String? quizDocRef,
     required String title,
     required String description,
     required bool questionsShuffled,
@@ -24,8 +24,8 @@ abstract class Quiz implements _$Quiz {
 
   factory Quiz.empty() => const Quiz(
         id: 0,
-        categoryDocRef: "",
-        quizDocRef: "",
+        // categoryDocRef: "",
+        // quizDocRef: "",
         title: "",
         description: "",
         questionsShuffled: false,

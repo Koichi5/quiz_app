@@ -13,12 +13,12 @@ abstract class Category implements _$Category {
 
   const factory Category({
     required int id,
-    required String categoryDocRef,
+    String? categoryDocRef,
     required String name,
     required String imagePath,
   }) = _Category;
 
-  factory Category.empty() => const Category(id: 0, categoryDocRef: "", name: "", imagePath: "");
+  factory Category.empty() => const Category(id: 0, name: "", imagePath: "");
 
   factory Category.fromJson(json) => _$CategoryFromJson(json);
 

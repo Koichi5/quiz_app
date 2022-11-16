@@ -9,7 +9,7 @@ typedef OnQuizCompleted = void Function(
     Quiz quiz, double totalScore, Duration takenTime);
 typedef OnQuizStop = void Function(Quiz quiz);
 
-class QuizController {
+class QuizEngine {
   int questionIndex = 0;
   int questionDuration = 0;
   bool isRunning = false;
@@ -25,7 +25,7 @@ class QuizController {
   OnQuizCompleted onCompleted;
   OnQuizStop onStop;
 
-  QuizController(this.quiz, this.onNext, this.onCompleted, this.onStop);
+  QuizEngine(this.quiz, this.onNext, this.onCompleted, this.onStop);
 
   void start() {
     questionIndex = 0;
