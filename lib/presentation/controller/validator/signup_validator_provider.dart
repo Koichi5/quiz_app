@@ -1,16 +1,16 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:quiz_app/domain/entity/signup_entity/signup_entity.dart';
+import 'package:quiz_app/domain/entity/signup_form_entity/signup_form_entity.dart';
 import 'package:quiz_app/domain/field/field.dart';
 import 'package:quiz_app/domain/signup_form_state/signup_form_state.dart';
 
 final signupValidatorProvider = StateNotifierProvider<SignupValidatorProvider, SignupFormState>((ref) => SignupValidatorProvider());
 
 class SignupValidatorProvider extends StateNotifier<SignupFormState> {
-  SignupValidatorProvider() : super(SignupFormState(SignupEntity.empty()));
+  SignupValidatorProvider() : super(SignupFormState(SignupFormEntity.empty()));
 
   void setName(String name) {
     final bool isName = name != "";
-    SignupEntity form = state.form.copyWith(name: Field(value: name));
+    SignupFormEntity form = state.form.copyWith(name: Field(value: name));
 
     late Field nameField;
 
@@ -24,7 +24,7 @@ class SignupValidatorProvider extends StateNotifier<SignupFormState> {
 
   void setEmail(String email) {
     final bool isEmail = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email);
-    SignupEntity form = state.form.copyWith(email: Field(value: email));
+    SignupFormEntity form = state.form.copyWith(email: Field(value: email));
 
     late Field emailField;
 
@@ -38,7 +38,7 @@ class SignupValidatorProvider extends StateNotifier<SignupFormState> {
 
   void setPassword(String password) {
     final bool isPassword = RegExp(r"^[a-zA-Z0-9]{6,}$").hasMatch(password);
-    SignupEntity form = state.form.copyWith(password: Field(value: password));
+    SignupFormEntity form = state.form.copyWith(password: Field(value: password));
 
     late Field passwordField;
 

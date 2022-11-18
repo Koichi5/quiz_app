@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'signup_form_state.dart';
+part of 'option_form_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,29 +15,29 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$SignupFormState {
-  SignupFormEntity get form => throw _privateConstructorUsedError;
+mixin _$OptionFormState {
+  OptionFormEntity get form => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $SignupFormStateCopyWith<SignupFormState> get copyWith =>
+  $OptionFormStateCopyWith<OptionFormState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $SignupFormStateCopyWith<$Res> {
-  factory $SignupFormStateCopyWith(
-          SignupFormState value, $Res Function(SignupFormState) then) =
-      _$SignupFormStateCopyWithImpl<$Res, SignupFormState>;
+abstract class $OptionFormStateCopyWith<$Res> {
+  factory $OptionFormStateCopyWith(
+          OptionFormState value, $Res Function(OptionFormState) then) =
+      _$OptionFormStateCopyWithImpl<$Res, OptionFormState>;
   @useResult
-  $Res call({SignupFormEntity form});
+  $Res call({OptionFormEntity form});
 
-  $SignupFormEntityCopyWith<$Res> get form;
+  $OptionFormEntityCopyWith<$Res> get form;
 }
 
 /// @nodoc
-class _$SignupFormStateCopyWithImpl<$Res, $Val extends SignupFormState>
-    implements $SignupFormStateCopyWith<$Res> {
-  _$SignupFormStateCopyWithImpl(this._value, this._then);
+class _$OptionFormStateCopyWithImpl<$Res, $Val extends OptionFormState>
+    implements $OptionFormStateCopyWith<$Res> {
+  _$OptionFormStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -53,39 +53,39 @@ class _$SignupFormStateCopyWithImpl<$Res, $Val extends SignupFormState>
       form: null == form
           ? _value.form
           : form // ignore: cast_nullable_to_non_nullable
-              as SignupFormEntity,
+              as OptionFormEntity,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $SignupFormEntityCopyWith<$Res> get form {
-    return $SignupFormEntityCopyWith<$Res>(_value.form, (value) {
+  $OptionFormEntityCopyWith<$Res> get form {
+    return $OptionFormEntityCopyWith<$Res>(_value.form, (value) {
       return _then(_value.copyWith(form: value) as $Val);
     });
   }
 }
 
 /// @nodoc
-abstract class _$$_SignupFormStateCopyWith<$Res>
-    implements $SignupFormStateCopyWith<$Res> {
-  factory _$$_SignupFormStateCopyWith(
-          _$_SignupFormState value, $Res Function(_$_SignupFormState) then) =
-      __$$_SignupFormStateCopyWithImpl<$Res>;
+abstract class _$$_OptionFormStateCopyWith<$Res>
+    implements $OptionFormStateCopyWith<$Res> {
+  factory _$$_OptionFormStateCopyWith(
+          _$_OptionFormState value, $Res Function(_$_OptionFormState) then) =
+      __$$_OptionFormStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({SignupFormEntity form});
+  $Res call({OptionFormEntity form});
 
   @override
-  $SignupFormEntityCopyWith<$Res> get form;
+  $OptionFormEntityCopyWith<$Res> get form;
 }
 
 /// @nodoc
-class __$$_SignupFormStateCopyWithImpl<$Res>
-    extends _$SignupFormStateCopyWithImpl<$Res, _$_SignupFormState>
-    implements _$$_SignupFormStateCopyWith<$Res> {
-  __$$_SignupFormStateCopyWithImpl(
-      _$_SignupFormState _value, $Res Function(_$_SignupFormState) _then)
+class __$$_OptionFormStateCopyWithImpl<$Res>
+    extends _$OptionFormStateCopyWithImpl<$Res, _$_OptionFormState>
+    implements _$$_OptionFormStateCopyWith<$Res> {
+  __$$_OptionFormStateCopyWithImpl(
+      _$_OptionFormState _value, $Res Function(_$_OptionFormState) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -93,33 +93,33 @@ class __$$_SignupFormStateCopyWithImpl<$Res>
   $Res call({
     Object? form = null,
   }) {
-    return _then(_$_SignupFormState(
+    return _then(_$_OptionFormState(
       null == form
           ? _value.form
           : form // ignore: cast_nullable_to_non_nullable
-              as SignupFormEntity,
+              as OptionFormEntity,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_SignupFormState implements _SignupFormState {
-  const _$_SignupFormState(this.form);
+class _$_OptionFormState implements _OptionFormState {
+  const _$_OptionFormState(this.form);
 
   @override
-  final SignupFormEntity form;
+  final OptionFormEntity form;
 
   @override
   String toString() {
-    return 'SignupFormState(form: $form)';
+    return 'OptionFormState(form: $form)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SignupFormState &&
+            other is _$_OptionFormState &&
             (identical(other.form, form) || other.form == form));
   }
 
@@ -129,18 +129,18 @@ class _$_SignupFormState implements _SignupFormState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SignupFormStateCopyWith<_$_SignupFormState> get copyWith =>
-      __$$_SignupFormStateCopyWithImpl<_$_SignupFormState>(this, _$identity);
+  _$$_OptionFormStateCopyWith<_$_OptionFormState> get copyWith =>
+      __$$_OptionFormStateCopyWithImpl<_$_OptionFormState>(this, _$identity);
 }
 
-abstract class _SignupFormState implements SignupFormState {
-  const factory _SignupFormState(final SignupFormEntity form) =
-      _$_SignupFormState;
+abstract class _OptionFormState implements OptionFormState {
+  const factory _OptionFormState(final OptionFormEntity form) =
+      _$_OptionFormState;
 
   @override
-  SignupFormEntity get form;
+  OptionFormEntity get form;
   @override
   @JsonKey(ignore: true)
-  _$$_SignupFormStateCopyWith<_$_SignupFormState> get copyWith =>
+  _$$_OptionFormStateCopyWith<_$_OptionFormState> get copyWith =>
       throw _privateConstructorUsedError;
 }

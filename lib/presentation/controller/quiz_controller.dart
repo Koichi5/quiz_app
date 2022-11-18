@@ -79,9 +79,8 @@ class QuizController extends StateNotifier<AsyncValue> {
   // できるかどうか不透明　できなければ id が原因
   Future<void> addCategory(
       {required int id,
-      required String name,
-      required String imagePath}) async {
-    final category = Category(id: id, name: name, imagePath: imagePath);
+      required String name, String? imagePath}) async {
+    final category = Category(id: id, name: name, imagePath: imagePath!);
     state.whenData((categoryList) => state = AsyncValue.data(categoryList
       ..add(category.copyWith(categoryDocRef: category.categoryDocRef))));
   }

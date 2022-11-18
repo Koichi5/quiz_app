@@ -59,12 +59,10 @@ class QuizRepository implements BaseQuizRepository {
   @override
   Future<void> addCategory({required Category category}) async {
     try {
-      final categoryDocRef =
-          _read(firebaseFirestoreProvider).collection("category").doc().id;
-      await _read(firebaseFirestoreProvider)
-          .collection("category")
-          .doc(categoryDocRef)
-          .set(Category(
+      final categoryRef =
+          _read(firebaseFirestoreProvider).collection("category");
+      final categoryDocRef = categoryRef.doc().id;
+      await categoryRef.doc(categoryDocRef).set(Category(
             id: category.id,
             categoryDocRef: categoryDocRef,
             name: category.name,
@@ -78,33 +76,33 @@ class QuizRepository implements BaseQuizRepository {
   @override
   Future<void> addQuiz({required Category category, required Quiz quiz}) async {
     try {
-      final quizDocRef = _read(firebaseFirestoreProvider)
+      final quizRef = _read(firebaseFirestoreProvider)
           .collection("category")
           .doc(category.categoryDocRef)
-          .collection("quiz")
-          .doc()
-          .id;
+          .collection("quiz");
+      final quizDocRef = quizRef.doc().id;
+      // _read(firebaseFirestoreProvider)
+      // .collection("category")
+      // .doc(category.categoryDocRef)
+      // .collection("quiz")
+      // .doc()
+      // .id;
       // await _read(firebaseFirestoreProvider)
       //     .collection("category")
       //     .doc(category.categoryDocRef)
       //     .collection("quiz")
       //     .add(quiz.toDocument());
-      await _read(firebaseFirestoreProvider)
-          .collection("category")
-          .doc(category.categoryDocRef)
-          .collection("quiz")
-          .doc(quizDocRef)
-          .set(Quiz(
-                  id: quiz.id,
-                  categoryDocRef: quiz.categoryDocRef,
-                  quizDocRef: quizDocRef,
-                  title: quiz.title,
-                  description: quiz.description,
-                  questionsShuffled: quiz.questionsShuffled,
-                  imagePath: quiz.imagePath,
-                  categoryId: quiz.categoryId,
-                  questions: quiz.questions)
-              .toDocument());
+      await quizRef.doc(quizDocRef).set(Quiz(
+              id: quiz.id,
+              categoryDocRef: quiz.categoryDocRef,
+              quizDocRef: quizDocRef,
+              title: quiz.title,
+              description: quiz.description,
+              questionsShuffled: quiz.questionsShuffled,
+              imagePath: quiz.imagePath,
+              categoryId: quiz.categoryId,
+              questions: quiz.questions)
+          .toDocument());
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message);
     }
@@ -114,14 +112,13 @@ class QuizRepository implements BaseQuizRepository {
   Future<void> addQuestion(
       {required Quiz quiz, required Question question}) async {
     try {
-      final questionDocRef = _read(firebaseFirestoreProvider)
+      final questionRef = _read(firebaseFirestoreProvider)
           .collection("category")
           .doc(quiz.categoryDocRef)
           .collection("quiz")
           .doc(quiz.quizDocRef)
-          .collection("questions")
-          .doc()
-          .id;
+          .collection("questions");
+      final questionDocRef = questionRef.doc().id;
       // await _read(firebaseFirestoreProvider)
       //     .collection("category")
       //     .doc(quiz.categoryDocRef)
@@ -129,23 +126,16 @@ class QuizRepository implements BaseQuizRepository {
       //     .doc(quiz.quizDocRef)
       //     .collection("questions")
       //     .add(question.toDocument());
-      await _read(firebaseFirestoreProvider)
-          .collection("category")
-          .doc(quiz.categoryDocRef)
-          .collection("quiz")
-          .doc(quiz.quizDocRef)
-          .collection("questions")
-          .doc(questionDocRef)
-          .set(Question(
-                  id: question.id,
-                  categoryDocRef: question.categoryDocRef,
-                  quizDocRef: question.quizDocRef,
-                  questionDocRef: questionDocRef,
-                  text: question.text,
-                  duration: question.duration,
-                  optionsShuffled: question.optionsShuffled,
-                  options: question.options)
-              .toDocument());
+      await questionRef.doc(questionDocRef).set(Question(
+              id: question.id,
+              categoryDocRef: question.categoryDocRef,
+              quizDocRef: question.quizDocRef,
+              questionDocRef: questionDocRef,
+              text: question.text,
+              duration: question.duration,
+              optionsShuffled: question.optionsShuffled,
+              options: question.options)
+          .toDocument());
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message);
     }
@@ -155,31 +145,17 @@ class QuizRepository implements BaseQuizRepository {
   Future<void> addOption(
       {required Question question, required Option option}) async {
     try {
-      final questionDocRef = _read(firebaseFirestoreProvider)
-          .collection("category")
-          .doc(question.categoryDocRef)
-          .collection("quiz")
-          .doc(question.quizDocRef)
-          .collection("questions")
-          .doc()
-          .id;
-      await _read(firebaseFirestoreProvider)
+      final optionRef = _read(firebaseFirestoreProvider)
           .collection("category")
           .doc(question.categoryDocRef)
           .collection("quiz")
           .doc(question.quizDocRef)
           .collection("questions")
           .doc(question.questionDocRef)
-          .collection("options")
-          .add(option.toDocument());
-      await _read(firebaseFirestoreProvider)
-          .collection("category")
-          .doc(question.categoryDocRef)
-          .collection("quiz")
-          .doc(question.quizDocRef)
-          .collection("questions")
-          .doc(questionDocRef)
-          .set(Option(
+          .collection("options");
+      final optionDocRef = optionRef.doc().id;
+      await optionRef.add(option.toDocument());
+      await optionRef.doc(optionDocRef).set(Option(
             id: option.id,
             categoryDocRef: option.categoryDocRef,
             quizDocRef: option.quizDocRef,

@@ -1,18 +1,18 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../field/field.dart';
 
-part 'signup_entity.freezed.dart';
+part 'signup_form_entity.freezed.dart';
 
 @freezed
-class SignupEntity with _$SignupEntity {
-  const SignupEntity._();
-  const factory SignupEntity({
+class SignupFormEntity with _$SignupFormEntity {
+  const SignupFormEntity._();
+  const factory SignupFormEntity({
     required Field name,
     required Field email,
     required Field password,
-  }) = _SignupEntity;
+  }) = _SignupFormEntity;
 
-  factory SignupEntity.empty() => const SignupEntity(
+  factory SignupFormEntity.empty() => const SignupFormEntity(
     name: Field(value: ""),
     email: Field(value: ""),
     password: Field(value: ""),

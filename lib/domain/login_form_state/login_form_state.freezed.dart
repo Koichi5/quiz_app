@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$LoginFormState {
-  LoginEntity get form => throw _privateConstructorUsedError;
+  LoginFormEntity get form => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $LoginFormStateCopyWith<LoginFormState> get copyWith =>
@@ -29,9 +29,9 @@ abstract class $LoginFormStateCopyWith<$Res> {
           LoginFormState value, $Res Function(LoginFormState) then) =
       _$LoginFormStateCopyWithImpl<$Res, LoginFormState>;
   @useResult
-  $Res call({LoginEntity form});
+  $Res call({LoginFormEntity form});
 
-  $LoginEntityCopyWith<$Res> get form;
+  $LoginFormEntityCopyWith<$Res> get form;
 }
 
 /// @nodoc
@@ -53,14 +53,14 @@ class _$LoginFormStateCopyWithImpl<$Res, $Val extends LoginFormState>
       form: null == form
           ? _value.form
           : form // ignore: cast_nullable_to_non_nullable
-              as LoginEntity,
+              as LoginFormEntity,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $LoginEntityCopyWith<$Res> get form {
-    return $LoginEntityCopyWith<$Res>(_value.form, (value) {
+  $LoginFormEntityCopyWith<$Res> get form {
+    return $LoginFormEntityCopyWith<$Res>(_value.form, (value) {
       return _then(_value.copyWith(form: value) as $Val);
     });
   }
@@ -74,10 +74,10 @@ abstract class _$$_LoginFormStateCopyWith<$Res>
       __$$_LoginFormStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({LoginEntity form});
+  $Res call({LoginFormEntity form});
 
   @override
-  $LoginEntityCopyWith<$Res> get form;
+  $LoginFormEntityCopyWith<$Res> get form;
 }
 
 /// @nodoc
@@ -97,7 +97,7 @@ class __$$_LoginFormStateCopyWithImpl<$Res>
       null == form
           ? _value.form
           : form // ignore: cast_nullable_to_non_nullable
-              as LoginEntity,
+              as LoginFormEntity,
     ));
   }
 }
@@ -108,7 +108,7 @@ class _$_LoginFormState implements _LoginFormState {
   const _$_LoginFormState(this.form);
 
   @override
-  final LoginEntity form;
+  final LoginFormEntity form;
 
   @override
   String toString() {
@@ -134,10 +134,10 @@ class _$_LoginFormState implements _LoginFormState {
 }
 
 abstract class _LoginFormState implements LoginFormState {
-  const factory _LoginFormState(final LoginEntity form) = _$_LoginFormState;
+  const factory _LoginFormState(final LoginFormEntity form) = _$_LoginFormState;
 
   @override
-  LoginEntity get form;
+  LoginFormEntity get form;
   @override
   @JsonKey(ignore: true)
   _$$_LoginFormStateCopyWith<_$_LoginFormState> get copyWith =>

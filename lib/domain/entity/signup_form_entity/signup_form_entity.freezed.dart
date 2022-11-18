@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'signup_entity.dart';
+part of 'signup_form_entity.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,21 +15,21 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$SignupEntity {
+mixin _$SignupFormEntity {
   Field get name => throw _privateConstructorUsedError;
   Field get email => throw _privateConstructorUsedError;
   Field get password => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $SignupEntityCopyWith<SignupEntity> get copyWith =>
+  $SignupFormEntityCopyWith<SignupFormEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $SignupEntityCopyWith<$Res> {
-  factory $SignupEntityCopyWith(
-          SignupEntity value, $Res Function(SignupEntity) then) =
-      _$SignupEntityCopyWithImpl<$Res, SignupEntity>;
+abstract class $SignupFormEntityCopyWith<$Res> {
+  factory $SignupFormEntityCopyWith(
+          SignupFormEntity value, $Res Function(SignupFormEntity) then) =
+      _$SignupFormEntityCopyWithImpl<$Res, SignupFormEntity>;
   @useResult
   $Res call({Field name, Field email, Field password});
 
@@ -39,9 +39,9 @@ abstract class $SignupEntityCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SignupEntityCopyWithImpl<$Res, $Val extends SignupEntity>
-    implements $SignupEntityCopyWith<$Res> {
-  _$SignupEntityCopyWithImpl(this._value, this._then);
+class _$SignupFormEntityCopyWithImpl<$Res, $Val extends SignupFormEntity>
+    implements $SignupFormEntityCopyWith<$Res> {
+  _$SignupFormEntityCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -97,11 +97,11 @@ class _$SignupEntityCopyWithImpl<$Res, $Val extends SignupEntity>
 }
 
 /// @nodoc
-abstract class _$$_SignupEntityCopyWith<$Res>
-    implements $SignupEntityCopyWith<$Res> {
-  factory _$$_SignupEntityCopyWith(
-          _$_SignupEntity value, $Res Function(_$_SignupEntity) then) =
-      __$$_SignupEntityCopyWithImpl<$Res>;
+abstract class _$$_SignupFormEntityCopyWith<$Res>
+    implements $SignupFormEntityCopyWith<$Res> {
+  factory _$$_SignupFormEntityCopyWith(
+          _$_SignupFormEntity value, $Res Function(_$_SignupFormEntity) then) =
+      __$$_SignupFormEntityCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({Field name, Field email, Field password});
@@ -115,11 +115,11 @@ abstract class _$$_SignupEntityCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_SignupEntityCopyWithImpl<$Res>
-    extends _$SignupEntityCopyWithImpl<$Res, _$_SignupEntity>
-    implements _$$_SignupEntityCopyWith<$Res> {
-  __$$_SignupEntityCopyWithImpl(
-      _$_SignupEntity _value, $Res Function(_$_SignupEntity) _then)
+class __$$_SignupFormEntityCopyWithImpl<$Res>
+    extends _$SignupFormEntityCopyWithImpl<$Res, _$_SignupFormEntity>
+    implements _$$_SignupFormEntityCopyWith<$Res> {
+  __$$_SignupFormEntityCopyWithImpl(
+      _$_SignupFormEntity _value, $Res Function(_$_SignupFormEntity) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -129,7 +129,7 @@ class __$$_SignupEntityCopyWithImpl<$Res>
     Object? email = null,
     Object? password = null,
   }) {
-    return _then(_$_SignupEntity(
+    return _then(_$_SignupFormEntity(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -148,8 +148,8 @@ class __$$_SignupEntityCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SignupEntity extends _SignupEntity {
-  const _$_SignupEntity(
+class _$_SignupFormEntity extends _SignupFormEntity {
+  const _$_SignupFormEntity(
       {required this.name, required this.email, required this.password})
       : super._();
 
@@ -162,14 +162,14 @@ class _$_SignupEntity extends _SignupEntity {
 
   @override
   String toString() {
-    return 'SignupEntity(name: $name, email: $email, password: $password)';
+    return 'SignupFormEntity(name: $name, email: $email, password: $password)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SignupEntity &&
+            other is _$_SignupFormEntity &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.password, password) ||
@@ -182,16 +182,16 @@ class _$_SignupEntity extends _SignupEntity {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SignupEntityCopyWith<_$_SignupEntity> get copyWith =>
-      __$$_SignupEntityCopyWithImpl<_$_SignupEntity>(this, _$identity);
+  _$$_SignupFormEntityCopyWith<_$_SignupFormEntity> get copyWith =>
+      __$$_SignupFormEntityCopyWithImpl<_$_SignupFormEntity>(this, _$identity);
 }
 
-abstract class _SignupEntity extends SignupEntity {
-  const factory _SignupEntity(
+abstract class _SignupFormEntity extends SignupFormEntity {
+  const factory _SignupFormEntity(
       {required final Field name,
       required final Field email,
-      required final Field password}) = _$_SignupEntity;
-  const _SignupEntity._() : super._();
+      required final Field password}) = _$_SignupFormEntity;
+  const _SignupFormEntity._() : super._();
 
   @override
   Field get name;
@@ -201,6 +201,6 @@ abstract class _SignupEntity extends SignupEntity {
   Field get password;
   @override
   @JsonKey(ignore: true)
-  _$$_SignupEntityCopyWith<_$_SignupEntity> get copyWith =>
+  _$$_SignupFormEntityCopyWith<_$_SignupFormEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }

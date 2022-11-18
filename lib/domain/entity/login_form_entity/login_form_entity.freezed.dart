@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'login_entity.dart';
+part of 'login_form_entity.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,20 +15,20 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$LoginEntity {
+mixin _$LoginFormEntity {
   Field get email => throw _privateConstructorUsedError;
   Field get password => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $LoginEntityCopyWith<LoginEntity> get copyWith =>
+  $LoginFormEntityCopyWith<LoginFormEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $LoginEntityCopyWith<$Res> {
-  factory $LoginEntityCopyWith(
-          LoginEntity value, $Res Function(LoginEntity) then) =
-      _$LoginEntityCopyWithImpl<$Res, LoginEntity>;
+abstract class $LoginFormEntityCopyWith<$Res> {
+  factory $LoginFormEntityCopyWith(
+          LoginFormEntity value, $Res Function(LoginFormEntity) then) =
+      _$LoginFormEntityCopyWithImpl<$Res, LoginFormEntity>;
   @useResult
   $Res call({Field email, Field password});
 
@@ -37,9 +37,9 @@ abstract class $LoginEntityCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$LoginEntityCopyWithImpl<$Res, $Val extends LoginEntity>
-    implements $LoginEntityCopyWith<$Res> {
-  _$LoginEntityCopyWithImpl(this._value, this._then);
+class _$LoginFormEntityCopyWithImpl<$Res, $Val extends LoginFormEntity>
+    implements $LoginFormEntityCopyWith<$Res> {
+  _$LoginFormEntityCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -82,11 +82,11 @@ class _$LoginEntityCopyWithImpl<$Res, $Val extends LoginEntity>
 }
 
 /// @nodoc
-abstract class _$$_LoginEntityCopyWith<$Res>
-    implements $LoginEntityCopyWith<$Res> {
-  factory _$$_LoginEntityCopyWith(
-          _$_LoginEntity value, $Res Function(_$_LoginEntity) then) =
-      __$$_LoginEntityCopyWithImpl<$Res>;
+abstract class _$$_LoginFormEntityCopyWith<$Res>
+    implements $LoginFormEntityCopyWith<$Res> {
+  factory _$$_LoginFormEntityCopyWith(
+          _$_LoginFormEntity value, $Res Function(_$_LoginFormEntity) then) =
+      __$$_LoginFormEntityCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({Field email, Field password});
@@ -98,11 +98,11 @@ abstract class _$$_LoginEntityCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_LoginEntityCopyWithImpl<$Res>
-    extends _$LoginEntityCopyWithImpl<$Res, _$_LoginEntity>
-    implements _$$_LoginEntityCopyWith<$Res> {
-  __$$_LoginEntityCopyWithImpl(
-      _$_LoginEntity _value, $Res Function(_$_LoginEntity) _then)
+class __$$_LoginFormEntityCopyWithImpl<$Res>
+    extends _$LoginFormEntityCopyWithImpl<$Res, _$_LoginFormEntity>
+    implements _$$_LoginFormEntityCopyWith<$Res> {
+  __$$_LoginFormEntityCopyWithImpl(
+      _$_LoginFormEntity _value, $Res Function(_$_LoginFormEntity) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -111,7 +111,7 @@ class __$$_LoginEntityCopyWithImpl<$Res>
     Object? email = null,
     Object? password = null,
   }) {
-    return _then(_$_LoginEntity(
+    return _then(_$_LoginFormEntity(
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -126,8 +126,8 @@ class __$$_LoginEntityCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_LoginEntity extends _LoginEntity {
-  const _$_LoginEntity({required this.email, required this.password})
+class _$_LoginFormEntity extends _LoginFormEntity {
+  const _$_LoginFormEntity({required this.email, required this.password})
       : super._();
 
   @override
@@ -137,14 +137,14 @@ class _$_LoginEntity extends _LoginEntity {
 
   @override
   String toString() {
-    return 'LoginEntity(email: $email, password: $password)';
+    return 'LoginFormEntity(email: $email, password: $password)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_LoginEntity &&
+            other is _$_LoginFormEntity &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.password, password) ||
                 other.password == password));
@@ -156,15 +156,15 @@ class _$_LoginEntity extends _LoginEntity {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_LoginEntityCopyWith<_$_LoginEntity> get copyWith =>
-      __$$_LoginEntityCopyWithImpl<_$_LoginEntity>(this, _$identity);
+  _$$_LoginFormEntityCopyWith<_$_LoginFormEntity> get copyWith =>
+      __$$_LoginFormEntityCopyWithImpl<_$_LoginFormEntity>(this, _$identity);
 }
 
-abstract class _LoginEntity extends LoginEntity {
-  const factory _LoginEntity(
+abstract class _LoginFormEntity extends LoginFormEntity {
+  const factory _LoginFormEntity(
       {required final Field email,
-      required final Field password}) = _$_LoginEntity;
-  const _LoginEntity._() : super._();
+      required final Field password}) = _$_LoginFormEntity;
+  const _LoginFormEntity._() : super._();
 
   @override
   Field get email;
@@ -172,6 +172,6 @@ abstract class _LoginEntity extends LoginEntity {
   Field get password;
   @override
   @JsonKey(ignore: true)
-  _$$_LoginEntityCopyWith<_$_LoginEntity> get copyWith =>
+  _$$_LoginFormEntityCopyWith<_$_LoginFormEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }

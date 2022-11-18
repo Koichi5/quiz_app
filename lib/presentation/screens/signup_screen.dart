@@ -13,7 +13,8 @@ class SignupScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final nameControllerProvider = ref.watch(signupNameControllerStateProvider);
-    final emailControllerProvider = ref.watch(signupEmailControllerStateProvider);
+    final emailControllerProvider =
+        ref.watch(signupEmailControllerStateProvider);
     final passwordControllerProvider =
         ref.watch(signupPasswordControllerStateProvider);
     final obscureText = ref.watch(signupObscureTextStateProvider);
@@ -33,56 +34,47 @@ class SignupScreen extends HookConsumerWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.1,
             ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.1,
-              child: CustomTextField(
-                title: "ニックネーム",
-                controller: nameControllerProvider,
-                error: signupValidator.form.name.errorMessage,
-                onChanged: (name) {
-                  signupValidatorNotifier.setName(name);
-                },
-              ),
+            CustomTextField(
+              title: "ニックネーム",
+              controller: nameControllerProvider,
+              error: signupValidator.form.name.errorMessage,
+              onChanged: (name) {
+                signupValidatorNotifier.setName(name);
+              },
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.02,
             ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.1,
-              child: CustomTextField(
-                title: "メールアドレス",
-                controller: emailControllerProvider,
-                error: signupValidator.form.email.errorMessage,
-                onChanged: (email) {
-                  signupValidatorNotifier.setEmail(email);
-                },
-              ),
+            CustomTextField(
+              title: "メールアドレス",
+              controller: emailControllerProvider,
+              error: signupValidator.form.email.errorMessage,
+              onChanged: (email) {
+                signupValidatorNotifier.setEmail(email);
+              },
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.02,
             ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.1,
-              child: CustomTextField(
-                  title: "パスワード",
-                  controller: passwordControllerProvider,
-                  obscureText: obscureText,
-                  error: signupValidator.form.password.errorMessage,
-                  onChanged: (password) {
-                    signupValidatorNotifier.setPassword(password);
-                  },
-                  suffixIcon: obscureText
-                      ? IconButton(
-                          onPressed: () {
-                            obscureTextControllerNotifier.state = false;
-                          },
-                          icon: const Icon(Icons.visibility_off))
-                      : IconButton(
-                          onPressed: () {
-                            obscureTextControllerNotifier.state = true;
-                          },
-                          icon: const Icon(Icons.visibility))),
-            ),
+            CustomTextField(
+                title: "パスワード",
+                controller: passwordControllerProvider,
+                obscureText: obscureText,
+                error: signupValidator.form.password.errorMessage,
+                onChanged: (password) {
+                  signupValidatorNotifier.setPassword(password);
+                },
+                suffixIcon: obscureText
+                    ? IconButton(
+                        onPressed: () {
+                          obscureTextControllerNotifier.state = false;
+                        },
+                        icon: const Icon(Icons.visibility_off))
+                    : IconButton(
+                        onPressed: () {
+                          obscureTextControllerNotifier.state = true;
+                        },
+                        icon: const Icon(Icons.visibility))),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.02,
             ),
