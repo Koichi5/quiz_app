@@ -24,9 +24,6 @@ dependencies:
   cached_network_image: ^3.2.2
   lottie: ^1.4.3
   sign_in_with_apple: ^4.1.0
-  #  BottomNavigationBar
-  convex_bottom_bar: ^3.1.0+1
-  curved_navigation_bar: ^1.0.3
   bottom_navy_bar: ^6.0.0
 
 

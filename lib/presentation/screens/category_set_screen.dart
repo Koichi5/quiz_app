@@ -49,7 +49,7 @@ class CategorySetScreen extends HookConsumerWidget {
             height: MediaQuery.of(context).size.height * 0.02,
           ),
           CategorySetButton(id: int.parse(idControllerProvider.text),
-              name: nameControllerProvider.text),
+              name: nameControllerProvider.text,),
         ],
       ),
     );

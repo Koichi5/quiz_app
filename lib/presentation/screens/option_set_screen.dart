@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quiz_app/presentation/widgets/option_set_button.dart';
 
+import '../../domain/question/question.dart';
 import '../controller/option_text_controller.dart';
 import '../controller/validator/option_validator_provider.dart';
 import '../widgets/custom_text_field.dart';
 
 class OptionSetScreen extends HookConsumerWidget {
-  const OptionSetScreen({Key? key}) : super(key: key);
+  const OptionSetScreen({required this.question, Key? key}) : super(key: key);
+
+  final Question question;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -54,6 +57,7 @@ class OptionSetScreen extends HookConsumerWidget {
             id: idControllerProvider.text,
             text: textControllerProvider.text,
             isCorrect: false,
+            question: question,
           ),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.02,

@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quiz_app/presentation/controller/quiz_text_controller.dart';
 
+import '../../domain/category/category.dart';
 import '../controller/validator/quiz_validator_provider.dart';
 import '../widgets/custom_text_field.dart';
 import '../widgets/quiz_set_button.dart';
 
 class QuizSetScreen extends HookConsumerWidget {
-  const QuizSetScreen({Key? key}) : super(key: key);
+  const QuizSetScreen({required this.category, Key? key}) : super(key: key);
+
+  final Category category;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -77,7 +80,9 @@ class QuizSetScreen extends HookConsumerWidget {
               id: int.parse(idControllerProvider.text),
               title: titleControllerProvider.text,
               description: descriptionControllerProvider.text,
-              categoryId: int.parse(categoryIdControllerProvider.text))
+              categoryId: int.parse(categoryIdControllerProvider.text),
+            category: category,
+          ),
         ],
       ),
     );

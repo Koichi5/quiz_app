@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:quiz_app/presentation/controller/quiz_controller.dart';
 import 'package:quiz_app/presentation/controller/validator/category_validator_provider.dart';
+import 'package:quiz_app/presentation/screens/quiz_set_screen.dart';
+
+import '../../domain/category/category.dart';
+import '../controller/category_controller.dart';
 
 class CategorySetButton extends HookConsumerWidget {
-  const CategorySetButton({required this.id, required this.name, Key? key}) : super(key: key);
+  const CategorySetButton({required this.id, required this.name, Key? key})
+      : super(key: key);
   final int id;
   final String name;
 
@@ -22,10 +26,14 @@ class CategorySetButton extends HookConsumerWidget {
                   : Theme.of(context).colorScheme.secondary),
           onPressed: () async {
             if (ref.watch(categoryValidatorProvider).form.isValid) {
-              await ref
-                  .watch(quizControllerProvider.notifier)
+              final category = await ref
+                  .watch(categoryControllerProvider.notifier)
                   .addCategory(id: id, name: name);
-              Navigator.pushNamed(context, '/quiz_set');
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => QuizSetScreen(category: category)));
+              // Navigator.pushNamed(context, '/quiz_set');
             }
           },
           child: const Text("カテゴリ登録"),

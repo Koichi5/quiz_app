@@ -23,7 +23,7 @@ abstract class BaseQuizRepository {
   Future<void> addQuestion({required Quiz quiz, required Question question});
   Future<void> addOption({required Question question, required Option option});
   Future<List<Category>> retrieveCategoryList();
-  Future<Quiz> retrieveQuiz({required Category category});
+  Future<List<Quiz>> retrieveQuiz({required Category category});
   Future<List<Question>> retrieveQuestionList({required Quiz quiz});
   Future<List<Option>> retrieveOptionList({required Question question});
   Future<List<Quiz>> retrieveQuizListByCategory({required int categoryId});
@@ -182,14 +182,14 @@ class QuizRepository implements BaseQuizRepository {
   }
 
   @override
-  Future<Quiz> retrieveQuiz({required Category category}) async {
+  Future<List<Quiz>> retrieveQuiz({required Category category}) async {
     try {
       final snap = await _read(firebaseFirestoreProvider)
           .collection("category")
           .doc(category.categoryDocRef)
           .collection("quiz")
           .get();
-      return snap.docs.map((doc) => Quiz.fromDocument(doc)).toList().first;
+      return snap.docs.map((doc) => Quiz.fromDocument(doc)).toList();
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message);
     }

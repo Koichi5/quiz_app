@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:quiz_app/presentation/controller/quiz_controller.dart';
+import 'package:quiz_app/presentation/controller/option_controller.dart';
 
+import '../../domain/question/question.dart';
 import '../controller/validator/option_validator_provider.dart';
 
 class OptionSetButton extends HookConsumerWidget {
-  const OptionSetButton({required this.id, required this.text, required this.isCorrect,
+  const OptionSetButton({required this.id, required this.text, required this.isCorrect, required this.question,
     Key? key})
       : super(key: key);
   final String id;
   final String text;
   final bool isCorrect;
+  final Question question;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -26,7 +28,7 @@ class OptionSetButton extends HookConsumerWidget {
                   : Theme.of(context).colorScheme.secondary),
           onPressed: () async {
             if (ref.watch(optionValidatorProvider).form.isValid) {
-              await ref.watch(quizControllerProvider.notifier).addOption(
+              await ref.watch(optionControllerProvider(question).notifier).addOption(
                 id: id,
                 text: text,
                 isCorrect: isCorrect,

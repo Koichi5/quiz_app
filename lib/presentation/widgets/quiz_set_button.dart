@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quiz_app/presentation/controller/quiz_controller.dart';
+import 'package:quiz_app/presentation/screens/question_set_screen.dart';
 
+import '../../domain/category/category.dart';
 import '../controller/validator/quiz_validator_provider.dart';
 
 class QuizSetButton extends HookConsumerWidget {
@@ -10,12 +12,14 @@ class QuizSetButton extends HookConsumerWidget {
       required this.title,
       required this.description,
       required this.categoryId,
+      required this.category,
       Key? key})
       : super(key: key);
   final int id;
   final String title;
   final String description;
   final int categoryId;
+  final Category category;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -31,14 +35,17 @@ class QuizSetButton extends HookConsumerWidget {
                   : Theme.of(context).colorScheme.secondary),
           onPressed: () async {
             if (ref.watch(quizValidatorProvider).form.isValid) {
-              await ref.watch(quizControllerProvider.notifier).addQuiz(
-                  id: id,
-                  title: title,
-                  description: description,
-                  questionsShuffled: false,
-                  imagePath: "",
-                  categoryId: categoryId);
-              Navigator.pushNamed(context, '/question_set');
+              final quiz = await ref
+                  .watch(quizControllerProvider(category).notifier)
+                  .addQuiz(
+                      id: id,
+                      title: title,
+                      description: description,
+                      questionsShuffled: false,
+                      imagePath: "",
+                      categoryId: categoryId);
+              Navigator.push(context, MaterialPageRoute(builder: (context) => QuestionSetScreen(quiz: quiz!,)));
+              // Navigator.pushNamed(context, '/question_set');
             }
           },
           child: const Text("クイズ登録"),
