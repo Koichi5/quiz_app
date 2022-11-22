@@ -9,8 +9,9 @@ import '../../domain/category/category.dart';
 
 final quizExceptionProvider = StateProvider<CustomException?>((_) => null);
 
-final quizControllerProvider = StateNotifierProvider.family.autoDispose<QuizController,
-    AsyncValue<List<Quiz>>, Category>((ref, category) {
+final quizControllerProvider = StateNotifierProvider.family
+    .autoDispose<QuizController, AsyncValue<List<Quiz>>, Category>(
+        (ref, category) {
   final user = ref.watch(authControllerProvider);
   return QuizController(ref.read, user?.uid, category);
 });
@@ -39,23 +40,30 @@ class QuizController extends StateNotifier<AsyncValue<List<Quiz>>> {
     }
   }
 
-  Future<Quiz?> addQuiz(
-      {required int id,
-      required String title,
-      required String description,
-      required bool questionsShuffled,
-      required String imagePath,
-      required int categoryId}) async {
+  Future<Quiz> addQuiz({
+    String? id,
+    required String title,
+    required String description,
+    required bool questionsShuffled,
+    String? imagePath,
+    required int categoryId,
+    required Category category,
+  }) async {
     final quiz = Quiz(
         id: id,
         title: title,
         description: description,
         questionsShuffled: questionsShuffled,
-        imagePath: imagePath,
+        // category 同様 Googleロゴで代用
+        imagePath:
+            "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",
         categoryId: categoryId,
         questions: []);
-    state.whenData((quizList) => state = AsyncValue.data(
-        quizList..add(quiz.copyWith(quizDocRef: quiz.quizDocRef))));
+    final quizDocRef = await _reader(quizRepositoryProvider)
+        .addQuiz(category: category, quiz: quiz);
+    state.whenData((quizList) =>
+        state = AsyncValue.data(quizList..add(quiz.copyWith(id: quizDocRef))));
+    return quiz;
   }
 }
 

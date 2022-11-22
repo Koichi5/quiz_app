@@ -11,18 +11,18 @@ abstract class Question implements _$Question {
   const Question._();
 
   const factory Question({
-    required String id,
+    String? id,
     String? categoryDocRef,
     String? quizDocRef,
     String? questionDocRef,
     required String text,
     required int duration,
     required bool optionsShuffled,
-    required List<Option> options,
+    List<Option>? options,
   }) = _Question;
 
   factory Question.empty() => const Question(
-      id: "", text: '', duration: 0, optionsShuffled: false, options: []);
+      text: '', duration: 0, optionsShuffled: false, options: []);
 
   factory Question.fromJson(json) => _$QuestionFromJson(json);
 

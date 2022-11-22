@@ -20,14 +20,14 @@ Question _$QuestionFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Question {
-  String get id => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
   String? get categoryDocRef => throw _privateConstructorUsedError;
   String? get quizDocRef => throw _privateConstructorUsedError;
   String? get questionDocRef => throw _privateConstructorUsedError;
   String get text => throw _privateConstructorUsedError;
   int get duration => throw _privateConstructorUsedError;
   bool get optionsShuffled => throw _privateConstructorUsedError;
-  List<Option> get options => throw _privateConstructorUsedError;
+  List<Option>? get options => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -41,14 +41,14 @@ abstract class $QuestionCopyWith<$Res> {
       _$QuestionCopyWithImpl<$Res, Question>;
   @useResult
   $Res call(
-      {String id,
+      {String? id,
       String? categoryDocRef,
       String? quizDocRef,
       String? questionDocRef,
       String text,
       int duration,
       bool optionsShuffled,
-      List<Option> options});
+      List<Option>? options});
 }
 
 /// @nodoc
@@ -64,20 +64,20 @@ class _$QuestionCopyWithImpl<$Res, $Val extends Question>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? categoryDocRef = freezed,
     Object? quizDocRef = freezed,
     Object? questionDocRef = freezed,
     Object? text = null,
     Object? duration = null,
     Object? optionsShuffled = null,
-    Object? options = null,
+    Object? options = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       categoryDocRef: freezed == categoryDocRef
           ? _value.categoryDocRef
           : categoryDocRef // ignore: cast_nullable_to_non_nullable
@@ -102,10 +102,10 @@ class _$QuestionCopyWithImpl<$Res, $Val extends Question>
           ? _value.optionsShuffled
           : optionsShuffled // ignore: cast_nullable_to_non_nullable
               as bool,
-      options: null == options
+      options: freezed == options
           ? _value.options
           : options // ignore: cast_nullable_to_non_nullable
-              as List<Option>,
+              as List<Option>?,
     ) as $Val);
   }
 }
@@ -118,14 +118,14 @@ abstract class _$$_QuestionCopyWith<$Res> implements $QuestionCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String id,
+      {String? id,
       String? categoryDocRef,
       String? quizDocRef,
       String? questionDocRef,
       String text,
       int duration,
       bool optionsShuffled,
-      List<Option> options});
+      List<Option>? options});
 }
 
 /// @nodoc
@@ -139,20 +139,20 @@ class __$$_QuestionCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? categoryDocRef = freezed,
     Object? quizDocRef = freezed,
     Object? questionDocRef = freezed,
     Object? text = null,
     Object? duration = null,
     Object? optionsShuffled = null,
-    Object? options = null,
+    Object? options = freezed,
   }) {
     return _then(_$_Question(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       categoryDocRef: freezed == categoryDocRef
           ? _value.categoryDocRef
           : categoryDocRef // ignore: cast_nullable_to_non_nullable
@@ -177,10 +177,10 @@ class __$$_QuestionCopyWithImpl<$Res>
           ? _value.optionsShuffled
           : optionsShuffled // ignore: cast_nullable_to_non_nullable
               as bool,
-      options: null == options
+      options: freezed == options
           ? _value._options
           : options // ignore: cast_nullable_to_non_nullable
-              as List<Option>,
+              as List<Option>?,
     ));
   }
 }
@@ -189,14 +189,14 @@ class __$$_QuestionCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Question extends _Question {
   const _$_Question(
-      {required this.id,
+      {this.id,
       this.categoryDocRef,
       this.quizDocRef,
       this.questionDocRef,
       required this.text,
       required this.duration,
       required this.optionsShuffled,
-      required final List<Option> options})
+      final List<Option>? options})
       : _options = options,
         super._();
 
@@ -204,7 +204,7 @@ class _$_Question extends _Question {
       _$$_QuestionFromJson(json);
 
   @override
-  final String id;
+  final String? id;
   @override
   final String? categoryDocRef;
   @override
@@ -217,11 +217,13 @@ class _$_Question extends _Question {
   final int duration;
   @override
   final bool optionsShuffled;
-  final List<Option> _options;
+  final List<Option>? _options;
   @override
-  List<Option> get options {
+  List<Option>? get options {
+    final value = _options;
+    if (value == null) return null;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_options);
+    return EqualUnmodifiableListView(value);
   }
 
   @override
@@ -278,20 +280,20 @@ class _$_Question extends _Question {
 
 abstract class _Question extends Question {
   const factory _Question(
-      {required final String id,
+      {final String? id,
       final String? categoryDocRef,
       final String? quizDocRef,
       final String? questionDocRef,
       required final String text,
       required final int duration,
       required final bool optionsShuffled,
-      required final List<Option> options}) = _$_Question;
+      final List<Option>? options}) = _$_Question;
   const _Question._() : super._();
 
   factory _Question.fromJson(Map<String, dynamic> json) = _$_Question.fromJson;
 
   @override
-  String get id;
+  String? get id;
   @override
   String? get categoryDocRef;
   @override
@@ -305,7 +307,7 @@ abstract class _Question extends Question {
   @override
   bool get optionsShuffled;
   @override
-  List<Option> get options;
+  List<Option>? get options;
   @override
   @JsonKey(ignore: true)
   _$$_QuestionCopyWith<_$_Question> get copyWith =>

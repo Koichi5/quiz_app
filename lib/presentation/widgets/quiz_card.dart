@@ -13,12 +13,12 @@ class QuizCard extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
-      onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => QuestionListScreen(quiz: quiz,)));
-      },
+      // onTap: () {
+      //   Navigator.push(
+      //       context,
+      //       MaterialPageRoute(
+      //           builder: (context) => QuestionListScreen(quiz: quiz,)));
+      // },
       child: Card(
         key: ValueKey(quiz.id),
         color: Theme.of(context).colorScheme.primary,
@@ -33,7 +33,7 @@ class QuizCard extends HookConsumerWidget {
                 borderRadius: BorderRadius.circular(10),
                 child: CachedNetworkImage(
                   width: double.infinity,
-                  imageUrl: quiz.imagePath,
+                  imageUrl: quiz.imagePath!,
                   fit: BoxFit.fill,
                 ),
               ),
@@ -50,6 +50,7 @@ class QuizCard extends HookConsumerWidget {
                       )),
                 ),
               ),
+              Text(quiz.description)
             ],
           ),
         ),

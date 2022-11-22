@@ -10,12 +10,13 @@ import '../../domain/category/category.dart';
 final categoryExceptionProvider = StateProvider<CustomException?>((_) => null);
 
 final categoryControllerProvider =
-StateNotifierProvider<CategoryController, AsyncValue<List<Category>>>((ref) {
+    StateNotifierProvider<CategoryController, AsyncValue<List<Category>>>(
+        (ref) {
   final user = ref.watch(authControllerProvider);
   return CategoryController(ref.read, user?.uid);
 });
 
-class CategoryController extends StateNotifier<AsyncValue<List<Category>>>{
+class CategoryController extends StateNotifier<AsyncValue<List<Category>>> {
   final Reader _reader;
   final String? _userId;
   CategoryController(this._reader, this._userId)
@@ -28,7 +29,7 @@ class CategoryController extends StateNotifier<AsyncValue<List<Category>>>{
   Future<void> retrieveCategoryList() async {
     try {
       final categoryList =
-      await _reader(quizRepositoryProvider).retrieveCategoryList();
+          await _reader(quizRepositoryProvider).retrieveCategoryList();
       if (mounted) {
         state = AsyncValue.data(categoryList);
       }
@@ -41,11 +42,21 @@ class CategoryController extends StateNotifier<AsyncValue<List<Category>>>{
   // repository の addProduct は返り値に String id を持っていたが、今回は持たせていない
   // できるかどうか不透明　できなければ id が原因
   Future<Category> addCategory(
-      {required int id,
-        required String name, String? imagePath}) async {
-    final category = Category(id: id, name: name, imagePath: imagePath!);
-    state.whenData((categoryList) => state = AsyncValue.data(categoryList
-      ..add(category.copyWith(categoryDocRef: category.categoryDocRef))));
+      {String? id,
+      required int categoryId,
+      required String name,
+      String? imagePath}) async {
+    final category = Category(
+      id: id,
+      categoryId: categoryId,
+      name: name,
+      // google のロゴで代用
+      imagePath: "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",
+    );
+    final categoryDocRef =
+        await _reader(quizRepositoryProvider).addCategory(category: category);
+    state.whenData((categoryList) => state = AsyncValue.data(
+        categoryList..add(category.copyWith(id: categoryDocRef))));
     return category;
   }
 }

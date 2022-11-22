@@ -20,15 +20,15 @@ Quiz _$QuizFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Quiz {
-  int get id => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
+  int get categoryId => throw _privateConstructorUsedError;
   String? get categoryDocRef => throw _privateConstructorUsedError;
   String? get quizDocRef => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   bool get questionsShuffled => throw _privateConstructorUsedError;
-  String get imagePath => throw _privateConstructorUsedError;
-  int get categoryId => throw _privateConstructorUsedError;
-  List<Question> get questions => throw _privateConstructorUsedError;
+  String? get imagePath => throw _privateConstructorUsedError;
+  List<Question>? get questions => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -41,15 +41,15 @@ abstract class $QuizCopyWith<$Res> {
       _$QuizCopyWithImpl<$Res, Quiz>;
   @useResult
   $Res call(
-      {int id,
+      {String? id,
+      int categoryId,
       String? categoryDocRef,
       String? quizDocRef,
       String title,
       String description,
       bool questionsShuffled,
-      String imagePath,
-      int categoryId,
-      List<Question> questions});
+      String? imagePath,
+      List<Question>? questions});
 }
 
 /// @nodoc
@@ -65,20 +65,24 @@ class _$QuizCopyWithImpl<$Res, $Val extends Quiz>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
+    Object? categoryId = null,
     Object? categoryDocRef = freezed,
     Object? quizDocRef = freezed,
     Object? title = null,
     Object? description = null,
     Object? questionsShuffled = null,
-    Object? imagePath = null,
-    Object? categoryId = null,
-    Object? questions = null,
+    Object? imagePath = freezed,
+    Object? questions = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      categoryId: null == categoryId
+          ? _value.categoryId
+          : categoryId // ignore: cast_nullable_to_non_nullable
               as int,
       categoryDocRef: freezed == categoryDocRef
           ? _value.categoryDocRef
@@ -100,18 +104,14 @@ class _$QuizCopyWithImpl<$Res, $Val extends Quiz>
           ? _value.questionsShuffled
           : questionsShuffled // ignore: cast_nullable_to_non_nullable
               as bool,
-      imagePath: null == imagePath
+      imagePath: freezed == imagePath
           ? _value.imagePath
           : imagePath // ignore: cast_nullable_to_non_nullable
-              as String,
-      categoryId: null == categoryId
-          ? _value.categoryId
-          : categoryId // ignore: cast_nullable_to_non_nullable
-              as int,
-      questions: null == questions
+              as String?,
+      questions: freezed == questions
           ? _value.questions
           : questions // ignore: cast_nullable_to_non_nullable
-              as List<Question>,
+              as List<Question>?,
     ) as $Val);
   }
 }
@@ -123,15 +123,15 @@ abstract class _$$_QuizCopyWith<$Res> implements $QuizCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int id,
+      {String? id,
+      int categoryId,
       String? categoryDocRef,
       String? quizDocRef,
       String title,
       String description,
       bool questionsShuffled,
-      String imagePath,
-      int categoryId,
-      List<Question> questions});
+      String? imagePath,
+      List<Question>? questions});
 }
 
 /// @nodoc
@@ -143,20 +143,24 @@ class __$$_QuizCopyWithImpl<$Res> extends _$QuizCopyWithImpl<$Res, _$_Quiz>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
+    Object? categoryId = null,
     Object? categoryDocRef = freezed,
     Object? quizDocRef = freezed,
     Object? title = null,
     Object? description = null,
     Object? questionsShuffled = null,
-    Object? imagePath = null,
-    Object? categoryId = null,
-    Object? questions = null,
+    Object? imagePath = freezed,
+    Object? questions = freezed,
   }) {
     return _then(_$_Quiz(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      categoryId: null == categoryId
+          ? _value.categoryId
+          : categoryId // ignore: cast_nullable_to_non_nullable
               as int,
       categoryDocRef: freezed == categoryDocRef
           ? _value.categoryDocRef
@@ -178,18 +182,14 @@ class __$$_QuizCopyWithImpl<$Res> extends _$QuizCopyWithImpl<$Res, _$_Quiz>
           ? _value.questionsShuffled
           : questionsShuffled // ignore: cast_nullable_to_non_nullable
               as bool,
-      imagePath: null == imagePath
+      imagePath: freezed == imagePath
           ? _value.imagePath
           : imagePath // ignore: cast_nullable_to_non_nullable
-              as String,
-      categoryId: null == categoryId
-          ? _value.categoryId
-          : categoryId // ignore: cast_nullable_to_non_nullable
-              as int,
-      questions: null == questions
+              as String?,
+      questions: freezed == questions
           ? _value._questions
           : questions // ignore: cast_nullable_to_non_nullable
-              as List<Question>,
+              as List<Question>?,
     ));
   }
 }
@@ -198,22 +198,24 @@ class __$$_QuizCopyWithImpl<$Res> extends _$QuizCopyWithImpl<$Res, _$_Quiz>
 @JsonSerializable()
 class _$_Quiz extends _Quiz {
   const _$_Quiz(
-      {required this.id,
+      {this.id,
+      required this.categoryId,
       this.categoryDocRef,
       this.quizDocRef,
       required this.title,
       required this.description,
       required this.questionsShuffled,
-      required this.imagePath,
-      required this.categoryId,
-      required final List<Question> questions})
+      this.imagePath,
+      final List<Question>? questions})
       : _questions = questions,
         super._();
 
   factory _$_Quiz.fromJson(Map<String, dynamic> json) => _$$_QuizFromJson(json);
 
   @override
-  final int id;
+  final String? id;
+  @override
+  final int categoryId;
   @override
   final String? categoryDocRef;
   @override
@@ -225,19 +227,19 @@ class _$_Quiz extends _Quiz {
   @override
   final bool questionsShuffled;
   @override
-  final String imagePath;
+  final String? imagePath;
+  final List<Question>? _questions;
   @override
-  final int categoryId;
-  final List<Question> _questions;
-  @override
-  List<Question> get questions {
+  List<Question>? get questions {
+    final value = _questions;
+    if (value == null) return null;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_questions);
+    return EqualUnmodifiableListView(value);
   }
 
   @override
   String toString() {
-    return 'Quiz(id: $id, categoryDocRef: $categoryDocRef, quizDocRef: $quizDocRef, title: $title, description: $description, questionsShuffled: $questionsShuffled, imagePath: $imagePath, categoryId: $categoryId, questions: $questions)';
+    return 'Quiz(id: $id, categoryId: $categoryId, categoryDocRef: $categoryDocRef, quizDocRef: $quizDocRef, title: $title, description: $description, questionsShuffled: $questionsShuffled, imagePath: $imagePath, questions: $questions)';
   }
 
   @override
@@ -246,6 +248,8 @@ class _$_Quiz extends _Quiz {
         (other.runtimeType == runtimeType &&
             other is _$_Quiz &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.categoryId, categoryId) ||
+                other.categoryId == categoryId) &&
             (identical(other.categoryDocRef, categoryDocRef) ||
                 other.categoryDocRef == categoryDocRef) &&
             (identical(other.quizDocRef, quizDocRef) ||
@@ -257,8 +261,6 @@ class _$_Quiz extends _Quiz {
                 other.questionsShuffled == questionsShuffled) &&
             (identical(other.imagePath, imagePath) ||
                 other.imagePath == imagePath) &&
-            (identical(other.categoryId, categoryId) ||
-                other.categoryId == categoryId) &&
             const DeepCollectionEquality()
                 .equals(other._questions, _questions));
   }
@@ -268,13 +270,13 @@ class _$_Quiz extends _Quiz {
   int get hashCode => Object.hash(
       runtimeType,
       id,
+      categoryId,
       categoryDocRef,
       quizDocRef,
       title,
       description,
       questionsShuffled,
       imagePath,
-      categoryId,
       const DeepCollectionEquality().hash(_questions));
 
   @JsonKey(ignore: true)
@@ -293,21 +295,23 @@ class _$_Quiz extends _Quiz {
 
 abstract class _Quiz extends Quiz {
   const factory _Quiz(
-      {required final int id,
+      {final String? id,
+      required final int categoryId,
       final String? categoryDocRef,
       final String? quizDocRef,
       required final String title,
       required final String description,
       required final bool questionsShuffled,
-      required final String imagePath,
-      required final int categoryId,
-      required final List<Question> questions}) = _$_Quiz;
+      final String? imagePath,
+      final List<Question>? questions}) = _$_Quiz;
   const _Quiz._() : super._();
 
   factory _Quiz.fromJson(Map<String, dynamic> json) = _$_Quiz.fromJson;
 
   @override
-  int get id;
+  String? get id;
+  @override
+  int get categoryId;
   @override
   String? get categoryDocRef;
   @override
@@ -319,11 +323,9 @@ abstract class _Quiz extends Quiz {
   @override
   bool get questionsShuffled;
   @override
-  String get imagePath;
+  String? get imagePath;
   @override
-  int get categoryId;
-  @override
-  List<Question> get questions;
+  List<Question>? get questions;
   @override
   @JsonKey(ignore: true)
   _$$_QuizCopyWith<_$_Quiz> get copyWith => throw _privateConstructorUsedError;

@@ -17,5 +17,5 @@ class QuestionFormEntity with _$QuestionFormEntity {
     text: Field(value: ""),
     duration: Field(value: ""),
   );
-  bool get isValid => id.isValid && text.isValid && duration.isValid;
+  bool get isValid => text.isValid && duration.isValid;
 }

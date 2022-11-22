@@ -60,7 +60,7 @@ class QuizEngine {
         }
 
         if (question == null ||
-            quiz.questions.length == questionAnswer.length) {
+            quiz.questions!.length == questionAnswer.length) {
           double totalCorrect = 0.0;
           questionAnswer.forEach((key, value) {
             if (value == true) {
@@ -87,24 +87,24 @@ class QuizEngine {
   }
 
   void updateAnswer(int questionIndex, int answer) {
-    var question = quiz.questions[questionIndex];
-    questionAnswer[questionIndex] = question.options[answer].isCorrect;
+    var question = quiz.questions![questionIndex];
+    questionAnswer[questionIndex] = question.options![answer].isCorrect;
   }
 
   Question? _nextQuestion(Quiz quiz, int index) {
     while (true) {
-      if (takenQuestions.length >= quiz.questions.length) {
+      if (takenQuestions.length >= quiz.questions!.length) {
         return null;
       }
       // Change quiz.optionsShuffled to quiz.questionShuffled
       if (quiz.questionsShuffled) {
-        index = Random().nextInt(quiz.questions.length);
+        index = Random().nextInt(quiz.questions!.length);
         if (takenQuestions.contains(index) == false) {
           takenQuestions.add(index);
-          return quiz.questions[index];
+          return quiz.questions![index];
         }
       } else {
-        return quiz.questions[index];
+        return quiz.questions![index];
       }
     }
   }

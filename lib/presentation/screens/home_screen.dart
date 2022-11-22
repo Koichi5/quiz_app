@@ -5,11 +5,12 @@ import 'package:quiz_app/presentation/screens/weak_point_quiz_screen.dart';
 import 'package:quiz_app/presentation/widgets/bottom_nav_bar.dart';
 
 import 'add_quiz_screen.dart';
+import 'category_set_screen.dart';
 import 'setting_screen.dart';
 
 final List<Widget> homePageList = [
   const CategoryListScreen(),
-  const AddQuizScreen(),
+  const CategorySetScreen(),
   const WeakPointQuizScreen(),
   const SettingScreen(),
 ];
@@ -22,12 +23,12 @@ class HomeScreen extends HookConsumerWidget {
     final bottomNavBarSelectedIndex =
         ref.watch(bottomNavBarSelectedIndexProvider);
     return Scaffold(
-      appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: bottomNavBarSelectedIndex == 0
-              ? const Text("ホーム")
-              : bottomNavBarSelectedIndex == 1
-                  ? const Text("追加")
+      appBar: bottomNavBarSelectedIndex == 1
+          ? null
+          : AppBar(
+              automaticallyImplyLeading: false,
+              title: bottomNavBarSelectedIndex == 0
+                  ? const Text("ホーム")
                   : bottomNavBarSelectedIndex == 2
                       ? const Text("苦手問題")
                       : const Text("設定")),
@@ -35,6 +36,7 @@ class HomeScreen extends HookConsumerWidget {
       body: pageController(bottomNavBarSelectedIndex),
     );
   }
+
   pageController(i) {
     return homePageList[i];
   }

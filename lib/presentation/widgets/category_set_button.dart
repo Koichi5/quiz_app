@@ -7,9 +7,9 @@ import '../../domain/category/category.dart';
 import '../controller/category_controller.dart';
 
 class CategorySetButton extends HookConsumerWidget {
-  const CategorySetButton({required this.id, required this.name, Key? key})
+  const CategorySetButton({required this.categoryId, required this.name, Key? key})
       : super(key: key);
-  final int id;
+  final String categoryId;
   final String name;
 
   @override
@@ -28,7 +28,7 @@ class CategorySetButton extends HookConsumerWidget {
             if (ref.watch(categoryValidatorProvider).form.isValid) {
               final category = await ref
                   .watch(categoryControllerProvider.notifier)
-                  .addCategory(id: id, name: name);
+                  .addCategory(categoryId: int.parse(categoryId), name: name);
               Navigator.push(
                   context,
                   MaterialPageRoute(

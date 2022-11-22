@@ -31,14 +31,14 @@ class QuestionSetScreen extends HookConsumerWidget {
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.1,
           ),
-          CustomTextField(
-            title: "問題ID",
-            controller: idControllerProvider,
-            error: questionValidator.form.id.errorMessage,
-            onChanged: (questionId) {
-              questionValidatorNotifier.setQuestionId(questionId);
-            },
-          ),
+          // CustomTextField(
+          //   title: "問題ID",
+          //   controller: idControllerProvider,
+          //   error: questionValidator.form.id.errorMessage,
+          //   onChanged: (questionId) {
+          //     questionValidatorNotifier.setQuestionId(questionId);
+          //   },
+          // ),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.02,
           ),
@@ -65,9 +65,9 @@ class QuestionSetScreen extends HookConsumerWidget {
             height: MediaQuery.of(context).size.height * 0.02,
           ),
           QuestionSetButton(
-              id: idControllerProvider.text,
+              // id: idControllerProvider.text,
               text: textControllerProvider.text,
-              duration: int.parse(durationControllerProvider.text),
+              duration: durationControllerProvider.text,
             quiz: quiz,
           ),
           SizedBox(

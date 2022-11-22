@@ -12,19 +12,20 @@ abstract class Category implements _$Category {
   const Category._();
 
   const factory Category({
-    required int id,
+    String? id,
+    required int categoryId,
     String? categoryDocRef,
     required String name,
-    required String imagePath,
+    String? imagePath,
   }) = _Category;
 
-  factory Category.empty() => const Category(id: 0, name: "", imagePath: "");
+  factory Category.empty() => const Category(categoryId: 0, name: "",);
 
   factory Category.fromJson(json) => _$CategoryFromJson(json);
 
   factory Category.fromDocument(DocumentSnapshot doc) {
     final data = doc.data()!;
-    return Category.fromJson(data).copyWith(id: int.parse(doc.id));
+    return Category.fromJson(data).copyWith(id: doc.id);
   }
 
   Map<String, dynamic> toDocument() => toJson()..remove('id');

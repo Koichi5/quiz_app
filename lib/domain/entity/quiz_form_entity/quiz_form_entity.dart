@@ -20,5 +20,5 @@ class QuizFormEntity with _$QuizFormEntity {
     description: Field(value: ""),
     categoryId: Field(value: ""),
   );
-  bool get isValid => id.isValid && title.isValid && description.isValid && categoryId.isValid;
+  bool get isValid => title.isValid && description.isValid;
 }

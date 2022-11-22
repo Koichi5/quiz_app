@@ -10,15 +10,16 @@ import '../controller/validator/question_validator_provider.dart';
 
 class QuestionSetButton extends HookConsumerWidget {
   const QuestionSetButton(
-      {required this.id,
+      {
+      // required this.id,
       required this.text,
       required this.duration,
       required this.quiz,
       Key? key})
       : super(key: key);
-  final String id;
+  // final String id;
   final String text;
-  final int duration;
+  final String duration;
   final Quiz quiz;
 
   @override
@@ -39,16 +40,17 @@ class QuestionSetButton extends HookConsumerWidget {
               final question = await ref
                   .watch(questionControllerProvider(quiz).notifier)
                   .addQuestion(
-                    id: id,
+                    // id: id,
                     text: text,
-                    duration: duration,
+                    duration: int.parse(duration),
                     optionsShuffled: false,
+                    quiz: quiz,
                   );
               Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          OptionSetScreen(question: question!)));
+                          OptionSetScreen(question: question)));
               // Navigator.pushNamed(context, '/option_set');
             }
           },

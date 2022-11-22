@@ -10,7 +10,8 @@ import '../../domain/question/question.dart';
 final questionExceptionProvider = StateProvider<CustomException?>((_) => null);
 
 final questionControllerProvider = StateNotifierProvider.family
-    .autoDispose<QuestionController, AsyncValue<List<Question>>, Quiz>((ref, quiz) {
+    .autoDispose<QuestionController, AsyncValue<List<Question>>, Quiz>(
+        (ref, quiz) {
   final user = ref.watch(authControllerProvider);
   return QuestionController(ref.read, user?.uid, quiz);
 });
@@ -39,11 +40,12 @@ class QuestionController extends StateNotifier<AsyncValue<List<Question>>> {
     }
   }
 
-  Future<Question?> addQuestion({
-    required String id,
+  Future<Question> addQuestion({
+    String? id,
     required String text,
     required int duration,
     required bool optionsShuffled,
+    required Quiz quiz,
   }) async {
     final question = Question(
         id: id,
@@ -51,7 +53,10 @@ class QuestionController extends StateNotifier<AsyncValue<List<Question>>> {
         duration: duration,
         optionsShuffled: optionsShuffled,
         options: []);
-    state.whenData((questionList) => state = AsyncValue.data(questionList
-      ..add(question.copyWith(questionDocRef: question.questionDocRef))));
+    final questionDocRef = await _reader(quizRepositoryProvider)
+        .addQuestion(quiz: quiz, question: question);
+    state.whenData((questionList) => state = AsyncValue.data(
+        questionList..add(question.copyWith(id: questionDocRef))));
+    return question;
   }
 }

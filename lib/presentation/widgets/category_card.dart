@@ -33,7 +33,7 @@ class CategoryCard extends HookConsumerWidget {
                 borderRadius: BorderRadius.circular(10),
                 child: CachedNetworkImage(
                   width: double.infinity,
-                  imageUrl: category.imagePath,
+                  imageUrl: category.imagePath!,
                   fit: BoxFit.fill,
                 ),
               ),

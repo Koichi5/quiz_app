@@ -57,24 +57,26 @@ class QuizRepository implements BaseQuizRepository {
 
   // Use set method in order to add categoryDocRef that enable to refer category
   @override
-  Future<void> addCategory({required Category category}) async {
+  Future<String> addCategory({required Category category}) async {
     try {
       final categoryRef =
           _read(firebaseFirestoreProvider).collection("category");
       final categoryDocRef = categoryRef.doc().id;
       await categoryRef.doc(categoryDocRef).set(Category(
-            id: category.id,
+            categoryId: category.categoryId,
             categoryDocRef: categoryDocRef,
             name: category.name,
             imagePath: category.imagePath,
           ).toDocument());
+      return categoryDocRef;
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message);
     }
   }
 
   @override
-  Future<void> addQuiz({required Category category, required Quiz quiz}) async {
+  Future<String> addQuiz(
+      {required Category category, required Quiz quiz}) async {
     try {
       final quizRef = _read(firebaseFirestoreProvider)
           .collection("category")
@@ -100,16 +102,17 @@ class QuizRepository implements BaseQuizRepository {
               description: quiz.description,
               questionsShuffled: quiz.questionsShuffled,
               imagePath: quiz.imagePath,
-              categoryId: quiz.categoryId,
-              questions: quiz.questions)
-          .toDocument());
+              categoryId: category.categoryId,
+              // questions: quiz.questions
+      ).toDocument());
+      return quizDocRef;
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message);
     }
   }
 
   @override
-  Future<void> addQuestion(
+  Future<String> addQuestion(
       {required Quiz quiz, required Question question}) async {
     try {
       final questionRef = _read(firebaseFirestoreProvider)
@@ -126,6 +129,7 @@ class QuizRepository implements BaseQuizRepository {
       //     .doc(quiz.quizDocRef)
       //     .collection("questions")
       //     .add(question.toDocument());
+      await _read(firebaseFirestoreProvider).collection("category").doc(quiz.categoryDocRef).collection("quiz").add(Question(text: question.text, duration: question.duration, optionsShuffled: false).toDocument());
       await questionRef.doc(questionDocRef).set(Question(
               id: question.id,
               categoryDocRef: question.categoryDocRef,
@@ -136,6 +140,7 @@ class QuizRepository implements BaseQuizRepository {
               optionsShuffled: question.optionsShuffled,
               options: question.options)
           .toDocument());
+      return questionDocRef;
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message);
     }

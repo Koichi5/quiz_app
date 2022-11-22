@@ -14,12 +14,12 @@ class QuizSetScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final idControllerProvider = ref.watch(quizIdControllerProvider);
+    // final idControllerProvider = ref.watch(quizIdControllerProvider);
     final titleControllerProvider = ref.watch(quizTitleControllerProvider);
     final descriptionControllerProvider =
         ref.watch(quizDescriptionControllerProvider);
-    final categoryIdControllerProvider =
-        ref.watch(quizCategoryIdControllerProvider);
+    // final categoryIdControllerProvider =
+    //     ref.watch(quizCategoryIdControllerProvider);
     final quizValidator = ref.watch(quizValidatorProvider);
     final quizValidatorNotifier = ref.watch(quizValidatorProvider.notifier);
     return Scaffold(
@@ -32,14 +32,14 @@ class QuizSetScreen extends HookConsumerWidget {
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.1,
           ),
-          CustomTextField(
-            title: "クイズID",
-            controller: idControllerProvider,
-            error: quizValidator.form.id.errorMessage,
-            onChanged: (quizId) {
-              quizValidatorNotifier.setQuizId(quizId);
-            },
-          ),
+          // CustomTextField(
+          //   title: "クイズID",
+          //   controller: idControllerProvider,
+          //   error: quizValidator.form.id.errorMessage,
+          //   onChanged: (quizId) {
+          //     quizValidatorNotifier.setQuizId(quizId);
+          //   },
+          // ),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.02,
           ),
@@ -65,22 +65,9 @@ class QuizSetScreen extends HookConsumerWidget {
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.02,
           ),
-          CustomTextField(
-            title: "カテゴリID",
-            controller: categoryIdControllerProvider,
-            error: quizValidator.form.categoryId.errorMessage,
-            onChanged: (quizCategoryId) {
-              quizValidatorNotifier.setQuizCategoryId(quizCategoryId);
-            },
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.02,
-          ),
           QuizSetButton(
-              id: int.parse(idControllerProvider.text),
-              title: titleControllerProvider.text,
-              description: descriptionControllerProvider.text,
-              categoryId: int.parse(categoryIdControllerProvider.text),
+            title: titleControllerProvider.text,
+            description: descriptionControllerProvider.text,
             category: category,
           ),
         ],

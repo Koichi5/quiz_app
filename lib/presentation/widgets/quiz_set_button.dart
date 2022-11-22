@@ -8,17 +8,14 @@ import '../controller/validator/quiz_validator_provider.dart';
 
 class QuizSetButton extends HookConsumerWidget {
   const QuizSetButton(
-      {required this.id,
+      {
       required this.title,
       required this.description,
-      required this.categoryId,
       required this.category,
       Key? key})
       : super(key: key);
-  final int id;
   final String title;
   final String description;
-  final int categoryId;
   final Category category;
 
   @override
@@ -38,14 +35,18 @@ class QuizSetButton extends HookConsumerWidget {
               final quiz = await ref
                   .watch(quizControllerProvider(category).notifier)
                   .addQuiz(
-                      id: id,
+                      category: category,
                       title: title,
                       description: description,
                       questionsShuffled: false,
                       imagePath: "",
-                      categoryId: categoryId);
-              Navigator.push(context, MaterialPageRoute(builder: (context) => QuestionSetScreen(quiz: quiz!,)));
-              // Navigator.pushNamed(context, '/question_set');
+                      categoryId: category.categoryId);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => QuestionSetScreen(
+                            quiz: quiz,
+                          )));
             }
           },
           child: const Text("クイズ登録"),

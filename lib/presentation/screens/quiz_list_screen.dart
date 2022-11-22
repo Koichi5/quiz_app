@@ -14,28 +14,33 @@ class QuizListScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final quizListState = ref.watch(quizControllerProvider(category));
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          quizListState.when(
-              data: (quizzes) => quizzes.isEmpty
-                  ? const Center(
-                child: Text("クイズはありません"),
-              )
-                  : ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: quizzes.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final quiz = quizzes[index];
-                  return QuizCard(quiz: quiz);
-                },
-              ),
-              error: (error, _) => const Text("エラー"),
-              loading: () => const Center(
-                child: CircularProgressIndicator(),
-              ))
-        ],
+    return Scaffold(
+      appBar: AppBar(),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            quizListState.when(
+                data: (quizzes) => quizzes.isEmpty
+                    ? const Center(
+                  child: Material(child: Text("クイズはありません")),
+                )
+                    : ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: quizzes.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final quiz = quizzes[index];
+                    return QuizCard(quiz: quiz);
+                  },
+                ),
+                error: (error, _) => const Text("エラー"),
+                loading: () => const Center(
+                  child: CircularProgressIndicator(),
+                ))
+          ],
+        ),
       ),
     );
   }
