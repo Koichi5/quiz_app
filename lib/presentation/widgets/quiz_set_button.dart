@@ -49,7 +49,14 @@ class QuizSetButton extends HookConsumerWidget {
                           )));
             }
           },
-          child: const Text("クイズ登録"),
+          child: Text(
+            "クイズ登録",
+            style: TextStyle(
+                color: ref.watch(quizValidatorProvider).form.isValid
+                    ? Theme.of(context).colorScheme.onPrimary
+                    : Theme.of(context).colorScheme.onSecondary
+            ),
+          ),
         ),
       ),
     );

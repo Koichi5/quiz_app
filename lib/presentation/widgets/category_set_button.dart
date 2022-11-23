@@ -7,7 +7,8 @@ import '../../domain/category/category.dart';
 import '../controller/category_controller.dart';
 
 class CategorySetButton extends HookConsumerWidget {
-  const CategorySetButton({required this.categoryId, required this.name, Key? key})
+  const CategorySetButton(
+      {required this.categoryId, required this.name, Key? key})
       : super(key: key);
   final String categoryId;
   final String name;
@@ -36,7 +37,14 @@ class CategorySetButton extends HookConsumerWidget {
               // Navigator.pushNamed(context, '/quiz_set');
             }
           },
-          child: const Text("カテゴリ登録"),
+          child: Text(
+            "カテゴリ登録",
+            style: TextStyle(
+                color: ref.watch(categoryValidatorProvider).form.isValid
+                    ? Theme.of(context).colorScheme.onPrimary
+                    : Theme.of(context).colorScheme.onSecondary
+            ),
+          ),
         ),
       ),
     );

@@ -18,10 +18,10 @@ import '../quiz_history/quiz_history.dart';
 
 abstract class BaseQuizRepository {
   // Future<List<Quiz>> retrieveQuizzes({required String userId});
-  Future<void> addCategory({required Category category});
-  Future<void> addQuiz({required Category category, required Quiz quiz});
-  Future<void> addQuestion({required Quiz quiz, required Question question});
-  Future<void> addOption({required Question question, required Option option});
+  Future<String> addCategory({required Category category});
+  Future<String> addQuiz({required Category category, required Quiz quiz});
+  Future<String> addQuestion({required Quiz quiz, required Question question});
+  Future<String> addOption({required Question question, required Option option});
   Future<List<Category>> retrieveCategoryList();
   Future<List<Quiz>> retrieveQuiz({required Category category});
   Future<List<Question>> retrieveQuestionList({required Quiz quiz});
@@ -94,17 +94,18 @@ class QuizRepository implements BaseQuizRepository {
       //     .doc(category.categoryDocRef)
       //     .collection("quiz")
       //     .add(quiz.toDocument());
+      await quizRef.add(quiz.toDocument());
       await quizRef.doc(quizDocRef).set(Quiz(
-              id: quiz.id,
-              categoryDocRef: quiz.categoryDocRef,
-              quizDocRef: quizDocRef,
-              title: quiz.title,
-              description: quiz.description,
-              questionsShuffled: quiz.questionsShuffled,
-              imagePath: quiz.imagePath,
-              categoryId: category.categoryId,
-              // questions: quiz.questions
-      ).toDocument());
+            id: quiz.id,
+            categoryDocRef: quiz.categoryDocRef,
+            quizDocRef: quizDocRef,
+            title: quiz.title,
+            description: quiz.description,
+            questionsShuffled: quiz.questionsShuffled,
+            imagePath: quiz.imagePath,
+            categoryId: category.categoryId,
+            // questions: quiz.questions
+          ).toDocument());
       return quizDocRef;
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message);
@@ -129,7 +130,16 @@ class QuizRepository implements BaseQuizRepository {
       //     .doc(quiz.quizDocRef)
       //     .collection("questions")
       //     .add(question.toDocument());
-      await _read(firebaseFirestoreProvider).collection("category").doc(quiz.categoryDocRef).collection("quiz").add(Question(text: question.text, duration: question.duration, optionsShuffled: false).toDocument());
+      await questionRef.add(question.toDocument());
+      await _read(firebaseFirestoreProvider)
+          .collection("category")
+          .doc(quiz.categoryDocRef)
+          .collection("quiz")
+          .add(Question(
+                  text: question.text,
+                  duration: question.duration,
+                  optionsShuffled: false)
+              .toDocument());
       await questionRef.doc(questionDocRef).set(Question(
               id: question.id,
               categoryDocRef: question.categoryDocRef,
@@ -147,7 +157,7 @@ class QuizRepository implements BaseQuizRepository {
   }
 
   @override
-  Future<void> addOption(
+  Future<String> addOption(
       {required Question question, required Option option}) async {
     try {
       final optionRef = _read(firebaseFirestoreProvider)
@@ -169,6 +179,7 @@ class QuizRepository implements BaseQuizRepository {
             text: option.text,
             isCorrect: option.isCorrect,
           ).toDocument());
+      return optionDocRef;
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message);
     }
@@ -176,7 +187,6 @@ class QuizRepository implements BaseQuizRepository {
 
   @override
   Future<List<Category>> retrieveCategoryList() async {
-    // List<Category> categoryList = [];
     try {
       final snap =
           await _read(firebaseFirestoreProvider).collection("category").get();

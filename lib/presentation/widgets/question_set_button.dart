@@ -54,7 +54,14 @@ class QuestionSetButton extends HookConsumerWidget {
               // Navigator.pushNamed(context, '/option_set');
             }
           },
-          child: const Text("問題登録"),
+          child: Text(
+              "問題登録",
+            style: TextStyle(
+                color: ref.watch(questionValidatorProvider).form.isValid
+                    ? Theme.of(context).colorScheme.onPrimary
+                    : Theme.of(context).colorScheme.onSecondary
+            ),
+          ),
         ),
       ),
     );

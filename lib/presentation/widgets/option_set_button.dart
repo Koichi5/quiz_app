@@ -33,10 +33,16 @@ class OptionSetButton extends HookConsumerWidget {
                 text: text,
                 isCorrect: isCorrect,
               );
-              Navigator.pushNamed(context, '/option_set');
+              Navigator.pop(context);
             }
           },
-          child: const Text("選択肢登録"),
+          child: Text(
+              "選択肢登録",
+            style: TextStyle(
+                color: ref.watch(optionValidatorProvider).form.isValid
+                    ? Theme.of(context).colorScheme.onPrimary
+                    : Theme.of(context).colorScheme.onSecondary),
+          ),
         ),
       ),
     );
