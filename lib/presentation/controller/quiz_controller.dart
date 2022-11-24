@@ -28,19 +28,22 @@ class QuizController extends StateNotifier<AsyncValue<List<Quiz>>> {
     }
   }
 
-  Future<void> retrieveQuiz({required Category category}) async {
+  Future<List<Quiz>> retrieveQuiz({required Category category}) async {
     try {
       final quiz = await _reader(quizRepositoryProvider)
           .retrieveQuiz(category: category);
       if (mounted) {
         state = AsyncValue.data(quiz);
       }
+      return quiz;
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message);
     }
   }
 
-  Future<Quiz> addQuiz({
+  // Future<Quiz> retrieveQuizById({})
+
+  Future<String> addQuiz({
     String? id,
     required String title,
     required String description,
@@ -63,7 +66,7 @@ class QuizController extends StateNotifier<AsyncValue<List<Quiz>>> {
         .addQuiz(category: category, quiz: quiz);
     state.whenData((quizList) =>
         state = AsyncValue.data(quizList..add(quiz.copyWith(id: quizDocRef))));
-    return quiz;
+    return quizDocRef;
   }
 }
 

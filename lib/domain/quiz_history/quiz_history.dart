@@ -11,18 +11,17 @@ abstract class QuizHistory implements _$QuizHistory {
   QuizHistory._();
 
   factory QuizHistory({
-    required String id,
-    @Default(0) int quizId,
-    @Default(0) int categoryId,
-    @Default("") String quizTitle,
-    @Default("") String score,
-    @Default("") String timeTaken,
+    String? id,
+    @Default(0) required int quizId,
+    @Default(0) required int categoryId,
+    @Default("") required String quizTitle,
+    @Default("") required String score,
+    @Default("") required String timeTaken,
     required DateTime quizDate,
-    @Default("") String status,
+    @Default("") required String status,
   }) = _QuizHistory;
 
   factory QuizHistory.empty() => QuizHistory(
-    id: "",
     quizId: 0,
     categoryId: 0,
     quizTitle: "",

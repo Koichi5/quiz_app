@@ -21,11 +21,16 @@ abstract class BaseQuizRepository {
   Future<String> addCategory({required Category category});
   Future<String> addQuiz({required Category category, required Quiz quiz});
   Future<String> addQuestion({required Quiz quiz, required Question question});
-  Future<String> addOption({required Question question, required Option option});
+  Future<String> addOption(
+      {required Question question, required Option option});
+  Future<String> addQuizHistory(
+      {required User user, required QuizHistory quizHistory});
   Future<List<Category>> retrieveCategoryList();
+  Future<List<Category>> retrieveCategoryById({required Quiz quiz});
   Future<List<Quiz>> retrieveQuiz({required Category category});
   Future<List<Question>> retrieveQuestionList({required Quiz quiz});
   Future<List<Option>> retrieveOptionList({required Question question});
+  Future<List<QuizHistory>> retrieveQuizHistory();
   Future<List<Quiz>> retrieveQuizListByCategory({required int categoryId});
   Future<String> addFavoriteQuiz({required String userId, required Quiz quiz});
   Future<void> updateQuiz({required String userId, required Quiz quiz});
@@ -186,10 +191,50 @@ class QuizRepository implements BaseQuizRepository {
   }
 
   @override
+  Future<String> addQuizHistory(
+      {required User user, required QuizHistory quizHistory}) async {
+    try {
+      final quizHistoryRef = _read(firebaseFirestoreProvider)
+          .collection("user")
+          .doc(user.uid)
+          .collection("quizHistory");
+      final quizHistoryDocRef = quizHistoryRef.doc().id;
+      await quizHistoryRef.add(quizHistory.toDocument());
+      await quizHistoryRef.doc(quizHistoryDocRef).set(QuizHistory(
+            id: quizHistory.id,
+            quizId: quizHistory.quizId,
+            categoryId: quizHistory.categoryId,
+            quizTitle: quizHistory.quizTitle,
+            score: quizHistory.score,
+            timeTaken: quizHistory.timeTaken,
+            quizDate: quizHistory.quizDate,
+            status: quizHistory.status,
+          ).toDocument());
+      return quizHistoryDocRef;
+    } on FirebaseException catch (e) {
+      throw CustomException(message: e.message);
+    }
+  }
+
+  @override
   Future<List<Category>> retrieveCategoryList() async {
     try {
       final snap =
           await _read(firebaseFirestoreProvider).collection("category").get();
+      return snap.docs.map((doc) => Category.fromDocument(doc)).toList();
+    } on FirebaseException catch (e) {
+      throw CustomException(message: e.message);
+    }
+  }
+
+  @override
+  Future<List<Category>> retrieveCategoryById({required Quiz quiz}) async {
+    try {
+      final snap = await _read(firebaseFirestoreProvider)
+          .collection("category")
+          .doc(quiz.categoryDocRef)
+          .collection("quiz")
+          .get();
       return snap.docs.map((doc) => Category.fromDocument(doc)).toList();
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message);
@@ -239,6 +284,21 @@ class QuizRepository implements BaseQuizRepository {
           .collection("options")
           .get();
       return snap.docs.map((doc) => Option.fromDocument(doc)).toList();
+    } on FirebaseException catch (e) {
+      throw CustomException(message: e.message);
+    }
+  }
+
+  @override
+  Future<List<QuizHistory>> retrieveQuizHistory() async {
+    final User? currentUser = _read(firebaseAuthProvider).currentUser;
+    try {
+      final snap = await _read(firebaseFirestoreProvider)
+          .collection("user")
+          .doc(currentUser!.uid)
+          .collection("quizHistory")
+          .get();
+      return snap.docs.map((doc) => QuizHistory.fromDocument(doc)).toList();
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message);
     }
@@ -317,21 +377,6 @@ class QuizRepository implements BaseQuizRepository {
           .collection("questions")
           .get();
       return snap.docs.map((doc) => Quiz.fromDocument(doc)).toList();
-    } on FirebaseException catch (e) {
-      throw CustomException(message: e.message);
-    }
-  }
-
-  @override
-  Future<List<QuizHistory>> retrieveQuizHistory() async {
-    final User? currentUser = _read(firebaseAuthProvider).currentUser;
-    try {
-      final snap = await _read(firebaseFirestoreProvider)
-          .collection("user")
-          .doc(currentUser!.uid)
-          .collection("quizHistory")
-          .get();
-      return snap.docs.map((doc) => QuizHistory.fromDocument(doc)).toList();
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message);
     }

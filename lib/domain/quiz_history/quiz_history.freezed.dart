@@ -20,7 +20,7 @@ QuizHistory _$QuizHistoryFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$QuizHistory {
-  String get id => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
   int get quizId => throw _privateConstructorUsedError;
   int get categoryId => throw _privateConstructorUsedError;
   String get quizTitle => throw _privateConstructorUsedError;
@@ -42,7 +42,7 @@ abstract class $QuizHistoryCopyWith<$Res> {
       _$QuizHistoryCopyWithImpl<$Res, QuizHistory>;
   @useResult
   $Res call(
-      {String id,
+      {String? id,
       int quizId,
       int categoryId,
       String quizTitle,
@@ -65,7 +65,7 @@ class _$QuizHistoryCopyWithImpl<$Res, $Val extends QuizHistory>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? quizId = null,
     Object? categoryId = null,
     Object? quizTitle = null,
@@ -75,10 +75,10 @@ class _$QuizHistoryCopyWithImpl<$Res, $Val extends QuizHistory>
     Object? status = null,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       quizId: null == quizId
           ? _value.quizId
           : quizId // ignore: cast_nullable_to_non_nullable
@@ -120,7 +120,7 @@ abstract class _$$_QuizHistoryCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String id,
+      {String? id,
       int quizId,
       int categoryId,
       String quizTitle,
@@ -141,7 +141,7 @@ class __$$_QuizHistoryCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? quizId = null,
     Object? categoryId = null,
     Object? quizTitle = null,
@@ -151,10 +151,10 @@ class __$$_QuizHistoryCopyWithImpl<$Res>
     Object? status = null,
   }) {
     return _then(_$_QuizHistory(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       quizId: null == quizId
           ? _value.quizId
           : quizId // ignore: cast_nullable_to_non_nullable
@@ -191,7 +191,7 @@ class __$$_QuizHistoryCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_QuizHistory extends _QuizHistory {
   _$_QuizHistory(
-      {required this.id,
+      {this.id,
       this.quizId = 0,
       this.categoryId = 0,
       this.quizTitle = "",
@@ -205,7 +205,7 @@ class _$_QuizHistory extends _QuizHistory {
       _$$_QuizHistoryFromJson(json);
 
   @override
-  final String id;
+  final String? id;
   @override
   @JsonKey()
   final int quizId;
@@ -272,7 +272,7 @@ class _$_QuizHistory extends _QuizHistory {
 
 abstract class _QuizHistory extends QuizHistory {
   factory _QuizHistory(
-      {required final String id,
+      {final String? id,
       final int quizId,
       final int categoryId,
       final String quizTitle,
@@ -286,7 +286,7 @@ abstract class _QuizHistory extends QuizHistory {
       _$_QuizHistory.fromJson;
 
   @override
-  String get id;
+  String? get id;
   @override
   int get quizId;
   @override

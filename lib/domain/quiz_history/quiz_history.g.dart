@@ -8,7 +8,7 @@ part of 'quiz_history.dart';
 
 _$_QuizHistory _$$_QuizHistoryFromJson(Map<String, dynamic> json) =>
     _$_QuizHistory(
-      id: json['id'] as String,
+      id: json['id'] as String?,
       quizId: json['quizId'] as int? ?? 0,
       categoryId: json['categoryId'] as int? ?? 0,
       quizTitle: json['quizTitle'] as String? ?? "",

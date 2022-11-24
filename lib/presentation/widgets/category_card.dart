@@ -17,11 +17,13 @@ class CategoryCard extends HookConsumerWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => QuizListScreen(category: category,)));
+                builder: (context) => QuizListScreen(category: category,)
+            )
+        );
       },
       child: Card(
         key: ValueKey(category.id),
-        color: Theme.of(context).colorScheme.primary,
+        // color: Theme.of(context).colorScheme.primary,
         child: SizedBox(
           width: double.infinity,
           child: Column(
@@ -44,10 +46,11 @@ class CategoryCard extends HookConsumerWidget {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         category.name,
-                        style: const TextStyle(fontSize: 20),
+                        // style: const TextStyle(fontSize: 20),
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
-                      )),
+                      ),
+                  ),
                 ),
               ),
             ],

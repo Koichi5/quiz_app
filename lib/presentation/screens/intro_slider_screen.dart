@@ -37,9 +37,9 @@ class IntroSliderScreen extends ConsumerWidget {
                 centerWidget: Lottie.asset("assets/intro_slider1.json",
                     width: MediaQuery.of(context).size.width * 0.9,
                     height: MediaQuery.of(context).size.height * 0.3),
-                styleTitle: TextStyle(color: Colors.cyan, fontSize: 20),
+                styleTitle: const TextStyle(color: Colors.cyan, fontSize: 20),
                 description: "IQ でこれからの時代の常識を身につけましょう！",
-                styleDescription: TextStyle(color: Colors.cyan, fontSize: 20),
+                styleDescription: const TextStyle(color: Colors.cyan, fontSize: 20),
                 backgroundColor: Colors.white,
               ),
             );
@@ -52,7 +52,7 @@ class IntroSliderScreen extends ConsumerWidget {
                       height: MediaQuery.of(context).size.height * 0.3),
                   styleTitle: const TextStyle(color: Colors.cyan, fontSize: 30),
                   description: "問題を作成してアプリをカスタマイズしましょう",
-                  styleDescription: TextStyle(color: Colors.cyan, fontSize: 20),
+                  styleDescription: const TextStyle(color: Colors.cyan, fontSize: 20),
                   backgroundColor: Colors.white),
             );
             sliderListNotifier.state.add(
@@ -129,7 +129,6 @@ class IntroSliderExampleSlidePage extends ConsumerWidget {
   Widget renderDoneBtn(BuildContext context) {
     return TextButton(
         onPressed: () {
-          print("チュートリアル終了");
           Navigator.pushNamed(context, "/signup");
         },
         child: const Text("終了"));

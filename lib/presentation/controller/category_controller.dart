@@ -6,6 +6,7 @@ import 'package:quiz_app/general/custom_exception.dart';
 import 'package:quiz_app/presentation/controller/auth_controller.dart';
 
 import '../../domain/category/category.dart';
+import '../../domain/quiz/quiz.dart';
 
 final categoryExceptionProvider = StateProvider<CustomException?>((_) => null);
 
@@ -32,6 +33,17 @@ class CategoryController extends StateNotifier<AsyncValue<List<Category>>> {
           await _reader(quizRepositoryProvider).retrieveCategoryList();
       if (mounted) {
         state = AsyncValue.data(categoryList);
+      }
+    } on FirebaseException catch (e) {
+      throw CustomException(message: e.message);
+    }
+  }
+
+  Future<void> retrieveCategoryById({required Quiz quiz}) async {
+    try {
+      final category = await _reader(quizRepositoryProvider).retrieveCategoryById(quiz: quiz);
+      if (mounted) {
+        state = AsyncValue.data(category);
       }
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message);
