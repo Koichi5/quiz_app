@@ -249,13 +249,13 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
     progressTimer!.cancel();
     ref
         .watch(categoryControllerProvider.notifier)
-        .retrieveCategoryById(quiz: quiz)
+        .retrieveCategoryById(quizCategoryDocRef: quiz.categoryDocRef!)
         .then((category) => ref
             .read(quizHistoryControllerProvider.notifier)
             .addQuizHistory(
                 user: ref.watch(firebaseAuthProvider).currentUser!,
-                quizId: quiz.categoryId,
-                categoryId: quiz.categoryId,
+                quizDocRef: quiz.quizDocRef!,
+                categoryDocRef: quiz.categoryDocRef!,
                 quizTitle: quiz.title,
                 score: "$total/${quiz.questions!.length}",
                 timeTaken: "${takenTime.inMinutes}分${takenTime.inSeconds}秒",

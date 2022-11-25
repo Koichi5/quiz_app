@@ -43,7 +43,7 @@ class QuizController extends StateNotifier<AsyncValue<List<Quiz>>> {
 
   // Future<Quiz> retrieveQuizById({})
 
-  Future<String> addQuiz({
+  Future<Quiz> addQuiz({
     String? id,
     required String title,
     required String description,
@@ -66,7 +66,7 @@ class QuizController extends StateNotifier<AsyncValue<List<Quiz>>> {
         .addQuiz(category: category, quiz: quiz);
     state.whenData((quizList) =>
         state = AsyncValue.data(quizList..add(quiz.copyWith(id: quizDocRef))));
-    return quizDocRef;
+    return quiz;
   }
 }
 

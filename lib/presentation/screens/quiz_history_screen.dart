@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:quiz_app/presentation/controller/category_controller.dart';
 import 'package:quiz_app/presentation/controller/quiz_controller.dart';
 import 'package:quiz_app/presentation/controller/quiz_history_controller.dart';
 import 'package:quiz_app/presentation/screens/quiz_screen.dart';
@@ -65,7 +66,7 @@ class _QuizHistoryScreenState extends State<QuizHistoryScreen> {
     );
   }
 
-  Widget quizHistoryViewItem(QuizHistory quiz) {
+  Widget quizHistoryViewItem(QuizHistory quizHistory) {
     return Container(
         margin: EdgeInsets.only(top: 20),
         padding: EdgeInsets.all(10),
@@ -87,16 +88,16 @@ class _QuizHistoryScreenState extends State<QuizHistoryScreen> {
             Expanded(
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Text(
-                  quiz.quizTitle.isEmpty ? "Question" : quiz.quizTitle,
+                  quizHistory.quizTitle.isEmpty ? "Question" : quizHistory.quizTitle,
                   style: TextStyle(fontSize: 24),
                 ),
-                Text("Score: ${quiz.score}",
+                Text("Score: ${quizHistory.score}",
                     style: TextStyle(
                         // color: ThemeHelper.accentColor,
                         fontSize: 18)),
-                Text("Time Taken: ${quiz.timeTaken}"),
+                Text("Time Taken: ${quizHistory.timeTaken}"),
                 Text(
-                    "Date: ${quiz.quizDate.year}-${quiz.quizDate.month}-${quiz.quizDate.day} ${quiz.quizDate.hour}:${quiz.quizDate.minute}"),
+                    "Date: ${quizHistory.quizDate.year}-${quizHistory.quizDate.month}-${quizHistory.quizDate.day} ${quizHistory.quizDate.hour}:${quizHistory.quizDate.minute}"),
               ]),
             ),
             Column(
@@ -106,15 +107,20 @@ class _QuizHistoryScreenState extends State<QuizHistoryScreen> {
                 ),
                 ElevatedButton(
                     onPressed: () {
-                      reader(quizControllerProvider)
-                      store.getQuizByIdAsync(quiz.quizId, quiz.categoryId).then((value) {
+                      reader(categoryControllerProvider.notifier).retrieveCategoryById(quizCategoryDocRef: quizHistory.categoryDocRef).then((value) {
                         if (value != null) {
                           Navigator.pushReplacementNamed(context, QuizScreen.routeName,
                               arguments: value);
-                        } else {}
+                        }
                       });
+                      // store.getQuizByIdAsync(quizHistory.quizId, quizHistory.categoryId).then((value) {
+                      //   if (value != null) {
+                      //     Navigator.pushReplacementNamed(context, QuizScreen.routeName,
+                      //         arguments: value);
+                      //   } else {}
+                      // });
                     },
-                    child: Text("Start Again")),
+                    child: const Text("Start Again")),
               ],
             )
           ],

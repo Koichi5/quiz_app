@@ -39,12 +39,13 @@ class CategoryController extends StateNotifier<AsyncValue<List<Category>>> {
     }
   }
 
-  Future<void> retrieveCategoryById({required Quiz quiz}) async {
+  Future<List<Category>> retrieveCategoryById({required String quizCategoryDocRef}) async {
     try {
-      final category = await _reader(quizRepositoryProvider).retrieveCategoryById(quiz: quiz);
+      final category = await _reader(quizRepositoryProvider).retrieveCategoryById(quizCategoryDocRef: quizCategoryDocRef);
       if (mounted) {
         state = AsyncValue.data(category);
       }
+      return category;
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message);
     }

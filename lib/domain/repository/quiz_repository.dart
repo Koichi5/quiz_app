@@ -26,7 +26,7 @@ abstract class BaseQuizRepository {
   Future<String> addQuizHistory(
       {required User user, required QuizHistory quizHistory});
   Future<List<Category>> retrieveCategoryList();
-  Future<List<Category>> retrieveCategoryById({required Quiz quiz});
+  Future<List<Category>> retrieveCategoryById({required String quizCategoryDocRef});
   Future<List<Quiz>> retrieveQuiz({required Category category});
   Future<List<Question>> retrieveQuestionList({required Quiz quiz});
   Future<List<Option>> retrieveOptionList({required Question question});
@@ -202,8 +202,8 @@ class QuizRepository implements BaseQuizRepository {
       await quizHistoryRef.add(quizHistory.toDocument());
       await quizHistoryRef.doc(quizHistoryDocRef).set(QuizHistory(
             id: quizHistory.id,
-            quizId: quizHistory.quizId,
-            categoryId: quizHistory.categoryId,
+            quizDocRef: quizHistory.quizDocRef,
+            categoryDocRef: quizHistory.categoryDocRef,
             quizTitle: quizHistory.quizTitle,
             score: quizHistory.score,
             timeTaken: quizHistory.timeTaken,
@@ -228,11 +228,11 @@ class QuizRepository implements BaseQuizRepository {
   }
 
   @override
-  Future<List<Category>> retrieveCategoryById({required Quiz quiz}) async {
+  Future<List<Category>> retrieveCategoryById({required String quizCategoryDocRef}) async {
     try {
       final snap = await _read(firebaseFirestoreProvider)
           .collection("category")
-          .doc(quiz.categoryDocRef)
+          .doc(quizCategoryDocRef)
           .collection("quiz")
           .get();
       return snap.docs.map((doc) => Category.fromDocument(doc)).toList();

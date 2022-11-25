@@ -20,9 +20,11 @@ QuizHistory _$QuizHistoryFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$QuizHistory {
-  String? get id => throw _privateConstructorUsedError;
-  int get quizId => throw _privateConstructorUsedError;
-  int get categoryId => throw _privateConstructorUsedError;
+  String? get id =>
+      throw _privateConstructorUsedError; // @Default(0) required int quizId,
+// @Default(0) required int categoryId,
+  String get categoryDocRef => throw _privateConstructorUsedError;
+  String get quizDocRef => throw _privateConstructorUsedError;
   String get quizTitle => throw _privateConstructorUsedError;
   String get score => throw _privateConstructorUsedError;
   String get timeTaken => throw _privateConstructorUsedError;
@@ -43,8 +45,8 @@ abstract class $QuizHistoryCopyWith<$Res> {
   @useResult
   $Res call(
       {String? id,
-      int quizId,
-      int categoryId,
+      String categoryDocRef,
+      String quizDocRef,
       String quizTitle,
       String score,
       String timeTaken,
@@ -66,8 +68,8 @@ class _$QuizHistoryCopyWithImpl<$Res, $Val extends QuizHistory>
   @override
   $Res call({
     Object? id = freezed,
-    Object? quizId = null,
-    Object? categoryId = null,
+    Object? categoryDocRef = null,
+    Object? quizDocRef = null,
     Object? quizTitle = null,
     Object? score = null,
     Object? timeTaken = null,
@@ -79,14 +81,14 @@ class _$QuizHistoryCopyWithImpl<$Res, $Val extends QuizHistory>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
-      quizId: null == quizId
-          ? _value.quizId
-          : quizId // ignore: cast_nullable_to_non_nullable
-              as int,
-      categoryId: null == categoryId
-          ? _value.categoryId
-          : categoryId // ignore: cast_nullable_to_non_nullable
-              as int,
+      categoryDocRef: null == categoryDocRef
+          ? _value.categoryDocRef
+          : categoryDocRef // ignore: cast_nullable_to_non_nullable
+              as String,
+      quizDocRef: null == quizDocRef
+          ? _value.quizDocRef
+          : quizDocRef // ignore: cast_nullable_to_non_nullable
+              as String,
       quizTitle: null == quizTitle
           ? _value.quizTitle
           : quizTitle // ignore: cast_nullable_to_non_nullable
@@ -121,8 +123,8 @@ abstract class _$$_QuizHistoryCopyWith<$Res>
   @useResult
   $Res call(
       {String? id,
-      int quizId,
-      int categoryId,
+      String categoryDocRef,
+      String quizDocRef,
       String quizTitle,
       String score,
       String timeTaken,
@@ -142,8 +144,8 @@ class __$$_QuizHistoryCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? quizId = null,
-    Object? categoryId = null,
+    Object? categoryDocRef = null,
+    Object? quizDocRef = null,
     Object? quizTitle = null,
     Object? score = null,
     Object? timeTaken = null,
@@ -155,14 +157,14 @@ class __$$_QuizHistoryCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
-      quizId: null == quizId
-          ? _value.quizId
-          : quizId // ignore: cast_nullable_to_non_nullable
-              as int,
-      categoryId: null == categoryId
-          ? _value.categoryId
-          : categoryId // ignore: cast_nullable_to_non_nullable
-              as int,
+      categoryDocRef: null == categoryDocRef
+          ? _value.categoryDocRef
+          : categoryDocRef // ignore: cast_nullable_to_non_nullable
+              as String,
+      quizDocRef: null == quizDocRef
+          ? _value.quizDocRef
+          : quizDocRef // ignore: cast_nullable_to_non_nullable
+              as String,
       quizTitle: null == quizTitle
           ? _value.quizTitle
           : quizTitle // ignore: cast_nullable_to_non_nullable
@@ -192,13 +194,13 @@ class __$$_QuizHistoryCopyWithImpl<$Res>
 class _$_QuizHistory extends _QuizHistory {
   _$_QuizHistory(
       {this.id,
-      this.quizId = 0,
-      this.categoryId = 0,
-      this.quizTitle = "",
-      this.score = "",
-      this.timeTaken = "",
+      required this.categoryDocRef,
+      required this.quizDocRef,
+      required this.quizTitle,
+      required this.score,
+      required this.timeTaken,
       required this.quizDate,
-      this.status = ""})
+      required this.status})
       : super._();
 
   factory _$_QuizHistory.fromJson(Map<String, dynamic> json) =>
@@ -206,30 +208,26 @@ class _$_QuizHistory extends _QuizHistory {
 
   @override
   final String? id;
+// @Default(0) required int quizId,
+// @Default(0) required int categoryId,
   @override
-  @JsonKey()
-  final int quizId;
+  final String categoryDocRef;
   @override
-  @JsonKey()
-  final int categoryId;
+  final String quizDocRef;
   @override
-  @JsonKey()
   final String quizTitle;
   @override
-  @JsonKey()
   final String score;
   @override
-  @JsonKey()
   final String timeTaken;
   @override
   final DateTime quizDate;
   @override
-  @JsonKey()
   final String status;
 
   @override
   String toString() {
-    return 'QuizHistory(id: $id, quizId: $quizId, categoryId: $categoryId, quizTitle: $quizTitle, score: $score, timeTaken: $timeTaken, quizDate: $quizDate, status: $status)';
+    return 'QuizHistory(id: $id, categoryDocRef: $categoryDocRef, quizDocRef: $quizDocRef, quizTitle: $quizTitle, score: $score, timeTaken: $timeTaken, quizDate: $quizDate, status: $status)';
   }
 
   @override
@@ -238,9 +236,10 @@ class _$_QuizHistory extends _QuizHistory {
         (other.runtimeType == runtimeType &&
             other is _$_QuizHistory &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.quizId, quizId) || other.quizId == quizId) &&
-            (identical(other.categoryId, categoryId) ||
-                other.categoryId == categoryId) &&
+            (identical(other.categoryDocRef, categoryDocRef) ||
+                other.categoryDocRef == categoryDocRef) &&
+            (identical(other.quizDocRef, quizDocRef) ||
+                other.quizDocRef == quizDocRef) &&
             (identical(other.quizTitle, quizTitle) ||
                 other.quizTitle == quizTitle) &&
             (identical(other.score, score) || other.score == score) &&
@@ -253,7 +252,7 @@ class _$_QuizHistory extends _QuizHistory {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, quizId, categoryId,
+  int get hashCode => Object.hash(runtimeType, id, categoryDocRef, quizDocRef,
       quizTitle, score, timeTaken, quizDate, status);
 
   @JsonKey(ignore: true)
@@ -273,13 +272,13 @@ class _$_QuizHistory extends _QuizHistory {
 abstract class _QuizHistory extends QuizHistory {
   factory _QuizHistory(
       {final String? id,
-      final int quizId,
-      final int categoryId,
-      final String quizTitle,
-      final String score,
-      final String timeTaken,
+      required final String categoryDocRef,
+      required final String quizDocRef,
+      required final String quizTitle,
+      required final String score,
+      required final String timeTaken,
       required final DateTime quizDate,
-      final String status}) = _$_QuizHistory;
+      required final String status}) = _$_QuizHistory;
   _QuizHistory._() : super._();
 
   factory _QuizHistory.fromJson(Map<String, dynamic> json) =
@@ -287,10 +286,11 @@ abstract class _QuizHistory extends QuizHistory {
 
   @override
   String? get id;
+  @override // @Default(0) required int quizId,
+// @Default(0) required int categoryId,
+  String get categoryDocRef;
   @override
-  int get quizId;
-  @override
-  int get categoryId;
+  String get quizDocRef;
   @override
   String get quizTitle;
   @override

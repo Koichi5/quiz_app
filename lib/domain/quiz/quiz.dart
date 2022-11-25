@@ -13,6 +13,7 @@ abstract class Quiz implements _$Quiz {
   const factory Quiz({
     String? id,
     required int categoryId,
+    // required int quizId,
     String? categoryDocRef,
     String? quizDocRef,
     required String title,
@@ -25,11 +26,12 @@ abstract class Quiz implements _$Quiz {
   factory Quiz.empty() => const Quiz(
         // categoryDocRef: "",
         // quizDocRef: "",
+        categoryId: 0,
+        // quizId: 0,
         title: "",
         description: "",
         questionsShuffled: false,
         // imagePath: "",
-        categoryId: 0,
       );
 
   factory Quiz.fromJson(json) => _$QuizFromJson(json);

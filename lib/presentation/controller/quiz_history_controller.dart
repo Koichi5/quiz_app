@@ -46,16 +46,16 @@ class QuizHistoryController
 
   Future<String> addQuizHistory(
       {required User user,
-      required int quizId,
-      required int categoryId,
+      required String quizDocRef,
+      required String categoryDocRef,
       required String quizTitle,
       required String score,
       required String timeTaken,
       required DateTime quizDate,
       required String status}) async {
     final quizHistory = QuizHistory(
-        quizId: quizId,
-        categoryId: categoryId,
+        quizDocRef: quizDocRef,
+        categoryDocRef: categoryDocRef,
         quizTitle: quizTitle,
         score: score,
         timeTaken: timeTaken,

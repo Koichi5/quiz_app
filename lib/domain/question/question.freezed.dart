@@ -23,7 +23,10 @@ mixin _$Question {
   String? get id => throw _privateConstructorUsedError;
   String? get categoryDocRef => throw _privateConstructorUsedError;
   String? get quizDocRef => throw _privateConstructorUsedError;
-  String? get questionDocRef => throw _privateConstructorUsedError;
+  String? get questionDocRef =>
+      throw _privateConstructorUsedError; // required int categoryId,
+// required int quizId,
+// required int questionId,
   String get text => throw _privateConstructorUsedError;
   int get duration => throw _privateConstructorUsedError;
   bool get optionsShuffled => throw _privateConstructorUsedError;
@@ -211,6 +214,9 @@ class _$_Question extends _Question {
   final String? quizDocRef;
   @override
   final String? questionDocRef;
+// required int categoryId,
+// required int quizId,
+// required int questionId,
   @override
   final String text;
   @override
@@ -300,7 +306,9 @@ abstract class _Question extends Question {
   String? get quizDocRef;
   @override
   String? get questionDocRef;
-  @override
+  @override // required int categoryId,
+// required int quizId,
+// required int questionId,
   String get text;
   @override
   int get duration;

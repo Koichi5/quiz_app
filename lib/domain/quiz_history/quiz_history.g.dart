@@ -9,20 +9,20 @@ part of 'quiz_history.dart';
 _$_QuizHistory _$$_QuizHistoryFromJson(Map<String, dynamic> json) =>
     _$_QuizHistory(
       id: json['id'] as String?,
-      quizId: json['quizId'] as int? ?? 0,
-      categoryId: json['categoryId'] as int? ?? 0,
-      quizTitle: json['quizTitle'] as String? ?? "",
-      score: json['score'] as String? ?? "",
-      timeTaken: json['timeTaken'] as String? ?? "",
+      categoryDocRef: json['categoryDocRef'] as String,
+      quizDocRef: json['quizDocRef'] as String,
+      quizTitle: json['quizTitle'] as String,
+      score: json['score'] as String,
+      timeTaken: json['timeTaken'] as String,
       quizDate: DateTime.parse(json['quizDate'] as String),
-      status: json['status'] as String? ?? "",
+      status: json['status'] as String,
     );
 
 Map<String, dynamic> _$$_QuizHistoryToJson(_$_QuizHistory instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'quizId': instance.quizId,
-      'categoryId': instance.categoryId,
+      'categoryDocRef': instance.categoryDocRef,
+      'quizDocRef': instance.quizDocRef,
       'quizTitle': instance.quizTitle,
       'score': instance.score,
       'timeTaken': instance.timeTaken,
