@@ -88,7 +88,7 @@ class QuizEngine {
 
   void updateAnswer(int questionIndex, int answer) {
     var question = quiz.questions![questionIndex];
-    questionAnswer[questionIndex] = question.options![answer].isCorrect;
+    // questionAnswer[questionIndex] = question.options![answer].isCorrect;
   }
 
   Question? _nextQuestion(Quiz quiz, int index) {

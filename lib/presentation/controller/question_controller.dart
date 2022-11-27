@@ -6,6 +6,7 @@ import 'package:quiz_app/general/custom_exception.dart';
 import 'package:quiz_app/presentation/controller/auth_controller.dart';
 
 import '../../domain/question/question.dart';
+import '../../domain/repository/question_repository.dart';
 
 final questionExceptionProvider = StateProvider<CustomException?>((_) => null);
 
@@ -30,7 +31,7 @@ class QuestionController extends StateNotifier<AsyncValue<List<Question>>> {
 
   Future<void> retrieveQuestionList({required Quiz quiz}) async {
     try {
-      final questionList = await _reader(quizRepositoryProvider)
+      final questionList = await _reader(questionRepositoryProvider)
           .retrieveQuestionList(quiz: quiz);
       if (mounted) {
         state = AsyncValue.data(questionList);
@@ -51,12 +52,11 @@ class QuestionController extends StateNotifier<AsyncValue<List<Question>>> {
         id: id,
         text: text,
         duration: duration,
-        optionsShuffled: optionsShuffled,
-        options: []);
-    final questionDocRef = await _reader(quizRepositoryProvider)
+        optionsShuffled: optionsShuffled,);
+    final questionDocRef = await _reader(questionRepositoryProvider)
         .addQuestion(quiz: quiz, question: question);
     state.whenData((questionList) => state = AsyncValue.data(
-        questionList..add(question.copyWith(id: questionDocRef))));
+        questionList..add(question.copyWith(id: questionDocRef.id))));
     return question;
   }
 }

@@ -23,7 +23,8 @@ mixin _$Question {
   String? get id => throw _privateConstructorUsedError;
   String? get categoryDocRef => throw _privateConstructorUsedError;
   String? get quizDocRef => throw _privateConstructorUsedError;
-  String? get questionDocRef =>
+  String? get questionDocRef => throw _privateConstructorUsedError;
+  String? get optionDocRef =>
       throw _privateConstructorUsedError; // required int categoryId,
 // required int quizId,
 // required int questionId,
@@ -48,6 +49,7 @@ abstract class $QuestionCopyWith<$Res> {
       String? categoryDocRef,
       String? quizDocRef,
       String? questionDocRef,
+      String? optionDocRef,
       String text,
       int duration,
       bool optionsShuffled,
@@ -71,6 +73,7 @@ class _$QuestionCopyWithImpl<$Res, $Val extends Question>
     Object? categoryDocRef = freezed,
     Object? quizDocRef = freezed,
     Object? questionDocRef = freezed,
+    Object? optionDocRef = freezed,
     Object? text = null,
     Object? duration = null,
     Object? optionsShuffled = null,
@@ -92,6 +95,10 @@ class _$QuestionCopyWithImpl<$Res, $Val extends Question>
       questionDocRef: freezed == questionDocRef
           ? _value.questionDocRef
           : questionDocRef // ignore: cast_nullable_to_non_nullable
+              as String?,
+      optionDocRef: freezed == optionDocRef
+          ? _value.optionDocRef
+          : optionDocRef // ignore: cast_nullable_to_non_nullable
               as String?,
       text: null == text
           ? _value.text
@@ -125,6 +132,7 @@ abstract class _$$_QuestionCopyWith<$Res> implements $QuestionCopyWith<$Res> {
       String? categoryDocRef,
       String? quizDocRef,
       String? questionDocRef,
+      String? optionDocRef,
       String text,
       int duration,
       bool optionsShuffled,
@@ -146,6 +154,7 @@ class __$$_QuestionCopyWithImpl<$Res>
     Object? categoryDocRef = freezed,
     Object? quizDocRef = freezed,
     Object? questionDocRef = freezed,
+    Object? optionDocRef = freezed,
     Object? text = null,
     Object? duration = null,
     Object? optionsShuffled = null,
@@ -167,6 +176,10 @@ class __$$_QuestionCopyWithImpl<$Res>
       questionDocRef: freezed == questionDocRef
           ? _value.questionDocRef
           : questionDocRef // ignore: cast_nullable_to_non_nullable
+              as String?,
+      optionDocRef: freezed == optionDocRef
+          ? _value.optionDocRef
+          : optionDocRef // ignore: cast_nullable_to_non_nullable
               as String?,
       text: null == text
           ? _value.text
@@ -196,6 +209,7 @@ class _$_Question extends _Question {
       this.categoryDocRef,
       this.quizDocRef,
       this.questionDocRef,
+      this.optionDocRef,
       required this.text,
       required this.duration,
       required this.optionsShuffled,
@@ -214,6 +228,8 @@ class _$_Question extends _Question {
   final String? quizDocRef;
   @override
   final String? questionDocRef;
+  @override
+  final String? optionDocRef;
 // required int categoryId,
 // required int quizId,
 // required int questionId,
@@ -234,7 +250,7 @@ class _$_Question extends _Question {
 
   @override
   String toString() {
-    return 'Question(id: $id, categoryDocRef: $categoryDocRef, quizDocRef: $quizDocRef, questionDocRef: $questionDocRef, text: $text, duration: $duration, optionsShuffled: $optionsShuffled, options: $options)';
+    return 'Question(id: $id, categoryDocRef: $categoryDocRef, quizDocRef: $quizDocRef, questionDocRef: $questionDocRef, optionDocRef: $optionDocRef, text: $text, duration: $duration, optionsShuffled: $optionsShuffled, options: $options)';
   }
 
   @override
@@ -249,6 +265,8 @@ class _$_Question extends _Question {
                 other.quizDocRef == quizDocRef) &&
             (identical(other.questionDocRef, questionDocRef) ||
                 other.questionDocRef == questionDocRef) &&
+            (identical(other.optionDocRef, optionDocRef) ||
+                other.optionDocRef == optionDocRef) &&
             (identical(other.text, text) || other.text == text) &&
             (identical(other.duration, duration) ||
                 other.duration == duration) &&
@@ -265,6 +283,7 @@ class _$_Question extends _Question {
       categoryDocRef,
       quizDocRef,
       questionDocRef,
+      optionDocRef,
       text,
       duration,
       optionsShuffled,
@@ -290,6 +309,7 @@ abstract class _Question extends Question {
       final String? categoryDocRef,
       final String? quizDocRef,
       final String? questionDocRef,
+      final String? optionDocRef,
       required final String text,
       required final int duration,
       required final bool optionsShuffled,
@@ -306,6 +326,8 @@ abstract class _Question extends Question {
   String? get quizDocRef;
   @override
   String? get questionDocRef;
+  @override
+  String? get optionDocRef;
   @override // required int categoryId,
 // required int quizId,
 // required int questionId,

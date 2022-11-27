@@ -25,6 +25,7 @@ mixin _$Quiz {
       throw _privateConstructorUsedError; // required int quizId,
   String? get categoryDocRef => throw _privateConstructorUsedError;
   String? get quizDocRef => throw _privateConstructorUsedError;
+  String? get questionDocRef => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   bool get questionsShuffled => throw _privateConstructorUsedError;
@@ -46,6 +47,7 @@ abstract class $QuizCopyWith<$Res> {
       int categoryId,
       String? categoryDocRef,
       String? quizDocRef,
+      String? questionDocRef,
       String title,
       String description,
       bool questionsShuffled,
@@ -70,6 +72,7 @@ class _$QuizCopyWithImpl<$Res, $Val extends Quiz>
     Object? categoryId = null,
     Object? categoryDocRef = freezed,
     Object? quizDocRef = freezed,
+    Object? questionDocRef = freezed,
     Object? title = null,
     Object? description = null,
     Object? questionsShuffled = null,
@@ -92,6 +95,10 @@ class _$QuizCopyWithImpl<$Res, $Val extends Quiz>
       quizDocRef: freezed == quizDocRef
           ? _value.quizDocRef
           : quizDocRef // ignore: cast_nullable_to_non_nullable
+              as String?,
+      questionDocRef: freezed == questionDocRef
+          ? _value.questionDocRef
+          : questionDocRef // ignore: cast_nullable_to_non_nullable
               as String?,
       title: null == title
           ? _value.title
@@ -128,6 +135,7 @@ abstract class _$$_QuizCopyWith<$Res> implements $QuizCopyWith<$Res> {
       int categoryId,
       String? categoryDocRef,
       String? quizDocRef,
+      String? questionDocRef,
       String title,
       String description,
       bool questionsShuffled,
@@ -148,6 +156,7 @@ class __$$_QuizCopyWithImpl<$Res> extends _$QuizCopyWithImpl<$Res, _$_Quiz>
     Object? categoryId = null,
     Object? categoryDocRef = freezed,
     Object? quizDocRef = freezed,
+    Object? questionDocRef = freezed,
     Object? title = null,
     Object? description = null,
     Object? questionsShuffled = null,
@@ -170,6 +179,10 @@ class __$$_QuizCopyWithImpl<$Res> extends _$QuizCopyWithImpl<$Res, _$_Quiz>
       quizDocRef: freezed == quizDocRef
           ? _value.quizDocRef
           : quizDocRef // ignore: cast_nullable_to_non_nullable
+              as String?,
+      questionDocRef: freezed == questionDocRef
+          ? _value.questionDocRef
+          : questionDocRef // ignore: cast_nullable_to_non_nullable
               as String?,
       title: null == title
           ? _value.title
@@ -203,6 +216,7 @@ class _$_Quiz extends _Quiz {
       required this.categoryId,
       this.categoryDocRef,
       this.quizDocRef,
+      this.questionDocRef,
       required this.title,
       required this.description,
       required this.questionsShuffled,
@@ -223,6 +237,8 @@ class _$_Quiz extends _Quiz {
   @override
   final String? quizDocRef;
   @override
+  final String? questionDocRef;
+  @override
   final String title;
   @override
   final String description;
@@ -241,7 +257,7 @@ class _$_Quiz extends _Quiz {
 
   @override
   String toString() {
-    return 'Quiz(id: $id, categoryId: $categoryId, categoryDocRef: $categoryDocRef, quizDocRef: $quizDocRef, title: $title, description: $description, questionsShuffled: $questionsShuffled, imagePath: $imagePath, questions: $questions)';
+    return 'Quiz(id: $id, categoryId: $categoryId, categoryDocRef: $categoryDocRef, quizDocRef: $quizDocRef, questionDocRef: $questionDocRef, title: $title, description: $description, questionsShuffled: $questionsShuffled, imagePath: $imagePath, questions: $questions)';
   }
 
   @override
@@ -256,6 +272,8 @@ class _$_Quiz extends _Quiz {
                 other.categoryDocRef == categoryDocRef) &&
             (identical(other.quizDocRef, quizDocRef) ||
                 other.quizDocRef == quizDocRef) &&
+            (identical(other.questionDocRef, questionDocRef) ||
+                other.questionDocRef == questionDocRef) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
                 other.description == description) &&
@@ -275,6 +293,7 @@ class _$_Quiz extends _Quiz {
       categoryId,
       categoryDocRef,
       quizDocRef,
+      questionDocRef,
       title,
       description,
       questionsShuffled,
@@ -301,6 +320,7 @@ abstract class _Quiz extends Quiz {
       required final int categoryId,
       final String? categoryDocRef,
       final String? quizDocRef,
+      final String? questionDocRef,
       required final String title,
       required final String description,
       required final bool questionsShuffled,
@@ -318,6 +338,8 @@ abstract class _Quiz extends Quiz {
   String? get categoryDocRef;
   @override
   String? get quizDocRef;
+  @override
+  String? get questionDocRef;
   @override
   String get title;
   @override

@@ -15,6 +15,7 @@ abstract class Category implements _$Category {
     String? id,
     required int categoryId,
     String? categoryDocRef,
+    String? quizDocRef,
     required String name,
     String? imagePath,
   }) = _Category;

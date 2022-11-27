@@ -16,6 +16,7 @@ abstract class Quiz implements _$Quiz {
     // required int quizId,
     String? categoryDocRef,
     String? quizDocRef,
+    String? questionDocRef,
     required String title,
     required String description,
     required bool questionsShuffled,

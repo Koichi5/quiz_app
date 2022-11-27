@@ -11,7 +11,7 @@ abstract class Option implements _$Option {
   const Option._();
 
   const factory Option({
-    required String id,
+    String? id,
     String? categoryDocRef,
     String? quizDocRef,
     String? questionDocRef,
@@ -20,7 +20,7 @@ abstract class Option implements _$Option {
     required bool isCorrect,
   }) = _Option;
 
-  factory Option.empty() => const Option(id: "", text: "", isCorrect: false);
+  factory Option.empty() => const Option(text: "", isCorrect: false);
 
   factory Option.fromJson(json) => _$OptionFromJson(json);
 

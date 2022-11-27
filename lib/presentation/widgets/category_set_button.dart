@@ -30,6 +30,8 @@ class CategorySetButton extends HookConsumerWidget {
               final category = await ref
                   .watch(categoryControllerProvider.notifier)
                   .addCategory(categoryId: int.parse(categoryId), name: name);
+
+              //ここで渡している category に DocRef が含まれていないからエラー
               Navigator.push(
                   context,
                   MaterialPageRoute(

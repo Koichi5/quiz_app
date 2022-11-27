@@ -7,6 +7,7 @@ import 'package:quiz_app/presentation/controller/auth_controller.dart';
 
 import '../../domain/option/option.dart';
 import '../../domain/question/question.dart';
+import '../../domain/repository/option_repository.dart';
 
 final optionExceptionProvider = StateProvider<CustomException?>((_) => null);
 
@@ -31,7 +32,7 @@ class OptionController extends StateNotifier<AsyncValue<List<Option>>> {
 
   Future<void> retrieveOptionList({required Question question}) async {
     try {
-      final optionList = await _reader(quizRepositoryProvider)
+      final optionList = await _reader(optionRepositoryProvider)
           .retrieveOptionList(question: question);
       if (mounted) {
         state = AsyncValue.data(optionList);

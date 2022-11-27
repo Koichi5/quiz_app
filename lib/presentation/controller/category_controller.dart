@@ -7,6 +7,7 @@ import 'package:quiz_app/presentation/controller/auth_controller.dart';
 
 import '../../domain/category/category.dart';
 import '../../domain/quiz/quiz.dart';
+import '../../domain/repository/category_repository.dart';
 
 final categoryExceptionProvider = StateProvider<CustomException?>((_) => null);
 
@@ -30,7 +31,7 @@ class CategoryController extends StateNotifier<AsyncValue<List<Category>>> {
   Future<void> retrieveCategoryList() async {
     try {
       final categoryList =
-          await _reader(quizRepositoryProvider).retrieveCategoryList();
+          await _reader(categoryRepositoryProvider).retrieveCategoryList();
       if (mounted) {
         state = AsyncValue.data(categoryList);
       }
@@ -39,9 +40,11 @@ class CategoryController extends StateNotifier<AsyncValue<List<Category>>> {
     }
   }
 
-  Future<List<Category>> retrieveCategoryById({required String quizCategoryDocRef}) async {
+  Future<List<Category>> retrieveCategoryById(
+      {required String quizCategoryDocRef}) async {
     try {
-      final category = await _reader(quizRepositoryProvider).retrieveCategoryById(quizCategoryDocRef: quizCategoryDocRef);
+      final category = await _reader(categoryRepositoryProvider)
+          .retrieveCategoryById(quizCategoryDocRef: quizCategoryDocRef);
       if (mounted) {
         state = AsyncValue.data(category);
       }
@@ -64,12 +67,13 @@ class CategoryController extends StateNotifier<AsyncValue<List<Category>>> {
       categoryId: categoryId,
       name: name,
       // google のロゴで代用
-      imagePath: "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",
+      imagePath:
+          "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",
     );
-    final categoryDocRef =
-        await _reader(quizRepositoryProvider).addCategory(category: category);
-    state.whenData((categoryList) => state = AsyncValue.data(
-        categoryList..add(category.copyWith(id: categoryDocRef))));
-    return category;
+    final categoryWithDocRef = await _reader(categoryRepositoryProvider)
+        .addCategory(category: category);
+    state.whenData((categoryList) => state = AsyncValue.data(categoryList
+      ..add(category.copyWith(id: categoryWithDocRef.categoryDocRef))));
+    return categoryWithDocRef;
   }
 }

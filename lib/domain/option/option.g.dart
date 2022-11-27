@@ -7,7 +7,7 @@ part of 'option.dart';
 // **************************************************************************
 
 _$_Option _$$_OptionFromJson(Map<String, dynamic> json) => _$_Option(
-      id: json['id'] as String,
+      id: json['id'] as String?,
       categoryDocRef: json['categoryDocRef'] as String?,
       quizDocRef: json['quizDocRef'] as String?,
       questionDocRef: json['questionDocRef'] as String?,

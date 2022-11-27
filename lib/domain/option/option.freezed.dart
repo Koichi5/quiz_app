@@ -20,7 +20,7 @@ Option _$OptionFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Option {
-  String get id => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
   String? get categoryDocRef => throw _privateConstructorUsedError;
   String? get quizDocRef => throw _privateConstructorUsedError;
   String? get questionDocRef => throw _privateConstructorUsedError;
@@ -39,7 +39,7 @@ abstract class $OptionCopyWith<$Res> {
       _$OptionCopyWithImpl<$Res, Option>;
   @useResult
   $Res call(
-      {String id,
+      {String? id,
       String? categoryDocRef,
       String? quizDocRef,
       String? questionDocRef,
@@ -61,7 +61,7 @@ class _$OptionCopyWithImpl<$Res, $Val extends Option>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? categoryDocRef = freezed,
     Object? quizDocRef = freezed,
     Object? questionDocRef = freezed,
@@ -70,10 +70,10 @@ class _$OptionCopyWithImpl<$Res, $Val extends Option>
     Object? isCorrect = null,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       categoryDocRef: freezed == categoryDocRef
           ? _value.categoryDocRef
           : categoryDocRef // ignore: cast_nullable_to_non_nullable
@@ -109,7 +109,7 @@ abstract class _$$_OptionCopyWith<$Res> implements $OptionCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String id,
+      {String? id,
       String? categoryDocRef,
       String? quizDocRef,
       String? questionDocRef,
@@ -128,7 +128,7 @@ class __$$_OptionCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? categoryDocRef = freezed,
     Object? quizDocRef = freezed,
     Object? questionDocRef = freezed,
@@ -137,10 +137,10 @@ class __$$_OptionCopyWithImpl<$Res>
     Object? isCorrect = null,
   }) {
     return _then(_$_Option(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       categoryDocRef: freezed == categoryDocRef
           ? _value.categoryDocRef
           : categoryDocRef // ignore: cast_nullable_to_non_nullable
@@ -173,7 +173,7 @@ class __$$_OptionCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Option extends _Option {
   const _$_Option(
-      {required this.id,
+      {this.id,
       this.categoryDocRef,
       this.quizDocRef,
       this.questionDocRef,
@@ -186,7 +186,7 @@ class _$_Option extends _Option {
       _$$_OptionFromJson(json);
 
   @override
-  final String id;
+  final String? id;
   @override
   final String? categoryDocRef;
   @override
@@ -245,7 +245,7 @@ class _$_Option extends _Option {
 
 abstract class _Option extends Option {
   const factory _Option(
-      {required final String id,
+      {final String? id,
       final String? categoryDocRef,
       final String? quizDocRef,
       final String? questionDocRef,
@@ -257,7 +257,7 @@ abstract class _Option extends Option {
   factory _Option.fromJson(Map<String, dynamic> json) = _$_Option.fromJson;
 
   @override
-  String get id;
+  String? get id;
   @override
   String? get categoryDocRef;
   @override

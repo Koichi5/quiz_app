@@ -23,6 +23,7 @@ mixin _$Category {
   String? get id => throw _privateConstructorUsedError;
   int get categoryId => throw _privateConstructorUsedError;
   String? get categoryDocRef => throw _privateConstructorUsedError;
+  String? get quizDocRef => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String? get imagePath => throw _privateConstructorUsedError;
 
@@ -41,6 +42,7 @@ abstract class $CategoryCopyWith<$Res> {
       {String? id,
       int categoryId,
       String? categoryDocRef,
+      String? quizDocRef,
       String name,
       String? imagePath});
 }
@@ -61,6 +63,7 @@ class _$CategoryCopyWithImpl<$Res, $Val extends Category>
     Object? id = freezed,
     Object? categoryId = null,
     Object? categoryDocRef = freezed,
+    Object? quizDocRef = freezed,
     Object? name = null,
     Object? imagePath = freezed,
   }) {
@@ -76,6 +79,10 @@ class _$CategoryCopyWithImpl<$Res, $Val extends Category>
       categoryDocRef: freezed == categoryDocRef
           ? _value.categoryDocRef
           : categoryDocRef // ignore: cast_nullable_to_non_nullable
+              as String?,
+      quizDocRef: freezed == quizDocRef
+          ? _value.quizDocRef
+          : quizDocRef // ignore: cast_nullable_to_non_nullable
               as String?,
       name: null == name
           ? _value.name
@@ -100,6 +107,7 @@ abstract class _$$_CategoryCopyWith<$Res> implements $CategoryCopyWith<$Res> {
       {String? id,
       int categoryId,
       String? categoryDocRef,
+      String? quizDocRef,
       String name,
       String? imagePath});
 }
@@ -118,6 +126,7 @@ class __$$_CategoryCopyWithImpl<$Res>
     Object? id = freezed,
     Object? categoryId = null,
     Object? categoryDocRef = freezed,
+    Object? quizDocRef = freezed,
     Object? name = null,
     Object? imagePath = freezed,
   }) {
@@ -133,6 +142,10 @@ class __$$_CategoryCopyWithImpl<$Res>
       categoryDocRef: freezed == categoryDocRef
           ? _value.categoryDocRef
           : categoryDocRef // ignore: cast_nullable_to_non_nullable
+              as String?,
+      quizDocRef: freezed == quizDocRef
+          ? _value.quizDocRef
+          : quizDocRef // ignore: cast_nullable_to_non_nullable
               as String?,
       name: null == name
           ? _value.name
@@ -153,6 +166,7 @@ class _$_Category extends _Category {
       {this.id,
       required this.categoryId,
       this.categoryDocRef,
+      this.quizDocRef,
       required this.name,
       this.imagePath})
       : super._();
@@ -167,13 +181,15 @@ class _$_Category extends _Category {
   @override
   final String? categoryDocRef;
   @override
+  final String? quizDocRef;
+  @override
   final String name;
   @override
   final String? imagePath;
 
   @override
   String toString() {
-    return 'Category(id: $id, categoryId: $categoryId, categoryDocRef: $categoryDocRef, name: $name, imagePath: $imagePath)';
+    return 'Category(id: $id, categoryId: $categoryId, categoryDocRef: $categoryDocRef, quizDocRef: $quizDocRef, name: $name, imagePath: $imagePath)';
   }
 
   @override
@@ -186,6 +202,8 @@ class _$_Category extends _Category {
                 other.categoryId == categoryId) &&
             (identical(other.categoryDocRef, categoryDocRef) ||
                 other.categoryDocRef == categoryDocRef) &&
+            (identical(other.quizDocRef, quizDocRef) ||
+                other.quizDocRef == quizDocRef) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.imagePath, imagePath) ||
                 other.imagePath == imagePath));
@@ -193,8 +211,8 @@ class _$_Category extends _Category {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, categoryId, categoryDocRef, name, imagePath);
+  int get hashCode => Object.hash(
+      runtimeType, id, categoryId, categoryDocRef, quizDocRef, name, imagePath);
 
   @JsonKey(ignore: true)
   @override
@@ -215,6 +233,7 @@ abstract class _Category extends Category {
       {final String? id,
       required final int categoryId,
       final String? categoryDocRef,
+      final String? quizDocRef,
       required final String name,
       final String? imagePath}) = _$_Category;
   const _Category._() : super._();
@@ -227,6 +246,8 @@ abstract class _Category extends Category {
   int get categoryId;
   @override
   String? get categoryDocRef;
+  @override
+  String? get quizDocRef;
   @override
   String get name;
   @override

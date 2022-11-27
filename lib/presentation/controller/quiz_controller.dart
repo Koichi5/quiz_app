@@ -41,8 +41,6 @@ class QuizController extends StateNotifier<AsyncValue<List<Quiz>>> {
     }
   }
 
-  // Future<Quiz> retrieveQuizById({})
-
   Future<Quiz> addQuiz({
     String? id,
     required String title,
@@ -62,10 +60,10 @@ class QuizController extends StateNotifier<AsyncValue<List<Quiz>>> {
             "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",
         categoryId: categoryId,
         questions: []);
-    final quizDocRef = await _reader(quizRepositoryProvider)
+    final quizWithDocRef = await _reader(quizRepositoryProvider)
         .addQuiz(category: category, quiz: quiz);
     state.whenData((quizList) =>
-        state = AsyncValue.data(quizList..add(quiz.copyWith(id: quizDocRef))));
+        state = AsyncValue.data(quizList..add(quiz.copyWith(id: quizWithDocRef.quizDocRef))));
     return quiz;
   }
 }
