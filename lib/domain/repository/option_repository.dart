@@ -35,10 +35,10 @@ class OptionRepository implements BaseOptionRepository {
       await optionRef.doc(optionDocRef).update(option.toDocument());
       await optionRef.doc(optionDocRef).set(Option(
         id: option.id,
-        categoryDocRef: option.categoryDocRef,
-        quizDocRef: option.quizDocRef,
-        questionDocRef: option.questionDocRef,
-        optionDocRef: option.optionDocRef,
+        // categoryDocRef: option.categoryDocRef,
+        // quizDocRef: option.quizDocRef,
+        // questionDocRef: option.questionDocRef,
+        // optionDocRef: option.optionDocRef,
         text: option.text,
         isCorrect: option.isCorrect,
       ).toDocument());

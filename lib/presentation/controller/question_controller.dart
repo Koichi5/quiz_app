@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:quiz_app/domain/option/option.dart';
 import 'package:quiz_app/domain/quiz/quiz.dart';
 import 'package:quiz_app/domain/repository/quiz_repository.dart';
 import 'package:quiz_app/general/custom_exception.dart';
@@ -45,18 +46,33 @@ class QuestionController extends StateNotifier<AsyncValue<List<Question>>> {
     String? id,
     required String text,
     required int duration,
+    required String firstOptionText,
+    required bool firstOptionIsCorrect,
+    required String secondOptionText,
+    required bool secondOptionIsCorrect,
+    required String thirdOptionText,
+    required bool thirdOptionIsCorrect,
+    required String fourthOptionText,
+    required bool fourthOptionIsCorrect,
     required bool optionsShuffled,
     required Quiz quiz,
   }) async {
     final question = Question(
-        id: id,
-        text: text,
-        duration: duration,
-        optionsShuffled: optionsShuffled,);
-    final questionDocRef = await _reader(questionRepositoryProvider)
+      id: id,
+      text: text,
+      duration: duration,
+      optionsShuffled: optionsShuffled,
+      options: [
+        Option(text: firstOptionText, isCorrect: firstOptionIsCorrect),
+        Option(text: secondOptionText, isCorrect: secondOptionIsCorrect),
+        Option(text: thirdOptionText, isCorrect: thirdOptionIsCorrect),
+        Option(text: fourthOptionText, isCorrect: fourthOptionIsCorrect),
+      ],
+    );
+    final questionWithDocRef = await _reader(questionRepositoryProvider)
         .addQuestion(quiz: quiz, question: question);
     state.whenData((questionList) => state = AsyncValue.data(
-        questionList..add(question.copyWith(id: questionDocRef.id))));
+        questionList..add(question.copyWith(id: questionWithDocRef.id))));
     return question;
   }
 }

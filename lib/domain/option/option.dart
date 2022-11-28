@@ -12,10 +12,10 @@ abstract class Option implements _$Option {
 
   const factory Option({
     String? id,
-    String? categoryDocRef,
-    String? quizDocRef,
-    String? questionDocRef,
-    String? optionDocRef,
+    // String? categoryDocRef,
+    // String? quizDocRef,
+    // String? questionDocRef,
+    // String? optionDocRef,
     required String text,
     required bool isCorrect,
   }) = _Option;

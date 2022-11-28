@@ -15,14 +15,14 @@ abstract class Question implements _$Question {
     String? categoryDocRef,
     String? quizDocRef,
     String? questionDocRef,
-    String? optionDocRef,
+    // String? optionDocRef,
     // required int categoryId,
     // required int quizId,
     // required int questionId,
     required String text,
     required int duration,
     required bool optionsShuffled,
-    List<Option>? options,
+    required List<Option> options,
   }) = _Question;
 
   factory Question.empty() => const Question(

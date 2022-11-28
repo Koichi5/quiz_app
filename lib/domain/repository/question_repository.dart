@@ -8,11 +8,13 @@ import '../../general/general_provider.dart';
 import '../quiz/quiz.dart';
 
 abstract class BaseQuestionRepository {
-  Future<Question> addQuestion({required Quiz quiz, required Question question});
+  Future<Question> addQuestion(
+      {required Quiz quiz, required Question question});
   Future<List<Question>> retrieveQuestionList({required Quiz quiz});
 }
 
-final questionRepositoryProvider = Provider<QuestionRepository> ((ref) => QuestionRepository(ref.read));
+final questionRepositoryProvider =
+    Provider<QuestionRepository>((ref) => QuestionRepository(ref.read));
 
 class QuestionRepository implements BaseQuestionRepository {
   final Reader _reader;
@@ -34,35 +36,48 @@ class QuestionRepository implements BaseQuestionRepository {
       // final questionDocRef = questionRef.doc().id;
 
       // await questionRef.add(question.toDocument());
-
-      await questionRef.doc(quiz.questionDocRef).update(question.toDocument());
-
-      final emptyOption = await questionRef.doc(question.questionDocRef).collection("options").add(Option.empty().toDocument());
-
       final questionWithDocRef = Question(
         id: question.id,
         categoryDocRef: quiz.categoryDocRef,
         quizDocRef: quiz.quizDocRef,
         questionDocRef: quiz.questionDocRef,
-        optionDocRef: emptyOption.id,
+        // optionDocRef: emptyOption.id,
         text: question.text,
         duration: question.duration,
         optionsShuffled: question.optionsShuffled,
         options: [],
       );
 
-      await questionRef.doc(quiz.questionDocRef).collection("options")
-          .add(Option.empty().toDocument());
+      await questionRef.doc(quiz.questionDocRef).set(questionWithDocRef.toDocument());
 
-      await _reader(firebaseFirestoreProvider)
-          .collection("category")
-          .doc(quiz.categoryDocRef)
-          .collection("quiz")
-          .add(Question(
-          text: question.text,
-          duration: question.duration,
-          optionsShuffled: false)
-          .toDocument());
+      await questionRef
+          .doc(quiz.questionDocRef)
+          .update(questionWithDocRef.toDocument());
+      // update(question.toDocument()) とすると question の options は Option型で、Firestore に保存できずにエラー
+      // update(questionWithDocRef.toDocument()) とすると Some requested document was not found
+
+      await questionRef.doc(quiz.questionDocRef).update({
+        "options":
+            question.options!.map((option) => option.toDocument()).toList()
+      });
+
+      // final emptyOption = await questionRef
+      //     .doc(question.questionDocRef)
+      //     .collection("options")
+      //     .add(Option.empty().toDocument());
+
+      // await questionRef.doc(quiz.questionDocRef).collection("options")
+      //     .add(Option.empty().toDocument());
+
+      // await _reader(firebaseFirestoreProvider)
+      //     .collection("category")
+      //     .doc(quiz.categoryDocRef)
+      //     .collection("quiz")
+      //     .add(Question(
+      //             text: question.text,
+      //             duration: question.duration,
+      //             optionsShuffled: false)
+      //         .toDocument());
       // await questionRef.doc(questionDocRef).set(Question(
       //     id: question.id,
       //     categoryDocRef: question.categoryDocRef,

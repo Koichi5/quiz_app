@@ -15,7 +15,7 @@ class OptionSetScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final idControllerProvider = ref.watch(optionIdControllerProvider);
-    final textControllerProvider = ref.watch(optionTextControllerProvider);
+    final textControllerProvider = ref.watch(firstOptionTextControllerProvider);
     final optionValidator = ref.watch(optionValidatorProvider);
     final optionValidatorNotifier = ref.watch(optionValidatorProvider.notifier);
     return Scaffold(
