@@ -11,12 +11,11 @@ _$_Question _$$_QuestionFromJson(Map<String, dynamic> json) => _$_Question(
       categoryDocRef: json['categoryDocRef'] as String?,
       quizDocRef: json['quizDocRef'] as String?,
       questionDocRef: json['questionDocRef'] as String?,
-      optionDocRef: json['optionDocRef'] as String?,
       text: json['text'] as String,
       duration: json['duration'] as int,
       optionsShuffled: json['optionsShuffled'] as bool,
-      options: (json['options'] as List<dynamic>?)
-          ?.map((e) => Option.fromJson(e))
+      options: (json['options'] as List<dynamic>)
+          .map((e) => Option.fromJson(e))
           .toList(),
     );
 
@@ -26,7 +25,6 @@ Map<String, dynamic> _$$_QuestionToJson(_$_Question instance) =>
       'categoryDocRef': instance.categoryDocRef,
       'quizDocRef': instance.quizDocRef,
       'questionDocRef': instance.questionDocRef,
-      'optionDocRef': instance.optionDocRef,
       'text': instance.text,
       'duration': instance.duration,
       'optionsShuffled': instance.optionsShuffled,

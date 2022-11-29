@@ -34,12 +34,11 @@ class QuizRepository implements BaseQuizRepository {
 
       // final quizDocRef = quizRef.doc().id;
       // ここが null
-      print(category.categoryDocRef);
+      // print("category.categoryDocRef : ${category.categoryDocRef}");
+      // print("category.quizDocRef : ${category.quizDocRef}");
+      // print("quizRef : $quizRef");
 
       //quiz を update
-      await quizRef.doc(category.quizDocRef).update(quiz.toDocument());
-      print(category.quizDocRef);
-
       final emptyQuestion = await quizRef
           .doc(category.quizDocRef)
           .collection("questions")
@@ -57,7 +56,8 @@ class QuizRepository implements BaseQuizRepository {
         categoryId: category.categoryId,
       );
 
-      await quizRef.doc(category.quizDocRef).set(quizWithDocRef.toDocument());
+      await quizRef.doc(category.quizDocRef).update(quizWithDocRef.toDocument());
+      // await quizRef.doc(category.quizDocRef).set(quizWithDocRef.toDocument());
 
       // await categoryRef.set(Quiz(
       //   id: quiz.id,

@@ -17,7 +17,7 @@ class QuestionSetScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final idControllerProvider = ref.watch(questionIdControllerProvider);
+    // final idControllerProvider = ref.watch(questionIdControllerProvider);
     final textControllerProvider = ref.watch(questionTextControllerProvider);
     final durationControllerProvider =
         ref.watch(questionDurationControllerProvider);
@@ -158,14 +158,6 @@ class QuestionSetScreen extends HookConsumerWidget {
                 // id: idControllerProvider.text,
                 text: textControllerProvider.text,
                 duration: durationControllerProvider.text,
-                firstOptionText: ref.watch(firstOptionTextControllerProvider).text,
-                firstOptionIsCorrect: ref.watch(firstOptionIsCorrectProvider),
-                secondOptionText: ref.watch(secondOptionTextControllerProvider).text,
-                secondOptionIsCorrect: ref.watch(secondOptionIsCorrectProvider),
-                thirdOptionText: ref.watch(thirdOptionTextControllerProvider).text,
-                thirdOptionIsCorrect: ref.watch(thirdOptionIsCorrectProvider),
-                fourthOptionText: ref.watch(fourthOptionTextControllerProvider).text,
-                fourthOptionIsCorrect: ref.watch(fourthOptionIsCorrectProvider),
                 quiz: quiz,
               ),
               SizedBox(

@@ -20,11 +20,11 @@ Option _$OptionFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Option {
-  String? get id => throw _privateConstructorUsedError;
-  String? get categoryDocRef => throw _privateConstructorUsedError;
-  String? get quizDocRef => throw _privateConstructorUsedError;
-  String? get questionDocRef => throw _privateConstructorUsedError;
-  String? get optionDocRef => throw _privateConstructorUsedError;
+  String? get id =>
+      throw _privateConstructorUsedError; // String? categoryDocRef,
+// String? quizDocRef,
+// String? questionDocRef,
+// String? optionDocRef,
   String get text => throw _privateConstructorUsedError;
   bool get isCorrect => throw _privateConstructorUsedError;
 
@@ -38,14 +38,7 @@ abstract class $OptionCopyWith<$Res> {
   factory $OptionCopyWith(Option value, $Res Function(Option) then) =
       _$OptionCopyWithImpl<$Res, Option>;
   @useResult
-  $Res call(
-      {String? id,
-      String? categoryDocRef,
-      String? quizDocRef,
-      String? questionDocRef,
-      String? optionDocRef,
-      String text,
-      bool isCorrect});
+  $Res call({String? id, String text, bool isCorrect});
 }
 
 /// @nodoc
@@ -62,10 +55,6 @@ class _$OptionCopyWithImpl<$Res, $Val extends Option>
   @override
   $Res call({
     Object? id = freezed,
-    Object? categoryDocRef = freezed,
-    Object? quizDocRef = freezed,
-    Object? questionDocRef = freezed,
-    Object? optionDocRef = freezed,
     Object? text = null,
     Object? isCorrect = null,
   }) {
@@ -73,22 +62,6 @@ class _$OptionCopyWithImpl<$Res, $Val extends Option>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
-      categoryDocRef: freezed == categoryDocRef
-          ? _value.categoryDocRef
-          : categoryDocRef // ignore: cast_nullable_to_non_nullable
-              as String?,
-      quizDocRef: freezed == quizDocRef
-          ? _value.quizDocRef
-          : quizDocRef // ignore: cast_nullable_to_non_nullable
-              as String?,
-      questionDocRef: freezed == questionDocRef
-          ? _value.questionDocRef
-          : questionDocRef // ignore: cast_nullable_to_non_nullable
-              as String?,
-      optionDocRef: freezed == optionDocRef
-          ? _value.optionDocRef
-          : optionDocRef // ignore: cast_nullable_to_non_nullable
               as String?,
       text: null == text
           ? _value.text
@@ -108,14 +81,7 @@ abstract class _$$_OptionCopyWith<$Res> implements $OptionCopyWith<$Res> {
       __$$_OptionCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String? id,
-      String? categoryDocRef,
-      String? quizDocRef,
-      String? questionDocRef,
-      String? optionDocRef,
-      String text,
-      bool isCorrect});
+  $Res call({String? id, String text, bool isCorrect});
 }
 
 /// @nodoc
@@ -129,10 +95,6 @@ class __$$_OptionCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? categoryDocRef = freezed,
-    Object? quizDocRef = freezed,
-    Object? questionDocRef = freezed,
-    Object? optionDocRef = freezed,
     Object? text = null,
     Object? isCorrect = null,
   }) {
@@ -140,22 +102,6 @@ class __$$_OptionCopyWithImpl<$Res>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
-      categoryDocRef: freezed == categoryDocRef
-          ? _value.categoryDocRef
-          : categoryDocRef // ignore: cast_nullable_to_non_nullable
-              as String?,
-      quizDocRef: freezed == quizDocRef
-          ? _value.quizDocRef
-          : quizDocRef // ignore: cast_nullable_to_non_nullable
-              as String?,
-      questionDocRef: freezed == questionDocRef
-          ? _value.questionDocRef
-          : questionDocRef // ignore: cast_nullable_to_non_nullable
-              as String?,
-      optionDocRef: freezed == optionDocRef
-          ? _value.optionDocRef
-          : optionDocRef // ignore: cast_nullable_to_non_nullable
               as String?,
       text: null == text
           ? _value.text
@@ -172,14 +118,7 @@ class __$$_OptionCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Option extends _Option {
-  const _$_Option(
-      {this.id,
-      this.categoryDocRef,
-      this.quizDocRef,
-      this.questionDocRef,
-      this.optionDocRef,
-      required this.text,
-      required this.isCorrect})
+  const _$_Option({this.id, required this.text, required this.isCorrect})
       : super._();
 
   factory _$_Option.fromJson(Map<String, dynamic> json) =>
@@ -187,14 +126,10 @@ class _$_Option extends _Option {
 
   @override
   final String? id;
-  @override
-  final String? categoryDocRef;
-  @override
-  final String? quizDocRef;
-  @override
-  final String? questionDocRef;
-  @override
-  final String? optionDocRef;
+// String? categoryDocRef,
+// String? quizDocRef,
+// String? questionDocRef,
+// String? optionDocRef,
   @override
   final String text;
   @override
@@ -202,7 +137,7 @@ class _$_Option extends _Option {
 
   @override
   String toString() {
-    return 'Option(id: $id, categoryDocRef: $categoryDocRef, quizDocRef: $quizDocRef, questionDocRef: $questionDocRef, optionDocRef: $optionDocRef, text: $text, isCorrect: $isCorrect)';
+    return 'Option(id: $id, text: $text, isCorrect: $isCorrect)';
   }
 
   @override
@@ -211,14 +146,6 @@ class _$_Option extends _Option {
         (other.runtimeType == runtimeType &&
             other is _$_Option &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.categoryDocRef, categoryDocRef) ||
-                other.categoryDocRef == categoryDocRef) &&
-            (identical(other.quizDocRef, quizDocRef) ||
-                other.quizDocRef == quizDocRef) &&
-            (identical(other.questionDocRef, questionDocRef) ||
-                other.questionDocRef == questionDocRef) &&
-            (identical(other.optionDocRef, optionDocRef) ||
-                other.optionDocRef == optionDocRef) &&
             (identical(other.text, text) || other.text == text) &&
             (identical(other.isCorrect, isCorrect) ||
                 other.isCorrect == isCorrect));
@@ -226,8 +153,7 @@ class _$_Option extends _Option {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, categoryDocRef, quizDocRef,
-      questionDocRef, optionDocRef, text, isCorrect);
+  int get hashCode => Object.hash(runtimeType, id, text, isCorrect);
 
   @JsonKey(ignore: true)
   @override
@@ -246,10 +172,6 @@ class _$_Option extends _Option {
 abstract class _Option extends Option {
   const factory _Option(
       {final String? id,
-      final String? categoryDocRef,
-      final String? quizDocRef,
-      final String? questionDocRef,
-      final String? optionDocRef,
       required final String text,
       required final bool isCorrect}) = _$_Option;
   const _Option._() : super._();
@@ -258,15 +180,10 @@ abstract class _Option extends Option {
 
   @override
   String? get id;
-  @override
-  String? get categoryDocRef;
-  @override
-  String? get quizDocRef;
-  @override
-  String? get questionDocRef;
-  @override
-  String? get optionDocRef;
-  @override
+  @override // String? categoryDocRef,
+// String? quizDocRef,
+// String? questionDocRef,
+// String? optionDocRef,
   String get text;
   @override
   bool get isCorrect;

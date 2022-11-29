@@ -14,28 +14,12 @@ class QuestionSetButton extends HookConsumerWidget {
       // required this.id,
       required this.text,
       required this.duration,
-      required this.firstOptionText,
-      required this.firstOptionIsCorrect,
-      required this.secondOptionText,
-      required this.secondOptionIsCorrect,
-      required this.thirdOptionText,
-      required this.thirdOptionIsCorrect,
-      required this.fourthOptionText,
-      required this.fourthOptionIsCorrect,
       required this.quiz,
       Key? key})
       : super(key: key);
   // final String id;
   final String text;
   final String duration;
-  final String firstOptionText;
-  final bool firstOptionIsCorrect;
-  final String secondOptionText;
-  final bool secondOptionIsCorrect;
-  final String thirdOptionText;
-  final bool thirdOptionIsCorrect;
-  final String fourthOptionText;
-  final bool fourthOptionIsCorrect;
   final Quiz quiz;
 
   @override
@@ -53,29 +37,16 @@ class QuestionSetButton extends HookConsumerWidget {
           onPressed: () async {
             if (ref.watch(questionValidatorProvider).form.isValid) {
               // final question = Question(id: id, text: text, duration: duration, optionsShuffled: false)
-              final question = await ref
+              await ref
                   .watch(questionControllerProvider(quiz).notifier)
                   .addQuestion(
                     // id: id,
                     text: text,
-                    duration: int.parse(duration),
-                    firstOptionText: firstOptionText,
-                    firstOptionIsCorrect: firstOptionIsCorrect,
-                    secondOptionText: secondOptionText,
-                    secondOptionIsCorrect: secondOptionIsCorrect,
-                    thirdOptionText: thirdOptionText,
-                    thirdOptionIsCorrect: thirdOptionIsCorrect,
-                    fourthOptionText: fourthOptionText,
-                    fourthOptionIsCorrect: fourthOptionIsCorrect,
+                    duration: duration,
                     optionsShuffled: false,
                     quiz: quiz,
                   );
-              // Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //         builder: (context) =>
-              //             OptionSetScreen(question: question)));
-              // Navigator.pushNamed(context, '/option_set');
+              Navigator.pop(context);
             }
           },
           child: Text(

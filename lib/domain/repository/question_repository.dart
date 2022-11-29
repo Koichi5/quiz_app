@@ -34,6 +34,7 @@ class QuestionRepository implements BaseQuestionRepository {
 
       // Don't have to define questionDocRef because quiz has the reference.
       // final questionDocRef = questionRef.doc().id;
+      // await questionRef.doc(quiz.questionDocRef).update(question.toDocument());
 
       // await questionRef.add(question.toDocument());
       final questionWithDocRef = Question(
@@ -48,18 +49,21 @@ class QuestionRepository implements BaseQuestionRepository {
         options: [],
       );
 
-      await questionRef.doc(quiz.questionDocRef).set(questionWithDocRef.toDocument());
-
       await questionRef
           .doc(quiz.questionDocRef)
           .update(questionWithDocRef.toDocument());
-      // update(question.toDocument()) とすると question の options は Option型で、Firestore に保存できずにエラー
-      // update(questionWithDocRef.toDocument()) とすると Some requested document was not found
 
       await questionRef.doc(quiz.questionDocRef).update({
         "options":
-            question.options!.map((option) => option.toDocument()).toList()
+            question.options!.map((option) => option.toDocument()).toList(),
       });
+      // update(question.toDocument()) とすると question の options は Option型で、Firestore に保存できずにエラー
+      // update(questionWithDocRef.toDocument()) とすると Some requested document was not found
+
+      // await questionRef.doc(quiz.questionDocRef).update({
+      //   "options":
+      //       question.options!.map((option) => option.toDocument()).toList()
+      // });
 
       // final emptyOption = await questionRef
       //     .doc(question.questionDocRef)

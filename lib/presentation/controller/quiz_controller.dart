@@ -64,7 +64,7 @@ class QuizController extends StateNotifier<AsyncValue<List<Quiz>>> {
         .addQuiz(category: category, quiz: quiz);
     state.whenData((quizList) =>
         state = AsyncValue.data(quizList..add(quiz.copyWith(id: quizWithDocRef.quizDocRef))));
-    return quiz;
+    return quizWithDocRef;
   }
 }
 

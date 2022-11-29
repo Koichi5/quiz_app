@@ -23,15 +23,15 @@ mixin _$Question {
   String? get id => throw _privateConstructorUsedError;
   String? get categoryDocRef => throw _privateConstructorUsedError;
   String? get quizDocRef => throw _privateConstructorUsedError;
-  String? get questionDocRef => throw _privateConstructorUsedError;
-  String? get optionDocRef =>
-      throw _privateConstructorUsedError; // required int categoryId,
+  String? get questionDocRef =>
+      throw _privateConstructorUsedError; // String? optionDocRef,
+// required int categoryId,
 // required int quizId,
 // required int questionId,
   String get text => throw _privateConstructorUsedError;
   int get duration => throw _privateConstructorUsedError;
   bool get optionsShuffled => throw _privateConstructorUsedError;
-  List<Option>? get options => throw _privateConstructorUsedError;
+  List<Option> get options => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -49,11 +49,10 @@ abstract class $QuestionCopyWith<$Res> {
       String? categoryDocRef,
       String? quizDocRef,
       String? questionDocRef,
-      String? optionDocRef,
       String text,
       int duration,
       bool optionsShuffled,
-      List<Option>? options});
+      List<Option> options});
 }
 
 /// @nodoc
@@ -73,11 +72,10 @@ class _$QuestionCopyWithImpl<$Res, $Val extends Question>
     Object? categoryDocRef = freezed,
     Object? quizDocRef = freezed,
     Object? questionDocRef = freezed,
-    Object? optionDocRef = freezed,
     Object? text = null,
     Object? duration = null,
     Object? optionsShuffled = null,
-    Object? options = freezed,
+    Object? options = null,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -96,10 +94,6 @@ class _$QuestionCopyWithImpl<$Res, $Val extends Question>
           ? _value.questionDocRef
           : questionDocRef // ignore: cast_nullable_to_non_nullable
               as String?,
-      optionDocRef: freezed == optionDocRef
-          ? _value.optionDocRef
-          : optionDocRef // ignore: cast_nullable_to_non_nullable
-              as String?,
       text: null == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
@@ -112,10 +106,10 @@ class _$QuestionCopyWithImpl<$Res, $Val extends Question>
           ? _value.optionsShuffled
           : optionsShuffled // ignore: cast_nullable_to_non_nullable
               as bool,
-      options: freezed == options
+      options: null == options
           ? _value.options
           : options // ignore: cast_nullable_to_non_nullable
-              as List<Option>?,
+              as List<Option>,
     ) as $Val);
   }
 }
@@ -132,11 +126,10 @@ abstract class _$$_QuestionCopyWith<$Res> implements $QuestionCopyWith<$Res> {
       String? categoryDocRef,
       String? quizDocRef,
       String? questionDocRef,
-      String? optionDocRef,
       String text,
       int duration,
       bool optionsShuffled,
-      List<Option>? options});
+      List<Option> options});
 }
 
 /// @nodoc
@@ -154,11 +147,10 @@ class __$$_QuestionCopyWithImpl<$Res>
     Object? categoryDocRef = freezed,
     Object? quizDocRef = freezed,
     Object? questionDocRef = freezed,
-    Object? optionDocRef = freezed,
     Object? text = null,
     Object? duration = null,
     Object? optionsShuffled = null,
-    Object? options = freezed,
+    Object? options = null,
   }) {
     return _then(_$_Question(
       id: freezed == id
@@ -177,10 +169,6 @@ class __$$_QuestionCopyWithImpl<$Res>
           ? _value.questionDocRef
           : questionDocRef // ignore: cast_nullable_to_non_nullable
               as String?,
-      optionDocRef: freezed == optionDocRef
-          ? _value.optionDocRef
-          : optionDocRef // ignore: cast_nullable_to_non_nullable
-              as String?,
       text: null == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
@@ -193,10 +181,10 @@ class __$$_QuestionCopyWithImpl<$Res>
           ? _value.optionsShuffled
           : optionsShuffled // ignore: cast_nullable_to_non_nullable
               as bool,
-      options: freezed == options
+      options: null == options
           ? _value._options
           : options // ignore: cast_nullable_to_non_nullable
-              as List<Option>?,
+              as List<Option>,
     ));
   }
 }
@@ -209,11 +197,10 @@ class _$_Question extends _Question {
       this.categoryDocRef,
       this.quizDocRef,
       this.questionDocRef,
-      this.optionDocRef,
       required this.text,
       required this.duration,
       required this.optionsShuffled,
-      final List<Option>? options})
+      required final List<Option> options})
       : _options = options,
         super._();
 
@@ -228,8 +215,7 @@ class _$_Question extends _Question {
   final String? quizDocRef;
   @override
   final String? questionDocRef;
-  @override
-  final String? optionDocRef;
+// String? optionDocRef,
 // required int categoryId,
 // required int quizId,
 // required int questionId,
@@ -239,18 +225,16 @@ class _$_Question extends _Question {
   final int duration;
   @override
   final bool optionsShuffled;
-  final List<Option>? _options;
+  final List<Option> _options;
   @override
-  List<Option>? get options {
-    final value = _options;
-    if (value == null) return null;
+  List<Option> get options {
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
+    return EqualUnmodifiableListView(_options);
   }
 
   @override
   String toString() {
-    return 'Question(id: $id, categoryDocRef: $categoryDocRef, quizDocRef: $quizDocRef, questionDocRef: $questionDocRef, optionDocRef: $optionDocRef, text: $text, duration: $duration, optionsShuffled: $optionsShuffled, options: $options)';
+    return 'Question(id: $id, categoryDocRef: $categoryDocRef, quizDocRef: $quizDocRef, questionDocRef: $questionDocRef, text: $text, duration: $duration, optionsShuffled: $optionsShuffled, options: $options)';
   }
 
   @override
@@ -265,8 +249,6 @@ class _$_Question extends _Question {
                 other.quizDocRef == quizDocRef) &&
             (identical(other.questionDocRef, questionDocRef) ||
                 other.questionDocRef == questionDocRef) &&
-            (identical(other.optionDocRef, optionDocRef) ||
-                other.optionDocRef == optionDocRef) &&
             (identical(other.text, text) || other.text == text) &&
             (identical(other.duration, duration) ||
                 other.duration == duration) &&
@@ -283,7 +265,6 @@ class _$_Question extends _Question {
       categoryDocRef,
       quizDocRef,
       questionDocRef,
-      optionDocRef,
       text,
       duration,
       optionsShuffled,
@@ -309,11 +290,10 @@ abstract class _Question extends Question {
       final String? categoryDocRef,
       final String? quizDocRef,
       final String? questionDocRef,
-      final String? optionDocRef,
       required final String text,
       required final int duration,
       required final bool optionsShuffled,
-      final List<Option>? options}) = _$_Question;
+      required final List<Option> options}) = _$_Question;
   const _Question._() : super._();
 
   factory _Question.fromJson(Map<String, dynamic> json) = _$_Question.fromJson;
@@ -326,9 +306,8 @@ abstract class _Question extends Question {
   String? get quizDocRef;
   @override
   String? get questionDocRef;
-  @override
-  String? get optionDocRef;
-  @override // required int categoryId,
+  @override // String? optionDocRef,
+// required int categoryId,
 // required int quizId,
 // required int questionId,
   String get text;
@@ -337,7 +316,7 @@ abstract class _Question extends Question {
   @override
   bool get optionsShuffled;
   @override
-  List<Option>? get options;
+  List<Option> get options;
   @override
   @JsonKey(ignore: true)
   _$$_QuestionCopyWith<_$_Question> get copyWith =>

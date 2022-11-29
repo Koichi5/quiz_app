@@ -5,6 +5,7 @@ import 'package:quiz_app/domain/quiz/quiz.dart';
 import 'package:quiz_app/domain/repository/quiz_repository.dart';
 import 'package:quiz_app/general/custom_exception.dart';
 import 'package:quiz_app/presentation/controller/auth_controller.dart';
+import 'package:quiz_app/presentation/controller/option_text_controller.dart';
 
 import '../../domain/question/question.dart';
 import '../../domain/repository/question_repository.dart';
@@ -45,28 +46,20 @@ class QuestionController extends StateNotifier<AsyncValue<List<Question>>> {
   Future<Question> addQuestion({
     String? id,
     required String text,
-    required int duration,
-    required String firstOptionText,
-    required bool firstOptionIsCorrect,
-    required String secondOptionText,
-    required bool secondOptionIsCorrect,
-    required String thirdOptionText,
-    required bool thirdOptionIsCorrect,
-    required String fourthOptionText,
-    required bool fourthOptionIsCorrect,
+    required String duration,
     required bool optionsShuffled,
     required Quiz quiz,
   }) async {
     final question = Question(
       id: id,
       text: text,
-      duration: duration,
+      duration: int.parse(duration),
       optionsShuffled: optionsShuffled,
       options: [
-        Option(text: firstOptionText, isCorrect: firstOptionIsCorrect),
-        Option(text: secondOptionText, isCorrect: secondOptionIsCorrect),
-        Option(text: thirdOptionText, isCorrect: thirdOptionIsCorrect),
-        Option(text: fourthOptionText, isCorrect: fourthOptionIsCorrect),
+        Option(text: _reader(firstOptionTextControllerProvider).text, isCorrect: _reader(firstOptionIsCorrectProvider)),
+        Option(text: _reader(secondOptionTextControllerProvider).text, isCorrect: _reader(secondOptionIsCorrectProvider)),
+        Option(text: _reader(thirdOptionTextControllerProvider).text, isCorrect: _reader(thirdOptionIsCorrectProvider)),
+        Option(text: _reader(fourthOptionTextControllerProvider).text, isCorrect: _reader(fourthOptionIsCorrectProvider)),
       ],
     );
     final questionWithDocRef = await _reader(questionRepositoryProvider)
