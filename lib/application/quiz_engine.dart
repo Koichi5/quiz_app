@@ -18,6 +18,7 @@ class QuizEngine {
   DateTime questionStartTime = DateTime.now();
 
   Quiz quiz;
+  List<Question> questionList;
   List<int> takenQuestions = [];
   Map<int, bool> questionAnswer = {};
 
@@ -25,7 +26,7 @@ class QuizEngine {
   OnQuizCompleted onCompleted;
   OnQuizStop onStop;
 
-  QuizEngine(this.quiz, this.onNext, this.onCompleted, this.onStop);
+  QuizEngine(this.quiz, this.questionList, this.onNext, this.onCompleted, this.onStop);
 
   void start() {
     questionIndex = 0;
@@ -42,7 +43,7 @@ class QuizEngine {
 
       do {
         if (takeNewQuestion) {
-          question = _nextQuestion(quiz, questionIndex);
+          question = _nextQuestion(quiz, questionList, questionIndex);
           if (question != null) {
             takeNewQuestion = false;
             questionIndex++;
@@ -58,7 +59,6 @@ class QuizEngine {
             takeNewQuestion = true;
           }
         }
-
         if (question == null ||
             quiz.questions!.length == questionAnswer.length) {
           double totalCorrect = 0.0;
@@ -88,12 +88,12 @@ class QuizEngine {
 
   void updateAnswer(int questionIndex, int answer) {
     var question = quiz.questions![questionIndex];
-    // questionAnswer[questionIndex] = question.options![answer].isCorrect;
+    questionAnswer[questionIndex] = question.options[answer].isCorrect;
   }
 
-  Question? _nextQuestion(Quiz quiz, int index) {
+  Question? _nextQuestion(Quiz quiz, List<Question> questionList, int index) {
     while (true) {
-      if (takenQuestions.length >= quiz.questions!.length) {
+      if (takenQuestions.length >= questionList.length) {
         return null;
       }
       // Change quiz.optionsShuffled to quiz.questionShuffled

@@ -18,9 +18,10 @@ abstract class Option implements _$Option {
     // String? optionDocRef,
     required String text,
     required bool isCorrect,
+    required bool isSelected,
   }) = _Option;
 
-  factory Option.empty() => const Option(text: "", isCorrect: false);
+  factory Option.empty() => const Option(text: "", isCorrect: false, isSelected: false);
 
   factory Option.fromJson(json) => _$OptionFromJson(json);
 

@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quiz_app/presentation/screens/quiz_list_screen.dart';
+import 'package:quiz_app/presentation/screens/quiz_screen.dart';
 
 import '../../domain/category/category.dart';
 
@@ -20,6 +21,7 @@ class CategoryCard extends HookConsumerWidget {
                 builder: (context) => QuizListScreen(category: category,)
             )
         );
+        // Navigator.push(context, MaterialPageRoute(builder: (context) => QuizScreen(quiz)))
       },
       child: Card(
         key: ValueKey(category.id),

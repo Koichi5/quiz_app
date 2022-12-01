@@ -56,10 +56,10 @@ class QuestionController extends StateNotifier<AsyncValue<List<Question>>> {
       duration: int.parse(duration),
       optionsShuffled: optionsShuffled,
       options: [
-        Option(text: _reader(firstOptionTextControllerProvider).text, isCorrect: _reader(firstOptionIsCorrectProvider)),
-        Option(text: _reader(secondOptionTextControllerProvider).text, isCorrect: _reader(secondOptionIsCorrectProvider)),
-        Option(text: _reader(thirdOptionTextControllerProvider).text, isCorrect: _reader(thirdOptionIsCorrectProvider)),
-        Option(text: _reader(fourthOptionTextControllerProvider).text, isCorrect: _reader(fourthOptionIsCorrectProvider)),
+        Option(text: _reader(firstOptionTextControllerProvider).text, isCorrect: _reader(firstOptionIsCorrectProvider), isSelected: false),
+        Option(text: _reader(secondOptionTextControllerProvider).text, isCorrect: _reader(secondOptionIsCorrectProvider), isSelected: false),
+        Option(text: _reader(thirdOptionTextControllerProvider).text, isCorrect: _reader(thirdOptionIsCorrectProvider), isSelected: false),
+        Option(text: _reader(fourthOptionTextControllerProvider).text, isCorrect: _reader(fourthOptionIsCorrectProvider), isSelected: false),
       ],
     );
     final questionWithDocRef = await _reader(questionRepositoryProvider)

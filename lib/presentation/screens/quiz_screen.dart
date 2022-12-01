@@ -20,11 +20,12 @@ import '../widgets/time_indicator.dart';
 
 class QuizScreen extends ConsumerStatefulWidget {
   static const routeName = '/quiz';
-  late Quiz quiz;
-  QuizScreen(this.quiz, {Key? key}) : super(key: key);
+  final Quiz quiz;
+  final List<Question> questionList;
+  QuizScreen(this.quiz, this.questionList, {Key? key}) : super(key: key);
 
   @override
-  _QuizScreenState createState() => _QuizScreenState(quiz);
+  _QuizScreenState createState() => _QuizScreenState(quiz, questionList);
 }
 
 class _QuizScreenState extends ConsumerState<QuizScreen>
@@ -32,23 +33,23 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
   late QuizEngine engine;
   // late QuizStore store;
   late Quiz quiz;
-  Question? question;
+  late List<Question> questionList;
   Timer? progressTimer;
   AppLifecycleState? state;
 
   int _remainingTime = 0;
-  Map<int, OptionSelection> _optionSerial = {};
+  // Map<int, OptionSelection> _optionSerial = {};
 
-  _QuizScreenState(this.quiz) {
+  _QuizScreenState(this.quiz, this.questionList) {
     // store = QuizStore();
-    engine = QuizEngine(quiz, onNextQuestion, onQuizComplete, onStop);
+    engine = QuizEngine(quiz, questionList, onNextQuestion, onQuizComplete, onStop);
   }
 
   @override
   void initState() {
     engine.start();
     super.initState();
-    WidgetsBinding.instance!.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
@@ -63,7 +64,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
       progressTimer!.cancel();
     }
     engine.stop();
-    WidgetsBinding.instance!.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
@@ -108,7 +109,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
       margin: EdgeInsets.only(bottom: 10),
       // decoration: ThemeHelper.roundBoxDeco(),
       child: Text(
-        question?.text ?? "",
+        questionList[0].text ?? "",
         style: Theme.of(context).textTheme.headline5,
       ),
     );
@@ -119,27 +120,27 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
       alignment: Alignment.center,
       // decoration: ThemeHelper.roundBoxDeco(),
       child: Column(
-        children: List<Option>.from(question?.options ?? []).map((e) {
-          int optionIndex = question!.options!.indexOf(e);
+        children: List<Option>.from(questionList[0].options).map((option) {
+          int optionIndex = questionList[0].options.indexOf(option);
           var optWidget = GestureDetector(
             onTap: () {
               setState(() {
                 engine.updateAnswer(
-                    quiz.questions!.indexOf(question!), optionIndex);
-                for (int i = 0; i < _optionSerial.length; i++) {
-                  _optionSerial[i]!.isSelected = false;
+                    questionList.indexOf(questionList[0]), optionIndex);
+                for (int i = 0; i < questionList[0].options.length; i++) {
+                  // questionList[0].options[i].isSelected = false;
                 }
-                _optionSerial.update(optionIndex, (value) {
-                  value.isSelected = true;
-                  return value;
-                });
+                // questionList[0].options.update(optionIndex, (value) {
+                //   value.isSelected = true;
+                //   return value;
+                // });
               });
             },
             child: QuestionOption(
               optionIndex,
-              _optionSerial[optionIndex]!.optionText,
-              e.text,
-              isSelected: _optionSerial[optionIndex]!.isSelected,
+              questionList[0].options[optionIndex].text,
+              option.text,
+              isSelected: questionList[0].options[optionIndex].isSelected,
             ),
           );
           return optWidget;
@@ -156,7 +157,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
           Container(
             margin: EdgeInsets.only(top: 20),
             child: TimeIndicator(
-              question?.duration ?? 1,
+              questionList[0].duration ?? 1,
               _remainingTime,
               () {},
             ),
@@ -215,11 +216,11 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
         progressTimer!.cancel();
       }
 
-      this.question = question;
+      this.questionList[0] = question;
       _remainingTime = question.duration;
-      _optionSerial = {};
-      for (var i = 0; i < question.options!.length; i++) {
-        _optionSerial[i] = OptionSelection(String.fromCharCode(65 + i), false);
+      question.options = [];
+      for (var i = 0; i < question.options.length; i++) {
+        question.options[i] = OptionSelection(String.fromCharCode(65 + i), false);
       }
     });
 

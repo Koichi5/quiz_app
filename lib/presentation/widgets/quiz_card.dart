@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quiz_app/presentation/screens/question_list_screen.dart';
+import 'package:quiz_app/presentation/screens/quiz_screen.dart';
 
 import '../../domain/quiz/quiz.dart';
 
@@ -13,12 +14,12 @@ class QuizCard extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
-      // onTap: () {
-      //   Navigator.push(
-      //       context,
-      //       MaterialPageRoute(
-      //           builder: (context) => QuestionListScreen(quiz: quiz,)));
-      // },
+      onTap: () {
+        // Navigator.push(
+        //     context,
+        //     MaterialPageRoute(
+        //         builder: (context) => QuizScreen(quiz)));
+      },
       child: Card(
         key: ValueKey(quiz.id),
         color: Theme.of(context).colorScheme.primary,

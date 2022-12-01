@@ -27,6 +27,7 @@ mixin _$Option {
 // String? optionDocRef,
   String get text => throw _privateConstructorUsedError;
   bool get isCorrect => throw _privateConstructorUsedError;
+  bool get isSelected => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -38,7 +39,7 @@ abstract class $OptionCopyWith<$Res> {
   factory $OptionCopyWith(Option value, $Res Function(Option) then) =
       _$OptionCopyWithImpl<$Res, Option>;
   @useResult
-  $Res call({String? id, String text, bool isCorrect});
+  $Res call({String? id, String text, bool isCorrect, bool isSelected});
 }
 
 /// @nodoc
@@ -57,6 +58,7 @@ class _$OptionCopyWithImpl<$Res, $Val extends Option>
     Object? id = freezed,
     Object? text = null,
     Object? isCorrect = null,
+    Object? isSelected = null,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -71,6 +73,10 @@ class _$OptionCopyWithImpl<$Res, $Val extends Option>
           ? _value.isCorrect
           : isCorrect // ignore: cast_nullable_to_non_nullable
               as bool,
+      isSelected: null == isSelected
+          ? _value.isSelected
+          : isSelected // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -81,7 +87,7 @@ abstract class _$$_OptionCopyWith<$Res> implements $OptionCopyWith<$Res> {
       __$$_OptionCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? id, String text, bool isCorrect});
+  $Res call({String? id, String text, bool isCorrect, bool isSelected});
 }
 
 /// @nodoc
@@ -97,6 +103,7 @@ class __$$_OptionCopyWithImpl<$Res>
     Object? id = freezed,
     Object? text = null,
     Object? isCorrect = null,
+    Object? isSelected = null,
   }) {
     return _then(_$_Option(
       id: freezed == id
@@ -111,6 +118,10 @@ class __$$_OptionCopyWithImpl<$Res>
           ? _value.isCorrect
           : isCorrect // ignore: cast_nullable_to_non_nullable
               as bool,
+      isSelected: null == isSelected
+          ? _value.isSelected
+          : isSelected // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -118,7 +129,11 @@ class __$$_OptionCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Option extends _Option {
-  const _$_Option({this.id, required this.text, required this.isCorrect})
+  const _$_Option(
+      {this.id,
+      required this.text,
+      required this.isCorrect,
+      required this.isSelected})
       : super._();
 
   factory _$_Option.fromJson(Map<String, dynamic> json) =>
@@ -134,10 +149,12 @@ class _$_Option extends _Option {
   final String text;
   @override
   final bool isCorrect;
+  @override
+  final bool isSelected;
 
   @override
   String toString() {
-    return 'Option(id: $id, text: $text, isCorrect: $isCorrect)';
+    return 'Option(id: $id, text: $text, isCorrect: $isCorrect, isSelected: $isSelected)';
   }
 
   @override
@@ -148,12 +165,14 @@ class _$_Option extends _Option {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.text, text) || other.text == text) &&
             (identical(other.isCorrect, isCorrect) ||
-                other.isCorrect == isCorrect));
+                other.isCorrect == isCorrect) &&
+            (identical(other.isSelected, isSelected) ||
+                other.isSelected == isSelected));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, text, isCorrect);
+  int get hashCode => Object.hash(runtimeType, id, text, isCorrect, isSelected);
 
   @JsonKey(ignore: true)
   @override
@@ -173,7 +192,8 @@ abstract class _Option extends Option {
   const factory _Option(
       {final String? id,
       required final String text,
-      required final bool isCorrect}) = _$_Option;
+      required final bool isCorrect,
+      required final bool isSelected}) = _$_Option;
   const _Option._() : super._();
 
   factory _Option.fromJson(Map<String, dynamic> json) = _$_Option.fromJson;
@@ -187,6 +207,8 @@ abstract class _Option extends Option {
   String get text;
   @override
   bool get isCorrect;
+  @override
+  bool get isSelected;
   @override
   @JsonKey(ignore: true)
   _$$_OptionCopyWith<_$_Option> get copyWith =>
