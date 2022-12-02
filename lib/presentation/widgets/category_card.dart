@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quiz_app/presentation/screens/quiz_list_screen.dart';
-import 'package:quiz_app/presentation/screens/quiz_screen.dart';
+import 'package:quiz_app/presentation/screens/quiz_screen2.dart';
 
 import '../../domain/category/category.dart';
 

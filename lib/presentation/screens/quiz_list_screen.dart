@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quiz_app/presentation/controller/question_controller.dart';
 import 'package:quiz_app/presentation/screens/quiz_screen.dart';
+import 'package:quiz_app/presentation/screens/quiz_screen2.dart';
 import 'package:quiz_app/presentation/widgets/category_card.dart';
 import 'package:quiz_app/presentation/widgets/quiz_card.dart';
 
@@ -33,7 +34,7 @@ class QuizListScreen extends HookConsumerWidget {
                             ? const Center(
                                 child: Text("問題が用意されていません"),
                               )
-                            : QuizScreen(quizzes.first, questions),
+                            : QuizScreen(quiz: quizzes.first, questionList: questions, reader: ref.read),
                         error: (error, _) => const Text("エラー"),
                         loading: () => const Center(
                               child: CircularProgressIndicator(),

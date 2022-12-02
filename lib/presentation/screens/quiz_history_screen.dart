@@ -4,6 +4,7 @@ import 'package:quiz_app/presentation/controller/category_controller.dart';
 import 'package:quiz_app/presentation/controller/quiz_controller.dart';
 import 'package:quiz_app/presentation/controller/quiz_history_controller.dart';
 import 'package:quiz_app/presentation/screens/quiz_screen.dart';
+import 'package:quiz_app/presentation/screens/quiz_screen2.dart';
 
 import '../../domain/quiz_history/quiz_history.dart';
 

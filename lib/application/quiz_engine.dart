@@ -17,8 +17,8 @@ class QuizEngine {
   DateTime examStartTime = DateTime.now();
   DateTime questionStartTime = DateTime.now();
 
-  Quiz quiz;
-  List<Question> questionList;
+  final Quiz quiz;
+  final List<Question> questionList;
   List<int> takenQuestions = [];
   Map<int, bool> questionAnswer = {};
 
@@ -26,7 +26,12 @@ class QuizEngine {
   OnQuizCompleted onCompleted;
   OnQuizStop onStop;
 
-  QuizEngine(this.quiz, this.questionList, this.onNext, this.onCompleted, this.onStop);
+  QuizEngine(
+      {required this.quiz,
+      required this.questionList,
+      required this.onNext,
+      required this.onCompleted,
+      required this.onStop});
 
   void start() {
     questionIndex = 0;
@@ -53,14 +58,14 @@ class QuizEngine {
         }
         if (question != null) {
           var questionTimeEnd =
-          questionStartTime.add(Duration(seconds: question.duration));
+              questionStartTime.add(Duration(seconds: question.duration));
           var timeDiff = questionTimeEnd.difference(DateTime.now()).inSeconds;
           if (timeDiff <= 0) {
             takeNewQuestion = true;
           }
         }
         if (question == null ||
-            quiz.questions!.length == questionAnswer.length) {
+            questionList.length == questionAnswer.length) {
           double totalCorrect = 0.0;
           questionAnswer.forEach((key, value) {
             if (value == true) {
@@ -87,7 +92,7 @@ class QuizEngine {
   }
 
   void updateAnswer(int questionIndex, int answer) {
-    var question = quiz.questions![questionIndex];
+    var question = questionList[questionIndex];
     questionAnswer[questionIndex] = question.options[answer].isCorrect;
   }
 
@@ -98,13 +103,13 @@ class QuizEngine {
       }
       // Change quiz.optionsShuffled to quiz.questionShuffled
       if (quiz.questionsShuffled) {
-        index = Random().nextInt(quiz.questions!.length);
+        index = Random().nextInt(questionList.length);
         if (takenQuestions.contains(index) == false) {
           takenQuestions.add(index);
-          return quiz.questions![index];
+          return questionList[index];
         }
       } else {
-        return quiz.questions![index];
+        return questionList[index];
       }
     }
   }
