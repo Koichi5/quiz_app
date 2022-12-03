@@ -209,6 +209,7 @@ class QuizScreen extends HookConsumerWidget with WidgetsBindingObserver {
     Quiz quiz,
     double total,
     Duration takenTime,
+      WidgetRef ref,
   ) {
     if (mounted) {
     reader(remainTimeProvider.notifier).state = 0;
@@ -233,3 +234,6 @@ class QuizScreen extends HookConsumerWidget with WidgetsBindingObserver {
     progressTimer?.cancel();
   }
 }
+
+
+
