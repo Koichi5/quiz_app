@@ -34,17 +34,17 @@ class QuestionOption extends StatelessWidget {
                           ? Theme.of(context).primaryColor
                           : Colors.white),
                 ),
-                Container(
-                  alignment: Alignment.center,
-                  child: Text(
-                    optionText,
-                    style: TextStyle(
-                        color: isSelected
-                            ? Colors.white
-                            : Theme.of(context).primaryColor,
-                        fontSize: 30),
-                  ),
-                ),
+                // Container(
+                //   alignment: Alignment.center,
+                //   child: Text(
+                //     optionText,
+                //     style: TextStyle(
+                //         color: isSelected
+                //             ? Colors.white
+                //             : Theme.of(context).primaryColor,
+                //         fontSize: 30),
+                //   ),
+                // ),
               ],
             ),
           ),

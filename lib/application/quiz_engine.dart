@@ -93,9 +93,12 @@ class QuizEngine {
     takeNewQuestion = true;
   }
 
-  void updateAnswer(int questionIndex, int answer) {
+  bool updateAnswer(int questionIndex, int answer) {
     var question = questionList[questionIndex];
+    final answerIsCorrect = questionAnswer[questionIndex] == question.options[answer].isCorrect;
     questionAnswer[questionIndex] = question.options[answer].isCorrect;
+    print(questionAnswer);
+    return answerIsCorrect;
   }
 
   Question? _nextQuestion(Quiz quiz, List<Question> questionList, int index) {
