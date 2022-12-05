@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 import '../domain/question/question.dart';
 import '../domain/quiz/quiz.dart';
 
@@ -93,12 +91,17 @@ class QuizEngine {
     takeNewQuestion = true;
   }
 
-  bool updateAnswer(int questionIndex, int answer) {
+  Map<int, bool> updateAnswer(int questionIndex, int answer) {
     var question = questionList[questionIndex];
-    final answerIsCorrect = questionAnswer[questionIndex] == question.options[answer].isCorrect;
+    // final answerIsCorrect = questionAnswer[questionIndex] == question.options[answer].isCorrect;
     questionAnswer[questionIndex] = question.options[answer].isCorrect;
-    print(questionAnswer);
-    return answerIsCorrect;
+    // questionAnswer は Map<int, bool>
+    // keys には Question の番号
+    // values には正誤判定
+    print("questionAnswer : ${questionAnswer}");
+    print("questionAnswer.values : ${questionAnswer.values}");
+    print("questionAnswer.values.last : ${questionAnswer.values.last}");
+    return questionAnswer;
   }
 
   Question? _nextQuestion(Quiz quiz, List<Question> questionList, int index) {

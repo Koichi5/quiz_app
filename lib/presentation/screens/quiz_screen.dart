@@ -14,21 +14,23 @@ import '../../general/general_provider.dart';
 import '../controller/category_controller.dart';
 import '../controller/quiz_history_controller.dart';
 
-final remainTimeProvider = StateProvider<int> ((ref) => 0);
+final remainTimeProvider = StateProvider<int>((ref) => 0);
+final questionAnswerProvider =
+    StateProvider<Map<int, bool>>((ref) => {0: false});
+final optionGestureProvider = StateProvider((ref) => false);
 
 class QuizScreen extends StatefulHookConsumerWidget {
   static const routeName = '/quiz';
   final Quiz quiz;
   final List<Question> questionList;
 
-  const QuizScreen({required this.quiz, required this.questionList, Key? key}) : super(key: key);
+  const QuizScreen({required this.quiz, required this.questionList, Key? key})
+      : super(key: key);
 
   @override
   ConsumerState<QuizScreen> createState() =>
       // ignore: no_logic_in_create_state
-      _QuizScreenState(
-          quiz: quiz, questionList: questionList
-      );
+      _QuizScreenState(quiz: quiz, questionList: questionList);
 }
 
 class _QuizScreenState extends ConsumerState<QuizScreen>
@@ -46,7 +48,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
   _QuizScreenState({
     required this.quiz,
     required this.questionList,
-  }){
+  }) {
     engine = QuizEngine(
         quiz: quiz,
         questionList: questionList,
@@ -122,32 +124,57 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
   }
 
   Widget questionOptions() {
-    return Container(
+    return Stack(
       alignment: Alignment.center,
-      child: Column(
-        children: List<Option>.from(question?.options ?? []).map((option) {
-          int optionIndex = question!.options.indexOf(option);
-          var optionWidget = GestureDetector(
-            onTap: () {
-              print("optionIndex : $optionIndex");
-              setState(() {
-                final answerIsCorrect = engine.updateAnswer(questionList.indexOf(question!), optionIndex);
-                print(answerIsCorrect);
-                for (int i = 0; i < question!.options.length; i++) {
-                  question!.options[i].copyWith(isSelected: false);
-                }
-              });
-            },
-            child: QuestionOption(
-              optionIndex,
-              question!.options[optionIndex].text,
-              question!.options[optionIndex].text,
-              isSelected: question!.options[optionIndex].isSelected,
-            ),
-          );
-          return optionWidget;
-        }).toList(),
-      ),
+      children: [
+        Container(
+          alignment: Alignment.center,
+          child: Column(
+            children: List<Option>.from(question?.options ?? []).map((option) {
+              int optionIndex = question!.options.indexOf(option);
+              var optionWidget = GestureDetector(
+                onTap: () {
+                  print("optionIndex : $optionIndex");
+                  print(
+                      "question!.options[optionIndex].isSelected : ${question!.options[optionIndex].isSelected}");
+                  ref.watch(questionAnswerProvider.notifier).state =
+                      engine.updateAnswer(
+                          questionList.indexOf(question!), optionIndex);
+                  print(
+                      "ref.watch(questionAnswerProvider.notifier).state : ${ref.watch(questionAnswerProvider.notifier).state}");
+                  print(
+                      "question!.options[optionIndex].isSelected : ${question!.options[optionIndex].isSelected}");
+                  ref.watch(optionGestureProvider.notifier).state = true;
+                  // question!.options[optionIndex].copyWith().isSelected = true;
+                  // setState を置いておかないと画面が更新されないため、正誤判定が一回しかされない
+                  setState(() {
+                    // questionAnswer = engine.updateAnswer(questionList.indexOf(question!), optionIndex);
+                    // for (int i = 0; i < question!.options.length; i++) {
+                    //   question!.options[i].copyWith(isSelected: false);
+                    // }
+                  });
+                },
+                child: QuestionOption(
+                  index: optionIndex,
+                  optionText: question!.options[optionIndex].text,
+                  isSelected: question!.options[optionIndex].isSelected,
+                  optionIsCorrect:
+                      ref.watch(questionAnswerProvider).values.last,
+                ),
+              );
+              return optionWidget;
+            }).toList(),
+          ),
+        ),
+        // option が選択されているかどうかの条件分岐 * 選択された選択肢が正しいかどうかの条件分岐
+        // Icon の範囲が大きいため、テキストをタップしても Stack の下になって反応しないことがある
+        // Icon から外れた部分であれば Tap が反応
+        ref.watch(optionGestureProvider)
+            ? ref.watch(questionAnswerProvider).values.last
+                ? Icon(Icons.circle_outlined, size: MediaQuery.of(context).size.width * 0.7, color: Theme.of(context).colorScheme.primary,)
+                : Icon(Icons.close, size: MediaQuery.of(context).size.width * 0.7, color: Theme.of(context).colorScheme.error,)
+            : const SizedBox(width: 0,),
+      ],
     );
   }
 
@@ -159,8 +186,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
           Container(
             margin: const EdgeInsets.only(top: 20),
             child: question != null
-                ? TimeIndicator(
-                    question!.duration, _remainTime, () {})
+                ? TimeIndicator(question!.duration, _remainTime, () {})
                 : null,
           ),
           Text(
@@ -173,35 +199,37 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
   }
 
   Widget footerButton(BuildContext context) {
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  engine.stop();
-                  if (progressTimer != null && progressTimer!.isActive) {
-                    progressTimer!.cancel();
-                  }
-                });
-                Navigator.pop(context);
-              },
-              child: const Text(
-                "キャンセル",
-                style: TextStyle(fontSize: 20),
-              )),
-          ElevatedButton(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        ElevatedButton(
             onPressed: () {
-              engine.next();
+              setState(() {
+                engine.stop();
+                ref.watch(optionGestureProvider.notifier).state = false;
+                ref.watch(questionAnswerProvider.notifier).state = {0: false};
+                if (progressTimer != null && progressTimer!.isActive) {
+                  progressTimer!.cancel();
+                }
+              });
+              Navigator.pop(context);
             },
             child: const Text(
-              "次へ",
+              "キャンセル",
               style: TextStyle(fontSize: 20),
-            ),
+            )),
+        ElevatedButton(
+          onPressed: () {
+            engine.next();
+            // 何かしらの選択肢を選択したら true になる provider, 画面遷移時には次の問題へ移行するため、false にする必要がある
+            ref.watch(optionGestureProvider.notifier).state = false;
+          },
+          child: const Text(
+            "次へ",
+            style: TextStyle(fontSize: 20),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -222,9 +250,9 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
       if (_remainTime >= 0) {
         try {
           if (mounted) {
-          progressTimer = timer;
-          _remainTime--;
-          print(_remainTime);
+            progressTimer = timer;
+            _remainTime--;
+            print(_remainTime);
           }
         } catch (e) {
           timer.cancel();
@@ -243,9 +271,11 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
       _remainTime = 0;
     }
     progressTimer!.cancel();
-    ref.watch(categoryControllerProvider.notifier)
+    ref
+        .watch(categoryControllerProvider.notifier)
         .retrieveCategoryById(quizCategoryDocRef: quiz.categoryDocRef!)
-        .then((category) => ref.watch(quizHistoryControllerProvider.notifier)
+        .then((category) => ref
+            .watch(quizHistoryControllerProvider.notifier)
             .addQuizHistory(
                 user: ref.watch(firebaseAuthProvider).currentUser!,
                 quizDocRef: quiz.quizDocRef!,
@@ -262,8 +292,6 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
     progressTimer?.cancel();
   }
 }
-
-
 
 // @override
 // Widget build(BuildContext context) {
