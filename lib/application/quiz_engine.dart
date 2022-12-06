@@ -6,7 +6,8 @@ import '../domain/quiz/quiz.dart';
 
 typedef OnQuizNext = void Function(Question question);
 typedef OnQuizCompleted = void Function(
-    Quiz quiz, double totalScore, Duration takenTime);
+    // Quiz quiz,
+    double totalScore, Duration takenTime);
 typedef OnQuizStop = void Function(Quiz quiz);
 
 class QuizEngine {
@@ -66,6 +67,7 @@ class QuizEngine {
         }
         if (question == null ||
             questionList.length == questionAnswer.length) {
+          print("クイズ終了");
           double totalCorrect = 0.0;
           questionAnswer.forEach((key, value) {
             if (value == true) {
@@ -73,7 +75,7 @@ class QuizEngine {
             }
           });
           var takenTime = examStartTime.difference(DateTime.now());
-          onCompleted(quiz, totalCorrect, takenTime);
+          onCompleted(totalCorrect, takenTime);
         }
         await Future.delayed(const Duration(milliseconds: 500));
       } while (question != null && isRunning);

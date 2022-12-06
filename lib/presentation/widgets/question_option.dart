@@ -22,12 +22,11 @@ class QuestionOption extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
-
         padding: const EdgeInsets.all(10),
         alignment: Alignment.centerLeft,
         child: Text(
           optionText,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 25,
             // color: Theme.of(context).primaryColor,
           ),

@@ -87,9 +87,9 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
       // alignment: Alignment.center,
       // padding: EdgeInsets.all(10),
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
       child: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
             screenHeader(),
@@ -125,7 +125,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
 
   Widget questionOptions() {
     return Stack(
-      alignment: Alignment.center,
+      alignment: Alignment.topCenter,
       children: [
         Container(
           alignment: Alignment.center,
@@ -145,14 +145,21 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
                   print(
                       "question!.options[optionIndex].isSelected : ${question!.options[optionIndex].isSelected}");
                   ref.watch(optionGestureProvider.notifier).state = true;
+                  setState(() {});
+
+                  // 3秒後に次の問題へ
+                  Future.delayed(const Duration(seconds: 3), () {
+                    engine.next();
+                    // 何かしらの選択肢を選択したら true になる provider, 画面遷移時には次の問題へ移行するため、false にする必要がある
+                    ref.watch(optionGestureProvider.notifier).state = false;
+                  });
+
                   // question!.options[optionIndex].copyWith().isSelected = true;
                   // setState を置いておかないと画面が更新されないため、正誤判定が一回しかされない
-                  setState(() {
-                    // questionAnswer = engine.updateAnswer(questionList.indexOf(question!), optionIndex);
-                    // for (int i = 0; i < question!.options.length; i++) {
-                    //   question!.options[i].copyWith(isSelected: false);
-                    // }
-                  });
+                  // questionAnswer = engine.updateAnswer(questionList.indexOf(question!), optionIndex);
+                  // for (int i = 0; i < question!.options.length; i++) {
+                  //   question!.options[i].copyWith(isSelected: false);
+                  // }
                 },
                 child: QuestionOption(
                   index: optionIndex,
@@ -171,9 +178,20 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
         // Icon から外れた部分であれば Tap が反応
         ref.watch(optionGestureProvider)
             ? ref.watch(questionAnswerProvider).values.last
-                ? Icon(Icons.circle_outlined, size: MediaQuery.of(context).size.width * 0.7, color: Theme.of(context).colorScheme.primary,)
-                : Icon(Icons.close, size: MediaQuery.of(context).size.width * 0.7, color: Theme.of(context).colorScheme.error,)
-            : const SizedBox(width: 0,),
+                ? Icon(
+                    Icons.circle_outlined,
+                    size: MediaQuery.of(context).size.width * 0.7,
+                    color: Theme.of(context).colorScheme.primary,
+                  )
+                : Icon(
+                    Icons.close,
+                    size: MediaQuery.of(context).size.width * 0.7,
+                    color: Theme.of(context).colorScheme.error,
+                  )
+            : const SizedBox(
+                width: 0,
+                height: 0,
+              ),
       ],
     );
   }
@@ -218,17 +236,17 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
               "キャンセル",
               style: TextStyle(fontSize: 20),
             )),
-        ElevatedButton(
-          onPressed: () {
-            engine.next();
-            // 何かしらの選択肢を選択したら true になる provider, 画面遷移時には次の問題へ移行するため、false にする必要がある
-            ref.watch(optionGestureProvider.notifier).state = false;
-          },
-          child: const Text(
-            "次へ",
-            style: TextStyle(fontSize: 20),
-          ),
-        ),
+        // ElevatedButton(
+        //   onPressed: () {
+        //     engine.next();
+        //     // 何かしらの選択肢を選択したら true になる provider, 画面遷移時には次の問題へ移行するため、false にする必要がある
+        //     ref.watch(optionGestureProvider.notifier).state = false;
+        //   },
+        //   child: const Text(
+        //     "次へ",
+        //     style: TextStyle(fontSize: 20),
+        //   ),
+        // ),
       ],
     );
   }
@@ -263,14 +281,17 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
   }
 
   void onQuizComplete(
-    Quiz quiz,
+    // Quiz quiz,
     double total,
     Duration takenTime,
   ) {
     if (mounted) {
-      _remainTime = 0;
+      setState(() {
+        _remainTime = 0;
+      });
     }
     progressTimer!.cancel();
+    print("quiz.categoryDocRef : ${quiz.categoryDocRef}");
     ref
         .watch(categoryControllerProvider.notifier)
         .retrieveCategoryById(quizCategoryDocRef: quiz.categoryDocRef!)
@@ -281,7 +302,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
                 quizDocRef: quiz.quizDocRef!,
                 categoryDocRef: quiz.categoryDocRef!,
                 quizTitle: quiz.title,
-                score: "$total/${quiz.questions!.length}",
+                score: "$total/${questionList.length}",
                 timeTaken: "${takenTime.inMinutes}分${takenTime.inSeconds}秒",
                 quizDate: DateTime.now(),
                 status: "Complete"));

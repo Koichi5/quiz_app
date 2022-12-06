@@ -70,9 +70,9 @@ class CategoryRepository implements BaseCategoryRepository {
       final snap = await _reader(firebaseFirestoreProvider)
           .collection("category")
           .doc(quizCategoryDocRef)
-          .collection("quiz")
           .get();
-      return snap.docs.map((doc) => Category.fromDocument(doc)).toList();
+      // return snap.docs.map((doc) => Category.fromDocument(doc)).toList();
+      return [Category.fromDocument(snap)];
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message);
     }
