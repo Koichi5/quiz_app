@@ -108,6 +108,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
       alignment: Alignment.center,
       child: Text(
         quiz.title,
+        style: const TextStyle(fontSize: 18),
       ),
     );
   }
