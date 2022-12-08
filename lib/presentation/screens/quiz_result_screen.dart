@@ -1,29 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quiz_app/presentation/screens/quiz_history_screen.dart';
 
 import '../../domain/dto/quiz_result.dart';
 
-class QuizResultScreen extends StatefulWidget {
+class QuizResultScreen extends StatefulHookConsumerWidget {
   static const routeName = '/quizResult';
-  QuizResult result;
-  QuizResultScreen(this.result, {Key? key}) : super(key: key);
+  final QuizResult result;
+  const QuizResultScreen({required this.result, Key? key}) : super(key: key);
 
   @override
-  _QuizResultScreenState createState() => _QuizResultScreenState(this.result);
+  // ignore: no_logic_in_create_state
+  ConsumerState<QuizResultScreen> createState() => _QuizResultScreenState(result: result);
+  // _QuizResultScreenState createState() => _QuizResultScreenState(this.result);
 }
 
-class _QuizResultScreenState extends State<QuizResultScreen> {
-  QuizResult result;
+class _QuizResultScreenState extends ConsumerState<QuizResultScreen> {
+  final QuizResult result;
   int totalQuestions = 0;
   double totalCorrect = 0;
 
-  _QuizResultScreenState(this.result);
+  _QuizResultScreenState({required this.result});
 
   @override
   void initState() {
     setState(() {
       totalCorrect = result.totalCorrect;
-      totalQuestions = result.quiz.questions!.length;
+      totalQuestions = result.questionList.length;
     });
     super.initState();
   }

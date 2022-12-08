@@ -86,7 +86,7 @@ class _TimeIndicatorState extends ConsumerState<TimeIndicator> {
   @override
   Widget build(BuildContext context) {
     var percent = ((ref.watch(remainTimeProvider) / duration) * 100) / 100;
-    print(percent);
+    print("percent : $percent");
     var innerWidth = ((width * percent) - borderWidth * 2);
     var innerHeight = height - borderWidth * 2;
     if (innerWidth < 0) {

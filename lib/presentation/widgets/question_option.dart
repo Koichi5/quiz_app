@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../screens/quiz_screen.dart';
-
 class QuestionOption extends HookConsumerWidget {
   final bool isSelected;
   final String optionText;

@@ -1,13 +1,17 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:flutter/material.dart';
+
 import '../domain/question/question.dart';
 import '../domain/quiz/quiz.dart';
 
 typedef OnQuizNext = void Function(Question question);
 typedef OnQuizCompleted = void Function(
     // Quiz quiz,
-    double totalScore, Duration takenTime);
+    BuildContext context,
+    double totalScore,
+    Duration takenTime);
 typedef OnQuizStop = void Function(Quiz quiz);
 
 class QuizEngine {
@@ -34,7 +38,7 @@ class QuizEngine {
       required this.onCompleted,
       required this.onStop});
 
-  void start() {
+  void start(BuildContext context) {
     questionIndex = 0;
     questionDuration = 0;
     takenQuestions = [];
@@ -65,9 +69,8 @@ class QuizEngine {
             takeNewQuestion = true;
           }
         }
-        if (question == null ||
-            questionList.length == questionAnswer.length) {
-          print("クイズ終了");
+        //　_nextQuestion関数でとってきたクイズが null だった時 ＝ クイズが終わった時
+        if (question == null || questionList.length == questionAnswer.length) {
           double totalCorrect = 0.0;
           questionAnswer.forEach((key, value) {
             if (value == true) {
@@ -75,7 +78,7 @@ class QuizEngine {
             }
           });
           var takenTime = examStartTime.difference(DateTime.now());
-          onCompleted(totalCorrect, takenTime);
+          onCompleted(context, totalCorrect, takenTime);
         }
         await Future.delayed(const Duration(milliseconds: 500));
       } while (question != null && isRunning);
@@ -100,9 +103,9 @@ class QuizEngine {
     // questionAnswer は Map<int, bool>
     // keys には Question の番号
     // values には正誤判定
-    print("questionAnswer : ${questionAnswer}");
-    print("questionAnswer.values : ${questionAnswer.values}");
-    print("questionAnswer.values.last : ${questionAnswer.values.last}");
+    // print("questionAnswer : ${questionAnswer}");
+    // print("questionAnswer.values : ${questionAnswer.values}");
+    // print("questionAnswer.values.last : ${questionAnswer.values.last}");
     return questionAnswer;
   }
 
@@ -112,15 +115,15 @@ class QuizEngine {
         return null;
       }
       // Change quiz.optionsShuffled to quiz.questionShuffled
-      if (quiz.questionsShuffled) {
-        index = Random().nextInt(questionList.length);
-        if (takenQuestions.contains(index) == false) {
-          takenQuestions.add(index);
-          return questionList[index];
-        }
-      } else {
+      // if (!quiz.questionsShuffled) {
+      index = Random().nextInt(questionList.length);
+      if (takenQuestions.contains(index) == false) {
+        takenQuestions.add(index);
         return questionList[index];
       }
+      // } else {
+      //   return questionList[index];
+      // }
     }
   }
 }

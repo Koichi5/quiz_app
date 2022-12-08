@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:quiz_app/domain/dto/quiz_result.dart';
 import 'package:quiz_app/general/custom_exception.dart';
+import 'package:quiz_app/presentation/screens/quiz_result_screen.dart';
 import 'package:quiz_app/presentation/widgets/question_option.dart';
 import 'package:quiz_app/presentation/widgets/time_indicator.dart';
 
@@ -61,14 +63,14 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    engine.start();
+    engine.start(context);
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
     appState = state;
-    print(state);
+    // print(state);
   }
 
   @override
@@ -135,16 +137,16 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
               int optionIndex = question!.options.indexOf(option);
               var optionWidget = GestureDetector(
                 onTap: () {
-                  print("optionIndex : $optionIndex");
-                  print(
-                      "question!.options[optionIndex].isSelected : ${question!.options[optionIndex].isSelected}");
+                  // print("optionIndex : $optionIndex");
+                  // print(
+                      // "question!.options[optionIndex].isSelected : ${question!.options[optionIndex].isSelected}");
                   ref.watch(questionAnswerProvider.notifier).state =
                       engine.updateAnswer(
                           questionList.indexOf(question!), optionIndex);
-                  print(
-                      "ref.watch(questionAnswerProvider.notifier).state : ${ref.watch(questionAnswerProvider.notifier).state}");
-                  print(
-                      "question!.options[optionIndex].isSelected : ${question!.options[optionIndex].isSelected}");
+                  // print(
+                  //     "ref.watch(questionAnswerProvider.notifier).state : ${ref.watch(questionAnswerProvider.notifier).state}");
+                  // print(
+                  //     "question!.options[optionIndex].isSelected : ${question!.options[optionIndex].isSelected}");
                   ref.watch(optionGestureProvider.notifier).state = true;
                   setState(() {});
 
@@ -271,7 +273,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
           if (mounted) {
             progressTimer = timer;
             _remainTime--;
-            print(_remainTime);
+            // print(_remainTime);
           }
         } catch (e) {
           timer.cancel();
@@ -283,6 +285,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
 
   void onQuizComplete(
     // Quiz quiz,
+    BuildContext context,
     double total,
     Duration takenTime,
   ) {
@@ -292,7 +295,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
       });
     }
     progressTimer!.cancel();
-    print("quiz.categoryDocRef : ${quiz.categoryDocRef}");
+    // print("quiz.categoryDocRef : ${quiz.categoryDocRef}");
     ref
         .watch(categoryControllerProvider.notifier)
         .retrieveCategoryById(quizCategoryDocRef: quiz.categoryDocRef!)
@@ -307,6 +310,11 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
                 timeTaken: "${takenTime.inMinutes}分${takenTime.inSeconds}秒",
                 quizDate: DateTime.now(),
                 status: "Complete"));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                QuizResultScreen(result: QuizResult(quiz, questionList, total))));
   }
 
   void onStop(Quiz quiz) {

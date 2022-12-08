@@ -41,14 +41,14 @@ class QuizSetButton extends HookConsumerWidget {
                       questionsShuffled: false,
                       imagePath: "",
                       categoryId: category.categoryId);
-              print(quiz.questionDocRef);
+              print("quiz.questionDocRef1 : ${quiz.questionDocRef}");
               Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => QuestionSetScreen(
                             quiz: quiz,
                           )));
-              print(quiz.questionDocRef);
+              print("quiz.questionDocRef2 : ${quiz.questionDocRef}");
             }
           },
           child: Text(

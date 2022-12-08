@@ -55,7 +55,7 @@ class QuestionRepository implements BaseQuestionRepository {
 
       await questionRef.doc(quiz.questionDocRef).update({
         "options":
-            question.options!.map((option) => option.toDocument()).toList(),
+            question.options.map((option) => option.toDocument()).toList(),
       });
       // update(question.toDocument()) とすると question の options は Option型で、Firestore に保存できずにエラー
       // update(questionWithDocRef.toDocument()) とすると Some requested document was not found
