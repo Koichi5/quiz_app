@@ -8,10 +8,12 @@ import '../domain/quiz/quiz.dart';
 
 typedef OnQuizNext = void Function(Question question);
 typedef OnQuizCompleted = void Function(
-    // Quiz quiz,
     BuildContext context,
     double totalScore,
-    Duration takenTime);
+    Duration takenTime,
+    List<int> takenQuestions,
+    List<bool> answerIsCorrectList,
+    );
 typedef OnQuizStop = void Function(Quiz quiz);
 
 class QuizEngine {
@@ -59,6 +61,7 @@ class QuizEngine {
             questionIndex++;
             questionStartTime = DateTime.now();
             onNext(question);
+            print("questionIndex : $questionIndex");
           }
         }
         if (question != null) {
@@ -78,7 +81,8 @@ class QuizEngine {
             }
           });
           var takenTime = examStartTime.difference(DateTime.now());
-          onCompleted(context, totalCorrect, takenTime);
+          print("takenQuestions : $takenQuestions");
+          onCompleted(context, totalCorrect, takenTime, takenQuestions, questionAnswer.values.toList());
         }
         await Future.delayed(const Duration(milliseconds: 500));
       } while (question != null && isRunning);

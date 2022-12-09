@@ -16,6 +16,12 @@ _$_QuizHistory _$$_QuizHistoryFromJson(Map<String, dynamic> json) =>
       timeTaken: json['timeTaken'] as String,
       quizDate: DateTime.parse(json['quizDate'] as String),
       status: json['status'] as String,
+      takenQuestions: (json['takenQuestions'] as List<dynamic>)
+          .map((e) => e as int)
+          .toList(),
+      answerIsCorrectList: (json['answerIsCorrectList'] as List<dynamic>)
+          .map((e) => e as bool)
+          .toList(),
     );
 
 Map<String, dynamic> _$$_QuizHistoryToJson(_$_QuizHistory instance) =>
@@ -28,4 +34,6 @@ Map<String, dynamic> _$$_QuizHistoryToJson(_$_QuizHistory instance) =>
       'timeTaken': instance.timeTaken,
       'quizDate': instance.quizDate.toIso8601String(),
       'status': instance.status,
+      'takenQuestions': instance.takenQuestions,
+      'answerIsCorrectList': instance.answerIsCorrectList,
     };

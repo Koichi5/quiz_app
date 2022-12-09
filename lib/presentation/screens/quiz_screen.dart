@@ -137,32 +137,41 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
               int optionIndex = question!.options.indexOf(option);
               var optionWidget = GestureDetector(
                 onTap: () {
-                  // print("optionIndex : $optionIndex");
-                  // print(
-                      // "question!.options[optionIndex].isSelected : ${question!.options[optionIndex].isSelected}");
-                  ref.watch(questionAnswerProvider.notifier).state =
-                      engine.updateAnswer(
-                          questionList.indexOf(question!), optionIndex);
-                  // print(
-                  //     "ref.watch(questionAnswerProvider.notifier).state : ${ref.watch(questionAnswerProvider.notifier).state}");
-                  // print(
-                  //     "question!.options[optionIndex].isSelected : ${question!.options[optionIndex].isSelected}");
-                  ref.watch(optionGestureProvider.notifier).state = true;
-                  setState(() {});
+                  if (!ref.watch(optionGestureProvider)) {
+                    ref.watch(optionGestureProvider.notifier).state = true;
+                    // print("optionIndex : $optionIndex");
+                    // print(
+                    // "question!.options[optionIndex].isSelected : ${question!.options[optionIndex].isSelected}");
+                    setState(() {
+                      // ref.watch(optionGestureProvider) ? (){} :
+                      _remainTime = 0;
+                      ref.watch(questionAnswerProvider.notifier).state =
+                          engine.updateAnswer(
+                              questionList.indexOf(question!), optionIndex);
+                      // print(
+                      //     "ref.watch(questionAnswerProvider.notifier).state : ${ref.watch(questionAnswerProvider.notifier).state}");
+                      // print(
+                      //     "question!.options[optionIndex].isSelected : ${question!.options[optionIndex].isSelected}");
+                      // ref.watch(optionGestureProvider.notifier).state = true;
+                      progressTimer!.cancel();
+                    });
 
-                  // 3秒後に次の問題へ
-                  Future.delayed(const Duration(seconds: 3), () {
-                    engine.next();
-                    // 何かしらの選択肢を選択したら true になる provider, 画面遷移時には次の問題へ移行するため、false にする必要がある
-                    ref.watch(optionGestureProvider.notifier).state = false;
-                  });
+                    // 3秒後に次の問題へ
+                    Future.delayed(const Duration(seconds: 3), () {
+                      engine.next();
+                      // 何かしらの選択肢を選択したら true になる provider, 画面遷移時には次の問題へ移行するため、false にする必要がある
+                      ref.watch(optionGestureProvider.notifier).state = false;
+                    });
 
-                  // question!.options[optionIndex].copyWith().isSelected = true;
-                  // setState を置いておかないと画面が更新されないため、正誤判定が一回しかされない
-                  // questionAnswer = engine.updateAnswer(questionList.indexOf(question!), optionIndex);
-                  // for (int i = 0; i < question!.options.length; i++) {
-                  //   question!.options[i].copyWith(isSelected: false);
-                  // }
+                    // question!.options[optionIndex].copyWith().isSelected = true;
+                    // setState を置いておかないと画面が更新されないため、正誤判定が一回しかされない
+                    // questionAnswer = engine.updateAnswer(questionList.indexOf(question!), optionIndex);
+                    // for (int i = 0; i < question!.options.length; i++) {
+                    //   question!.options[i].copyWith(isSelected: false);
+                    // }
+                  } else {
+                    null;
+                  }
                 },
                 child: QuestionOption(
                   index: optionIndex,
@@ -207,7 +216,14 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
           Container(
             margin: const EdgeInsets.only(top: 20),
             child: question != null
-                ? TimeIndicator(question!.duration, _remainTime, () {})
+                ? TimeIndicator(
+                    question!.duration,
+                    _remainTime,
+                    () {
+                      // progressTimer!.cancel();
+                      // _remainTime = 0;
+                    },
+                  )
                 : null,
           ),
           Text(
@@ -271,8 +287,10 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
       if (_remainTime >= 0) {
         try {
           if (mounted) {
-            progressTimer = timer;
-            _remainTime--;
+            setState(() {
+              progressTimer = timer;
+              _remainTime--;
+            });
             // print(_remainTime);
           }
         } catch (e) {
@@ -288,33 +306,54 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
     BuildContext context,
     double total,
     Duration takenTime,
+    List<int> takenQuestions,
+    List<bool> answerIsCorrectList,
   ) {
     if (mounted) {
       setState(() {
         _remainTime = 0;
+        progressTimer!.cancel();
       });
     }
-    progressTimer!.cancel();
+    // progressTimer!.cancel();
     // print("quiz.categoryDocRef : ${quiz.categoryDocRef}");
+    // Navigator.pop(context);
     ref
         .watch(categoryControllerProvider.notifier)
         .retrieveCategoryById(quizCategoryDocRef: quiz.categoryDocRef!)
-        .then((category) => ref
-            .watch(quizHistoryControllerProvider.notifier)
-            .addQuizHistory(
-                user: ref.watch(firebaseAuthProvider).currentUser!,
-                quizDocRef: quiz.quizDocRef!,
-                categoryDocRef: quiz.categoryDocRef!,
-                quizTitle: quiz.title,
-                score: "$total/${questionList.length}",
-                timeTaken: "${takenTime.inMinutes}分${takenTime.inSeconds}秒",
-                quizDate: DateTime.now(),
-                status: "Complete"));
-    Navigator.push(
+        .then((category) =>
+            ref.watch(quizHistoryControllerProvider.notifier).addQuizHistory(
+                  user: ref.watch(firebaseAuthProvider).currentUser!,
+                  quizDocRef: quiz.quizDocRef!,
+                  categoryDocRef: quiz.categoryDocRef!,
+                  quizTitle: quiz.title,
+                  score: "$total/${questionList.length}",
+                  timeTaken: "${takenTime.inMinutes}分${takenTime.inSeconds}秒",
+                  quizDate: DateTime.now(),
+                  status: "Complete",
+                  takenQuestions: takenQuestions,
+                  answerIsCorrectList: answerIsCorrectList,
+                ));
+    // push にすると、この画面は単一の画面ではないため、画面遷移が乱れる
+    Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-            builder: (context) =>
-                QuizResultScreen(result: QuizResult(quiz, questionList, total))));
+            builder: (context) => QuizResultScreen(
+                  result: QuizResult(
+                      quiz: quiz,
+                      questionList: questionList,
+                      totalCorrect: total),
+                  takenQuestions: takenQuestions,
+                answerIsCorrectList: answerIsCorrectList
+                )));
+    // Navigator.push(
+    //     context,
+    //     MaterialPageRoute(
+    //         builder: (context) => QuizResultScreen(
+    //             result: QuizResult(
+    //                 quiz: quiz,
+    //                 questionList: questionList,
+    //                 totalCorrect: total))));
   }
 
   void onStop(Quiz quiz) {

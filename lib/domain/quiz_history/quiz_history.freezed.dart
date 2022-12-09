@@ -30,6 +30,8 @@ mixin _$QuizHistory {
   String get timeTaken => throw _privateConstructorUsedError;
   DateTime get quizDate => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
+  List<int> get takenQuestions => throw _privateConstructorUsedError;
+  List<bool> get answerIsCorrectList => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -51,7 +53,9 @@ abstract class $QuizHistoryCopyWith<$Res> {
       String score,
       String timeTaken,
       DateTime quizDate,
-      String status});
+      String status,
+      List<int> takenQuestions,
+      List<bool> answerIsCorrectList});
 }
 
 /// @nodoc
@@ -75,6 +79,8 @@ class _$QuizHistoryCopyWithImpl<$Res, $Val extends QuizHistory>
     Object? timeTaken = null,
     Object? quizDate = null,
     Object? status = null,
+    Object? takenQuestions = null,
+    Object? answerIsCorrectList = null,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -109,6 +115,14 @@ class _$QuizHistoryCopyWithImpl<$Res, $Val extends QuizHistory>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String,
+      takenQuestions: null == takenQuestions
+          ? _value.takenQuestions
+          : takenQuestions // ignore: cast_nullable_to_non_nullable
+              as List<int>,
+      answerIsCorrectList: null == answerIsCorrectList
+          ? _value.answerIsCorrectList
+          : answerIsCorrectList // ignore: cast_nullable_to_non_nullable
+              as List<bool>,
     ) as $Val);
   }
 }
@@ -129,7 +143,9 @@ abstract class _$$_QuizHistoryCopyWith<$Res>
       String score,
       String timeTaken,
       DateTime quizDate,
-      String status});
+      String status,
+      List<int> takenQuestions,
+      List<bool> answerIsCorrectList});
 }
 
 /// @nodoc
@@ -151,6 +167,8 @@ class __$$_QuizHistoryCopyWithImpl<$Res>
     Object? timeTaken = null,
     Object? quizDate = null,
     Object? status = null,
+    Object? takenQuestions = null,
+    Object? answerIsCorrectList = null,
   }) {
     return _then(_$_QuizHistory(
       id: freezed == id
@@ -185,6 +203,14 @@ class __$$_QuizHistoryCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String,
+      takenQuestions: null == takenQuestions
+          ? _value._takenQuestions
+          : takenQuestions // ignore: cast_nullable_to_non_nullable
+              as List<int>,
+      answerIsCorrectList: null == answerIsCorrectList
+          ? _value._answerIsCorrectList
+          : answerIsCorrectList // ignore: cast_nullable_to_non_nullable
+              as List<bool>,
     ));
   }
 }
@@ -200,8 +226,12 @@ class _$_QuizHistory extends _QuizHistory {
       required this.score,
       required this.timeTaken,
       required this.quizDate,
-      required this.status})
-      : super._();
+      required this.status,
+      required final List<int> takenQuestions,
+      required final List<bool> answerIsCorrectList})
+      : _takenQuestions = takenQuestions,
+        _answerIsCorrectList = answerIsCorrectList,
+        super._();
 
   factory _$_QuizHistory.fromJson(Map<String, dynamic> json) =>
       _$$_QuizHistoryFromJson(json);
@@ -224,10 +254,23 @@ class _$_QuizHistory extends _QuizHistory {
   final DateTime quizDate;
   @override
   final String status;
+  final List<int> _takenQuestions;
+  @override
+  List<int> get takenQuestions {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_takenQuestions);
+  }
+
+  final List<bool> _answerIsCorrectList;
+  @override
+  List<bool> get answerIsCorrectList {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_answerIsCorrectList);
+  }
 
   @override
   String toString() {
-    return 'QuizHistory(id: $id, categoryDocRef: $categoryDocRef, quizDocRef: $quizDocRef, quizTitle: $quizTitle, score: $score, timeTaken: $timeTaken, quizDate: $quizDate, status: $status)';
+    return 'QuizHistory(id: $id, categoryDocRef: $categoryDocRef, quizDocRef: $quizDocRef, quizTitle: $quizTitle, score: $score, timeTaken: $timeTaken, quizDate: $quizDate, status: $status, takenQuestions: $takenQuestions, answerIsCorrectList: $answerIsCorrectList)';
   }
 
   @override
@@ -247,13 +290,27 @@ class _$_QuizHistory extends _QuizHistory {
                 other.timeTaken == timeTaken) &&
             (identical(other.quizDate, quizDate) ||
                 other.quizDate == quizDate) &&
-            (identical(other.status, status) || other.status == status));
+            (identical(other.status, status) || other.status == status) &&
+            const DeepCollectionEquality()
+                .equals(other._takenQuestions, _takenQuestions) &&
+            const DeepCollectionEquality()
+                .equals(other._answerIsCorrectList, _answerIsCorrectList));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, categoryDocRef, quizDocRef,
-      quizTitle, score, timeTaken, quizDate, status);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      categoryDocRef,
+      quizDocRef,
+      quizTitle,
+      score,
+      timeTaken,
+      quizDate,
+      status,
+      const DeepCollectionEquality().hash(_takenQuestions),
+      const DeepCollectionEquality().hash(_answerIsCorrectList));
 
   @JsonKey(ignore: true)
   @override
@@ -278,7 +335,9 @@ abstract class _QuizHistory extends QuizHistory {
       required final String score,
       required final String timeTaken,
       required final DateTime quizDate,
-      required final String status}) = _$_QuizHistory;
+      required final String status,
+      required final List<int> takenQuestions,
+      required final List<bool> answerIsCorrectList}) = _$_QuizHistory;
   _QuizHistory._() : super._();
 
   factory _QuizHistory.fromJson(Map<String, dynamic> json) =
@@ -301,6 +360,10 @@ abstract class _QuizHistory extends QuizHistory {
   DateTime get quizDate;
   @override
   String get status;
+  @override
+  List<int> get takenQuestions;
+  @override
+  List<bool> get answerIsCorrectList;
   @override
   @JsonKey(ignore: true)
   _$$_QuizHistoryCopyWith<_$_QuizHistory> get copyWith =>

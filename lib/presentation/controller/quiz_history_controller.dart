@@ -41,23 +41,29 @@ class QuizHistoryController
     }
   }
 
-  Future<String> addQuizHistory(
-      {required User user,
-      required String quizDocRef,
-      required String categoryDocRef,
-      required String quizTitle,
-      required String score,
-      required String timeTaken,
-      required DateTime quizDate,
-      required String status}) async {
+  Future<String> addQuizHistory({
+    required User user,
+    required String quizDocRef,
+    required String categoryDocRef,
+    required String quizTitle,
+    required String score,
+    required String timeTaken,
+    required DateTime quizDate,
+    required String status,
+    required List<int> takenQuestions,
+    required List<bool> answerIsCorrectList,
+  }) async {
     final quizHistory = QuizHistory(
-        quizDocRef: quizDocRef,
-        categoryDocRef: categoryDocRef,
-        quizTitle: quizTitle,
-        score: score,
-        timeTaken: timeTaken,
-        quizDate: quizDate,
-        status: status);
+      quizDocRef: quizDocRef,
+      categoryDocRef: categoryDocRef,
+      quizTitle: quizTitle,
+      score: score,
+      timeTaken: timeTaken,
+      quizDate: quizDate,
+      status: status,
+      takenQuestions: takenQuestions,
+        answerIsCorrectList: answerIsCorrectList,
+    );
     final quizHistoryDocRef = await _reader(quizHistoryRepositoryProvider)
         .addQuizHistory(quizHistory: quizHistory, user: user);
     state.whenData((categoryList) => state = AsyncValue.data(

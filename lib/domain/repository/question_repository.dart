@@ -6,11 +6,14 @@ import 'package:quiz_app/domain/question/question.dart';
 import '../../general/custom_exception.dart';
 import '../../general/general_provider.dart';
 import '../quiz/quiz.dart';
+import '../weak_question/weak_question.dart';
 
 abstract class BaseQuestionRepository {
   Future<Question> addQuestion(
       {required Quiz quiz, required Question question});
   Future<List<Question>> retrieveQuestionList({required Quiz quiz});
+  Future<List<Question>> retrieveWeakQuestionList(
+      {required List<WeakQuestion> weakQuestionList});
 }
 
 final questionRepositoryProvider =
@@ -109,6 +112,29 @@ class QuestionRepository implements BaseQuestionRepository {
           .collection("questions")
           .get();
       return snap.docs.map((doc) => Question.fromDocument(doc)).toList();
+    } on FirebaseException catch (e) {
+      throw CustomException(message: e.message);
+    }
+  }
+
+  @override
+  Future<List<Question>> retrieveWeakQuestionList(
+      {required List<WeakQuestion> weakQuestionList}) async {
+    try {
+      final List<Question> questionList = [];
+      for (int i = 0; i < weakQuestionList.length; i++) {
+        final weakQuestion = weakQuestionList[i];
+        final snap = await _reader(firebaseFirestoreProvider)
+            .collection("category")
+            .doc(weakQuestion.categoryDocRef)
+            .collection("quiz")
+            .doc(weakQuestion.quizDocRef)
+            .collection("questions")
+            .doc(weakQuestion.questionDocRef)
+            .get();
+        questionList.add(Question.fromDocument(snap));
+      }
+      return questionList;
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message);
     }

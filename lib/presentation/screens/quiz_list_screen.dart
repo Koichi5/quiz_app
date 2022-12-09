@@ -34,7 +34,7 @@ class QuizListScreen extends HookConsumerWidget {
                             ? const Center(
                                 child: Text("問題が用意されていません"),
                               )
-                            : QuizScreen(quiz: quizzes.first, questionList: questions,),
+                            : QuizScreen(quiz: quizzes.first, questionList: questions),
                         error: (error, _) => const Text("エラー"),
                         loading: () => const Center(
                               child: CircularProgressIndicator(),

@@ -20,6 +20,7 @@ class QuestionOption extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
+        width: MediaQuery.of(context).size.width * 0.9,
         padding: const EdgeInsets.all(10),
         alignment: Alignment.centerLeft,
         child: Text(

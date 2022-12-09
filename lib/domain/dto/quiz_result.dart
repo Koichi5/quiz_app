@@ -1,10 +1,15 @@
-import 'package:quiz_app/domain/question/question.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../question/question.dart';
 import '../quiz/quiz.dart';
 
-class QuizResult {
-  Quiz quiz;
-  List<Question> questionList;
-  double totalCorrect;
-  QuizResult(this.quiz, this.questionList, this.totalCorrect);
+part 'quiz_result.freezed.dart';
+
+@freezed
+class QuizResult with _$QuizResult {
+  const factory QuizResult({
+    required Quiz quiz,
+    required List<Question> questionList,
+    required double totalCorrect,
+  }) = _QuizResult;
 }

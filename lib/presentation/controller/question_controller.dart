@@ -8,6 +8,7 @@ import 'package:quiz_app/presentation/controller/option_text_controller.dart';
 
 import '../../domain/question/question.dart';
 import '../../domain/repository/question_repository.dart';
+import '../../domain/weak_question/weak_question.dart';
 
 final questionExceptionProvider = StateProvider<CustomException?>((_) => null);
 
@@ -42,6 +43,21 @@ class QuestionController extends StateNotifier<AsyncValue<List<Question>>> {
     }
   }
 
+  // Future<List<Question>> retrieveWeakQuestionList(
+  //     {required List<WeakQuestion> weakQuestionList}) async {
+  //   try {
+  //     final retrievedWeakQuestionList =
+  //         await _reader(questionRepositoryProvider)
+  //             .retrieveWeakQuestionList(weakQuestionList: weakQuestionList);
+  //     if (mounted) {
+  //       state = AsyncValue.data(retrievedWeakQuestionList);
+  //     }
+  //     return retrievedWeakQuestionList;
+  //   } on FirebaseException catch (e) {
+  //     throw CustomException(message: e.message);
+  //   }
+  // }
+
   Future<Question> addQuestion({
     String? id,
     required String text,
@@ -55,10 +71,22 @@ class QuestionController extends StateNotifier<AsyncValue<List<Question>>> {
       duration: int.parse(duration),
       optionsShuffled: optionsShuffled,
       options: [
-        Option(text: _reader(firstOptionTextControllerProvider).text, isCorrect: _reader(firstOptionIsCorrectProvider), isSelected: false),
-        Option(text: _reader(secondOptionTextControllerProvider).text, isCorrect: _reader(secondOptionIsCorrectProvider), isSelected: false),
-        Option(text: _reader(thirdOptionTextControllerProvider).text, isCorrect: _reader(thirdOptionIsCorrectProvider), isSelected: false),
-        Option(text: _reader(fourthOptionTextControllerProvider).text, isCorrect: _reader(fourthOptionIsCorrectProvider), isSelected: false),
+        Option(
+            text: _reader(firstOptionTextControllerProvider).text,
+            isCorrect: _reader(firstOptionIsCorrectProvider),
+            isSelected: false),
+        Option(
+            text: _reader(secondOptionTextControllerProvider).text,
+            isCorrect: _reader(secondOptionIsCorrectProvider),
+            isSelected: false),
+        Option(
+            text: _reader(thirdOptionTextControllerProvider).text,
+            isCorrect: _reader(thirdOptionIsCorrectProvider),
+            isSelected: false),
+        Option(
+            text: _reader(fourthOptionTextControllerProvider).text,
+            isCorrect: _reader(fourthOptionIsCorrectProvider),
+            isSelected: false),
       ],
     );
     final questionWithDocRef = await _reader(questionRepositoryProvider)

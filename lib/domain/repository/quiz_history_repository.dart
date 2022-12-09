@@ -38,6 +38,8 @@ class QuizHistoryRepository implements BaseQuizHistoryRepository {
             timeTaken: quizHistory.timeTaken,
             quizDate: quizHistory.quizDate,
             status: quizHistory.status,
+            takenQuestions: quizHistory.takenQuestions,
+            answerIsCorrectList: quizHistory.answerIsCorrectList,
           ).toDocument());
       return quizHistoryDocRef;
     } on FirebaseException catch (e) {
