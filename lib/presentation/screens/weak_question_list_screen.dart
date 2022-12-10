@@ -14,9 +14,6 @@ class WeakQuestionListScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final weakQuestionListState = ref.watch(weakQuestionControllerProvider);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("苦手問題"),
-      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -37,9 +34,9 @@ class WeakQuestionListScreen extends HookConsumerWidget {
                                 retrievedWeakQuestionList) {
                           if (retrievedWeakQuestionList.connectionState !=
                               ConnectionState.done) {
-                            return CircularProgressIndicator();
+                            return const Center(
+                                child: CircularProgressIndicator());
                           }
-
                           // エラー発生時はエラーメッセージを表示
                           if (retrievedWeakQuestionList.hasError) {
                             return Text(
@@ -47,9 +44,18 @@ class WeakQuestionListScreen extends HookConsumerWidget {
                           }
                           // データがnullでないかチェック
                           if (retrievedWeakQuestionList.hasData) {
-                            return Text("");
+                            return ListView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: retrievedWeakQuestionList.data!.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  final retrievedWeakQuestion =
+                                      retrievedWeakQuestionList.data![index];
+                                  return WeakQuestionCard(
+                                      question: retrievedWeakQuestion);
+                                });
                           } else {
-                            return Text("データが存在しません");
+                            return const Text("苦手問題がありません");
                           }
                         }),
                 //                 : ListView.builder(
