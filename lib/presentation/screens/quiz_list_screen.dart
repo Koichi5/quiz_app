@@ -18,7 +18,9 @@ class QuizListScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final quizListState = ref.watch(quizControllerProvider(category));
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,

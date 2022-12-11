@@ -13,6 +13,8 @@ class CategorySetScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final idControllerProvider = ref.watch(categoryIdControllerProvider);
     final nameControllerProvider = ref.watch(categoryNameControllerProvider);
+    final descriptionControllerProvider =
+        ref.watch(categoryDescriptionControllerProvider);
     final categoryValidator = ref.watch(categoryValidatorProvider);
     final categoryValidatorNotifier =
         ref.watch(categoryValidatorProvider.notifier);
@@ -50,8 +52,22 @@ class CategorySetScreen extends HookConsumerWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.02,
             ),
-            CategorySetButton(categoryId: idControllerProvider.text,
-                name: nameControllerProvider.text,),
+            CustomTextField(
+              title: "カテゴリ名",
+              controller: descriptionControllerProvider,
+              error: categoryValidator.form.description.errorMessage,
+              onChanged: (categoryDescription) {
+                categoryValidatorNotifier
+                    .setCategoryDescription(categoryDescription);
+              },
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.02,
+            ),
+            CategorySetButton(
+                categoryId: idControllerProvider.text,
+                name: nameControllerProvider.text,
+                description: descriptionControllerProvider.text),
           ],
         ),
       ),

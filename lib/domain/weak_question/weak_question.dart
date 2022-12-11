@@ -13,6 +13,7 @@ abstract class WeakQuestion implements _$WeakQuestion {
     required String categoryDocRef,
     required String quizDocRef,
     required String questionDocRef,
+    String? weakQuestionDocRef,
   }) = _WeakQuestion;
 
   factory WeakQuestion.empty() => WeakQuestion(

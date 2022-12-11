@@ -8,77 +8,94 @@ import 'package:quiz_app/presentation/screens/quiz_screen2.dart';
 
 import '../../domain/quiz_history/quiz_history.dart';
 
-class QuizHistoryScreen extends StatefulWidget {
+class QuizHistoryScreen extends HookConsumerWidget {
   static const routeName = '/quizHistory';
   const QuizHistoryScreen({Key? key}) : super(key: key);
-
-  @override
-  _QuizHistoryScreenState createState() => _QuizHistoryScreenState();
-}
-
-class _QuizHistoryScreenState extends State<QuizHistoryScreen> {
-  List<QuizHistory> quizHistoryList = [];
-  late Reader reader;
+//
+//   @override
+//   _QuizHistoryScreenState createState() => _QuizHistoryScreenState();
+// }
+//
+// class _QuizHistoryScreenState extends ConsumerState<QuizHistoryScreen> {
+//   List<QuizHistory> quizHistoryList = [];
   // late QuizStore store;
 
-  @override
-  void initState() {
-    // store = QuizStore();
-    reader(quizHistoryControllerProvider.notifier)
-        .retrieveQuizHistoryList()
-        .then((value) => setState(() {
-              quizHistoryList = value;
-            }));
-    // store.loadQuizHistoryAsync().then((value) {
-    //   setState(() {
-    //     quizHistoryList = value;
-    //   });
-    // });
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   // store = QuizStore();
+  //   ref.watch(quizHistoryControllerProvider.notifier)
+  //       .retrieveQuizHistoryList()
+  //       .then((value) => setState(() {
+  //             quizHistoryList = value;
+  //           }));
+  //   // store.loadQuizHistoryAsync().then((value) {
+  //   //   setState(() {
+  //   //     quizHistoryList = value;
+  //   //   });
+  //   // });
+  // }
 
   @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text("Quiz History"),
-        ),
-        body: Container(
-          padding: EdgeInsets.only(left: 10, right: 10),
-          alignment: Alignment.center,
-          // decoration: ThemeHelper.fullScreenBgBoxDecoration(),
-          child: Column(
-            children: [
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: List<QuizHistory>.from(quizHistoryList)
-                        .map(
-                          (e) => quizHistoryViewItem(e),
-                        )
-                        .toList(),
-                  ),
-                ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Quiz History"),
+      ),
+      body: Container(
+        padding: const EdgeInsets.only(left: 10, right: 10),
+        alignment: Alignment.center,
+        // decoration: ThemeHelper.fullScreenBgBoxDecoration(),
+        child: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: FutureBuilder(
+                    future: ref
+                        .watch(quizHistoryControllerProvider.notifier)
+                        .retrieveQuizHistoryList(),
+                    builder:
+                        (BuildContext context, AsyncSnapshot quizHistoryList) {
+                      if (quizHistoryList.connectionState !=
+                          ConnectionState.done) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                      if (quizHistoryList.hasError) {
+                        return Text(quizHistoryList.error.toString());
+                      }
+                      if (quizHistoryList.hasData) {
+                        return Column(
+                          children: List<QuizHistory>.from(quizHistoryList.data)
+                              .map(
+                                (quizHistory) => quizHistoryViewItem(
+                                    context, ref, quizHistory),
+                              )
+                              .toList(),
+                        );
+                      } else {
+                        return const Text("履歴はまだありません");
+                      }
+                    }),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  Widget quizHistoryViewItem(QuizHistory quizHistory) {
+  Widget quizHistoryViewItem(
+      BuildContext context, WidgetRef ref, QuizHistory quizHistory) {
     return Container(
-        margin: EdgeInsets.only(top: 20),
-        padding: EdgeInsets.all(10),
+        margin: const EdgeInsets.only(top: 20),
+        padding: const EdgeInsets.all(10),
         // decoration: ThemeHelper.roundBoxDeco(),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               alignment: Alignment.center,
-              margin: EdgeInsets.only(right: 10),
+              margin: const EdgeInsets.only(right: 10),
               child: SizedBox(
                 height: 115,
                 width: 10,
@@ -95,10 +112,10 @@ class _QuizHistoryScreenState extends State<QuizHistoryScreen> {
                       quizHistory.quizTitle.isEmpty
                           ? "Question"
                           : quizHistory.quizTitle,
-                      style: TextStyle(fontSize: 24),
+                      style: const TextStyle(fontSize: 24),
                     ),
                     Text("Score: ${quizHistory.score}",
-                        style: TextStyle(
+                        style: const TextStyle(
                             // color: ThemeHelper.accentColor,
                             fontSize: 18)),
                     Text("Time Taken: ${quizHistory.timeTaken}"),
@@ -113,7 +130,8 @@ class _QuizHistoryScreenState extends State<QuizHistoryScreen> {
                 ),
                 ElevatedButton(
                     onPressed: () {
-                      reader(categoryControllerProvider.notifier)
+                      ref
+                          .watch(categoryControllerProvider.notifier)
                           .retrieveCategoryById(
                               quizCategoryDocRef: quizHistory.categoryDocRef)
                           .then((value) {

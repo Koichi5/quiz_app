@@ -41,4 +41,18 @@ class CategoryValidatorProvider extends StateNotifier<CategoryFormState> {
     }
     state = state.copyWith(form: form.copyWith(name: categoryNameField));
   }
+
+  void setCategoryDescription(String categoryDescription) {
+    final bool isCategoryDescription = categoryDescription != "";
+    CategoryFormEntity form = state.form.copyWith(name: Field(value: categoryDescription));
+
+    late Field categoryDescriptionField;
+
+    if(isCategoryDescription) {
+      categoryDescriptionField = form.id.copyWith(isValid: true, errorMessage: "");
+    } else {
+      categoryDescriptionField = form.id.copyWith(isValid: false, errorMessage: "カテゴリ名が入力されていません");
+    }
+    state = state.copyWith(form: form.copyWith(name: categoryDescriptionField));
+  }
 }

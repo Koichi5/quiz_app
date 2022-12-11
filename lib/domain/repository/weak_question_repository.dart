@@ -8,11 +8,13 @@ import '../weak_question/weak_question.dart';
 abstract class BaseWeakQuestionRepository {
   Future<String> addWeakQuestion(
       {required String userId, required WeakQuestion weakQuestion});
+  Future deleteWeakQuestion(
+      {required String userId, required WeakQuestion weakQuestion});
   Future<List<WeakQuestion>> retrieveWeakQuestionList();
 }
 
 final weakQuestionRepositoryProvider =
-Provider<WeakQuestionRepository>((ref) => WeakQuestionRepository(ref.read));
+    Provider<WeakQuestionRepository>((ref) => WeakQuestionRepository(ref.read));
 
 class WeakQuestionRepository implements BaseWeakQuestionRepository {
   final Reader _reader;
@@ -29,12 +31,28 @@ class WeakQuestionRepository implements BaseWeakQuestionRepository {
           .collection("weakQuestion");
       final weakQuestionDocRef = weakQuestionRef.doc().id;
       await weakQuestionRef.doc(weakQuestionDocRef).set(WeakQuestion(
-        id: weakQuestion.id,
-        categoryDocRef: weakQuestion.categoryDocRef,
-        quizDocRef: weakQuestion.quizDocRef,
-        questionDocRef: weakQuestion.questionDocRef,
-      ).toDocument());
+            id: weakQuestion.id,
+            categoryDocRef: weakQuestion.categoryDocRef,
+            quizDocRef: weakQuestion.quizDocRef,
+            questionDocRef: weakQuestion.questionDocRef,
+            weakQuestionDocRef: weakQuestionDocRef,
+          ).toDocument());
       return weakQuestionDocRef;
+    } on FirebaseException catch (e) {
+      throw CustomException(message: e.message);
+    }
+  }
+
+  @override
+  Future deleteWeakQuestion(
+      {required String userId, required WeakQuestion weakQuestion}) async {
+    try {
+      await _reader(firebaseFirestoreProvider)
+          .collection("user")
+          .doc(userId)
+          .collection("weakQuestion")
+          .doc(weakQuestion.weakQuestionDocRef)
+          .delete();
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message);
     }

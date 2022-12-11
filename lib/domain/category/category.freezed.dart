@@ -25,6 +25,8 @@ mixin _$Category {
   String? get categoryDocRef => throw _privateConstructorUsedError;
   String? get quizDocRef => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
+  int get categoryQuestionCount => throw _privateConstructorUsedError;
   String? get imagePath => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -44,6 +46,8 @@ abstract class $CategoryCopyWith<$Res> {
       String? categoryDocRef,
       String? quizDocRef,
       String name,
+      String description,
+      int categoryQuestionCount,
       String? imagePath});
 }
 
@@ -65,6 +69,8 @@ class _$CategoryCopyWithImpl<$Res, $Val extends Category>
     Object? categoryDocRef = freezed,
     Object? quizDocRef = freezed,
     Object? name = null,
+    Object? description = null,
+    Object? categoryQuestionCount = null,
     Object? imagePath = freezed,
   }) {
     return _then(_value.copyWith(
@@ -88,6 +94,14 @@ class _$CategoryCopyWithImpl<$Res, $Val extends Category>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      categoryQuestionCount: null == categoryQuestionCount
+          ? _value.categoryQuestionCount
+          : categoryQuestionCount // ignore: cast_nullable_to_non_nullable
+              as int,
       imagePath: freezed == imagePath
           ? _value.imagePath
           : imagePath // ignore: cast_nullable_to_non_nullable
@@ -109,6 +123,8 @@ abstract class _$$_CategoryCopyWith<$Res> implements $CategoryCopyWith<$Res> {
       String? categoryDocRef,
       String? quizDocRef,
       String name,
+      String description,
+      int categoryQuestionCount,
       String? imagePath});
 }
 
@@ -128,6 +144,8 @@ class __$$_CategoryCopyWithImpl<$Res>
     Object? categoryDocRef = freezed,
     Object? quizDocRef = freezed,
     Object? name = null,
+    Object? description = null,
+    Object? categoryQuestionCount = null,
     Object? imagePath = freezed,
   }) {
     return _then(_$_Category(
@@ -151,6 +169,14 @@ class __$$_CategoryCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      categoryQuestionCount: null == categoryQuestionCount
+          ? _value.categoryQuestionCount
+          : categoryQuestionCount // ignore: cast_nullable_to_non_nullable
+              as int,
       imagePath: freezed == imagePath
           ? _value.imagePath
           : imagePath // ignore: cast_nullable_to_non_nullable
@@ -168,6 +194,8 @@ class _$_Category extends _Category {
       this.categoryDocRef,
       this.quizDocRef,
       required this.name,
+      required this.description,
+      required this.categoryQuestionCount,
       this.imagePath})
       : super._();
 
@@ -185,11 +213,15 @@ class _$_Category extends _Category {
   @override
   final String name;
   @override
+  final String description;
+  @override
+  final int categoryQuestionCount;
+  @override
   final String? imagePath;
 
   @override
   String toString() {
-    return 'Category(id: $id, categoryId: $categoryId, categoryDocRef: $categoryDocRef, quizDocRef: $quizDocRef, name: $name, imagePath: $imagePath)';
+    return 'Category(id: $id, categoryId: $categoryId, categoryDocRef: $categoryDocRef, quizDocRef: $quizDocRef, name: $name, description: $description, categoryQuestionCount: $categoryQuestionCount, imagePath: $imagePath)';
   }
 
   @override
@@ -205,14 +237,18 @@ class _$_Category extends _Category {
             (identical(other.quizDocRef, quizDocRef) ||
                 other.quizDocRef == quizDocRef) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.categoryQuestionCount, categoryQuestionCount) ||
+                other.categoryQuestionCount == categoryQuestionCount) &&
             (identical(other.imagePath, imagePath) ||
                 other.imagePath == imagePath));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, categoryId, categoryDocRef, quizDocRef, name, imagePath);
+  int get hashCode => Object.hash(runtimeType, id, categoryId, categoryDocRef,
+      quizDocRef, name, description, categoryQuestionCount, imagePath);
 
   @JsonKey(ignore: true)
   @override
@@ -235,6 +271,8 @@ abstract class _Category extends Category {
       final String? categoryDocRef,
       final String? quizDocRef,
       required final String name,
+      required final String description,
+      required final int categoryQuestionCount,
       final String? imagePath}) = _$_Category;
   const _Category._() : super._();
 
@@ -250,6 +288,10 @@ abstract class _Category extends Category {
   String? get quizDocRef;
   @override
   String get name;
+  @override
+  String get description;
+  @override
+  int get categoryQuestionCount;
   @override
   String? get imagePath;
   @override

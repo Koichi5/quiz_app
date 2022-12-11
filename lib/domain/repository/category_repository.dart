@@ -11,6 +11,8 @@ abstract class BaseCategoryRepository {
   Future<List<Category>> retrieveCategoryList();
   Future<List<Category>> retrieveCategoryById(
       {required String quizCategoryDocRef});
+  Future<void> editCategoryQuestionCount(
+      {required int categoryQuestionCount, required String categoryDocRef});
 }
 
 final categoryRepositoryProvider =
@@ -39,6 +41,8 @@ class CategoryRepository implements BaseCategoryRepository {
         categoryDocRef: categoryDocRef,
         quizDocRef: emptyQuiz.id,
         name: category.name,
+        description: category.description,
+        categoryQuestionCount: 0,
         imagePath: category.imagePath,
       );
 
@@ -73,6 +77,21 @@ class CategoryRepository implements BaseCategoryRepository {
           .get();
       // return snap.docs.map((doc) => Category.fromDocument(doc)).toList();
       return [Category.fromDocument(snap)];
+    } on FirebaseException catch (e) {
+      throw CustomException(message: e.message);
+    }
+  }
+
+  Future<void> editCategoryQuestionCount(
+      {required int categoryQuestionCount,
+      required String categoryDocRef}) async {
+    try {
+      final categoryRef =
+          _reader(firebaseFirestoreProvider).collection("category");
+
+      await categoryRef
+          .doc(categoryDocRef)
+          .update({"categoryQuestionCount": categoryQuestionCount});
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message);
     }

@@ -6,6 +6,7 @@ import '../quiz/quiz.dart';
 part 'category.freezed.dart';
 part 'category.g.dart';
 
+// flutter pub run build_runner build --delete-conflicting-outputs
 
 @freezed
 abstract class Category implements _$Category {
@@ -17,10 +18,12 @@ abstract class Category implements _$Category {
     String? categoryDocRef,
     String? quizDocRef,
     required String name,
+    required String description,
+    required int categoryQuestionCount,
     String? imagePath,
   }) = _Category;
 
-  factory Category.empty() => const Category(categoryId: 0, name: "",);
+  factory Category.empty() => const Category(categoryId: 0, name: "", description: "", categoryQuestionCount: 0);
 
   factory Category.fromJson(json) => _$CategoryFromJson(json);
 

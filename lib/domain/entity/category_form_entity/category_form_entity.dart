@@ -9,12 +9,14 @@ class CategoryFormEntity with _$CategoryFormEntity {
   const factory CategoryFormEntity({
     required Field id,
     required Field name,
+    required Field description,
     String? imagePath,
   }) = _CategoryFormEntity;
 
   factory CategoryFormEntity.empty() => const CategoryFormEntity(
-    id: Field(value: ""),
-    name: Field(value: ""),
-  );
-  bool get isValid => id.isValid && name.isValid;
+        id: Field(value: ""),
+        name: Field(value: ""),
+        description: Field(value: ""),
+      );
+  bool get isValid => id.isValid && name.isValid && description.isValid;
 }

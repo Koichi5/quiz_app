@@ -25,6 +25,7 @@ dependencies:
   lottie: ^1.4.3
   sign_in_with_apple: ^4.1.0
   bottom_navy_bar: ^6.0.0
+  percent_indicator: ^4.2.2
 
 
 dev_dependencies:

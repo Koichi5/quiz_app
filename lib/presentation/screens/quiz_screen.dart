@@ -156,8 +156,8 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
                       progressTimer!.cancel();
                     });
 
-                    // 3秒後に次の問題へ
-                    Future.delayed(const Duration(seconds: 3), () {
+                    // 2.5秒後に次の問題へ
+                    Future.delayed(const Duration(milliseconds: 2500), () {
                       engine.next();
                       // 何かしらの選択肢を選択したら true になる provider, 画面遷移時には次の問題へ移行するため、false にする必要がある
                       ref.watch(optionGestureProvider.notifier).state = false;
@@ -173,12 +173,15 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
                     null;
                   }
                 },
-                child: QuestionOption(
-                  index: optionIndex,
-                  optionText: question!.options[optionIndex].text,
-                  isSelected: question!.options[optionIndex].isSelected,
-                  optionIsCorrect:
-                      ref.watch(questionAnswerProvider).values.last,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: QuestionOption(
+                    index: optionIndex,
+                    optionText: question!.options[optionIndex].text,
+                    isSelected: question!.options[optionIndex].isSelected,
+                    optionIsCorrect:
+                        ref.watch(questionAnswerProvider).values.last,
+                  ),
                 ),
               );
               return optionWidget;

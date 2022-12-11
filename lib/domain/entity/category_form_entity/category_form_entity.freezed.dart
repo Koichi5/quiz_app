@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$CategoryFormEntity {
   Field get id => throw _privateConstructorUsedError;
   Field get name => throw _privateConstructorUsedError;
+  Field get description => throw _privateConstructorUsedError;
   String? get imagePath => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -31,10 +32,11 @@ abstract class $CategoryFormEntityCopyWith<$Res> {
           CategoryFormEntity value, $Res Function(CategoryFormEntity) then) =
       _$CategoryFormEntityCopyWithImpl<$Res, CategoryFormEntity>;
   @useResult
-  $Res call({Field id, Field name, String? imagePath});
+  $Res call({Field id, Field name, Field description, String? imagePath});
 
   $FieldCopyWith<$Res> get id;
   $FieldCopyWith<$Res> get name;
+  $FieldCopyWith<$Res> get description;
 }
 
 /// @nodoc
@@ -52,6 +54,7 @@ class _$CategoryFormEntityCopyWithImpl<$Res, $Val extends CategoryFormEntity>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? description = null,
     Object? imagePath = freezed,
   }) {
     return _then(_value.copyWith(
@@ -62,6 +65,10 @@ class _$CategoryFormEntityCopyWithImpl<$Res, $Val extends CategoryFormEntity>
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as Field,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as Field,
       imagePath: freezed == imagePath
           ? _value.imagePath
@@ -85,6 +92,14 @@ class _$CategoryFormEntityCopyWithImpl<$Res, $Val extends CategoryFormEntity>
       return _then(_value.copyWith(name: value) as $Val);
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $FieldCopyWith<$Res> get description {
+    return $FieldCopyWith<$Res>(_value.description, (value) {
+      return _then(_value.copyWith(description: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -95,12 +110,14 @@ abstract class _$$_CategoryFormEntityCopyWith<$Res>
       __$$_CategoryFormEntityCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Field id, Field name, String? imagePath});
+  $Res call({Field id, Field name, Field description, String? imagePath});
 
   @override
   $FieldCopyWith<$Res> get id;
   @override
   $FieldCopyWith<$Res> get name;
+  @override
+  $FieldCopyWith<$Res> get description;
 }
 
 /// @nodoc
@@ -116,6 +133,7 @@ class __$$_CategoryFormEntityCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? description = null,
     Object? imagePath = freezed,
   }) {
     return _then(_$_CategoryFormEntity(
@@ -126,6 +144,10 @@ class __$$_CategoryFormEntityCopyWithImpl<$Res>
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as Field,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as Field,
       imagePath: freezed == imagePath
           ? _value.imagePath
@@ -139,7 +161,10 @@ class __$$_CategoryFormEntityCopyWithImpl<$Res>
 
 class _$_CategoryFormEntity extends _CategoryFormEntity {
   const _$_CategoryFormEntity(
-      {required this.id, required this.name, this.imagePath})
+      {required this.id,
+      required this.name,
+      required this.description,
+      this.imagePath})
       : super._();
 
   @override
@@ -147,11 +172,13 @@ class _$_CategoryFormEntity extends _CategoryFormEntity {
   @override
   final Field name;
   @override
+  final Field description;
+  @override
   final String? imagePath;
 
   @override
   String toString() {
-    return 'CategoryFormEntity(id: $id, name: $name, imagePath: $imagePath)';
+    return 'CategoryFormEntity(id: $id, name: $name, description: $description, imagePath: $imagePath)';
   }
 
   @override
@@ -161,12 +188,15 @@ class _$_CategoryFormEntity extends _CategoryFormEntity {
             other is _$_CategoryFormEntity &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
             (identical(other.imagePath, imagePath) ||
                 other.imagePath == imagePath));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, imagePath);
+  int get hashCode =>
+      Object.hash(runtimeType, id, name, description, imagePath);
 
   @JsonKey(ignore: true)
   @override
@@ -180,6 +210,7 @@ abstract class _CategoryFormEntity extends CategoryFormEntity {
   const factory _CategoryFormEntity(
       {required final Field id,
       required final Field name,
+      required final Field description,
       final String? imagePath}) = _$_CategoryFormEntity;
   const _CategoryFormEntity._() : super._();
 
@@ -187,6 +218,8 @@ abstract class _CategoryFormEntity extends CategoryFormEntity {
   Field get id;
   @override
   Field get name;
+  @override
+  Field get description;
   @override
   String? get imagePath;
   @override

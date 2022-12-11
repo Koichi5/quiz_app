@@ -8,3 +8,7 @@ final categoryIdControllerProvider = StateProvider.autoDispose((ref) {
 final categoryNameControllerProvider = StateProvider.autoDispose((ref) {
   return TextEditingController(text: '');
 });
+
+final categoryDescriptionControllerProvider = StateProvider.autoDispose((ref) {
+  return TextEditingController(text: '');
+});

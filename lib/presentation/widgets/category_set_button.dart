@@ -8,10 +8,11 @@ import '../controller/category_controller.dart';
 
 class CategorySetButton extends HookConsumerWidget {
   const CategorySetButton(
-      {required this.categoryId, required this.name, Key? key})
+      {required this.categoryId, required this.name, required this.description, Key? key})
       : super(key: key);
   final String categoryId;
   final String name;
+  final String description;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -29,7 +30,7 @@ class CategorySetButton extends HookConsumerWidget {
             if (ref.watch(categoryValidatorProvider).form.isValid) {
               final category = await ref
                   .watch(categoryControllerProvider.notifier)
-                  .addCategory(categoryId: int.parse(categoryId), name: name);
+                  .addCategory(categoryId: int.parse(categoryId), name: name, description: description);
 
               //ここで渡している category に DocRef が含まれていないからエラー
               Navigator.push(

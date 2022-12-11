@@ -24,6 +24,7 @@ mixin _$WeakQuestion {
   String get categoryDocRef => throw _privateConstructorUsedError;
   String get quizDocRef => throw _privateConstructorUsedError;
   String get questionDocRef => throw _privateConstructorUsedError;
+  String? get weakQuestionDocRef => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -41,7 +42,8 @@ abstract class $WeakQuestionCopyWith<$Res> {
       {String? id,
       String categoryDocRef,
       String quizDocRef,
-      String questionDocRef});
+      String questionDocRef,
+      String? weakQuestionDocRef});
 }
 
 /// @nodoc
@@ -61,6 +63,7 @@ class _$WeakQuestionCopyWithImpl<$Res, $Val extends WeakQuestion>
     Object? categoryDocRef = null,
     Object? quizDocRef = null,
     Object? questionDocRef = null,
+    Object? weakQuestionDocRef = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -79,6 +82,10 @@ class _$WeakQuestionCopyWithImpl<$Res, $Val extends WeakQuestion>
           ? _value.questionDocRef
           : questionDocRef // ignore: cast_nullable_to_non_nullable
               as String,
+      weakQuestionDocRef: freezed == weakQuestionDocRef
+          ? _value.weakQuestionDocRef
+          : weakQuestionDocRef // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -95,7 +102,8 @@ abstract class _$$_WeakQuestionCopyWith<$Res>
       {String? id,
       String categoryDocRef,
       String quizDocRef,
-      String questionDocRef});
+      String questionDocRef,
+      String? weakQuestionDocRef});
 }
 
 /// @nodoc
@@ -113,6 +121,7 @@ class __$$_WeakQuestionCopyWithImpl<$Res>
     Object? categoryDocRef = null,
     Object? quizDocRef = null,
     Object? questionDocRef = null,
+    Object? weakQuestionDocRef = freezed,
   }) {
     return _then(_$_WeakQuestion(
       id: freezed == id
@@ -131,6 +140,10 @@ class __$$_WeakQuestionCopyWithImpl<$Res>
           ? _value.questionDocRef
           : questionDocRef // ignore: cast_nullable_to_non_nullable
               as String,
+      weakQuestionDocRef: freezed == weakQuestionDocRef
+          ? _value.weakQuestionDocRef
+          : weakQuestionDocRef // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -142,7 +155,8 @@ class _$_WeakQuestion extends _WeakQuestion {
       {this.id,
       required this.categoryDocRef,
       required this.quizDocRef,
-      required this.questionDocRef})
+      required this.questionDocRef,
+      this.weakQuestionDocRef})
       : super._();
 
   factory _$_WeakQuestion.fromJson(Map<String, dynamic> json) =>
@@ -156,10 +170,12 @@ class _$_WeakQuestion extends _WeakQuestion {
   final String quizDocRef;
   @override
   final String questionDocRef;
+  @override
+  final String? weakQuestionDocRef;
 
   @override
   String toString() {
-    return 'WeakQuestion(id: $id, categoryDocRef: $categoryDocRef, quizDocRef: $quizDocRef, questionDocRef: $questionDocRef)';
+    return 'WeakQuestion(id: $id, categoryDocRef: $categoryDocRef, quizDocRef: $quizDocRef, questionDocRef: $questionDocRef, weakQuestionDocRef: $weakQuestionDocRef)';
   }
 
   @override
@@ -173,13 +189,15 @@ class _$_WeakQuestion extends _WeakQuestion {
             (identical(other.quizDocRef, quizDocRef) ||
                 other.quizDocRef == quizDocRef) &&
             (identical(other.questionDocRef, questionDocRef) ||
-                other.questionDocRef == questionDocRef));
+                other.questionDocRef == questionDocRef) &&
+            (identical(other.weakQuestionDocRef, weakQuestionDocRef) ||
+                other.weakQuestionDocRef == weakQuestionDocRef));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, categoryDocRef, quizDocRef, questionDocRef);
+  int get hashCode => Object.hash(runtimeType, id, categoryDocRef, quizDocRef,
+      questionDocRef, weakQuestionDocRef);
 
   @JsonKey(ignore: true)
   @override
@@ -200,7 +218,8 @@ abstract class _WeakQuestion extends WeakQuestion {
       {final String? id,
       required final String categoryDocRef,
       required final String quizDocRef,
-      required final String questionDocRef}) = _$_WeakQuestion;
+      required final String questionDocRef,
+      final String? weakQuestionDocRef}) = _$_WeakQuestion;
   _WeakQuestion._() : super._();
 
   factory _WeakQuestion.fromJson(Map<String, dynamic> json) =
@@ -214,6 +233,8 @@ abstract class _WeakQuestion extends WeakQuestion {
   String get quizDocRef;
   @override
   String get questionDocRef;
+  @override
+  String? get weakQuestionDocRef;
   @override
   @JsonKey(ignore: true)
   _$$_WeakQuestionCopyWith<_$_WeakQuestion> get copyWith =>

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quiz_app/domain/question/question.dart';
+import 'package:quiz_app/presentation/controller/category_controller.dart';
 import 'package:quiz_app/presentation/controller/quiz_controller.dart';
 import 'package:quiz_app/presentation/screens/option_set_screen.dart';
 
@@ -46,6 +47,13 @@ class QuestionSetButton extends HookConsumerWidget {
                     optionsShuffled: false,
                     quiz: quiz,
                   );
+              ref.watch(categoryQuestionCountProvider.notifier).state++;
+              ref
+                  .watch(categoryControllerProvider.notifier)
+                  .editCategoryQuestionCount(
+                      categoryQuestionCount:
+                          ref.watch(categoryQuestionCountProvider),
+                      categoryDocRef: quiz.categoryDocRef!);
               Navigator.pop(context);
             }
           },

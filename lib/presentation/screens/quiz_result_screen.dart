@@ -13,7 +13,10 @@ class QuizResultScreen extends HookConsumerWidget {
   final List<int> takenQuestions;
   final List<bool> answerIsCorrectList;
   const QuizResultScreen(
-      {required this.result, required this.takenQuestions, required this.answerIsCorrectList, Key? key})
+      {required this.result,
+      required this.takenQuestions,
+      required this.answerIsCorrectList,
+      Key? key})
       : super(key: key);
   // int totalQuestions = 0;
   // double totalCorrect = 0;
@@ -38,7 +41,8 @@ class QuizResultScreen extends HookConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             quizResultInfo(context, result),
-            resultQuestionList(context, result.questionList, takenQuestions, answerIsCorrectList),
+            resultQuestionList(context, result.questionList, takenQuestions,
+                answerIsCorrectList),
             bottomButtons(context),
           ],
         ),
@@ -64,7 +68,8 @@ class QuizResultScreen extends HookConsumerWidget {
     );
   }
 
-  Widget resultQuestionList(BuildContext context, List<Question> questionList, List<int> takenQuestions, List<bool> answerIsCorrectList) {
+  Widget resultQuestionList(BuildContext context, List<Question> questionList,
+      List<int> takenQuestions, List<bool> answerIsCorrectList) {
     return ListView.builder(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
@@ -72,7 +77,8 @@ class QuizResultScreen extends HookConsumerWidget {
         itemBuilder: (BuildContext context, int index) {
           final question = questionList[takenQuestions[index]];
           final answerIsCorrect = answerIsCorrectList[index];
-          return ResultQuestionListCard(question: question, answerIsCorrect: answerIsCorrect);
+          return ResultQuestionListCard(
+              question: question, answerIsCorrect: answerIsCorrect);
         });
   }
 
@@ -96,8 +102,8 @@ class QuizResultScreen extends HookConsumerWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              Navigator.pushReplacementNamed(
-                  context, QuizHistoryScreen.routeName);
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (context) => const QuizHistoryScreen()));
             },
             child: const Text(
               "History",

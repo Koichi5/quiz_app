@@ -6,15 +6,14 @@ import 'package:quiz_app/presentation/controller/auth_controller.dart';
 import '../../domain/repository/weak_question_repository.dart';
 import '../../domain/weak_question/weak_question.dart';
 
-final weakQuestionExceptionProvider = StateProvider<CustomException?>((_) => null);
+final weakQuestionExceptionProvider =
+    StateProvider<CustomException?>((_) => null);
 
-
-final weakQuestionControllerProvider =
-StateNotifierProvider<WeakQuestionController, AsyncValue<List<WeakQuestion>>>(
-        (ref) {
-      final user = ref.watch(authControllerProvider);
-      return WeakQuestionController(ref.read, user?.uid);
-    });
+final weakQuestionControllerProvider = StateNotifierProvider<
+    WeakQuestionController, AsyncValue<List<WeakQuestion>>>((ref) {
+  final user = ref.watch(authControllerProvider);
+  return WeakQuestionController(ref.read, user?.uid);
+});
 
 class WeakQuestionController
     extends StateNotifier<AsyncValue<List<WeakQuestion>>> {
@@ -53,8 +52,21 @@ class WeakQuestionController
     final weakQuestionDocRef = await _reader(weakQuestionRepositoryProvider)
         .addWeakQuestion(userId: _userId!, weakQuestion: weakQuestion);
     state.whenData((weakQuestionList) => state = AsyncValue.data(
-        weakQuestionList..add( weakQuestion.copyWith(id: weakQuestionDocRef))));
+        weakQuestionList..add(weakQuestion.copyWith(id: weakQuestionDocRef))));
     return weakQuestionDocRef;
   }
-}
 
+  Future<void> deleteWeakQuestion({
+    required String quizDocRef,
+    required String categoryDocRef,
+    required String questionDocRef,
+  }) async {
+    final weakQuestion = WeakQuestion(
+      quizDocRef: quizDocRef,
+      categoryDocRef: categoryDocRef,
+      questionDocRef: questionDocRef,
+    );
+    await _reader(weakQuestionRepositoryProvider)
+        .deleteWeakQuestion(userId: _userId!, weakQuestion: weakQuestion);
+  }
+}

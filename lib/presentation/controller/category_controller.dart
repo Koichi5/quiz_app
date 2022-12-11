@@ -11,6 +11,8 @@ import '../../domain/repository/category_repository.dart';
 
 final categoryExceptionProvider = StateProvider<CustomException?>((_) => null);
 
+final categoryQuestionCountProvider = StateProvider((ref) => 0);
+
 final categoryControllerProvider =
     StateNotifierProvider<CategoryController, AsyncValue<List<Category>>>(
         (ref) {
@@ -61,11 +63,14 @@ class CategoryController extends StateNotifier<AsyncValue<List<Category>>> {
       {String? id,
       required int categoryId,
       required String name,
+      required String description,
       String? imagePath}) async {
     final category = Category(
       id: id,
       categoryId: categoryId,
       name: name,
+      description: description,
+      categoryQuestionCount: 0,
       // google のロゴで代用
       imagePath:
           "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",
@@ -75,5 +80,13 @@ class CategoryController extends StateNotifier<AsyncValue<List<Category>>> {
     state.whenData((categoryList) => state = AsyncValue.data(categoryList
       ..add(category.copyWith(id: categoryWithDocRef.categoryDocRef))));
     return categoryWithDocRef;
+  }
+
+  Future<void> editCategoryQuestionCount(
+      {required int categoryQuestionCount,
+      required String categoryDocRef}) async {
+    await _reader(categoryRepositoryProvider).editCategoryQuestionCount(
+        categoryQuestionCount: categoryQuestionCount,
+        categoryDocRef: categoryDocRef);
   }
 }

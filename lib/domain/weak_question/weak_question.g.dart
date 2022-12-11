@@ -12,6 +12,7 @@ _$_WeakQuestion _$$_WeakQuestionFromJson(Map<String, dynamic> json) =>
       categoryDocRef: json['categoryDocRef'] as String,
       quizDocRef: json['quizDocRef'] as String,
       questionDocRef: json['questionDocRef'] as String,
+      weakQuestionDocRef: json['weakQuestionDocRef'] as String?,
     );
 
 Map<String, dynamic> _$$_WeakQuestionToJson(_$_WeakQuestion instance) =>
@@ -20,4 +21,5 @@ Map<String, dynamic> _$$_WeakQuestionToJson(_$_WeakQuestion instance) =>
       'categoryDocRef': instance.categoryDocRef,
       'quizDocRef': instance.quizDocRef,
       'questionDocRef': instance.questionDocRef,
+      'weakQuestionDocRef': instance.weakQuestionDocRef,
     };
