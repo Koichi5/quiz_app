@@ -64,12 +64,12 @@ class CategoryCard extends HookConsumerWidget {
                         child: TakenQuizPercentIndicator(category: category),
                       ),
                     Column(
-                      children: [
-                        const Text("学習済み"),
+                      children: const [
+                        Text("学習済み"),
                         Text("60%"),
-                        const Text("苦手問題"),
+                        Text("苦手問題"),
                         Text("20%"),
-                        const Text("未学習"),
+                        Text("未学習"),
                         Text("20%")
                       ],
                     )

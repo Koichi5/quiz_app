@@ -5,6 +5,8 @@ import '../../general/custom_exception.dart';
 import '../../general/general_provider.dart';
 import '../quiz_history/quiz_history.dart';
 
+final userCompletedCategoryListProvider = StateProvider((ref) => []);
+
 abstract class BaseQuizHistoryRepository {
   Future<String> addQuizHistory(
       {required User user, required QuizHistory quizHistory});
@@ -41,6 +43,18 @@ class QuizHistoryRepository implements BaseQuizHistoryRepository {
             takenQuestions: quizHistory.takenQuestions,
             answerIsCorrectList: quizHistory.answerIsCorrectList,
           ).toDocument());
+      // final List userCompletedCategoryList = [];
+      _reader(userCompletedCategoryListProvider.notifier).state = await _reader(firebaseFirestoreProvider).collection("user").doc(user.uid).get().then((value) => value.data()!.values.toList());
+      if (!_reader(userCompletedCategoryListProvider).contains(quizHistory.categoryDocRef)) {
+        _reader(userCompletedCategoryListProvider.notifier).state.add(quizHistory.categoryDocRef);
+        // この処理を実行するとアプリが落ちる
+        // await _reader(firebaseFirestoreProvider)
+        //     .collection("user")
+        //     .doc(user.uid)
+        //     .set({
+        //   "userCompletedCategory": _reader(userCompletedCategoryListProvider)
+        // });
+      }
       return quizHistoryDocRef;
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message);

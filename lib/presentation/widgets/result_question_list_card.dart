@@ -73,12 +73,12 @@ class ResultQuestionListCard extends HookConsumerWidget {
                     //   return snapshot.data!.then((retrievedWeakQuestionList) => retrievedWeakQuestionList.forEach((e) => e.questionDocRef == question.questionDocRef))
                     ? IconButton(
                         onPressed: () {
-                          print(snapshot.data!.contains(WeakQuestion(
-                              categoryDocRef: question.categoryDocRef!,
-                              quizDocRef: question.quizDocRef!,
-                              questionDocRef: question.questionDocRef!)));
-                          print(snapshot.data!.map((e) =>
-                              e.questionDocRef == question.questionDocRef));
+                          // print(snapshot.data!.contains(WeakQuestion(
+                          //     categoryDocRef: question.categoryDocRef!,
+                          //     quizDocRef: question.quizDocRef!,
+                          //     questionDocRef: question.questionDocRef!)));
+                          // print(snapshot.data!.map((e) =>
+                          //     e.questionDocRef == question.questionDocRef));
                           ref
                               .watch(weakQuestionControllerProvider.notifier)
                               .deleteWeakQuestion(
