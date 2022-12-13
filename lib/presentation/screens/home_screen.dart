@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quiz_app/presentation/screens/category_list_screen.dart';
+import 'package:quiz_app/presentation/screens/review_screen.dart';
 import 'package:quiz_app/presentation/screens/weak_question_list_screen.dart';
 import 'package:quiz_app/presentation/widgets/bottom_nav_bar.dart';
 
@@ -11,7 +12,8 @@ import 'setting_screen.dart';
 final List<Widget> homePageList = [
   const CategoryListScreen(),
   const CategorySetScreen(),
-  const WeakQuestionListScreen(),
+  // const WeakQuestionListScreen(),
+  const ReviewScreen(),
   const SettingScreen(),
 ];
 
@@ -30,7 +32,7 @@ class HomeScreen extends HookConsumerWidget {
               title: bottomNavBarSelectedIndex == 0
                   ? const Text("ホーム")
                   : bottomNavBarSelectedIndex == 2
-                      ? const Text("苦手問題")
+                      ? const Text("復習")
                       : const Text("設定")),
       bottomNavigationBar: BottomNavBar(),
       body: pageController(bottomNavBarSelectedIndex),

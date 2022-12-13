@@ -37,16 +37,26 @@ class QuizHistoryRepository implements BaseQuizHistoryRepository {
             categoryDocRef: quizHistory.categoryDocRef,
             quizTitle: quizHistory.quizTitle,
             score: quizHistory.score,
-            timeTaken: quizHistory.timeTaken,
+            questionCount: quizHistory.questionCount,
+            timeTakenMinutes: quizHistory.timeTakenMinutes,
+            timeTakenSeconds: quizHistory.timeTakenSeconds,
             quizDate: quizHistory.quizDate,
             status: quizHistory.status,
             takenQuestions: quizHistory.takenQuestions,
             answerIsCorrectList: quizHistory.answerIsCorrectList,
           ).toDocument());
       // final List userCompletedCategoryList = [];
-      _reader(userCompletedCategoryListProvider.notifier).state = await _reader(firebaseFirestoreProvider).collection("user").doc(user.uid).get().then((value) => value.data()!.values.toList());
-      if (!_reader(userCompletedCategoryListProvider).contains(quizHistory.categoryDocRef)) {
-        _reader(userCompletedCategoryListProvider.notifier).state.add(quizHistory.categoryDocRef);
+      _reader(userCompletedCategoryListProvider.notifier).state =
+          await _reader(firebaseFirestoreProvider)
+              .collection("user")
+              .doc(user.uid)
+              .get()
+              .then((value) => value.data()!.values.toList());
+      if (!_reader(userCompletedCategoryListProvider)
+          .contains(quizHistory.categoryDocRef)) {
+        _reader(userCompletedCategoryListProvider.notifier)
+            .state
+            .add(quizHistory.categoryDocRef);
         // この処理を実行するとアプリが落ちる
         // await _reader(firebaseFirestoreProvider)
         //     .collection("user")

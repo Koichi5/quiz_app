@@ -90,7 +90,7 @@ class TakenQuizPercentIndicator extends HookConsumerWidget {
                         // 未完了問題数
                         CircularPercentIndicator(
                           radius: 80.0,
-                          lineWidth: 5.0,
+                          lineWidth: 8.0,
                           percent: 1.0,
                               // ref.watch(userTakenQuestionInCategoryProvider)
                               //     ? 0.0
@@ -102,19 +102,27 @@ class TakenQuizPercentIndicator extends HookConsumerWidget {
                         // 苦手問題数
                         CircularPercentIndicator(
                           radius: 80.0,
-                          lineWidth: 5.0,
+                          lineWidth: 8.0,
                           percent: 0.9,
                               // ref.watch(userTakenQuestionInCategoryProvider)
                               //     ? 1.0
                               //     : 0,
-                          progressColor: Colors.blue,
+                          progressColor: Theme.of(context).colorScheme.tertiary,
                           backgroundColor: Colors.transparent,
                           animation: true,
                         ),
                         // 学習済み問題数
                         CircularPercentIndicator(
+                          center: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: const [
+                              Text("学習済"),
+                              Text("80%")
+                            ],
+                          ),
                           radius: 80.0,
-                          lineWidth: 5.0,
+                          lineWidth: 8.0,
                           // user の quizHistory に当該カテゴリが含まれている(user がカテゴリを終了している)
                           // user の weakQuestionCount が 0 ではない
                           // カテゴリ内全体の問題数に対する weakQuestion の割合を示す必要がある
@@ -127,7 +135,7 @@ class TakenQuizPercentIndicator extends HookConsumerWidget {
                           //             weakQuestionCountPerCategoryQuestionCount
                           //         : 1.0
                           //     : 0.0,
-                          progressColor: Colors.green,
+                          progressColor: Theme.of(context).colorScheme.primary,
                           backgroundColor: Colors.transparent,
                           animation: true,
                         ),

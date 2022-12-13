@@ -26,6 +26,7 @@ dependencies:
   sign_in_with_apple: ^4.1.0
   bottom_navy_bar: ^6.0.0
   percent_indicator: ^4.2.2
+  material_segmented_control: ^4.0.0
 
 
 dev_dependencies:

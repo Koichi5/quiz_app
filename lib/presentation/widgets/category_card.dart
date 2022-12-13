@@ -13,17 +13,18 @@ class CategoryCard extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => QuizListScreen(
-                      category: category,
-                    )));
-        // Navigator.push(context, MaterialPageRoute(builder: (context) => QuizScreen(quiz)))
-      },
-      child: Card(
+    // return GestureDetector(
+      // onTap: () {
+      //   Navigator.push(
+      //       context,
+      //       MaterialPageRoute(
+      //           builder: (context) => QuizListScreen(
+      //                 category: category,
+      //               )));
+      //   // Navigator.push(context, MaterialPageRoute(builder: (context) => QuizScreen(quiz)))
+      // },
+      // child:
+      return Card(
         key: ValueKey(category.id),
         child: SizedBox(
           width: double.infinity,
@@ -57,6 +58,7 @@ class CategoryCard extends HookConsumerWidget {
               Container(
                 width: double.infinity,
                 color: Theme.of(context).colorScheme.surfaceVariant,
+                // color: Colors.grey.shade300,
                 child: Row(
                   children: [
                     Padding(
@@ -64,13 +66,59 @@ class CategoryCard extends HookConsumerWidget {
                         child: TakenQuizPercentIndicator(category: category),
                       ),
                     Column(
-                      children: const [
-                        Text("学習済み"),
-                        Text("60%"),
-                        Text("苦手問題"),
-                        Text("20%"),
-                        Text("未学習"),
-                        Text("20%")
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                height: 25,
+                                width: 25,
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  borderRadius: BorderRadius.circular(100)
+                                ),
+                              ),
+                            ),
+                            const Text("学習済 "),
+                            const Text("80%"),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                height: 25,
+                                width: 25,
+                                decoration: BoxDecoration(
+                                    color: Theme.of(context).colorScheme.tertiary,
+                                    borderRadius: BorderRadius.circular(100)
+                                ),
+                              ),
+                            ),
+                            const Text("苦手問題 "),
+                            const Text("10%"),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                height: 25,
+                                width: 25,
+                                decoration: BoxDecoration(
+                                    color: Colors.grey,
+                                    borderRadius: BorderRadius.circular(100)
+                                ),
+                              ),
+                            ),
+                            const Text("未学習 "),
+                            const Text("10%")
+                          ],
+                        ),
                       ],
                     )
                   ],
@@ -78,7 +126,7 @@ class CategoryCard extends HookConsumerWidget {
               ),
               Flexible(
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(15.0),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -89,10 +137,49 @@ class CategoryCard extends HookConsumerWidget {
                   ),
                 ),
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  OutlinedButton(
+                    // style: OutlinedButton.styleFrom(
+                    //   backgroundColor: Theme.of(context).colorScheme.primary,
+                    // ),
+                      onPressed: (){
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => QuizListScreen(
+                        //           category: category,
+                        //         )));
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Text("苦手問題", style: TextStyle(color: Theme.of(context).colorScheme.primary),),
+                      )),
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Theme.of(context).colorScheme.primary,
+                      ),
+                        onPressed: (){
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => QuizListScreen(
+                                    category: category,
+                                  )));
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Text("ランダム", style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),),
+                        )),
+                  ),
+                ],
+              )
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 }

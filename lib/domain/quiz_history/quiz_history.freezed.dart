@@ -26,8 +26,10 @@ mixin _$QuizHistory {
   String get categoryDocRef => throw _privateConstructorUsedError;
   String get quizDocRef => throw _privateConstructorUsedError;
   String get quizTitle => throw _privateConstructorUsedError;
-  String get score => throw _privateConstructorUsedError;
-  String get timeTaken => throw _privateConstructorUsedError;
+  int get score => throw _privateConstructorUsedError;
+  int get questionCount => throw _privateConstructorUsedError;
+  int get timeTakenMinutes => throw _privateConstructorUsedError;
+  int get timeTakenSeconds => throw _privateConstructorUsedError;
   DateTime get quizDate => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
   List<int> get takenQuestions => throw _privateConstructorUsedError;
@@ -50,8 +52,10 @@ abstract class $QuizHistoryCopyWith<$Res> {
       String categoryDocRef,
       String quizDocRef,
       String quizTitle,
-      String score,
-      String timeTaken,
+      int score,
+      int questionCount,
+      int timeTakenMinutes,
+      int timeTakenSeconds,
       DateTime quizDate,
       String status,
       List<int> takenQuestions,
@@ -76,7 +80,9 @@ class _$QuizHistoryCopyWithImpl<$Res, $Val extends QuizHistory>
     Object? quizDocRef = null,
     Object? quizTitle = null,
     Object? score = null,
-    Object? timeTaken = null,
+    Object? questionCount = null,
+    Object? timeTakenMinutes = null,
+    Object? timeTakenSeconds = null,
     Object? quizDate = null,
     Object? status = null,
     Object? takenQuestions = null,
@@ -102,11 +108,19 @@ class _$QuizHistoryCopyWithImpl<$Res, $Val extends QuizHistory>
       score: null == score
           ? _value.score
           : score // ignore: cast_nullable_to_non_nullable
-              as String,
-      timeTaken: null == timeTaken
-          ? _value.timeTaken
-          : timeTaken // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
+      questionCount: null == questionCount
+          ? _value.questionCount
+          : questionCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      timeTakenMinutes: null == timeTakenMinutes
+          ? _value.timeTakenMinutes
+          : timeTakenMinutes // ignore: cast_nullable_to_non_nullable
+              as int,
+      timeTakenSeconds: null == timeTakenSeconds
+          ? _value.timeTakenSeconds
+          : timeTakenSeconds // ignore: cast_nullable_to_non_nullable
+              as int,
       quizDate: null == quizDate
           ? _value.quizDate
           : quizDate // ignore: cast_nullable_to_non_nullable
@@ -140,8 +154,10 @@ abstract class _$$_QuizHistoryCopyWith<$Res>
       String categoryDocRef,
       String quizDocRef,
       String quizTitle,
-      String score,
-      String timeTaken,
+      int score,
+      int questionCount,
+      int timeTakenMinutes,
+      int timeTakenSeconds,
       DateTime quizDate,
       String status,
       List<int> takenQuestions,
@@ -164,7 +180,9 @@ class __$$_QuizHistoryCopyWithImpl<$Res>
     Object? quizDocRef = null,
     Object? quizTitle = null,
     Object? score = null,
-    Object? timeTaken = null,
+    Object? questionCount = null,
+    Object? timeTakenMinutes = null,
+    Object? timeTakenSeconds = null,
     Object? quizDate = null,
     Object? status = null,
     Object? takenQuestions = null,
@@ -190,11 +208,19 @@ class __$$_QuizHistoryCopyWithImpl<$Res>
       score: null == score
           ? _value.score
           : score // ignore: cast_nullable_to_non_nullable
-              as String,
-      timeTaken: null == timeTaken
-          ? _value.timeTaken
-          : timeTaken // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
+      questionCount: null == questionCount
+          ? _value.questionCount
+          : questionCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      timeTakenMinutes: null == timeTakenMinutes
+          ? _value.timeTakenMinutes
+          : timeTakenMinutes // ignore: cast_nullable_to_non_nullable
+              as int,
+      timeTakenSeconds: null == timeTakenSeconds
+          ? _value.timeTakenSeconds
+          : timeTakenSeconds // ignore: cast_nullable_to_non_nullable
+              as int,
       quizDate: null == quizDate
           ? _value.quizDate
           : quizDate // ignore: cast_nullable_to_non_nullable
@@ -224,7 +250,9 @@ class _$_QuizHistory extends _QuizHistory {
       required this.quizDocRef,
       required this.quizTitle,
       required this.score,
-      required this.timeTaken,
+      required this.questionCount,
+      required this.timeTakenMinutes,
+      required this.timeTakenSeconds,
       required this.quizDate,
       required this.status,
       required final List<int> takenQuestions,
@@ -247,9 +275,13 @@ class _$_QuizHistory extends _QuizHistory {
   @override
   final String quizTitle;
   @override
-  final String score;
+  final int score;
   @override
-  final String timeTaken;
+  final int questionCount;
+  @override
+  final int timeTakenMinutes;
+  @override
+  final int timeTakenSeconds;
   @override
   final DateTime quizDate;
   @override
@@ -270,7 +302,7 @@ class _$_QuizHistory extends _QuizHistory {
 
   @override
   String toString() {
-    return 'QuizHistory(id: $id, categoryDocRef: $categoryDocRef, quizDocRef: $quizDocRef, quizTitle: $quizTitle, score: $score, timeTaken: $timeTaken, quizDate: $quizDate, status: $status, takenQuestions: $takenQuestions, answerIsCorrectList: $answerIsCorrectList)';
+    return 'QuizHistory(id: $id, categoryDocRef: $categoryDocRef, quizDocRef: $quizDocRef, quizTitle: $quizTitle, score: $score, questionCount: $questionCount, timeTakenMinutes: $timeTakenMinutes, timeTakenSeconds: $timeTakenSeconds, quizDate: $quizDate, status: $status, takenQuestions: $takenQuestions, answerIsCorrectList: $answerIsCorrectList)';
   }
 
   @override
@@ -286,8 +318,12 @@ class _$_QuizHistory extends _QuizHistory {
             (identical(other.quizTitle, quizTitle) ||
                 other.quizTitle == quizTitle) &&
             (identical(other.score, score) || other.score == score) &&
-            (identical(other.timeTaken, timeTaken) ||
-                other.timeTaken == timeTaken) &&
+            (identical(other.questionCount, questionCount) ||
+                other.questionCount == questionCount) &&
+            (identical(other.timeTakenMinutes, timeTakenMinutes) ||
+                other.timeTakenMinutes == timeTakenMinutes) &&
+            (identical(other.timeTakenSeconds, timeTakenSeconds) ||
+                other.timeTakenSeconds == timeTakenSeconds) &&
             (identical(other.quizDate, quizDate) ||
                 other.quizDate == quizDate) &&
             (identical(other.status, status) || other.status == status) &&
@@ -306,7 +342,9 @@ class _$_QuizHistory extends _QuizHistory {
       quizDocRef,
       quizTitle,
       score,
-      timeTaken,
+      questionCount,
+      timeTakenMinutes,
+      timeTakenSeconds,
       quizDate,
       status,
       const DeepCollectionEquality().hash(_takenQuestions),
@@ -332,8 +370,10 @@ abstract class _QuizHistory extends QuizHistory {
       required final String categoryDocRef,
       required final String quizDocRef,
       required final String quizTitle,
-      required final String score,
-      required final String timeTaken,
+      required final int score,
+      required final int questionCount,
+      required final int timeTakenMinutes,
+      required final int timeTakenSeconds,
       required final DateTime quizDate,
       required final String status,
       required final List<int> takenQuestions,
@@ -353,9 +393,13 @@ abstract class _QuizHistory extends QuizHistory {
   @override
   String get quizTitle;
   @override
-  String get score;
+  int get score;
   @override
-  String get timeTaken;
+  int get questionCount;
+  @override
+  int get timeTakenMinutes;
+  @override
+  int get timeTakenSeconds;
   @override
   DateTime get quizDate;
   @override

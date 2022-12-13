@@ -13,8 +13,7 @@ class WeakQuestionListScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final weakQuestionListState = ref.watch(weakQuestionControllerProvider);
-    return Scaffold(
-      body: SingleChildScrollView(
+    return SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
@@ -72,7 +71,6 @@ class WeakQuestionListScreen extends HookConsumerWidget {
                     )),
           ],
         ),
-      ),
-    );
+      );
   }
 }
