@@ -37,7 +37,7 @@ class QuizHistoryScreen extends HookConsumerWidget {
                 ),
               );
             } else {
-              return const Center(child: Text("履歴はまだありません"));
+              return const Center(child: Text("履歴はまだありません\n クイズに挑戦してみましょう！"));
             }
           }),
     );
