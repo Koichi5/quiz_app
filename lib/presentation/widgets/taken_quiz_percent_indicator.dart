@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import 'package:quiz_app/domain/repository/weak_question_repository.dart';
-import 'package:quiz_app/domain/weak_question/weak_question.dart';
-import 'package:quiz_app/presentation/controller/quiz_history_controller.dart';
-import 'package:quiz_app/presentation/controller/weak_question_controller.dart';
 
 import '../../domain/category/category.dart';
-import '../../domain/quiz_history/quiz_history.dart';
 
 // 当該のカテゴリの中にユーザが登録した苦手問題が何問あるかを監視する StateProvider
 // final weakQuestionInCategoryCountProvider = StateProvider((ref) => 0);

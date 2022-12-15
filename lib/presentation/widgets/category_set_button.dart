@@ -3,7 +3,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quiz_app/presentation/controller/validator/category_validator_provider.dart';
 import 'package:quiz_app/presentation/screens/quiz_set_screen.dart';
 
-import '../../domain/category/category.dart';
 import '../controller/category_controller.dart';
 
 class CategorySetButton extends HookConsumerWidget {

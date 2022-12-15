@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quiz_app/domain/question/question.dart';
 import 'package:quiz_app/domain/weak_question/weak_question.dart';
-import 'package:quiz_app/general/general_provider.dart';
 import 'package:quiz_app/presentation/controller/weak_question_controller.dart';
 
 // final questionIsRegisteredWeakQuestionProvider = StateProvider((ref) => false);

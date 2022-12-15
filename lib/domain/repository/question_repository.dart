@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:quiz_app/domain/option/option.dart';
 import 'package:quiz_app/domain/question/question.dart';
 
 import '../../general/custom_exception.dart';

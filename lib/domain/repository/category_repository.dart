@@ -82,6 +82,7 @@ class CategoryRepository implements BaseCategoryRepository {
     }
   }
 
+  @override
   Future<void> editCategoryQuestionCount(
       {required int categoryQuestionCount,
       required String categoryDocRef}) async {

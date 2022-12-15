@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quiz_app/presentation/controller/question_controller.dart';
 import 'package:quiz_app/presentation/screens/quiz_screen.dart';
-import 'package:quiz_app/presentation/screens/quiz_screen2.dart';
-import 'package:quiz_app/presentation/widgets/category_card.dart';
-import 'package:quiz_app/presentation/widgets/quiz_card.dart';
 
 import '../../domain/category/category.dart';
 import '../controller/quiz_controller.dart';
