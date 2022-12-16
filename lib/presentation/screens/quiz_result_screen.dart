@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quiz_app/presentation/screens/home_screen.dart';
-import 'package:quiz_app/presentation/screens/quiz_history_screen.dart';
+import 'package:quiz_app/presentation/screens/quiz_list_screen.dart';
+import 'package:quiz_app/presentation/screens/quiz_screen.dart';
 import 'package:quiz_app/presentation/widgets/result_question_list_card.dart';
 
+import '../../domain/category/category.dart';
 import '../../domain/dto/quiz_result.dart';
 import '../../domain/question/question.dart';
+import '../controller/category_controller.dart';
 
 class QuizResultScreen extends HookConsumerWidget {
   static const routeName = '/quizResult';
+  final Category category;
   final QuizResult result;
   final List<int> takenQuestions;
   final List<bool> answerIsCorrectList;
   const QuizResultScreen(
-      {required this.result,
+      {required this.category,
+        required this.result,
       required this.takenQuestions,
       required this.answerIsCorrectList,
       Key? key})
@@ -43,7 +48,7 @@ class QuizResultScreen extends HookConsumerWidget {
             quizResultInfo(context, result),
             resultQuestionList(context, result.questionList, takenQuestions,
                 answerIsCorrectList),
-            bottomButtons(context),
+            bottomButtons(context, ref),
           ],
         ),
       ),
@@ -82,7 +87,7 @@ class QuizResultScreen extends HookConsumerWidget {
         });
   }
 
-  Widget bottomButtons(BuildContext context) {
+  Widget bottomButtons(BuildContext context, WidgetRef ref) {
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
       child: Row(
@@ -100,16 +105,36 @@ class QuizResultScreen extends HookConsumerWidget {
             // width: 150,
             // height: 50,
           ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pushReplacement(
-                  context, MaterialPageRoute(builder: (context) => const QuizHistoryScreen()));
-            },
-            child: const Text(
-              "History",
-              style: TextStyle(color: Colors.white, fontSize: 20),
-            ),
-          ),
+          TextButton(
+              onPressed: () {
+                ref.watch(optionGestureProvider.notifier).state = false;
+                ref
+                    .watch(categoryControllerProvider.notifier)
+                    .retrieveCategoryById(
+                    quizCategoryDocRef: category.categoryDocRef!)
+                    .then((value) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              QuizListScreen(category: value.first)));
+                });
+              },
+              child: Text(
+                "再チャレンジ",
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.primary),
+              )),
+          // ElevatedButton(
+          //   onPressed: () {
+          //     Navigator.pushReplacement(
+          //         context, MaterialPageRoute(builder: (context) => const QuizHistoryScreen()));
+          //   },
+          //   child: const Text(
+          //     "History",
+          //     style: TextStyle(color: Colors.white, fontSize: 20),
+          //   ),
+          // ),
         ],
       ),
     );

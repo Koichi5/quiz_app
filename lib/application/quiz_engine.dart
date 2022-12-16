@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:quiz_app/domain/category/category.dart';
 
 import '../domain/question/question.dart';
 import '../domain/quiz/quiz.dart';
@@ -9,6 +10,7 @@ import '../domain/quiz/quiz.dart';
 typedef OnQuizNext = void Function(Question question);
 typedef OnQuizCompleted = void Function(
     BuildContext context,
+    Category category,
     double totalScore,
     Duration takenTime,
     List<int> takenQuestions,
@@ -24,6 +26,7 @@ class QuizEngine {
   DateTime examStartTime = DateTime.now();
   DateTime questionStartTime = DateTime.now();
 
+  final Category category;
   final Quiz quiz;
   final List<Question> questionList;
   List<int> takenQuestions = [];
@@ -34,7 +37,9 @@ class QuizEngine {
   OnQuizStop onStop;
 
   QuizEngine(
-      {required this.quiz,
+      {
+        required this.category,
+        required this.quiz,
       required this.questionList,
       required this.onNext,
       required this.onCompleted,
@@ -82,7 +87,7 @@ class QuizEngine {
           });
           var takenTime = examStartTime.difference(DateTime.now());
           print("takenQuestions : $takenQuestions");
-          onCompleted(context, totalCorrect, takenTime, takenQuestions, questionAnswer.values.toList());
+          onCompleted(context, category, totalCorrect, takenTime, takenQuestions, questionAnswer.values.toList());
         }
         await Future.delayed(const Duration(milliseconds: 500));
       } while (question != null && isRunning);
@@ -100,7 +105,7 @@ class QuizEngine {
     takeNewQuestion = true;
   }
 
-  Map<int, bool> updateAnswer(int questionIndex, int answer) {
+  Map<int, bool> updateAnswer({required int questionIndex, required int answer}) {
     var question = questionList[questionIndex];
     // final answerIsCorrect = questionAnswer[questionIndex] == question.options[answer].isCorrect;
     questionAnswer[questionIndex] = question.options[answer].isCorrect;

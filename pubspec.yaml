@@ -27,7 +27,7 @@ dependencies:
   bottom_navy_bar: ^6.0.0
   percent_indicator: ^4.2.2
   material_segmented_control: ^4.0.0
-
+  just_audio: ^0.9.30
 
 dev_dependencies:
   flutter_test:

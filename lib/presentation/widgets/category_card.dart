@@ -81,7 +81,7 @@ class CategoryCard extends HookConsumerWidget {
                               ),
                             ),
                             const Text("学習済 "),
-                            const Text("80%"),
+                            const Text("80%", style: TextStyle(fontSize: 25),),
                           ],
                         ),
                         Row(

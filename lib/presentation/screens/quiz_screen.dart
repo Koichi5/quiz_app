@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:quiz_app/domain/dto/quiz_result.dart';
 import 'package:quiz_app/general/custom_exception.dart';
 import 'package:quiz_app/presentation/screens/quiz_result_screen.dart';
@@ -9,6 +10,7 @@ import 'package:quiz_app/presentation/widgets/question_option.dart';
 import 'package:quiz_app/presentation/widgets/time_indicator.dart';
 
 import '../../application/quiz_engine.dart';
+import '../../domain/category/category.dart';
 import '../../domain/option/option.dart';
 import '../../domain/question/question.dart';
 import '../../domain/quiz/quiz.dart';
@@ -23,22 +25,31 @@ final optionGestureProvider = StateProvider((ref) => false);
 
 class QuizScreen extends StatefulHookConsumerWidget {
   static const routeName = '/quiz';
+  final Category category;
   final Quiz quiz;
   final List<Question> questionList;
 
-  const QuizScreen({required this.quiz, required this.questionList, Key? key})
+  const QuizScreen(
+      {required this.category,
+      required this.quiz,
+      required this.questionList,
+      Key? key})
       : super(key: key);
 
   @override
   ConsumerState<QuizScreen> createState() =>
       // ignore: no_logic_in_create_state
-      _QuizScreenState(quiz: quiz, questionList: questionList);
+      _QuizScreenState(
+          category: category, quiz: quiz, questionList: questionList);
 }
 
 class _QuizScreenState extends ConsumerState<QuizScreen>
     with WidgetsBindingObserver {
   static const routeName = '/quiz';
   late QuizEngine engine;
+  late AudioPlayer _correctPlayer;
+  late AudioPlayer _incorrectPlayer;
+  final Category category;
   final Quiz quiz;
   final List<Question> questionList;
   // final Reader reader;
@@ -48,10 +59,12 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
   AppLifecycleState? appState;
 
   _QuizScreenState({
+    required this.category,
     required this.quiz,
     required this.questionList,
   }) {
     engine = QuizEngine(
+        category: category,
         quiz: quiz,
         questionList: questionList,
         onNext: onNextQuestion,
@@ -64,6 +77,8 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     engine.start(context);
+    _setupCorrectSession();
+    _setupIncorrectSession();
   }
 
   @override
@@ -80,6 +95,8 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
     }
     engine.stop();
     WidgetsBinding.instance.removeObserver(this);
+    // _correctPlayer.dispose();
+    // _incorrectPlayer.dispose();
     super.dispose();
   }
 
@@ -147,7 +164,8 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
                       _remainTime = 0;
                       ref.watch(questionAnswerProvider.notifier).state =
                           engine.updateAnswer(
-                              questionList.indexOf(question!), optionIndex);
+                              questionIndex: questionList.indexOf(question!), answer: optionIndex);
+                      ref.watch(questionAnswerProvider).values.last ? _playCorrectSoundFile() : _playIncorrectSoundFile();
                       // print(
                       //     "ref.watch(questionAnswerProvider.notifier).state : ${ref.watch(questionAnswerProvider.notifier).state}");
                       // print(
@@ -273,6 +291,53 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
     );
   }
 
+  Future<void> _setupCorrectSession() async {
+    _correctPlayer = AudioPlayer();
+    // final session = await AudioSession.instance;
+    // await session.configure(AudioSessionConfiguration.speech());
+    await _loadCorrectAudioFile();
+  }
+
+  Future<void> _playCorrectSoundFile() async {
+    // 再生終了状態の場合、新たなオーディオファイルを定義し再生できる状態にする
+    if(_correctPlayer.processingState == ProcessingState.completed) {
+      await _loadCorrectAudioFile();
+    }
+    await _correctPlayer.play();
+  }
+
+  Future<void> _loadCorrectAudioFile() async {
+    try {
+        await _correctPlayer.setAsset('assets/correct_sound.mp3');
+    } catch(e) {
+      print(e);
+    }
+  }
+
+  Future<void> _setupIncorrectSession() async {
+    _incorrectPlayer = AudioPlayer();
+    // final session = await AudioSession.instance;
+    // await session.configure(AudioSessionConfiguration.speech());
+    await _loadIncorrectAudioFile();
+  }
+
+  Future<void> _playIncorrectSoundFile() async {
+    // 再生終了状態の場合、新たなオーディオファイルを定義し再生できる状態にする
+    if(_incorrectPlayer.processingState == ProcessingState.completed) {
+      await _loadIncorrectAudioFile();
+    }
+    await _incorrectPlayer.play();
+  }
+
+  Future<void> _loadIncorrectAudioFile() async {
+    try {
+      await _incorrectPlayer.setAsset("assets/incorrect_sound.mp3");
+    } catch(e) {
+      print(e);
+    }
+  }
+
+
   void onNextQuestion(Question inputQuestion) {
     setState(() {
       if (progressTimer != null && progressTimer!.isActive) {
@@ -307,6 +372,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
   void onQuizComplete(
     // Quiz quiz,
     BuildContext context,
+    Category category,
     double total,
     Duration takenTime,
     List<int> takenQuestions,
@@ -344,13 +410,13 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
         context,
         MaterialPageRoute(
             builder: (context) => QuizResultScreen(
-                  result: QuizResult(
-                      quiz: quiz,
-                      questionList: questionList,
-                      totalCorrect: total),
-                  takenQuestions: takenQuestions,
-                answerIsCorrectList: answerIsCorrectList
-                )));
+                category: category,
+                result: QuizResult(
+                    quiz: quiz,
+                    questionList: questionList,
+                    totalCorrect: total),
+                takenQuestions: takenQuestions,
+                answerIsCorrectList: answerIsCorrectList)));
     // Navigator.push(
     //     context,
     //     MaterialPageRoute(
