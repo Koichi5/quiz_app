@@ -1,34 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+final timeLimitDangerProvider = StateProvider((ref) => false);
+
 class TimeIndicator extends HookConsumerWidget {
   final int duration;
   final VoidCallback onComplete;
-  final double width;
-  final double height;
   final int progress;
   double borderWidth = 2;
 
   TimeIndicator(this.duration,
       this.progress,
       this.onComplete,
-      {Key? key, this.width = 300, this.height = 25})
+      {Key? key})
       : super(key: key);
-
-  // @override
-  // // ignore: no_logic_in_create_state
-  // ConsumerState<TimeIndicator> createState() => _TimeIndicatorState(
-  //     duration: duration,
-  //     progress: progress,
-  //     onComplete: onComplete,
-  //     width: width,
-  //     height: height);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final width = MediaQuery.of(context).size.width * 0.85;
     var percent = ((progress / duration) * 100) / 100;
     var innerWidth = ((width * percent) - borderWidth * 2);
-    var innerHeight = height - borderWidth * 2;
+    var innerHeight = 15 - borderWidth * 2;
     if (innerWidth < 0) {
       innerWidth = 0;
     }
@@ -39,14 +31,10 @@ class TimeIndicator extends HookConsumerWidget {
       children: [
         Container(
           width: width,
-          height: height,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(height * 0.50)),
-            border: Border.all(
-              width: borderWidth,
-              // color: ThemeHelper.primaryColor
-            ),
+          height: 15,
+          decoration: const BoxDecoration(
+            // color: Theme.of(context).colorScheme.background,
+            borderRadius: BorderRadius.all(Radius.circular(15 * 0.50)),
           ),
         ),
         Container(
@@ -54,11 +42,8 @@ class TimeIndicator extends HookConsumerWidget {
           height: innerHeight,
           margin: EdgeInsets.all(borderWidth),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(height * 0.50)),
-            border: Border.all(
-              width: 5,
-              // color: ThemeHelper.accentColor
-            ),
+            color: Theme.of(context).colorScheme.primary,
+            borderRadius: const BorderRadius.all(Radius.circular(15 * 0.50)),
             // color: ThemeHelper.accentColor
           ),
         ),

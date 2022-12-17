@@ -114,7 +114,12 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
             screenHeader(),
             quizQuestion(),
             questionOptions(),
-            quizProgress(),
+            // quizProgress(),
+            QuizProgress(question, progressTimer,
+                remainTime: _remainTime,
+                engine: engine,
+                questionList: questionList,
+                playIncorrectSoundFile: _playIncorrectSoundFile),
             footerButton(context),
           ],
         ),
@@ -161,11 +166,14 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
                     // "question!.options[optionIndex].isSelected : ${question!.options[optionIndex].isSelected}");
                     setState(() {
                       // ref.watch(optionGestureProvider) ? (){} :
-                      _remainTime = 0;
+                      _remainTime = 1;
                       ref.watch(questionAnswerProvider.notifier).state =
                           engine.updateAnswer(
-                              questionIndex: questionList.indexOf(question!), answer: optionIndex);
-                      ref.watch(questionAnswerProvider).values.last ? _playCorrectSoundFile() : _playIncorrectSoundFile();
+                              questionIndex: questionList.indexOf(question!),
+                              answer: optionIndex);
+                      ref.watch(questionAnswerProvider).values.last
+                          ? _playCorrectSoundFile()
+                          : _playIncorrectSoundFile();
                       // print(
                       //     "ref.watch(questionAnswerProvider.notifier).state : ${ref.watch(questionAnswerProvider.notifier).state}");
                       // print(
@@ -247,14 +255,18 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
                   )
                 : null,
           ),
-          Text(
-            "$_remainTime秒",
-            style: const TextStyle(fontSize: 16),
-          )
+          // Text(
+          //   "$_remainTime秒",
+          //   style: const TextStyle(fontSize: 16),
+          // )
         ],
       ),
     );
   }
+
+  // Widget timeLimitText (BuildContext context, int remainTime) {
+  //   return remainTime == 0 ? Text("時間切れです") : Text("");
+  // }
 
   Widget footerButton(BuildContext context) {
     return Row(
@@ -300,7 +312,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
 
   Future<void> _playCorrectSoundFile() async {
     // 再生終了状態の場合、新たなオーディオファイルを定義し再生できる状態にする
-    if(_correctPlayer.processingState == ProcessingState.completed) {
+    if (_correctPlayer.processingState == ProcessingState.completed) {
       await _loadCorrectAudioFile();
     }
     await _correctPlayer.play();
@@ -308,8 +320,8 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
 
   Future<void> _loadCorrectAudioFile() async {
     try {
-        await _correctPlayer.setAsset('assets/correct_sound.mp3');
-    } catch(e) {
+      await _correctPlayer.setAsset('assets/correct_sound.mp3');
+    } catch (e) {
       print(e);
     }
   }
@@ -323,7 +335,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
 
   Future<void> _playIncorrectSoundFile() async {
     // 再生終了状態の場合、新たなオーディオファイルを定義し再生できる状態にする
-    if(_incorrectPlayer.processingState == ProcessingState.completed) {
+    if (_incorrectPlayer.processingState == ProcessingState.completed) {
       await _loadIncorrectAudioFile();
     }
     await _incorrectPlayer.play();
@@ -332,11 +344,10 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
   Future<void> _loadIncorrectAudioFile() async {
     try {
       await _incorrectPlayer.setAsset("assets/incorrect_sound.mp3");
-    } catch(e) {
+    } catch (e) {
       print(e);
     }
   }
-
 
   void onNextQuestion(Question inputQuestion) {
     setState(() {
@@ -430,6 +441,77 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
   void onStop(Quiz quiz) {
     _remainTime = 0;
     progressTimer?.cancel();
+  }
+}
+
+class QuizProgress extends StatefulHookConsumerWidget {
+  const QuizProgress(this.question, this.progressTimer,
+      {required this.remainTime,
+      required this.engine,
+      required this.questionList,
+      required this.playIncorrectSoundFile,
+      super.key});
+
+  final Question? question;
+  final int remainTime;
+  final QuizEngine engine;
+  final List<Question> questionList;
+  final Function playIncorrectSoundFile;
+  final Timer? progressTimer;
+
+  @override
+  ConsumerState<QuizProgress> createState() => _QuizProgressState();
+}
+
+class _QuizProgressState extends ConsumerState<QuizProgress> {
+  @override
+  void initState() {
+    if (widget.remainTime == 0) {
+      ref.watch(questionAnswerProvider.notifier).state = widget.engine
+          .updateAnswer(
+              questionIndex: widget.questionList.indexOf(widget.question!),
+              answer: null);
+      widget.playIncorrectSoundFile();
+      // print(
+      //     "ref.watch(questionAnswerProvider.notifier).state : ${ref.watch(questionAnswerProvider.notifier).state}");
+      // print(
+      //     "question!.options[optionIndex].isSelected : ${question!.options[optionIndex].isSelected}");
+      // ref.watch(optionGestureProvider.notifier).state = true;
+      widget.progressTimer!.cancel();
+    }
+    // timer = Timer(const Duration(seconds: 10), () {
+    //   Navigator.push(context, MaterialPageRoute(builder: (context) => Page1()));
+    //   print("changedpage");
+    // });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      child: Column(
+        children: [
+          Container(
+            margin: const EdgeInsets.only(top: 20),
+            child: widget.question != null
+                ? TimeIndicator(
+                    widget.question!.duration,
+                    widget.remainTime,
+                    () {
+                      // progressTimer!.cancel();
+                      // _remainTime = 0;
+                    },
+                  )
+                : null,
+          ),
+          // Text(
+          //   "$_remainTime秒",
+          //   style: const TextStyle(fontSize: 16),
+          // )
+        ],
+      ),
+    );
   }
 }
 

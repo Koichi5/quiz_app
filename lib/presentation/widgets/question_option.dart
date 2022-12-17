@@ -21,19 +21,19 @@ class QuestionOption extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(),
+        border: Border.all(width: 0.7),
             borderRadius: const BorderRadius.all(Radius.circular(50))
       ),
         width: MediaQuery.of(context).size.width * 0.9,
         padding: const EdgeInsets.all(10),
         alignment: Alignment.centerLeft,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5.0),
+          padding: const EdgeInsets.all(8.0),
           child: Text(
             optionText,
-            style: const TextStyle(
-              fontSize: 25,
-              // color: Theme.of(context).primaryColor,
+            style: TextStyle(
+              fontSize: 23,
+              color: Theme.of(context).colorScheme.primary,
             ),
             textAlign: TextAlign.left,
           ),

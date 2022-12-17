@@ -105,16 +105,20 @@ class QuizEngine {
     takeNewQuestion = true;
   }
 
-  Map<int, bool> updateAnswer({required int questionIndex, required int answer}) {
+  Map<int, bool> updateAnswer({required int questionIndex, int? answer}) {
     var question = questionList[questionIndex];
     // final answerIsCorrect = questionAnswer[questionIndex] == question.options[answer].isCorrect;
-    questionAnswer[questionIndex] = question.options[answer].isCorrect;
+    if(answer == null) {
+      questionAnswer[questionIndex] = false;
+    } else {
+      questionAnswer[questionIndex] = question.options[answer].isCorrect;
+    }
     // questionAnswer は Map<int, bool>
     // keys には Question の番号
     // values には正誤判定
-    // print("questionAnswer : ${questionAnswer}");
-    // print("questionAnswer.values : ${questionAnswer.values}");
-    // print("questionAnswer.values.last : ${questionAnswer.values.last}");
+    print("questionAnswer : ${questionAnswer}");
+    print("questionAnswer.values : ${questionAnswer.values}");
+    print("questionAnswer.values.last : ${questionAnswer.values.last}");
     return questionAnswer;
   }
 
