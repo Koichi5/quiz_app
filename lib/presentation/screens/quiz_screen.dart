@@ -161,11 +161,8 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
                 onTap: () {
                   if (!ref.watch(optionGestureProvider)) {
                     ref.watch(optionGestureProvider.notifier).state = true;
-                    // print("optionIndex : $optionIndex");
-                    // print(
-                    // "question!.options[optionIndex].isSelected : ${question!.options[optionIndex].isSelected}");
+
                     setState(() {
-                      // ref.watch(optionGestureProvider) ? (){} :
                       _remainTime = 1;
                       ref.watch(questionAnswerProvider.notifier).state =
                           engine.updateAnswer(
@@ -174,11 +171,6 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
                       ref.watch(questionAnswerProvider).values.last
                           ? _playCorrectSoundFile()
                           : _playIncorrectSoundFile();
-                      // print(
-                      //     "ref.watch(questionAnswerProvider.notifier).state : ${ref.watch(questionAnswerProvider.notifier).state}");
-                      // print(
-                      //     "question!.options[optionIndex].isSelected : ${question!.options[optionIndex].isSelected}");
-                      // ref.watch(optionGestureProvider.notifier).state = true;
                       progressTimer!.cancel();
                     });
 
@@ -188,13 +180,6 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
                       // 何かしらの選択肢を選択したら true になる provider, 画面遷移時には次の問題へ移行するため、false にする必要がある
                       ref.watch(optionGestureProvider.notifier).state = false;
                     });
-
-                    // question!.options[optionIndex].copyWith().isSelected = true;
-                    // setState を置いておかないと画面が更新されないため、正誤判定が一回しかされない
-                    // questionAnswer = engine.updateAnswer(questionList.indexOf(question!), optionIndex);
-                    // for (int i = 0; i < question!.options.length; i++) {
-                    //   question!.options[i].copyWith(isSelected: false);
-                    // }
                   } else {
                     null;
                   }
