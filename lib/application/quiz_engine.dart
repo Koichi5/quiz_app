@@ -5,18 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:quiz_app/domain/category/category.dart';
 
 import '../domain/question/question.dart';
-import '../domain/quiz/quiz.dart';
 
 typedef OnQuizNext = void Function(Question question);
 typedef OnQuizCompleted = void Function(
     BuildContext context,
-    Category category,
+    Category? category,
     double totalScore,
     Duration takenTime,
     List<int> takenQuestions,
     List<bool> answerIsCorrectList,
     );
-typedef OnQuizStop = void Function(Quiz quiz);
+typedef OnQuizStop = void Function();
 
 class QuizEngine {
   int questionIndex = 0;
@@ -26,8 +25,8 @@ class QuizEngine {
   DateTime examStartTime = DateTime.now();
   DateTime questionStartTime = DateTime.now();
 
-  final Category category;
-  final Quiz quiz;
+  Category? category;
+  // final Quiz quiz;
   final List<Question> questionList;
   List<int> takenQuestions = [];
   Map<int, bool> questionAnswer = {};
@@ -38,8 +37,8 @@ class QuizEngine {
 
   QuizEngine(
       {
-        required this.category,
-        required this.quiz,
+        this.category,
+        // required this.quiz,
       required this.questionList,
       required this.onNext,
       required this.onCompleted,
@@ -60,7 +59,7 @@ class QuizEngine {
 
       do {
         if (takeNewQuestion) {
-          question = _nextQuestion(quiz, questionList, questionIndex);
+          question = _nextQuestion(questionList, questionIndex);
           if (question != null) {
             takeNewQuestion = false;
             questionIndex++;
@@ -98,7 +97,7 @@ class QuizEngine {
   void stop() {
     takeNewQuestion = false;
     isRunning = false;
-    onStop(quiz);
+    onStop();
   }
 
   void next() {
@@ -122,7 +121,7 @@ class QuizEngine {
     return questionAnswer;
   }
 
-  Question? _nextQuestion(Quiz quiz, List<Question> questionList, int index) {
+  Question? _nextQuestion(List<Question> questionList, int index) {
     while (true) {
       if (takenQuestions.length >= questionList.length) {
         return null;

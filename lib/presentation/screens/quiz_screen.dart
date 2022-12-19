@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:quiz_app/domain/dto/quiz_result.dart';
 import 'package:quiz_app/general/custom_exception.dart';
+import 'package:quiz_app/presentation/screens/home_screen.dart';
 import 'package:quiz_app/presentation/screens/quiz_result_screen.dart';
 import 'package:quiz_app/presentation/widgets/question_option.dart';
 import 'package:quiz_app/presentation/widgets/time_indicator.dart';
@@ -25,13 +26,13 @@ final optionGestureProvider = StateProvider((ref) => false);
 
 class QuizScreen extends StatefulHookConsumerWidget {
   static const routeName = '/quiz';
-  final Category category;
-  final Quiz quiz;
+  Category? category;
+  Quiz? quiz;
   final List<Question> questionList;
 
-  const QuizScreen(
-      {required this.category,
-      required this.quiz,
+  QuizScreen(
+      {this.category,
+      this.quiz,
       required this.questionList,
       Key? key})
       : super(key: key);
@@ -49,8 +50,8 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
   late QuizEngine engine;
   late AudioPlayer _correctPlayer;
   late AudioPlayer _incorrectPlayer;
-  final Category category;
-  final Quiz quiz;
+  Category? category;
+  Quiz? quiz;
   final List<Question> questionList;
   // final Reader reader;
   int _remainTime = 0;
@@ -65,7 +66,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
   }) {
     engine = QuizEngine(
         category: category,
-        quiz: quiz,
+        // quiz: quiz,
         questionList: questionList,
         onNext: onNextQuestion,
         onCompleted: onQuizComplete,
@@ -102,36 +103,31 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      // alignment: Alignment.center,
-      // padding: EdgeInsets.all(10),
-      width: MediaQuery.of(context).size.width,
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            screenHeader(),
-            quizQuestion(),
-            questionOptions(),
-            // quizProgress(),
-            QuizProgress(question, progressTimer,
-                remainTime: _remainTime,
-                engine: engine,
-                questionList: questionList,
-                playIncorrectSoundFile: _playIncorrectSoundFile),
-            footerButton(context),
-          ],
-        ),
-      ),
-    );
+    return SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              screenHeader(),
+              quizQuestion(),
+              questionOptions(),
+              // quizProgress(),
+              QuizProgress(question, progressTimer,
+                  remainTime: _remainTime,
+                  engine: engine,
+                  questionList: questionList,
+                  playIncorrectSoundFile: _playIncorrectSoundFile),
+              footerButton(context),
+            ],
+          ),
+        );
   }
 
   Widget screenHeader() {
     return Container(
       alignment: Alignment.center,
       child: Text(
-        quiz.title,
+        category != null ? category!.name : "",
         style: const TextStyle(fontSize: 18),
       ),
     );
@@ -368,7 +364,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
   void onQuizComplete(
     // Quiz quiz,
     BuildContext context,
-    Category category,
+    Category? category,
     double total,
     Duration takenTime,
     List<int> takenQuestions,
@@ -383,36 +379,43 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
     // progressTimer!.cancel();
     // print("quiz.categoryDocRef : ${quiz.categoryDocRef}");
     // Navigator.pop(context);
-    ref
-        .watch(categoryControllerProvider.notifier)
-        .retrieveCategoryById(quizCategoryDocRef: quiz.categoryDocRef!)
-        .then((category) =>
-            ref.watch(quizHistoryControllerProvider.notifier).addQuizHistory(
-                  user: ref.watch(firebaseAuthProvider).currentUser!,
-                  quizDocRef: quiz.quizDocRef!,
-                  categoryDocRef: quiz.categoryDocRef!,
-                  quizTitle: quiz.title,
-                  score: total.round(),
-                  questionCount: questionList.length,
-                  timeTakenMinutes: -takenTime.inMinutes,
-                  timeTakenSeconds: -takenTime.inSeconds,
-                  quizDate: DateTime.now(),
-                  status: "Complete",
-                  takenQuestions: takenQuestions,
-                  answerIsCorrectList: answerIsCorrectList,
-                ));
-    // push にすると、この画面は単一の画面ではないため、画面遷移が乱れる
-    Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-            builder: (context) => QuizResultScreen(
-                category: category,
-                result: QuizResult(
-                    quiz: quiz,
-                    questionList: questionList,
-                    totalCorrect: total),
-                takenQuestions: takenQuestions,
-                answerIsCorrectList: answerIsCorrectList)));
+    if(quiz != null) {
+      ref
+          .watch(categoryControllerProvider.notifier)
+          .retrieveCategoryById(quizCategoryDocRef: quiz!.categoryDocRef!)
+          .then((category) =>
+          ref.watch(quizHistoryControllerProvider.notifier).addQuizHistory(
+            user: ref
+                .watch(firebaseAuthProvider)
+                .currentUser!,
+            quizDocRef: quiz!.quizDocRef!,
+            categoryDocRef: quiz!.categoryDocRef!,
+            quizTitle: quiz!.title,
+            score: total.round(),
+            questionCount: questionList.length,
+            timeTakenMinutes: -takenTime.inMinutes,
+            timeTakenSeconds: -takenTime.inSeconds,
+            quizDate: DateTime.now(),
+            status: "Complete",
+            takenQuestions: takenQuestions,
+            answerIsCorrectList: answerIsCorrectList,
+          ));
+      // push にすると、この画面は単一の画面ではないため、画面遷移が乱れる
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  QuizResultScreen(
+                      category: category,
+                      result: QuizResult(
+                          quiz: quiz!,
+                          questionList: questionList,
+                          totalCorrect: total),
+                      takenQuestions: takenQuestions,
+                      answerIsCorrectList: answerIsCorrectList)));
+    } else {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+    }
     // Navigator.push(
     //     context,
     //     MaterialPageRoute(
@@ -423,7 +426,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
     //                 totalCorrect: total))));
   }
 
-  void onStop(Quiz quiz) {
+  void onStop() {
     _remainTime = 0;
     progressTimer?.cancel();
   }

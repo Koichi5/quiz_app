@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quiz_app/domain/question/question.dart';
+import 'package:quiz_app/domain/repository/weak_question_repository.dart';
 
 import '../../general/custom_exception.dart';
 import '../../general/general_provider.dart';
@@ -11,8 +12,7 @@ abstract class BaseQuestionRepository {
   Future<Question> addQuestion(
       {required Quiz quiz, required Question question});
   Future<List<Question>> retrieveQuestionList({required Quiz quiz});
-  Future<List<Question>> retrieveWeakQuestionList(
-      {required List<WeakQuestion> weakQuestionList});
+  Future<List<Question>> retrieveWeakQuestionList();
 }
 
 final questionRepositoryProvider =
@@ -117,9 +117,10 @@ class QuestionRepository implements BaseQuestionRepository {
   }
 
   @override
-  Future<List<Question>> retrieveWeakQuestionList(
-      {required List<WeakQuestion> weakQuestionList}) async {
+  Future<List<Question>> retrieveWeakQuestionList() async {
     try {
+      final weakQuestionList = await _reader(weakQuestionRepositoryProvider)
+          .retrieveWeakQuestionList();
       final List<Question> questionList = [];
       for (int i = 0; i < weakQuestionList.length; i++) {
         final weakQuestion = weakQuestionList[i];

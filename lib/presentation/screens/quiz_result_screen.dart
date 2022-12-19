@@ -12,12 +12,12 @@ import '../controller/category_controller.dart';
 
 class QuizResultScreen extends HookConsumerWidget {
   static const routeName = '/quizResult';
-  final Category category;
+  Category? category;
   final QuizResult result;
   final List<int> takenQuestions;
   final List<bool> answerIsCorrectList;
-  const QuizResultScreen(
-      {required this.category,
+  QuizResultScreen(
+      {this.category,
         required this.result,
       required this.takenQuestions,
       required this.answerIsCorrectList,
@@ -106,12 +106,12 @@ class QuizResultScreen extends HookConsumerWidget {
             // height: 50,
           ),
           TextButton(
-              onPressed: () {
+              onPressed: category != null ? () {
                 ref.watch(optionGestureProvider.notifier).state = false;
                 ref
                     .watch(categoryControllerProvider.notifier)
                     .retrieveCategoryById(
-                    quizCategoryDocRef: category.categoryDocRef!)
+                    quizCategoryDocRef: category!.categoryDocRef!)
                     .then((value) {
                   Navigator.push(
                       context,
@@ -119,7 +119,7 @@ class QuizResultScreen extends HookConsumerWidget {
                           builder: (context) =>
                               QuizListScreen(category: value.first)));
                 });
-              },
+              } : (){},
               child: Text(
                 "再チャレンジ",
                 style: TextStyle(
