@@ -4,13 +4,12 @@ import 'package:quiz_app/presentation/screens/category_list_screen.dart';
 import 'package:quiz_app/presentation/screens/review_screen.dart';
 import 'package:quiz_app/presentation/widgets/bottom_nav_bar.dart';
 
-import 'category_set_screen.dart';
+import 'original_question_list_screen.dart';
 import 'setting_screen.dart';
 
 final List<Widget> homePageList = [
   const CategoryListScreen(),
-  const CategorySetScreen(),
-  // const WeakQuestionListScreen(),
+  const OriginalQuestionListScreen(),
   const ReviewScreen(),
   const SettingScreen(),
 ];

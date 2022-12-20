@@ -408,13 +408,22 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
                   QuizResultScreen(
                       category: category,
                       result: QuizResult(
-                          quiz: quiz!,
                           questionList: questionList,
                           totalCorrect: total),
                       takenQuestions: takenQuestions,
                       answerIsCorrectList: answerIsCorrectList)));
     } else {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  QuizResultScreen(
+                      category: category,
+                      result: QuizResult(
+                          questionList: questionList,
+                          totalCorrect: total),
+                      takenQuestions: takenQuestions,
+                      answerIsCorrectList: answerIsCorrectList)));
     }
     // Navigator.push(
     //     context,

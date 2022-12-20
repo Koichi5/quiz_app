@@ -21,6 +21,7 @@ class QuizListScreen extends HookConsumerWidget {
       return Scaffold(
           appBar: AppBar(
             automaticallyImplyLeading: false,
+            title: Text(category != null ? category!.name : ""),
           ),
           body: SingleChildScrollView(
               child: Column(

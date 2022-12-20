@@ -6,7 +6,6 @@ import 'package:quiz_app/domain/repository/weak_question_repository.dart';
 import '../../general/custom_exception.dart';
 import '../../general/general_provider.dart';
 import '../quiz/quiz.dart';
-import '../weak_question/weak_question.dart';
 
 abstract class BaseQuestionRepository {
   Future<Question> addQuestion(

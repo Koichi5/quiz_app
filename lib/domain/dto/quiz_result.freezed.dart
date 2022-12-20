@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$QuizResult {
-  Quiz get quiz => throw _privateConstructorUsedError;
+// required Quiz quiz,
   List<Question> get questionList => throw _privateConstructorUsedError;
   double get totalCorrect => throw _privateConstructorUsedError;
 
@@ -31,9 +31,7 @@ abstract class $QuizResultCopyWith<$Res> {
           QuizResult value, $Res Function(QuizResult) then) =
       _$QuizResultCopyWithImpl<$Res, QuizResult>;
   @useResult
-  $Res call({Quiz quiz, List<Question> questionList, double totalCorrect});
-
-  $QuizCopyWith<$Res> get quiz;
+  $Res call({List<Question> questionList, double totalCorrect});
 }
 
 /// @nodoc
@@ -49,15 +47,10 @@ class _$QuizResultCopyWithImpl<$Res, $Val extends QuizResult>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? quiz = null,
     Object? questionList = null,
     Object? totalCorrect = null,
   }) {
     return _then(_value.copyWith(
-      quiz: null == quiz
-          ? _value.quiz
-          : quiz // ignore: cast_nullable_to_non_nullable
-              as Quiz,
       questionList: null == questionList
           ? _value.questionList
           : questionList // ignore: cast_nullable_to_non_nullable
@@ -67,14 +60,6 @@ class _$QuizResultCopyWithImpl<$Res, $Val extends QuizResult>
           : totalCorrect // ignore: cast_nullable_to_non_nullable
               as double,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $QuizCopyWith<$Res> get quiz {
-    return $QuizCopyWith<$Res>(_value.quiz, (value) {
-      return _then(_value.copyWith(quiz: value) as $Val);
-    });
   }
 }
 
@@ -86,10 +71,7 @@ abstract class _$$_QuizResultCopyWith<$Res>
       __$$_QuizResultCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Quiz quiz, List<Question> questionList, double totalCorrect});
-
-  @override
-  $QuizCopyWith<$Res> get quiz;
+  $Res call({List<Question> questionList, double totalCorrect});
 }
 
 /// @nodoc
@@ -103,15 +85,10 @@ class __$$_QuizResultCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? quiz = null,
     Object? questionList = null,
     Object? totalCorrect = null,
   }) {
     return _then(_$_QuizResult(
-      quiz: null == quiz
-          ? _value.quiz
-          : quiz // ignore: cast_nullable_to_non_nullable
-              as Quiz,
       questionList: null == questionList
           ? _value._questionList
           : questionList // ignore: cast_nullable_to_non_nullable
@@ -128,14 +105,12 @@ class __$$_QuizResultCopyWithImpl<$Res>
 
 class _$_QuizResult implements _QuizResult {
   const _$_QuizResult(
-      {required this.quiz,
-      required final List<Question> questionList,
-      required this.totalCorrect})
+      {required final List<Question> questionList, required this.totalCorrect})
       : _questionList = questionList;
 
-  @override
-  final Quiz quiz;
+// required Quiz quiz,
   final List<Question> _questionList;
+// required Quiz quiz,
   @override
   List<Question> get questionList {
     // ignore: implicit_dynamic_type
@@ -147,7 +122,7 @@ class _$_QuizResult implements _QuizResult {
 
   @override
   String toString() {
-    return 'QuizResult(quiz: $quiz, questionList: $questionList, totalCorrect: $totalCorrect)';
+    return 'QuizResult(questionList: $questionList, totalCorrect: $totalCorrect)';
   }
 
   @override
@@ -155,7 +130,6 @@ class _$_QuizResult implements _QuizResult {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_QuizResult &&
-            (identical(other.quiz, quiz) || other.quiz == quiz) &&
             const DeepCollectionEquality()
                 .equals(other._questionList, _questionList) &&
             (identical(other.totalCorrect, totalCorrect) ||
@@ -163,7 +137,7 @@ class _$_QuizResult implements _QuizResult {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, quiz,
+  int get hashCode => Object.hash(runtimeType,
       const DeepCollectionEquality().hash(_questionList), totalCorrect);
 
   @JsonKey(ignore: true)
@@ -175,13 +149,10 @@ class _$_QuizResult implements _QuizResult {
 
 abstract class _QuizResult implements QuizResult {
   const factory _QuizResult(
-      {required final Quiz quiz,
-      required final List<Question> questionList,
+      {required final List<Question> questionList,
       required final double totalCorrect}) = _$_QuizResult;
 
-  @override
-  Quiz get quiz;
-  @override
+  @override // required Quiz quiz,
   List<Question> get questionList;
   @override
   double get totalCorrect;

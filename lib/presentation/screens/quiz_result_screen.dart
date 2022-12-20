@@ -105,8 +105,9 @@ class QuizResultScreen extends HookConsumerWidget {
             // width: 150,
             // height: 50,
           ),
+          category != null ?
           TextButton(
-              onPressed: category != null ? () {
+              onPressed: () {
                 ref.watch(optionGestureProvider.notifier).state = false;
                 ref
                     .watch(categoryControllerProvider.notifier)
@@ -119,12 +120,12 @@ class QuizResultScreen extends HookConsumerWidget {
                           builder: (context) =>
                               QuizListScreen(category: value.first)));
                 });
-              } : (){},
+              },
               child: Text(
                 "再チャレンジ",
                 style: TextStyle(
                     color: Theme.of(context).colorScheme.primary),
-              )),
+              )) : const SizedBox(),
           // ElevatedButton(
           //   onPressed: () {
           //     Navigator.pushReplacement(

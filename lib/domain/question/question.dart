@@ -15,6 +15,7 @@ abstract class Question implements _$Question {
     String? categoryDocRef,
     String? quizDocRef,
     String? questionDocRef,
+    String? originalQuestionDocRef,
     // String? optionDocRef,
     // required int categoryId,
     // required int quizId,

@@ -55,59 +55,62 @@ class QuizHistoryCard extends HookConsumerWidget {
                 animation: true,
               ),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Icon(Icons.timer),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text((quizHistory.timeTakenMinutes == 0)
-                          ? "${quizHistory.timeTakenSeconds}秒"
-                          : "${quizHistory.timeTakenMinutes}分${quizHistory.timeTakenSeconds}秒"),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Icon(Icons.date_range),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                          "${quizHistory.quizDate.month} / ${quizHistory.quizDate.day} ${quizHistory.quizDate.hour} : ${quizHistory.quizDate.minute}"),
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextButton(
-                      onPressed: () {
-                        ref
-                            .watch(categoryControllerProvider.notifier)
-                            .retrieveCategoryById(
-                                quizCategoryDocRef: quizHistory.categoryDocRef)
-                            .then((value) {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      QuizListScreen(category: value.first)));
-                        });
-                      },
-                      child: Text(
-                        "再チャレンジ",
-                        style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary),
-                      )),
-                ),
-              ],
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Icon(Icons.timer),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text((quizHistory.timeTakenMinutes == 0)
+                            ? "${quizHistory.timeTakenSeconds}秒"
+                            : "${quizHistory.timeTakenMinutes}分${quizHistory.timeTakenSeconds}秒"),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Icon(Icons.date_range),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                            "${quizHistory.quizDate.month} / ${quizHistory.quizDate.day} ${quizHistory.quizDate.hour} : ${quizHistory.quizDate.minute}"),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextButton(
+                        onPressed: () {
+                          ref
+                              .watch(categoryControllerProvider.notifier)
+                              .retrieveCategoryById(
+                                  quizCategoryDocRef: quizHistory.categoryDocRef)
+                              .then((value) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        QuizListScreen(category: value.first)));
+                          });
+                        },
+                        child: Text(
+                          "再チャレンジ",
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary),
+                        )),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
