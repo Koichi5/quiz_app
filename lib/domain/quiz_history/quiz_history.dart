@@ -12,8 +12,6 @@ abstract class QuizHistory implements _$QuizHistory {
 
   factory QuizHistory({
     String? id,
-    // @Default(0) required int quizId,
-    // @Default(0) required int categoryId,
     required String categoryDocRef,
     required String quizDocRef,
     required String quizTitle,
@@ -28,8 +26,6 @@ abstract class QuizHistory implements _$QuizHistory {
   }) = _QuizHistory;
 
   factory QuizHistory.empty() => QuizHistory(
-        // quizId: 0,
-        // categoryId: 0,
         categoryDocRef: "",
         quizDocRef: "",
         quizTitle: "",

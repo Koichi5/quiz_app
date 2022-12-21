@@ -43,7 +43,6 @@ class QuestionRepository implements BaseQuestionRepository {
         categoryDocRef: quiz.categoryDocRef,
         quizDocRef: quiz.quizDocRef,
         questionDocRef: quiz.questionDocRef,
-        // optionDocRef: emptyOption.id,
         text: question.text,
         duration: question.duration,
         optionsShuffled: question.optionsShuffled,

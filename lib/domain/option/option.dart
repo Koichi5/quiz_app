@@ -4,18 +4,12 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'option.freezed.dart';
 part 'option.g.dart';
 
-// Github repository set "id" as "int" but set as "String".
-
 @freezed
 abstract class Option implements _$Option {
   const Option._();
 
   const factory Option({
     String? id,
-    // String? categoryDocRef,
-    // String? quizDocRef,
-    // String? questionDocRef,
-    // String? optionDocRef,
     required String text,
     required bool isCorrect,
     required bool isSelected,

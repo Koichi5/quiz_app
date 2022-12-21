@@ -11,10 +11,24 @@ class OriginalQuestionListCard extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Card(
-      child: Column(
-        children: [
-          Text(originalQuestion.text)
-        ],
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(originalQuestion.text),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(originalQuestion.options
+                  .elementAt(originalQuestion.options
+                  .indexWhere((element) => element.isCorrect == true))
+                  .text),
+            )
+          ],
+        ),
       ),
     );
   }
