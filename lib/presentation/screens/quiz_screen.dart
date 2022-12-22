@@ -108,7 +108,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              screenHeader(),
+              // screenHeader(),
               quizQuestion(),
               questionOptions(),
               // quizProgress(),
@@ -123,15 +123,15 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
         );
   }
 
-  Widget screenHeader() {
-    return Container(
-      alignment: Alignment.center,
-      child: Text(
-        category != null ? category!.name : "",
-        style: const TextStyle(fontSize: 18),
-      ),
-    );
-  }
+  // Widget screenHeader() {
+  //   return Container(
+  //     alignment: Alignment.center,
+  //     child: Text(
+  //       category != null ? category!.name : "",
+  //       style: const TextStyle(fontSize: 18),
+  //     ),
+  //   );
+  // }
 
   Widget quizQuestion() {
     return Container(
@@ -157,7 +157,6 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
                 onTap: () {
                   if (!ref.watch(optionGestureProvider)) {
                     ref.watch(optionGestureProvider.notifier).state = true;
-
                     setState(() {
                       _remainTime = 1;
                       ref.watch(questionAnswerProvider.notifier).state =
@@ -169,7 +168,6 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
                           : _playIncorrectSoundFile();
                       progressTimer!.cancel();
                     });
-
                     // 2.5秒後に次の問題へ
                     Future.delayed(const Duration(milliseconds: 2500), () {
                       engine.next();
@@ -184,7 +182,8 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: QuestionOption(
                     index: optionIndex,
-                    optionText: question!.options[optionIndex].text,
+                    option: question!.options[optionIndex],
+                    // optionText: question!.options[optionIndex].text,
                     isSelected: question!.options[optionIndex].isSelected,
                     optionIsCorrect:
                         ref.watch(questionAnswerProvider).values.last,

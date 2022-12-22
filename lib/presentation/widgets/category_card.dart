@@ -139,22 +139,6 @@ class CategoryCard extends HookConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  OutlinedButton(
-                    // style: OutlinedButton.styleFrom(
-                    //   backgroundColor: Theme.of(context).colorScheme.primary,
-                    // ),
-                      onPressed: (){
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => QuizListScreen(
-                        //           category: category,
-                        //         )));
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Text("苦手問題", style: TextStyle(color: Theme.of(context).colorScheme.primary),),
-                      )),
                   Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: ElevatedButton(
@@ -171,7 +155,7 @@ class CategoryCard extends HookConsumerWidget {
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Text("ランダム", style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),),
+                          child: Text("スタート", style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),),
                         )),
                   ),
                 ],

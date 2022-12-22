@@ -46,26 +46,73 @@ class QuizHistoryRepository implements BaseQuizHistoryRepository {
             answerIsCorrectList: quizHistory.answerIsCorrectList,
           ).toDocument());
       // final List userCompletedCategoryList = [];
+
       _reader(userCompletedCategoryListProvider.notifier).state =
-          await _reader(firebaseFirestoreProvider)
-              .collection("user")
-              .doc(user.uid)
-              .get()
-              .then((value) => value.data()!.values.toList());
+          await retrieveUserCompletedCategoryList();
+      print(_reader(userCompletedCategoryListProvider.notifier).state);
       if (!_reader(userCompletedCategoryListProvider)
           .contains(quizHistory.categoryDocRef)) {
-        _reader(userCompletedCategoryListProvider.notifier)
-            .state
-            .add(quizHistory.categoryDocRef);
-        // この処理を実行するとアプリが落ちる
-        // await _reader(firebaseFirestoreProvider)
-        //     .collection("user")
-        //     .doc(user.uid)
-        //     .set({
-        //   "userCompletedCategory": _reader(userCompletedCategoryListProvider)
-        // });
+        _reader(userCompletedCategoryListProvider.notifier).state.insert(0, quizHistory.categoryDocRef);
+        await _reader(firebaseFirestoreProvider)
+            .collection("user")
+            .doc(user.uid)
+            .set({
+          "userCompletedCategoryList": _reader(userCompletedCategoryListProvider)
+        });
       }
+      //
+      // final List currentUserCompleterCategoryList =
+      //     await _reader(firebaseFirestoreProvider)
+      //         .collection("user")
+      //         .doc(user.uid)
+      //         .get()
+      //         .then((value) => value.data()!.values.toList());
+      // if (!currentUserCompleterCategoryList
+      //     .contains(quizHistory.categoryDocRef)) {
+      //   currentUserCompleterCategoryList.add(quizHistory.categoryDocRef);
+      //   await _reader(firebaseFirestoreProvider)
+      //       .collection("user")
+      //       .doc(user.uid)
+      //       .update({"userCompletedCategory": currentUserCompleterCategoryList});
+      // }
+      // print(currentUserCompleterCategoryList);
+      // _reader(firebaseFirestoreProvider).collection("user").doc(user.uid).set({
+      //   "userCompletedCategory": [quizHistory.categoryDocRef]
+      // });
+      // _reader(userCompletedCategoryListProvider.notifier).state =
+      //     await _reader(firebaseFirestoreProvider)
+      //         .collection("user")
+      //         .doc(user.uid)
+      //         .get()
+      //         .then((value) => value.data()!.values.toList());
+      // if (!_reader(userCompletedCategoryListProvider)
+      //     .contains(quizHistory.categoryDocRef)) {
+      //   _reader(userCompletedCategoryListProvider.notifier)
+      //       .state
+      //       .add(quizHistory.categoryDocRef);
+      //   // この処理を実行するとアプリが落ちる
+      //   await _reader(firebaseFirestoreProvider)
+      //       .collection("user")
+      //       .doc(user.uid)
+      //       .set({
+      //     "userCompletedCategory": _reader(userCompletedCategoryListProvider)
+      //   });
+      // }
       return quizHistoryDocRef;
+    } on FirebaseException catch (e) {
+      throw CustomException(message: e.message);
+    }
+  }
+
+  Future<List<String?>> retrieveUserCompletedCategoryList() async {
+    final User? currentUser = _reader(firebaseAuthProvider).currentUser;
+    try {
+      final snap = _reader(firebaseFirestoreProvider)
+          .collection("user")
+          .doc(currentUser!.uid)
+          .get();
+      return snap.then(
+          (value) => value.data()!.values.map((e) => e.toString()).toList());
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message);
     }

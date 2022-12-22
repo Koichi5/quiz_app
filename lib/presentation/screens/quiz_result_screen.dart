@@ -95,8 +95,9 @@ class QuizResultScreen extends HookConsumerWidget {
         children: [
           ElevatedButton(
             onPressed: () {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => const HomeScreen()));
+              // Navigator.push(context,
+              //     MaterialPageRoute(builder: (context) => const HomeScreen()));
+              Navigator.pop(context);
             },
             child: const Text(
               "Close",

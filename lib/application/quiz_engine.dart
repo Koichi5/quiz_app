@@ -115,6 +115,7 @@ class QuizEngine {
     // questionAnswer は Map<int, bool>
     // keys には Question の番号
     // values には正誤判定
+    print("answer :$answer");
     print("questionAnswer : ${questionAnswer}");
     print("questionAnswer.values : ${questionAnswer.values}");
     print("questionAnswer.values.last : ${questionAnswer.values.last}");

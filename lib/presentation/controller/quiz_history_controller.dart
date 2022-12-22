@@ -66,7 +66,7 @@ class QuizHistoryController
       quizDate: quizDate,
       status: status,
       takenQuestions: takenQuestions,
-        answerIsCorrectList: answerIsCorrectList,
+      answerIsCorrectList: answerIsCorrectList,
     );
     final quizHistoryDocRef = await _reader(quizHistoryRepositoryProvider)
         .addQuizHistory(quizHistory: quizHistory, user: user);
