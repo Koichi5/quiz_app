@@ -53,7 +53,6 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
   Category? category;
   Quiz? quiz;
   final List<Question> questionList;
-  // final Reader reader;
   int _remainTime = 0;
   Question? question;
   Timer? progressTimer;
@@ -66,7 +65,6 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
   }) {
     engine = QuizEngine(
         category: category,
-        // quiz: quiz,
         questionList: questionList,
         onNext: onNextQuestion,
         onCompleted: onQuizComplete,
@@ -166,7 +164,9 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
                       ref.watch(questionAnswerProvider).values.last
                           ? _playCorrectSoundFile()
                           : _playIncorrectSoundFile();
-                      progressTimer!.cancel();
+                      if (progressTimer != null) {
+                        progressTimer!.cancel();
+                      }
                     });
                     // 2.5秒後に次の問題へ
                     Future.delayed(const Duration(milliseconds: 2500), () {
@@ -379,10 +379,10 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
     // print("quiz.categoryDocRef : ${quiz.categoryDocRef}");
     // Navigator.pop(context);
     if(quiz != null) {
-      ref
-          .watch(categoryControllerProvider.notifier)
-          .retrieveCategoryById(quizCategoryDocRef: quiz!.categoryDocRef!)
-          .then((category) =>
+      // ref
+      //     .watch(categoryControllerProvider.notifier)
+      //     .retrieveCategoryById(quizCategoryDocRef: quiz!.categoryDocRef!)
+      //     .then((category) =>
           ref.watch(quizHistoryControllerProvider.notifier).addQuizHistory(
             user: ref
                 .watch(firebaseAuthProvider)
@@ -398,7 +398,8 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
             status: "Complete",
             takenQuestions: takenQuestions,
             answerIsCorrectList: answerIsCorrectList,
-          ));
+          // )
+    );
       // push にすると、この画面は単一の画面ではないため、画面遷移が乱れる
       Navigator.pushReplacement(
           context,

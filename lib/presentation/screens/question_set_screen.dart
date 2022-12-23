@@ -13,7 +13,6 @@ class QuestionSetScreen extends HookConsumerWidget {
   const QuestionSetScreen({required this.quiz, Key? key}) : super(key: key);
 
   final Quiz quiz;
-  // final Reader _reader;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -54,6 +53,7 @@ class QuestionSetScreen extends HookConsumerWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.02,
               ),
+              const Text("問題文を入力してください"),
               CustomTextField(
                 title: "問題文",
                 controller: textControllerProvider,
@@ -62,18 +62,18 @@ class QuestionSetScreen extends HookConsumerWidget {
                   questionValidatorNotifier.setQuestionText(questionText);
                 },
               ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.02,
-              ),
-              CustomTextField(
-                title: "制限時間",
-                controller: durationControllerProvider,
-                error: questionValidator.form.duration.errorMessage,
-                onChanged: (questionDuration) {
-                  questionValidatorNotifier
-                      .setQuestionDuration(questionDuration);
-                },
-              ),
+              // SizedBox(
+              //   height: MediaQuery.of(context).size.height * 0.02,
+              // ),
+              // CustomTextField(
+              //   title: "制限時間",
+              //   controller: durationControllerProvider,
+              //   error: questionValidator.form.duration.errorMessage,
+              //   onChanged: (questionDuration) {
+              //     questionValidatorNotifier
+              //         .setQuestionDuration(questionDuration);
+              //   },
+              // ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.02,
               ),
@@ -157,7 +157,8 @@ class QuestionSetScreen extends HookConsumerWidget {
               QuestionSetButton(
                 // id: idControllerProvider.text,
                 text: textControllerProvider.text,
-                duration: durationControllerProvider.text,
+                // duration: durationControllerProvider.text,
+                duration: '10',
                 quiz: quiz,
               ),
               SizedBox(

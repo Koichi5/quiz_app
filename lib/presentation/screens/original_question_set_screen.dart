@@ -63,18 +63,18 @@ class OriginalQuestionSetScreen extends HookConsumerWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.02,
               ),
-              CustomTextField(
-                title: "制限時間",
-                controller: durationControllerProvider,
-                error: questionValidator.form.duration.errorMessage,
-                onChanged: (questionDuration) {
-                  questionValidatorNotifier
-                      .setQuestionDuration(questionDuration);
-                },
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.02,
-              ),
+              // CustomTextField(
+              //   title: "制限時間",
+              //   controller: durationControllerProvider,
+              //   error: questionValidator.form.duration.errorMessage,
+              //   onChanged: (questionDuration) {
+              //     questionValidatorNotifier
+              //         .setQuestionDuration(questionDuration);
+              //   },
+              // ),
+              // SizedBox(
+              //   height: MediaQuery.of(context).size.height * 0.02,
+              // ),
               CustomTextField(
                 title: "選択肢１",
                 controller: ref.watch(firstOptionTextControllerProvider),
@@ -155,7 +155,8 @@ class OriginalQuestionSetScreen extends HookConsumerWidget {
               OriginalQuestionSetButton(
                 // id: idControllerProvider.text,
                 text: textControllerProvider.text,
-                duration: durationControllerProvider.text,
+                // duration: durationControllerProvider.text,
+                duration: "10",
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.02,

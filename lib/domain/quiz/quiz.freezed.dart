@@ -21,8 +21,7 @@ Quiz _$QuizFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Quiz {
   String? get id => throw _privateConstructorUsedError;
-  int get categoryId =>
-      throw _privateConstructorUsedError; // required int quizId,
+  int get categoryId => throw _privateConstructorUsedError;
   String? get categoryDocRef => throw _privateConstructorUsedError;
   String? get quizDocRef => throw _privateConstructorUsedError;
   String? get questionDocRef => throw _privateConstructorUsedError;
@@ -231,7 +230,6 @@ class _$_Quiz extends _Quiz {
   final String? id;
   @override
   final int categoryId;
-// required int quizId,
   @override
   final String? categoryDocRef;
   @override
@@ -334,7 +332,7 @@ abstract class _Quiz extends Quiz {
   String? get id;
   @override
   int get categoryId;
-  @override // required int quizId,
+  @override
   String? get categoryDocRef;
   @override
   String? get quizDocRef;

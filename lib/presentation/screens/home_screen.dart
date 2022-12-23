@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quiz_app/presentation/screens/category_list_screen.dart';
+import 'package:quiz_app/presentation/screens/quiz_screen.dart';
 import 'package:quiz_app/presentation/screens/review_screen.dart';
 import 'package:quiz_app/presentation/widgets/bottom_nav_bar.dart';
 
+import '../../domain/question/question.dart';
+import '../../domain/repository/question_repository.dart';
+import '../widgets/segmented_button.dart';
 import 'original_question_list_screen.dart';
 import 'setting_screen.dart';
 
-final List<Widget> homePageList = [
+final List homePageList = [
   const CategoryListScreen(),
   const OriginalQuestionListScreen(),
   const ReviewScreen(),
-  const SettingScreen(),
+  SettingScreen(),
 ];
 
 class HomeScreen extends HookConsumerWidget {
@@ -33,6 +37,31 @@ class HomeScreen extends HookConsumerWidget {
                       : const Text("設定")),
       bottomNavigationBar: BottomNavBar(),
       body: pageController(bottomNavBarSelectedIndex),
+      floatingActionButton: bottomNavBarSelectedIndex == 2
+          ? ref.watch(currentSelectedIndexProvider) == 0
+              ? FloatingActionButton(
+                  onPressed: () async {
+                    final List<Question> userWeakQuestionList = await ref
+                        .watch(questionRepositoryProvider)
+                        .retrieveWeakQuestionList();
+                    if (userWeakQuestionList != []) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Scaffold(
+                                    appBar: AppBar(
+                                      title: const Text("苦手問題"),
+                                      automaticallyImplyLeading: false,
+                                    ),
+                                    body: QuizScreen(
+                                        questionList: userWeakQuestionList),
+                                  )));
+                    }
+                  },
+                  child: const Icon(Icons.play_arrow),
+                )
+              : null
+          : null,
     );
   }
 

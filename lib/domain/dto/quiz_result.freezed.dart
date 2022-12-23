@@ -16,7 +16,6 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$QuizResult {
-// required Quiz quiz,
   List<Question> get questionList => throw _privateConstructorUsedError;
   double get totalCorrect => throw _privateConstructorUsedError;
 
@@ -108,9 +107,7 @@ class _$_QuizResult implements _QuizResult {
       {required final List<Question> questionList, required this.totalCorrect})
       : _questionList = questionList;
 
-// required Quiz quiz,
   final List<Question> _questionList;
-// required Quiz quiz,
   @override
   List<Question> get questionList {
     // ignore: implicit_dynamic_type
@@ -152,7 +149,7 @@ abstract class _QuizResult implements QuizResult {
       {required final List<Question> questionList,
       required final double totalCorrect}) = _$_QuizResult;
 
-  @override // required Quiz quiz,
+  @override
   List<Question> get questionList;
   @override
   double get totalCorrect;

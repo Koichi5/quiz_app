@@ -20,7 +20,7 @@ dependencies:
   state_notifier: ^0.7.2+1
   hooks_riverpod: ^1.0.4
   intro_slider: ^4.0.0
-  url_launcher: ^6.1.5
+  url_launcher: ^6.1.7
   cached_network_image: ^3.2.2
   lottie: ^1.4.3
   sign_in_with_apple: ^4.1.0
@@ -28,6 +28,7 @@ dependencies:
   percent_indicator: ^4.2.2
   material_segmented_control: ^4.0.0
   just_audio: ^0.9.30
+  expandable: ^5.0.1
 
 dev_dependencies:
   flutter_test:

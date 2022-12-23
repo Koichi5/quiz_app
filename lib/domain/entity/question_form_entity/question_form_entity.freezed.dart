@@ -18,7 +18,6 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$QuestionFormEntity {
   Field get id => throw _privateConstructorUsedError;
   Field get text => throw _privateConstructorUsedError;
-  Field get duration => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $QuestionFormEntityCopyWith<QuestionFormEntity> get copyWith =>
@@ -31,11 +30,10 @@ abstract class $QuestionFormEntityCopyWith<$Res> {
           QuestionFormEntity value, $Res Function(QuestionFormEntity) then) =
       _$QuestionFormEntityCopyWithImpl<$Res, QuestionFormEntity>;
   @useResult
-  $Res call({Field id, Field text, Field duration});
+  $Res call({Field id, Field text});
 
   $FieldCopyWith<$Res> get id;
   $FieldCopyWith<$Res> get text;
-  $FieldCopyWith<$Res> get duration;
 }
 
 /// @nodoc
@@ -53,7 +51,6 @@ class _$QuestionFormEntityCopyWithImpl<$Res, $Val extends QuestionFormEntity>
   $Res call({
     Object? id = null,
     Object? text = null,
-    Object? duration = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -63,10 +60,6 @@ class _$QuestionFormEntityCopyWithImpl<$Res, $Val extends QuestionFormEntity>
       text: null == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
-              as Field,
-      duration: null == duration
-          ? _value.duration
-          : duration // ignore: cast_nullable_to_non_nullable
               as Field,
     ) as $Val);
   }
@@ -86,14 +79,6 @@ class _$QuestionFormEntityCopyWithImpl<$Res, $Val extends QuestionFormEntity>
       return _then(_value.copyWith(text: value) as $Val);
     });
   }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $FieldCopyWith<$Res> get duration {
-    return $FieldCopyWith<$Res>(_value.duration, (value) {
-      return _then(_value.copyWith(duration: value) as $Val);
-    });
-  }
 }
 
 /// @nodoc
@@ -104,14 +89,12 @@ abstract class _$$_QuestionFormEntityCopyWith<$Res>
       __$$_QuestionFormEntityCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Field id, Field text, Field duration});
+  $Res call({Field id, Field text});
 
   @override
   $FieldCopyWith<$Res> get id;
   @override
   $FieldCopyWith<$Res> get text;
-  @override
-  $FieldCopyWith<$Res> get duration;
 }
 
 /// @nodoc
@@ -127,7 +110,6 @@ class __$$_QuestionFormEntityCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? text = null,
-    Object? duration = null,
   }) {
     return _then(_$_QuestionFormEntity(
       id: null == id
@@ -138,10 +120,6 @@ class __$$_QuestionFormEntityCopyWithImpl<$Res>
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as Field,
-      duration: null == duration
-          ? _value.duration
-          : duration // ignore: cast_nullable_to_non_nullable
-              as Field,
     ));
   }
 }
@@ -149,20 +127,17 @@ class __$$_QuestionFormEntityCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_QuestionFormEntity extends _QuestionFormEntity {
-  const _$_QuestionFormEntity(
-      {required this.id, required this.text, required this.duration})
+  const _$_QuestionFormEntity({required this.id, required this.text})
       : super._();
 
   @override
   final Field id;
   @override
   final Field text;
-  @override
-  final Field duration;
 
   @override
   String toString() {
-    return 'QuestionFormEntity(id: $id, text: $text, duration: $duration)';
+    return 'QuestionFormEntity(id: $id, text: $text)';
   }
 
   @override
@@ -171,13 +146,11 @@ class _$_QuestionFormEntity extends _QuestionFormEntity {
         (other.runtimeType == runtimeType &&
             other is _$_QuestionFormEntity &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.text, text) || other.text == text) &&
-            (identical(other.duration, duration) ||
-                other.duration == duration));
+            (identical(other.text, text) || other.text == text));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, text, duration);
+  int get hashCode => Object.hash(runtimeType, id, text);
 
   @JsonKey(ignore: true)
   @override
@@ -190,16 +163,13 @@ class _$_QuestionFormEntity extends _QuestionFormEntity {
 abstract class _QuestionFormEntity extends QuestionFormEntity {
   const factory _QuestionFormEntity(
       {required final Field id,
-      required final Field text,
-      required final Field duration}) = _$_QuestionFormEntity;
+      required final Field text}) = _$_QuestionFormEntity;
   const _QuestionFormEntity._() : super._();
 
   @override
   Field get id;
   @override
   Field get text;
-  @override
-  Field get duration;
   @override
   @JsonKey(ignore: true)
   _$$_QuestionFormEntityCopyWith<_$_QuestionFormEntity> get copyWith =>

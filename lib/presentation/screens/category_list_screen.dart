@@ -22,7 +22,6 @@ class CategoryListScreen extends HookConsumerWidget {
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: categories.length,
                       itemBuilder: (BuildContext context, int index) {
-                        print("categories.length : ${categories.length}");
                         final category = categories[index];
                         return CategoryCard(category: category);
                       },

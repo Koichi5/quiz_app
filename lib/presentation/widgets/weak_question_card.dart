@@ -1,3 +1,4 @@
+import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -15,28 +16,22 @@ class WeakQuestionCard extends StatelessWidget {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(question.text),
-                ),
-                // Text(question.options.any((element) => element.isCorrect == true ? element.text))
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(question.options
-                      .elementAt(question.options
-                          .indexWhere((element) => element.isCorrect == true))
-                      .text),
-                )
-              ],
-            ),
-            IconButton(onPressed: (){}, icon: const Icon(Icons.star))
-          ],
+        child: ExpandablePanel(
+          header: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(question.text),
+          ),
+          collapsed: const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("答え"),
+          ),
+          expanded: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(question.options
+                .elementAt(question.options
+                    .indexWhere((element) => element.isCorrect == true))
+                .text),
+          ),
         ),
       ),
     );

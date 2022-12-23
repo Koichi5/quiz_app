@@ -20,11 +20,7 @@ Option _$OptionFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Option {
-  String? get id =>
-      throw _privateConstructorUsedError; // String? categoryDocRef,
-// String? quizDocRef,
-// String? questionDocRef,
-// String? optionDocRef,
+  String? get id => throw _privateConstructorUsedError;
   String get text => throw _privateConstructorUsedError;
   bool get isCorrect => throw _privateConstructorUsedError;
   bool get isSelected => throw _privateConstructorUsedError;
@@ -141,10 +137,6 @@ class _$_Option extends _Option {
 
   @override
   final String? id;
-// String? categoryDocRef,
-// String? quizDocRef,
-// String? questionDocRef,
-// String? optionDocRef,
   @override
   final String text;
   @override
@@ -200,10 +192,7 @@ abstract class _Option extends Option {
 
   @override
   String? get id;
-  @override // String? categoryDocRef,
-// String? quizDocRef,
-// String? questionDocRef,
-// String? optionDocRef,
+  @override
   String get text;
   @override
   bool get isCorrect;

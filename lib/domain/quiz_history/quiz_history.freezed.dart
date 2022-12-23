@@ -20,9 +20,7 @@ QuizHistory _$QuizHistoryFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$QuizHistory {
-  String? get id =>
-      throw _privateConstructorUsedError; // @Default(0) required int quizId,
-// @Default(0) required int categoryId,
+  String? get id => throw _privateConstructorUsedError;
   String get categoryDocRef => throw _privateConstructorUsedError;
   String get quizDocRef => throw _privateConstructorUsedError;
   String get quizTitle => throw _privateConstructorUsedError;
@@ -266,8 +264,6 @@ class _$_QuizHistory extends _QuizHistory {
 
   @override
   final String? id;
-// @Default(0) required int quizId,
-// @Default(0) required int categoryId,
   @override
   final String categoryDocRef;
   @override
@@ -385,8 +381,7 @@ abstract class _QuizHistory extends QuizHistory {
 
   @override
   String? get id;
-  @override // @Default(0) required int quizId,
-// @Default(0) required int categoryId,
+  @override
   String get categoryDocRef;
   @override
   String get quizDocRef;

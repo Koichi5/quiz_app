@@ -6,6 +6,7 @@ import 'package:quiz_app/presentation/screens/category_set_screen.dart';
 import 'package:quiz_app/presentation/screens/home_screen.dart';
 import 'package:quiz_app/presentation/screens/login_screen.dart';
 import 'package:quiz_app/presentation/screens/option_set_screen.dart';
+import 'package:quiz_app/presentation/screens/profile_edit_screen.dart';
 import 'package:quiz_app/presentation/screens/question_set_screen.dart';
 import 'package:quiz_app/presentation/screens/quiz_set_screen.dart';
 import 'package:quiz_app/presentation/screens/signup_screen.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         '/home': (BuildContext context) => const HomeScreen(),
         '/signup': (BuildContext context) => const SignupScreen(),
         '/login': (BuildContext context) => const LoginScreen(),
+        '/profile_edit' : (BuildContext context) => const ProfileEditScreen(),
         // '/category_set': (BuildContext context) => const CategorySetScreen(),
         // '/quiz_set': (BuildContext context) => const QuizSetScreen(),
         // '/question_set': (BuildContext context) => const QuestionSetScreen(),

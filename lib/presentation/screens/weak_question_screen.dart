@@ -44,25 +44,25 @@ class WeakQuestionScreen extends HookConsumerWidget {
                             return WeakQuestionCard(
                                 question: retrievedWeakQuestion);
                           }),
-                      Align(
-                        alignment: Alignment.bottomRight,
-                        child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Scaffold(
-                                        appBar: AppBar(
-                                          title: const Text("苦手問題"),
-                                          automaticallyImplyLeading: false,
-                                        ),
-                                        body: QuizScreen(
-                                            questionList:
-                                                retrievedWeakQuestionList.data!),
-                                      )));
-                            },
-                            child: const Text("クイズ")),
-                      )
+                      // Align(
+                      //   alignment: Alignment.bottomRight,
+                      //   child: ElevatedButton(
+                      //       onPressed: () {
+                      //         Navigator.push(
+                      //             context,
+                      //             MaterialPageRoute(
+                      //                 builder: (context) => Scaffold(
+                      //                   appBar: AppBar(
+                      //                     title: const Text("苦手問題"),
+                      //                     automaticallyImplyLeading: false,
+                      //                   ),
+                      //                   body: QuizScreen(
+                      //                       questionList:
+                      //                           retrievedWeakQuestionList.data!),
+                      //                 )));
+                      //       },
+                      //       child: const Text("クイズ")),
+                      // ),
                     ],
                   );
                 } else {

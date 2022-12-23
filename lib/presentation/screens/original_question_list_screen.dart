@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quiz_app/presentation/controller/original_question_controller.dart';
 import 'package:quiz_app/presentation/screens/category_set_screen.dart';
 import 'package:quiz_app/presentation/screens/original_question_set_screen.dart';
+import 'package:quiz_app/presentation/screens/quiz_screen.dart';
 import 'package:quiz_app/presentation/widgets/original_question_list_card.dart';
 
 class OriginalQuestionListScreen extends HookConsumerWidget {
@@ -13,6 +14,7 @@ class OriginalQuestionListScreen extends HookConsumerWidget {
     final originalQuestionState = ref.watch(originalQuestionControllerProvider);
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text("オリジナル問題"),
         actions: [
           IconButton(
@@ -23,7 +25,10 @@ class OriginalQuestionListScreen extends HookConsumerWidget {
                         builder: (context) =>
                             const OriginalQuestionSetScreen()));
               },
-              icon: const Icon(Icons.add))
+              icon: Icon(
+                Icons.add,
+                color: Theme.of(context).colorScheme.primary,
+              ))
         ],
       ),
       body: SingleChildScrollView(
@@ -36,16 +41,21 @@ class OriginalQuestionListScreen extends HookConsumerWidget {
                   ? const Center(
                       child: Material(child: Text("オリジナル問題はありません")),
                     )
-                  : ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: originalQuestionList.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        final originalQuestion = originalQuestionList[index];
-                        return OriginalQuestionListCard(
-                          originalQuestion: originalQuestion,
-                        );
-                      },
+                  : Column(
+                      children: [
+                        ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: originalQuestionList.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            final originalQuestion =
+                                originalQuestionList[index];
+                            return OriginalQuestionListCard(
+                              originalQuestion: originalQuestion,
+                            );
+                          },
+                        ),
+                      ],
                     ),
               error: (error, _) => const Center(child: Text("エラー")),
               loading: () => const Center(
@@ -63,6 +73,25 @@ class OriginalQuestionListScreen extends HookConsumerWidget {
           ],
         ),
       ),
+      floatingActionButton: originalQuestionState.asData == null
+          ? null
+          : FloatingActionButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Scaffold(
+                              appBar: AppBar(
+                                title: const Text("オリジナル問題"),
+                                automaticallyImplyLeading: false,
+                              ),
+                              body: QuizScreen(
+                                  questionList:
+                                      originalQuestionState.asData!.value),
+                            )));
+              },
+              child: const Icon(Icons.play_arrow),
+            ),
     );
   }
 }

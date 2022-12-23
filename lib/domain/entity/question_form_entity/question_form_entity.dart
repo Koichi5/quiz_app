@@ -9,13 +9,14 @@ class QuestionFormEntity with _$QuestionFormEntity {
   const factory QuestionFormEntity({
     required Field id,
     required Field text,
-    required Field duration,
+    // required Field duration,
   }) = _QuestionFormEntity;
 
   factory QuestionFormEntity.empty() => const QuestionFormEntity(
     id: Field(value: ""),
     text: Field(value: ""),
-    duration: Field(value: ""),
+    // duration: Field(value: ""),
   );
-  bool get isValid => text.isValid && duration.isValid;
+  bool get isValid => text.isValid;
+      // && duration.isValid
 }
