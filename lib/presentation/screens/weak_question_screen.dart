@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quiz_app/domain/repository/question_repository.dart';
-import 'package:quiz_app/presentation/screens/quiz_screen.dart';
 
 import '../../domain/question/question.dart';
 import '../widgets/weak_question_card.dart';
@@ -44,39 +43,12 @@ class WeakQuestionScreen extends HookConsumerWidget {
                             return WeakQuestionCard(
                                 question: retrievedWeakQuestion);
                           }),
-                      // Align(
-                      //   alignment: Alignment.bottomRight,
-                      //   child: ElevatedButton(
-                      //       onPressed: () {
-                      //         Navigator.push(
-                      //             context,
-                      //             MaterialPageRoute(
-                      //                 builder: (context) => Scaffold(
-                      //                   appBar: AppBar(
-                      //                     title: const Text("苦手問題"),
-                      //                     automaticallyImplyLeading: false,
-                      //                   ),
-                      //                   body: QuizScreen(
-                      //                       questionList:
-                      //                           retrievedWeakQuestionList.data!),
-                      //                 )));
-                      //       },
-                      //       child: const Text("クイズ")),
-                      // ),
                     ],
                   );
                 } else {
                   return const Text("苦手問題がありません");
                 }
               }),
-          //                 : ListView.builder(
-          //               itemCount: weakQuestionList.length,
-          // itemBuilder: (BuildContext context, int index) {
-          //   final retrievedWeakQuestionList = await ref.watch(questionRepositoryProvider).retrieveWeakQuestionList(weakQuestionList: weakQuestionList);
-          //   final retrievedWeakQuestion = retrievedWeakQuestionList[index];
-          //   return WeakQuestionCard();
-          // },
-          //                     ),
         ],
       ),
     );

@@ -20,12 +20,10 @@ class SettingScreen extends StatelessWidget {
     const Icon(
       Icons.person,
       size: 30,
-      color: Colors.black,
     ),
     const Icon(
       Icons.list_alt,
       size: 30,
-      color: Colors.black,
     ),
     Image.asset(width: 30, height: 30, "assets/images/twitter.png"),
     Image.asset(width: 30, height: 30, "assets/images/instagram.png")
