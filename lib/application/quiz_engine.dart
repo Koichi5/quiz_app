@@ -2,7 +2,9 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quiz_app/domain/category/category.dart';
+import 'package:quiz_app/presentation/screens/quiz_screen.dart';
 
 import '../domain/question/question.dart';
 
@@ -24,6 +26,7 @@ class QuizEngine {
   bool takeNewQuestion = true;
   DateTime examStartTime = DateTime.now();
   DateTime questionStartTime = DateTime.now();
+  Reader reader;
 
   Category? category;
   // final Quiz quiz;
@@ -37,6 +40,7 @@ class QuizEngine {
 
   QuizEngine(
       {
+        required this.reader,
         this.category,
         // required this.quiz,
       required this.questionList,
@@ -66,6 +70,7 @@ class QuizEngine {
             questionStartTime = DateTime.now();
             onNext(question);
             print("questionIndex : $questionIndex");
+            reader(currentQuestionIndexProvider.notifier).state = questionIndex;
           }
         }
         if (question != null) {

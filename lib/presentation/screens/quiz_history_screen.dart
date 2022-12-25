@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:lottie/lottie.dart';
 import 'package:quiz_app/presentation/controller/quiz_history_controller.dart';
 
 import '../../domain/quiz_history/quiz_history.dart';
@@ -16,7 +17,8 @@ class QuizHistoryScreen extends HookConsumerWidget {
           future: ref
               .watch(quizHistoryControllerProvider.notifier)
               .retrieveQuizHistoryList(),
-          builder: (BuildContext context, AsyncSnapshot quizHistoryList) {
+          builder: (BuildContext context,
+              AsyncSnapshot<List<QuizHistory>> quizHistoryList) {
             if (quizHistoryList.connectionState != ConnectionState.done) {
               return const Center(child: CircularProgressIndicator());
             }
@@ -24,18 +26,22 @@ class QuizHistoryScreen extends HookConsumerWidget {
               return Text(quizHistoryList.error.toString());
             }
             if (quizHistoryList.hasData) {
-              return Center(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: List<QuizHistory>.from(quizHistoryList.data)
-                      .map(
-                        (quizHistory) => QuizHistoryCard(
-                          quizHistory: quizHistory,
-                        ),
-                      )
-                      .toList(),
-                ),
-              );
+              return quizHistoryList.data!.isEmpty
+                  ? Center(
+                      child: Lottie.asset("assets/quiz_history.json"),
+                    )
+                  : Center(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: List<QuizHistory>.from(quizHistoryList.data!)
+                            .map(
+                              (quizHistory) => QuizHistoryCard(
+                                quizHistory: quizHistory,
+                              ),
+                            )
+                            .toList(),
+                      ),
+                    );
             } else {
               return const Center(child: Text("履歴はまだありません\n クイズに挑戦してみましょう！"));
             }

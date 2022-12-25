@@ -29,7 +29,7 @@ class WeakQuestionController
   Future<List<WeakQuestion>> retrieveWeakQuestionList() async {
     try {
       final weakQuestionList = await _reader(weakQuestionRepositoryProvider)
-          .retrieveWeakQuestionList();
+          .retrieveWeakQuestionList() ?? [];
       if (mounted) {
         state = AsyncValue.data(weakQuestionList);
       }

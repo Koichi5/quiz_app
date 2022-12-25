@@ -5,7 +5,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:quiz_app/domain/dto/quiz_result.dart';
 import 'package:quiz_app/general/custom_exception.dart';
-import 'package:quiz_app/presentation/screens/home_screen.dart';
 import 'package:quiz_app/presentation/screens/quiz_result_screen.dart';
 import 'package:quiz_app/presentation/widgets/question_option.dart';
 import 'package:quiz_app/presentation/widgets/time_indicator.dart';
@@ -16,24 +15,26 @@ import '../../domain/option/option.dart';
 import '../../domain/question/question.dart';
 import '../../domain/quiz/quiz.dart';
 import '../../general/general_provider.dart';
-import '../controller/category_controller.dart';
 import '../controller/quiz_history_controller.dart';
 
 final remainTimeProvider = StateProvider<int>((ref) => 0);
 final questionAnswerProvider =
     StateProvider<Map<int, bool>>((ref) => {0: false});
 final optionGestureProvider = StateProvider((ref) => false);
+final currentQuestionIndexProvider = StateProvider((ref) => 0);
 
 class QuizScreen extends StatefulHookConsumerWidget {
   static const routeName = '/quiz';
   Category? category;
   Quiz? quiz;
   final List<Question> questionList;
+  final Reader reader;
 
   QuizScreen(
       {this.category,
       this.quiz,
       required this.questionList,
+        required this.reader,
       Key? key})
       : super(key: key);
 
@@ -41,12 +42,11 @@ class QuizScreen extends StatefulHookConsumerWidget {
   ConsumerState<QuizScreen> createState() =>
       // ignore: no_logic_in_create_state
       _QuizScreenState(
-          category: category, quiz: quiz, questionList: questionList);
+          category: category, quiz: quiz, questionList: questionList, reader: reader);
 }
 
 class _QuizScreenState extends ConsumerState<QuizScreen>
     with WidgetsBindingObserver {
-  static const routeName = '/quiz';
   late QuizEngine engine;
   late AudioPlayer _correctPlayer;
   late AudioPlayer _incorrectPlayer;
@@ -57,13 +57,16 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
   Question? question;
   Timer? progressTimer;
   AppLifecycleState? appState;
+  Reader reader;
 
   _QuizScreenState({
+    required this.reader,
     required this.category,
     required this.quiz,
     required this.questionList,
   }) {
     engine = QuizEngine(
+      reader: reader,
         category: category,
         questionList: questionList,
         onNext: onNextQuestion,
@@ -94,8 +97,6 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
     }
     engine.stop();
     WidgetsBinding.instance.removeObserver(this);
-    // _correctPlayer.dispose();
-    // _incorrectPlayer.dispose();
     super.dispose();
   }
 
@@ -136,8 +137,16 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
       alignment: Alignment.centerLeft,
       padding: const EdgeInsets.all(20),
       margin: const EdgeInsets.only(bottom: 10),
-      child: Text(
-        question?.text ?? "",
+      child: Center(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text("${ref.watch(currentQuestionIndexProvider)} / ${questionList.length}"),
+            Text(
+              question?.text ?? "",
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -183,7 +192,6 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
                   child: QuestionOption(
                     index: optionIndex,
                     option: question!.options[optionIndex],
-                    // optionText: question!.options[optionIndex].text,
                     isSelected: question!.options[optionIndex].isSelected,
                     optionIsCorrect:
                         ref.watch(questionAnswerProvider).values.last,
@@ -302,14 +310,12 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
     try {
       await _correctPlayer.setAsset('assets/correct_sound.mp3');
     } catch (e) {
-      print(e);
+      throw CustomException(message: e.toString());
     }
   }
 
   Future<void> _setupIncorrectSession() async {
     _incorrectPlayer = AudioPlayer();
-    // final session = await AudioSession.instance;
-    // await session.configure(AudioSessionConfiguration.speech());
     await _loadIncorrectAudioFile();
   }
 
@@ -325,7 +331,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
     try {
       await _incorrectPlayer.setAsset("assets/incorrect_sound.mp3");
     } catch (e) {
-      print(e);
+      throw CustomException(message: e.toString());
     }
   }
 
@@ -337,9 +343,9 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
       }
       question = inputQuestion;
       _remainTime = inputQuestion.duration;
-      for (int i = 0; i < inputQuestion.options.length; i++) {
-        inputQuestion.options[i].copyWith(text: "");
-      }
+      // for (int i = 0; i < inputQuestion.options.length; i++) {
+      //   inputQuestion.options[i].copyWith(text: "");
+      // }
     });
 
     Timer.periodic(const Duration(seconds: 1), (timer) {

@@ -8,8 +8,6 @@ import 'package:quiz_app/presentation/controller/option_text_controller.dart';
 
 import '../../domain/question/question.dart';
 import '../../domain/repository/question_repository.dart';
-import '../../domain/repository/weak_question_repository.dart';
-import '../../domain/weak_question/weak_question.dart';
 
 final questionExceptionProvider = StateProvider<CustomException?>((_) => null);
 
@@ -28,35 +26,37 @@ class QuestionController extends StateNotifier<AsyncValue<List<Question>>> {
   QuestionController(this._reader, this._userId, this.quiz)
       : super(const AsyncValue.loading()) {
     if (_userId != null) {
-      retrieveQuestionList(quiz: quiz);
+      if (quiz != Quiz.empty()) {
+        retrieveQuestionList(quiz: quiz);
+      } else {
+        retrieveWeakQuestionList();
+      }
     }
   }
 
   Future<void> retrieveQuestionList({required Quiz quiz}) async {
     try {
-      final questionList = await _reader(questionRepositoryProvider)
-          .retrieveQuestionList(quiz: quiz);
-      if (mounted) {
-        state = AsyncValue.data(questionList);
-      }
+        final questionList = await _reader(questionRepositoryProvider)
+            .retrieveQuestionList(quiz: quiz);
+        if (mounted) {
+          state = AsyncValue.data(questionList);
+        }
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message);
     }
   }
 
-  // Future<void> retrieveWeakQuestionList() async {
-  //   try {
-  //     final weakQuestionList = await _reader(weakQuestionRepositoryProvider)
-  //         .retrieveWeakQuestionList();
-  //     final questionList = await _reader(questionRepositoryProvider)
-  //         .retrieveWeakQuestionList(weakQuestionList: weakQuestionList);
-  //     if (mounted) {
-  //       state = AsyncValue.data(questionList);
-  //     }
-  //   } on FirebaseException catch (e) {
-  //     throw CustomException(message: e.message);
-  //   }
-  // }
+  Future<void> retrieveWeakQuestionList() async {
+    try {
+      final weakQuestionList = await _reader(questionRepositoryProvider)
+          .retrieveWeakQuestionList();
+      if (mounted) {
+        state = AsyncValue.data(weakQuestionList);
+      }
+    } on FirebaseException catch (e){
+      throw CustomException(message: e.message);
+    }
+  }
 
   // Future<List<Question>> retrieveWeakQuestionList(
   //     {required List<WeakQuestion> weakQuestionList}) async {

@@ -27,7 +27,7 @@ mixin _$Category {
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   int get categoryQuestionCount => throw _privateConstructorUsedError;
-  String? get imagePath => throw _privateConstructorUsedError;
+  String get imagePath => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -48,7 +48,7 @@ abstract class $CategoryCopyWith<$Res> {
       String name,
       String description,
       int categoryQuestionCount,
-      String? imagePath});
+      String imagePath});
 }
 
 /// @nodoc
@@ -71,7 +71,7 @@ class _$CategoryCopyWithImpl<$Res, $Val extends Category>
     Object? name = null,
     Object? description = null,
     Object? categoryQuestionCount = null,
-    Object? imagePath = freezed,
+    Object? imagePath = null,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -102,10 +102,10 @@ class _$CategoryCopyWithImpl<$Res, $Val extends Category>
           ? _value.categoryQuestionCount
           : categoryQuestionCount // ignore: cast_nullable_to_non_nullable
               as int,
-      imagePath: freezed == imagePath
+      imagePath: null == imagePath
           ? _value.imagePath
           : imagePath // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
     ) as $Val);
   }
 }
@@ -125,7 +125,7 @@ abstract class _$$_CategoryCopyWith<$Res> implements $CategoryCopyWith<$Res> {
       String name,
       String description,
       int categoryQuestionCount,
-      String? imagePath});
+      String imagePath});
 }
 
 /// @nodoc
@@ -146,7 +146,7 @@ class __$$_CategoryCopyWithImpl<$Res>
     Object? name = null,
     Object? description = null,
     Object? categoryQuestionCount = null,
-    Object? imagePath = freezed,
+    Object? imagePath = null,
   }) {
     return _then(_$_Category(
       id: freezed == id
@@ -177,10 +177,10 @@ class __$$_CategoryCopyWithImpl<$Res>
           ? _value.categoryQuestionCount
           : categoryQuestionCount // ignore: cast_nullable_to_non_nullable
               as int,
-      imagePath: freezed == imagePath
+      imagePath: null == imagePath
           ? _value.imagePath
           : imagePath // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
     ));
   }
 }
@@ -196,7 +196,7 @@ class _$_Category extends _Category {
       required this.name,
       required this.description,
       required this.categoryQuestionCount,
-      this.imagePath})
+      required this.imagePath})
       : super._();
 
   factory _$_Category.fromJson(Map<String, dynamic> json) =>
@@ -217,7 +217,7 @@ class _$_Category extends _Category {
   @override
   final int categoryQuestionCount;
   @override
-  final String? imagePath;
+  final String imagePath;
 
   @override
   String toString() {
@@ -273,7 +273,7 @@ abstract class _Category extends Category {
       required final String name,
       required final String description,
       required final int categoryQuestionCount,
-      final String? imagePath}) = _$_Category;
+      required final String imagePath}) = _$_Category;
   const _Category._() : super._();
 
   factory _Category.fromJson(Map<String, dynamic> json) = _$_Category.fromJson;
@@ -293,7 +293,7 @@ abstract class _Category extends Category {
   @override
   int get categoryQuestionCount;
   @override
-  String? get imagePath;
+  String get imagePath;
   @override
   @JsonKey(ignore: true)
   _$$_CategoryCopyWith<_$_Category> get copyWith =>

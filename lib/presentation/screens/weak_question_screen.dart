@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:lottie/lottie.dart';
 import 'package:quiz_app/domain/repository/question_repository.dart';
+import 'package:quiz_app/presentation/screens/quiz_screen.dart';
 
 import '../../domain/question/question.dart';
 import '../widgets/weak_question_card.dart';
@@ -31,6 +33,7 @@ class WeakQuestionScreen extends HookConsumerWidget {
                 }
                 // データがnullでないかチェック
                 if (retrievedWeakQuestionList.hasData) {
+                  // print(retrievedWeakQuestionList);
                   return Column(
                     children: [
                       ListView.builder(
@@ -43,6 +46,27 @@ class WeakQuestionScreen extends HookConsumerWidget {
                             return WeakQuestionCard(
                                 question: retrievedWeakQuestion);
                           }),
+                      retrievedWeakQuestionList.data!.isEmpty
+                          ? Center(child: Lottie.asset("assets/weak_question.json"),)
+                          : ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Scaffold(
+                                              appBar: AppBar(
+                                                title: const Text("苦手問題"),
+                                                automaticallyImplyLeading:
+                                                    false,
+                                              ),
+                                              body: QuizScreen(
+                                                  reader: ref.watch,
+                                                  questionList:
+                                                      retrievedWeakQuestionList
+                                                          .data!),
+                                            )));
+                              },
+                              child: const Text("クイズ"))
                     ],
                   );
                 } else {
