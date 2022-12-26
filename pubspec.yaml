@@ -69,3 +69,4 @@ flutter:
   assets:
     - assets/
     - assets/images/
+    - assets/images/category_images/

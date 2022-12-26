@@ -15,8 +15,8 @@ import 'setting_screen.dart';
 
 final List homePageList = [
   const CategoryListScreen(),
-  const OriginalQuestionListScreen(),
   const ReviewScreen(),
+  const OriginalQuestionListScreen(),
   SettingScreen(),
 ];
 
@@ -29,13 +29,13 @@ class HomeScreen extends HookConsumerWidget {
         ref.watch(bottomNavBarSelectedIndexProvider);
     // final weakQuestionListState = ref.watch(questionControllerProvider(Quiz.empty()));
     return Scaffold(
-      appBar: bottomNavBarSelectedIndex == 1
+      appBar: bottomNavBarSelectedIndex == 2
           ? null
           : AppBar(
               automaticallyImplyLeading: false,
               title: bottomNavBarSelectedIndex == 0
                   ? const Text("ホーム")
-                  : bottomNavBarSelectedIndex == 2
+                  : bottomNavBarSelectedIndex == 1
                       ? const Text("復習")
                       : const Text("設定")),
       bottomNavigationBar: BottomNavBar(),

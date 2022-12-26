@@ -29,7 +29,6 @@ class QuizEngine {
   Reader reader;
 
   Category? category;
-  // final Quiz quiz;
   final List<Question> questionList;
   List<int> takenQuestions = [];
   Map<int, bool> questionAnswer = {};

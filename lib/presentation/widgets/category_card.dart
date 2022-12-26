@@ -29,10 +29,9 @@ class CategoryCard extends HookConsumerWidget {
         child: Stack(
           alignment: Alignment.center,
           children: [
-            Ink.image(
-              image: CachedNetworkImageProvider(category.imagePath),
+            Ink(
               height: 240,
-              fit: BoxFit.cover,
+              child: Image.asset(category.imagePath, fit: BoxFit.cover,),
             ),
             Positioned(
               bottom: 20,
