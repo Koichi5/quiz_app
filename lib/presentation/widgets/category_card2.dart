@@ -60,10 +60,10 @@ class CategoryCard2 extends HookConsumerWidget {
                 // color: Colors.grey.shade300,
                 child: Row(
                   children: [
-                    Padding(
-                        padding: const EdgeInsets.all(30.0),
-                        child: TakenQuizPercentIndicator(category: category),
-                      ),
+                    // Padding(
+                    //     padding: const EdgeInsets.all(30.0),
+                    //     child: TakenQuizPercentIndicator(category: category),
+                    //   ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

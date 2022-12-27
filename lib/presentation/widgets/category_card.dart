@@ -4,6 +4,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quiz_app/presentation/screens/category_detail_screen.dart';
 
 import '../../domain/category/category.dart';
+import '../../domain/quiz_history/quiz_history.dart';
+import '../../domain/repository/weak_question_repository.dart';
+import '../../domain/weak_question/weak_question.dart';
+import '../controller/quiz_history_controller.dart';
 
 class CategoryCard extends HookConsumerWidget {
   const CategoryCard({required this.category, Key? key}) : super(key: key);
@@ -13,12 +17,20 @@ class CategoryCard extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
+        final List<WeakQuestion> weakQuestionList = await ref
+            .watch(weakQuestionRepositoryProvider)
+            .retrieveWeakQuestionList();
+        // final List<QuizHistory> quizHistoryList = await ref
+        //     .watch(quizHistoryControllerProvider.notifier)
+        //     .retrieveQuizHistoryList();
         Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) => CategoryDetailScreen(
                       category: category,
+                  weakQuestionList: weakQuestionList,
+                  // quizHistoryList: quizHistoryList,
                     )));
       },
       child: Card(
@@ -31,7 +43,10 @@ class CategoryCard extends HookConsumerWidget {
           children: [
             Ink(
               height: 240,
-              child: Image.asset(category.imagePath, fit: BoxFit.cover,),
+              child: Image.asset(
+                category.imagePath,
+                fit: BoxFit.cover,
+              ),
             ),
             Positioned(
               bottom: 20,

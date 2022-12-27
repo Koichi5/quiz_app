@@ -11,6 +11,7 @@ abstract class BaseQuizHistoryRepository {
   Future<String> addQuizHistory(
       {required User user, required QuizHistory quizHistory});
   Future<List<QuizHistory>> retrieveQuizHistoryList();
+  Future<List<String>> retrieveUserCompletedCategoryNameList();
 }
 
 final quizHistoryRepositoryProvider =
@@ -52,12 +53,15 @@ class QuizHistoryRepository implements BaseQuizHistoryRepository {
       print(_reader(userCompletedCategoryListProvider.notifier).state);
       if (!_reader(userCompletedCategoryListProvider)
           .contains(quizHistory.categoryDocRef)) {
-        _reader(userCompletedCategoryListProvider.notifier).state.insert(0, quizHistory.categoryDocRef);
+        _reader(userCompletedCategoryListProvider.notifier)
+            .state
+            .insert(0, quizHistory.categoryDocRef);
         await _reader(firebaseFirestoreProvider)
             .collection("user")
             .doc(user.uid)
             .set({
-          "userCompletedCategoryList": _reader(userCompletedCategoryListProvider)
+          "userCompletedCategoryList":
+              _reader(userCompletedCategoryListProvider)
         });
       }
       //
@@ -126,8 +130,20 @@ class QuizHistoryRepository implements BaseQuizHistoryRepository {
           .collection("user")
           .doc(currentUser!.uid)
           .collection("quizHistory")
+          .orderBy("quizDate", descending: true)
           .get();
       return snap.docs.map((doc) => QuizHistory.fromDocument(doc)).toList();
+    } on FirebaseException catch (e) {
+      throw CustomException(message: e.message);
+    }
+  }
+
+  @override
+  Future<List<String>> retrieveUserCompletedCategoryNameList() async {
+    final User? currentUser = _reader(firebaseAuthProvider).currentUser;
+    try {
+      final snap = await _reader(firebaseFirestoreProvider).collection("user").doc(currentUser!.uid).get();
+      return snap.data()!.values.map((e) => e.toString()).toList();
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message);
     }
