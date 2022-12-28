@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:lottie/lottie.dart';
 import 'package:quiz_app/domain/question/question.dart';
 import 'package:quiz_app/domain/weak_question/weak_question.dart';
 import 'package:quiz_app/presentation/controller/weak_question_controller.dart';
@@ -54,7 +55,7 @@ class ResultQuestionListCard extends HookConsumerWidget {
             builder: (BuildContext context,
                 AsyncSnapshot<List<WeakQuestion>> snapshot) {
               if (snapshot.connectionState != ConnectionState.done) {
-                return const Center(child: CircularProgressIndicator());
+                return Center(child: Lottie.asset("assets/loading.json", width: 200, height: 200),);
               }
               // エラー発生時はエラーメッセージを表示
               if (snapshot.hasError) {

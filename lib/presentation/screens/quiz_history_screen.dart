@@ -20,7 +20,10 @@ class QuizHistoryScreen extends HookConsumerWidget {
           builder: (BuildContext context,
               AsyncSnapshot<List<QuizHistory>> quizHistoryList) {
             if (quizHistoryList.connectionState != ConnectionState.done) {
-              return const Center(child: CircularProgressIndicator());
+              return Center(
+                child: Lottie.asset("assets/loading.json",
+                    width: 200, height: 200),
+              );
             }
             if (quizHistoryList.hasError) {
               return Text(quizHistoryList.error.toString());
@@ -28,7 +31,17 @@ class QuizHistoryScreen extends HookConsumerWidget {
             if (quizHistoryList.hasData) {
               return quizHistoryList.data!.isEmpty
                   ? Center(
-                      child: Lottie.asset("assets/quiz_history.json"),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text("クイズを解いて実力をつけましょう！"),
+                          Lottie.asset(
+                            "assets/quiz_history.json",
+                            width: MediaQuery.of(context).size.width * 0.7,
+                            fit: BoxFit.fitWidth,
+                          ),
+                        ],
+                      ),
                     )
                   : Center(
                       child: Column(

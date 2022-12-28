@@ -165,7 +165,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
                   if (!ref.watch(optionGestureProvider)) {
                     ref.watch(optionGestureProvider.notifier).state = true;
                     setState(() {
-                      _remainTime = 1;
+                      _remainTime = 0;
                       ref.watch(questionAnswerProvider.notifier).state =
                           engine.updateAnswer(
                               questionIndex: questionList.indexOf(question!),
@@ -225,32 +225,32 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
     );
   }
 
-  Widget quizProgress() {
-    return Container(
-      alignment: Alignment.center,
-      child: Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.only(top: 20),
-            child: question != null
-                ? TimeIndicator(
-                    question!.duration,
-                    _remainTime,
-                    () {
-                      // progressTimer!.cancel();
-                      // _remainTime = 0;
-                    },
-                  )
-                : null,
-          ),
-          // Text(
-          //   "$_remainTime秒",
-          //   style: const TextStyle(fontSize: 16),
-          // )
-        ],
-      ),
-    );
-  }
+  // Widget quizProgress() {
+  //   return Container(
+  //     alignment: Alignment.center,
+  //     child: Column(
+  //       children: [
+  //         Container(
+  //           margin: const EdgeInsets.only(top: 20),
+  //           child: question != null
+  //               ? TimeIndicator(
+  //                   question!.duration,
+  //                   _remainTime,
+  //                   () {
+  //                     // progressTimer!.cancel();
+  //                     // _remainTime = 0;
+  //                   },
+  //                 )
+  //               : null,
+  //         ),
+  //         // Text(
+  //         //   "$_remainTime秒",
+  //         //   style: const TextStyle(fontSize: 16),
+  //         // )
+  //       ],
+  //     ),
+  //   );
+  // }
 
   // Widget timeLimitText (BuildContext context, int remainTime) {
   //   return remainTime == 0 ? Text("時間切れです") : Text("");
@@ -355,14 +355,19 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
             setState(() {
               progressTimer = timer;
               _remainTime--;
+              // print(_remainTime);
             });
-            // print(_remainTime);
           }
         } catch (e) {
           timer.cancel();
           throw CustomException(message: e.toString());
         }
       }
+      // else {
+      //   ref.watch(questionAnswerProvider.notifier).state =
+      //       engine.updateAnswer(
+      //           questionIndex: questionList.indexOf(question!),);
+      // }
     });
   }
 

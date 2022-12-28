@@ -1,13 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quiz_app/presentation/screens/category_detail_screen.dart';
 
 import '../../domain/category/category.dart';
-import '../../domain/quiz_history/quiz_history.dart';
 import '../../domain/repository/weak_question_repository.dart';
-import '../../domain/weak_question/weak_question.dart';
-import '../controller/quiz_history_controller.dart';
 
 class CategoryCard extends HookConsumerWidget {
   const CategoryCard({required this.category, Key? key}) : super(key: key);
@@ -18,9 +14,16 @@ class CategoryCard extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
       onTap: () async {
-        final List<WeakQuestion> weakQuestionList = await ref
+        await ref
             .watch(weakQuestionRepositoryProvider)
-            .retrieveWeakQuestionList();
+            .retrieveWeakQuestionList()
+            .then((value) => value.forEach((element) {
+                  if (element.categoryDocRef == category.categoryDocRef) {
+                    ref
+                        .watch(weakQuestionInCategoryCountProvider.notifier)
+                        .state++;
+                  }
+                }));
         // final List<QuizHistory> quizHistoryList = await ref
         //     .watch(quizHistoryControllerProvider.notifier)
         //     .retrieveQuizHistoryList();
@@ -29,8 +32,7 @@ class CategoryCard extends HookConsumerWidget {
             MaterialPageRoute(
                 builder: (context) => CategoryDetailScreen(
                       category: category,
-                  weakQuestionList: weakQuestionList,
-                  // quizHistoryList: quizHistoryList,
+                      // quizHistoryList: quizHistoryList,
                     )));
       },
       child: Card(

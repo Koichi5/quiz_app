@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:quiz_app/domain/quiz/quiz.dart';
-import 'package:quiz_app/presentation/controller/question_controller.dart';
 import 'package:quiz_app/presentation/screens/category_list_screen.dart';
-import 'package:quiz_app/presentation/screens/quiz_screen.dart';
 import 'package:quiz_app/presentation/screens/review_screen.dart';
 import 'package:quiz_app/presentation/widgets/bottom_nav_bar.dart';
 
-import '../../domain/question/question.dart';
-import '../../domain/repository/question_repository.dart';
-import '../widgets/segmented_button.dart';
 import 'original_question_list_screen.dart';
 import 'setting_screen.dart';
 

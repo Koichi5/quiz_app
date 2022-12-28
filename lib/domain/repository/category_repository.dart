@@ -44,6 +44,7 @@ class CategoryRepository implements BaseCategoryRepository {
         description: category.description,
         categoryQuestionCount: 0,
         imagePath: category.imagePath,
+        createdAt: category.createdAt,
       );
 
       await categoryRef
@@ -59,8 +60,10 @@ class CategoryRepository implements BaseCategoryRepository {
   @override
   Future<List<Category>> retrieveCategoryList() async {
     try {
-      final snap =
-          await _reader(firebaseFirestoreProvider).collection("category").get();
+      final snap = await _reader(firebaseFirestoreProvider)
+          .collection("category")
+          .orderBy("createdAt")
+          .get();
       return snap.docs.map((doc) => Category.fromDocument(doc)).toList();
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message);

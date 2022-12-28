@@ -32,16 +32,16 @@ class SignupScreen extends HookConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.1,
+              height: MediaQuery.of(context).size.height * 0.05,
             ),
-            CustomTextField(
-              title: "ニックネーム",
-              controller: nameControllerProvider,
-              error: signupValidator.form.name.errorMessage,
-              onChanged: (name) {
-                signupValidatorNotifier.setName(name);
-              },
-            ),
+            // CustomTextField(
+            //   title: "ニックネーム",
+            //   controller: nameControllerProvider,
+            //   error: signupValidator.form.name.errorMessage,
+            //   onChanged: (name) {
+            //     signupValidatorNotifier.setName(name);
+            //   },
+            // ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.02,
             ),
@@ -78,7 +78,7 @@ class SignupScreen extends HookConsumerWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.02,
             ),
-            SignUpButton(nameControllerProvider.text,
+            SignUpButton(
                 emailControllerProvider.text, passwordControllerProvider.text),
             Divider(
               height: MediaQuery.of(context).size.height * 0.03,

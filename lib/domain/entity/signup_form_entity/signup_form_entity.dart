@@ -17,5 +17,5 @@ class SignupFormEntity with _$SignupFormEntity {
     email: Field(value: ""),
     password: Field(value: ""),
   );
-  bool get isValid => email.isValid && password.isValid && name.isValid;
+  bool get isValid => email.isValid && password.isValid;
 }

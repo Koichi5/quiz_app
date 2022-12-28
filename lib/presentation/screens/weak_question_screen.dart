@@ -25,7 +25,10 @@ class WeakQuestionScreen extends HookConsumerWidget {
                   AsyncSnapshot<List<Question>> retrievedWeakQuestionList) {
                 if (retrievedWeakQuestionList.connectionState !=
                     ConnectionState.done) {
-                  return const Center(child: CircularProgressIndicator());
+                  return Center(
+                    child: Lottie.asset("assets/loading.json",
+                        width: 200, height: 200),
+                  );
                 }
                 // エラー発生時はエラーメッセージを表示
                 if (retrievedWeakQuestionList.hasError) {
@@ -47,7 +50,18 @@ class WeakQuestionScreen extends HookConsumerWidget {
                                 question: retrievedWeakQuestion);
                           }),
                       retrievedWeakQuestionList.data!.isEmpty
-                          ? Center(child: Lottie.asset("assets/weak_question.json"),)
+                          ? Center(
+                              child: Column(
+                                children: [
+                                  const Text("苦手問題を登録して復習しましょう！"),
+                                  Lottie.asset("assets/weak_question.json",
+                                      width: MediaQuery.of(context).size.width *
+                                          0.7,
+                                    fit: BoxFit.fitWidth,
+                                  ),
+                                ],
+                              ),
+                            )
                           : ElevatedButton(
                               onPressed: () {
                                 Navigator.push(
@@ -56,8 +70,6 @@ class WeakQuestionScreen extends HookConsumerWidget {
                                         builder: (context) => Scaffold(
                                               appBar: AppBar(
                                                 title: const Text("苦手問題"),
-                                                automaticallyImplyLeading:
-                                                    false,
                                               ),
                                               body: QuizScreen(
                                                   reader: ref.watch,

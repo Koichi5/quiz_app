@@ -12,12 +12,12 @@ abstract class User implements _$User {
   const User._();
   const factory User({
     String? id,
-    required String name,
+    // required String name,
     required String email,
     required String password,
   }) = _User;
 
-  factory User.empty() => const User(name: "", email: "", password: "");
+  factory User.empty() => const User(email: "", password: "");
 
   factory User.fromJson(json) => _$UserFromJson(json);
 

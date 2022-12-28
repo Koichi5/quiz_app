@@ -9,6 +9,7 @@ class CustomTextField extends StatelessWidget {
     this.error,
     this.onChanged,
     this.suffixIcon,
+    this.helperText,
   }) : super(key: key);
   final String title;
   final TextEditingController controller;
@@ -16,15 +17,20 @@ class CustomTextField extends StatelessWidget {
   final String? error;
   final Function(String)? onChanged;
   final Widget? suffixIcon;
+  final String? helperText;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.9,
-      height: MediaQuery.of(context).size.height * 0.1,
+      // height: MediaQuery.of(context).size.height * 0.1,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(helperText ?? "", style: const TextStyle(fontSize: 13),),
+          ),
           TextField(
             onChanged: onChanged,
             controller: controller,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:lottie/lottie.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 import '../../domain/category/category.dart';
@@ -17,10 +18,11 @@ final weakQuestionInCategoryCountProvider = StateProvider((ref) => 0);
 final userTakenQuestionInCategoryProvider = StateProvider((ref) => false);
 
 class TakenQuizPercentIndicator extends HookConsumerWidget {
-  const TakenQuizPercentIndicator({required this.category,
-    required this.weakQuestionList,
-    // required this.quizHistoryList,
-    Key? key})
+  const TakenQuizPercentIndicator(
+      {required this.category,
+      required this.weakQuestionList,
+      // required this.quizHistoryList,
+      Key? key})
       : super(key: key);
 
   final Category category;
@@ -31,10 +33,9 @@ class TakenQuizPercentIndicator extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final weakQuestionInCategoryCount =
-    ref.watch(weakQuestionInCategoryCountProvider);
+        ref.watch(weakQuestionInCategoryCountProvider);
     final weakQuestionInCategoryCountNotifier =
-    ref.watch(weakQuestionInCategoryCountProvider.notifier);
-    final weakQuestionCount = weakQuestionList.forEach((element) {element.categoryDocRef == category.categoryDocRef} )
+        ref.watch(weakQuestionInCategoryCountProvider.notifier);
     // 必要な数字：
     // カテゴリ内に含まれる question の数 category.categoryQuestionCount
     // ユーザの苦手問題の数
@@ -59,7 +60,7 @@ class TakenQuizPercentIndicator extends HookConsumerWidget {
         builder: (BuildContext context,
             AsyncSnapshot<List<QuizHistory>> userQuizHistory) {
           if (userQuizHistory.connectionState != ConnectionState.done) {
-            return const Center(child: CircularProgressIndicator());
+            return Center(child: Lottie.asset("assets/loading.json", width: 200, height: 200),);
           }
           if (userQuizHistory.hasError) {
             return Text(userQuizHistory.error.toString());
@@ -67,19 +68,61 @@ class TakenQuizPercentIndicator extends HookConsumerWidget {
           if (userQuizHistory.hasData) {
             // snapshot にはユーザの苦手問題のリストが含まれており、選択したカテゴリのドキュメントリファレンスと苦手問題のカテゴリのドキュメントリファレンスが一致していればカウントが一つ増える
             if (userQuizHistory.data!.any((element) =>
-            element.categoryDocRef == category.categoryDocRef)) {
-              ref
-                  .watch(userTakenQuestionInCategoryProvider.notifier)
-                  .state = true;
-              return SizedBox();
+                element.categoryDocRef == category.categoryDocRef)) {
+              ref.watch(userTakenQuestionInCategoryProvider.notifier).state =
+                  true;
+              return Stack(
+                children: [
+                  // 未完了問題数
+                  CircularPercentIndicator(
+                    radius: 80.0,
+                    lineWidth: 8.0,
+                    percent: ref.watch(userTakenQuestionInCategoryProvider)
+                        ? 0.0
+                        : 1.0,
+                    progressColor: Colors.grey,
+                    backgroundColor: Colors.transparent,
+                    animation: true,
+                  ),
+                  // 苦手問題数
+                  CircularPercentIndicator(
+                    radius: 80.0,
+                    lineWidth: 8.0,
+                    progressColor: Theme.of(context).colorScheme.tertiary,
+                    backgroundColor: Colors.transparent,
+                    animation: true,
+                  ),
+                  // 学習済み問題数
+                  CircularPercentIndicator(
+                    center: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: const [Text("学習済"), Text("80%")],
+                    ),
+                    radius: 80.0,
+                    lineWidth: 8.0,
+                    // user の quizHistory に当該カテゴリが含まれている(user がカテゴリを終了している)
+                    // user の weakQuestionCount が 0 ではない
+                    // カテゴリ内全体の問題数に対する weakQuestion の割合を示す必要がある
+                    percent: ref.watch(userTakenQuestionInCategoryProvider)
+                        ? ref.watch(weakQuestionInCategoryCountProvider) != 0
+                            ? 1.0 - weakQuestionCountPerCategoryQuestionCount
+                            : 1.0
+                        : 0.0,
+                    progressColor: Theme.of(context).colorScheme.primary,
+                    backgroundColor: Colors.transparent,
+                    animation: true,
+                  ),
+                ],
+              );
+              ;
             } else {
               return SizedBox();
             }
           } else {
             return SizedBox();
           }
-        }
-    );
+        });
   }
 }
 //     return FutureBuilder(

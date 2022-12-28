@@ -6,7 +6,6 @@ class SettingScreen extends StatelessWidget {
   SettingScreen({Key? key}) : super(key: key);
 
   final List<String> _labelTextList = [
-    "プロフィール",
     "利用規約",
     "公式Twitter",
     "公式Instagram"
@@ -17,10 +16,6 @@ class SettingScreen extends StatelessWidget {
     "https://www.instagram.com/",
   ];
   final List<Widget> _leadingWidget = [
-    const Icon(
-      Icons.person,
-      size: 30,
-    ),
     const Icon(
       Icons.list_alt,
       size: 30,
@@ -34,7 +29,6 @@ class SettingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final onTapList = [
-      () => Navigator.pushNamed(context, '/profile_edit'),
       () => _linkButton.launchUriWithString(context, _linkURLList[0]),
       () => _linkButton.launchUriWithString(context, _linkURLList[1]),
       () => _linkButton.launchUriWithString(context, _linkURLList[2]),

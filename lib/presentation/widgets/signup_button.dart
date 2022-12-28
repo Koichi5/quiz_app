@@ -8,8 +8,7 @@ import '../controller/auth_controller.dart';
 import '../controller/validator/signup_validator_provider.dart';
 
 class SignUpButton extends HookConsumerWidget {
-  const SignUpButton(this.name, this.email, this.password, {super.key});
-  final String name;
+  const SignUpButton(this.email, this.password, {super.key});
   final String email;
   final String password;
   @override

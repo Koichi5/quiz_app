@@ -7,14 +7,17 @@ import '../controller/category_controller.dart';
 
 class CategorySetButton extends HookConsumerWidget {
   const CategorySetButton(
-      {required this.categoryId, required this.name, required this.description, Key? key})
+      {required this.categoryId,
+      required this.name,
+      required this.description,
+      Key? key})
       : super(key: key);
   final String categoryId;
   final String name;
   final String description;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref, [bool mounted = true]) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: SizedBox(
@@ -29,9 +32,14 @@ class CategorySetButton extends HookConsumerWidget {
             if (ref.watch(categoryValidatorProvider).form.isValid) {
               final category = await ref
                   .watch(categoryControllerProvider.notifier)
-                  .addCategory(categoryId: int.parse(categoryId), name: name, description: description);
+                  .addCategory(
+                      categoryId: int.parse(categoryId),
+                      name: name,
+                      description: description,
+                      createdAt: DateTime.now());
 
               //ここで渡している category に DocRef が含まれていないからエラー
+              if (!mounted) return;
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -44,8 +52,7 @@ class CategorySetButton extends HookConsumerWidget {
             style: TextStyle(
                 color: ref.watch(categoryValidatorProvider).form.isValid
                     ? Theme.of(context).colorScheme.onPrimary
-                    : Theme.of(context).colorScheme.onSecondary
-            ),
+                    : Theme.of(context).colorScheme.onSecondary),
           ),
         ),
       ),

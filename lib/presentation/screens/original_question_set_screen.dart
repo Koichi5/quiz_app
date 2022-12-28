@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quiz_app/presentation/controller/option_text_controller.dart';
-import 'package:quiz_app/presentation/widgets/question_set_button.dart';
 
-import '../../domain/quiz/quiz.dart';
 import '../controller/question_text_controller.dart';
 import '../controller/validator/option_validator_provider.dart';
 import '../controller/validator/question_validator_provider.dart';
@@ -18,10 +16,10 @@ class OriginalQuestionSetScreen extends HookConsumerWidget {
     // final idControllerProvider = ref.watch(questionIdControllerProvider);
     final textControllerProvider = ref.watch(questionTextControllerProvider);
     final durationControllerProvider =
-    ref.watch(questionDurationControllerProvider);
+        ref.watch(questionDurationControllerProvider);
     final questionValidator = ref.watch(questionValidatorProvider);
     final questionValidatorNotifier =
-    ref.watch(questionValidatorProvider.notifier);
+        ref.watch(questionValidatorProvider.notifier);
     // options
     // final firstOptionTextController = ref.watch(firstOptionTextControllerProvider);
     // final secondOptionTextController = ref.watch(secondOptionTextControllerProvider);
@@ -39,18 +37,7 @@ class OriginalQuestionSetScreen extends HookConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.1,
-              ),
-              // CustomTextField(
-              //   title: "問題ID",
-              //   controller: idControllerProvider,
-              //   error: questionValidator.form.id.errorMessage,
-              //   onChanged: (questionId) {
-              //     questionValidatorNotifier.setQuestionId(questionId);
-              //   },
-              // ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.02,
+                height: MediaQuery.of(context).size.height * 0.03,
               ),
               CustomTextField(
                 title: "問題文",
@@ -59,22 +46,11 @@ class OriginalQuestionSetScreen extends HookConsumerWidget {
                 onChanged: (questionText) {
                   questionValidatorNotifier.setQuestionText(questionText);
                 },
+                helperText: "問題文を入力してください",
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.02,
               ),
-              // CustomTextField(
-              //   title: "制限時間",
-              //   controller: durationControllerProvider,
-              //   error: questionValidator.form.duration.errorMessage,
-              //   onChanged: (questionDuration) {
-              //     questionValidatorNotifier
-              //         .setQuestionDuration(questionDuration);
-              //   },
-              // ),
-              // SizedBox(
-              //   height: MediaQuery.of(context).size.height * 0.02,
-              // ),
               CustomTextField(
                 title: "選択肢１",
                 controller: ref.watch(firstOptionTextControllerProvider),
@@ -82,16 +58,8 @@ class OriginalQuestionSetScreen extends HookConsumerWidget {
                 onChanged: (optionText) {
                   optionValidatorNotifier.setOptionText(optionText);
                 },
+                helperText: "１つ目の選択肢を入力してください",
               ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.01,
-              ),
-              Switch(
-                  value: ref.watch(firstOptionIsCorrectProvider),
-                  onChanged: (value) {
-                    ref.watch(firstOptionIsCorrectProvider.notifier).state =
-                        value;
-                  }),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.02,
               ),
@@ -102,16 +70,8 @@ class OriginalQuestionSetScreen extends HookConsumerWidget {
                 onChanged: (optionText) {
                   optionValidatorNotifier.setOptionText(optionText);
                 },
+                helperText: "２つ目の選択肢を入力してください",
               ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.01,
-              ),
-              Switch(
-                  value: ref.watch(secondOptionIsCorrectProvider),
-                  onChanged: (value) {
-                    ref.watch(secondOptionIsCorrectProvider.notifier).state =
-                        value;
-                  }),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.02,
               ),
@@ -122,16 +82,8 @@ class OriginalQuestionSetScreen extends HookConsumerWidget {
                 onChanged: (optionText) {
                   optionValidatorNotifier.setOptionText(optionText);
                 },
+                helperText: "３つ目の選択肢を入力してください",
               ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.01,
-              ),
-              Switch(
-                  value: ref.watch(thirdOptionIsCorrectProvider),
-                  onChanged: (value) {
-                    ref.watch(thirdOptionIsCorrectProvider.notifier).state =
-                        value;
-                  }),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.02,
               ),
@@ -142,16 +94,83 @@ class OriginalQuestionSetScreen extends HookConsumerWidget {
                 onChanged: (optionText) {
                   optionValidatorNotifier.setOptionText(optionText);
                 },
+                helperText: "４つ目の選択肢を入力してください",
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.01,
+                height: MediaQuery.of(context).size.height * 0.02,
               ),
-              Switch(
-                  value: ref.watch(fourthOptionIsCorrectProvider),
-                  onChanged: (value) {
-                    ref.watch(fourthOptionIsCorrectProvider.notifier).state =
-                        value;
-                  }),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text("選択肢１の正誤"),
+                    Switch(
+                        value: ref.watch(firstOptionIsCorrectProvider),
+                        onChanged: (value) {
+                          ref.watch(firstOptionIsCorrectProvider.notifier).state =
+                              value;
+                        }),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.02,
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text("選択肢２の正誤"),
+                    Switch(
+                        value: ref.watch(secondOptionIsCorrectProvider),
+                        onChanged: (value) {
+                          ref.watch(secondOptionIsCorrectProvider.notifier).state =
+                              value;
+                        }),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.02,
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text("選択肢３の正誤"),
+                    Switch(
+                        value: ref.watch(thirdOptionIsCorrectProvider),
+                        onChanged: (value) {
+                          ref.watch(thirdOptionIsCorrectProvider.notifier).state =
+                              value;
+                        }),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.02,
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text("選択肢４の正誤"),
+                    Switch(
+                        value: ref.watch(fourthOptionIsCorrectProvider),
+                        onChanged: (value) {
+                          ref.watch(fourthOptionIsCorrectProvider.notifier).state =
+                              value;
+                        }),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.02,
+              ),
               OriginalQuestionSetButton(
                 // id: idControllerProvider.text,
                 text: textControllerProvider.text,
@@ -159,7 +178,7 @@ class OriginalQuestionSetScreen extends HookConsumerWidget {
                 duration: "10",
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.02,
+                height: MediaQuery.of(context).size.height * 0.04,
               ),
             ],
           ),

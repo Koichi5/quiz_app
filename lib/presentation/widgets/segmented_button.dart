@@ -18,7 +18,7 @@ class SegmentedButton extends HookConsumerWidget {
           selectionIndex: ref.watch(currentSelectedIndexProvider),
           selectedColor: Theme.of(context).colorScheme.primary,
           unselectedColor: Theme.of(context).colorScheme.background,
-          borderColor: Theme.of(context).colorScheme.primary,
+          borderColor: Theme.of(context).colorScheme.tertiary,
           borderRadius: 50,
           verticalOffset: 8.0,
           onSegmentChosen: (int index) {

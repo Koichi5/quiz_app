@@ -62,6 +62,7 @@ class CategoryController extends StateNotifier<AsyncValue<List<Category>>> {
       required int categoryId,
       required String name,
       required String description,
+      required DateTime createdAt,
       String? imagePath}) async {
     final category = Category(
       id: id,
@@ -69,6 +70,7 @@ class CategoryController extends StateNotifier<AsyncValue<List<Category>>> {
       name: name,
       description: description,
       categoryQuestionCount: 0,
+      createdAt: createdAt,
       // google のロゴで代用
       imagePath:
           "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",

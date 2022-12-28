@@ -15,6 +15,7 @@ _$_Category _$$_CategoryFromJson(Map<String, dynamic> json) => _$_Category(
       description: json['description'] as String,
       categoryQuestionCount: json['categoryQuestionCount'] as int,
       imagePath: json['imagePath'] as String,
+      createdAt: DateTime.parse(json['createdAt'] as String),
     );
 
 Map<String, dynamic> _$$_CategoryToJson(_$_Category instance) =>
@@ -27,4 +28,5 @@ Map<String, dynamic> _$$_CategoryToJson(_$_Category instance) =>
       'description': instance.description,
       'categoryQuestionCount': instance.categoryQuestionCount,
       'imagePath': instance.imagePath,
+      'createdAt': instance.createdAt.toIso8601String(),
     };

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:quiz_app/presentation/controller/original_question_controller.dart';
-import 'package:quiz_app/presentation/screens/category_set_screen.dart';
 import 'package:quiz_app/presentation/screens/original_question_set_screen.dart';
 import 'package:quiz_app/presentation/screens/quiz_screen.dart';
 import 'package:quiz_app/presentation/widgets/original_question_list_card.dart';
@@ -33,55 +32,60 @@ class OriginalQuestionListScreen extends HookConsumerWidget {
           ],
         ),
         body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            // mainAxisSize: MainAxisSize.min,
-            children: [
-              originalQuestionState.when(
-                data: (originalQuestionList) => originalQuestionList.isEmpty
-                    ? Center(
-                        child: Column(
-                          // mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                originalQuestionState.when(
+                  data: (originalQuestionList) => originalQuestionList.isEmpty
+                      ? Center(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text("自分で問題を追加して解いてみましょう！"),
+                              Lottie.asset(
+                                "assets/original_question.json",
+                                width: MediaQuery.of(context).size.width * 0.7,
+                                fit: BoxFit.fitWidth,
+                              ),
+                            ],
+                          ),
+                        )
+                      : Column(
                           children: [
-                            const Text("自分で問題を追加して解いてみましょう！"),
-                            Lottie.asset("assets/original_question.json",
-                                // width: MediaQuery.of(context).size.width * 0.9,
-                                // height: MediaQuery.of(context).size.height * 0.3
+                            ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: originalQuestionList.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                final originalQuestion =
+                                    originalQuestionList[index];
+                                return OriginalQuestionListCard(
+                                  originalQuestion: originalQuestion,
+                                );
+                              },
                             ),
                           ],
-                        ))
-                    : Column(
-                        children: [
-                          ListView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: originalQuestionList.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              final originalQuestion =
-                                  originalQuestionList[index];
-                              return OriginalQuestionListCard(
-                                originalQuestion: originalQuestion,
-                              );
-                            },
-                          ),
-                        ],
-                      ),
-                error: (error, _) => const Center(child: Text("エラー")),
-                loading: () => const Center(
-                  child: CircularProgressIndicator(),
+                        ),
+                  error: (error, _) => const Center(child: Text("エラー")),
+                  loading: () => Center(
+                      child: Lottie.asset("assets/loading.json",
+                          width: 200, height: 200)),
                 ),
-              ),
-              // ElevatedButton(
-              //     onPressed: () {
-              //       Navigator.push(
-              //           context,
-              //           MaterialPageRoute(
-              //               builder: (context) => const CategorySetScreen()));
-              //     },
-              //     child: const Text("管理者用 問題作成")),
-            ],
+                // ElevatedButton(
+                //     onPressed: () {
+                //       Navigator.push(
+                //           context,
+                //           MaterialPageRoute(
+                //               builder: (context) => const CategorySetScreen()));
+                //     },
+                //     child: const Text("管理者用 問題作成")),
+              ],
+            ),
           ),
         ),
         floatingActionButton: originalQuestionState.when(
@@ -95,7 +99,6 @@ class OriginalQuestionListScreen extends HookConsumerWidget {
                               builder: (context) => Scaffold(
                                     appBar: AppBar(
                                       title: const Text("オリジナル問題"),
-                                      automaticallyImplyLeading: false,
                                     ),
                                     body: QuizScreen(
                                         reader: ref.watch,
@@ -107,7 +110,7 @@ class OriginalQuestionListScreen extends HookConsumerWidget {
                   ),
             error: (error, _) => const Center(child: Text("エラー")),
             loading: () => const Center(
-                  child: CircularProgressIndicator(),
+                  child: SizedBox(),
                 )));
   }
 }

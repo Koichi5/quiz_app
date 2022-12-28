@@ -28,6 +28,7 @@ mixin _$Category {
   String get description => throw _privateConstructorUsedError;
   int get categoryQuestionCount => throw _privateConstructorUsedError;
   String get imagePath => throw _privateConstructorUsedError;
+  DateTime get createdAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -48,7 +49,8 @@ abstract class $CategoryCopyWith<$Res> {
       String name,
       String description,
       int categoryQuestionCount,
-      String imagePath});
+      String imagePath,
+      DateTime createdAt});
 }
 
 /// @nodoc
@@ -72,6 +74,7 @@ class _$CategoryCopyWithImpl<$Res, $Val extends Category>
     Object? description = null,
     Object? categoryQuestionCount = null,
     Object? imagePath = null,
+    Object? createdAt = null,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -106,6 +109,10 @@ class _$CategoryCopyWithImpl<$Res, $Val extends Category>
           ? _value.imagePath
           : imagePath // ignore: cast_nullable_to_non_nullable
               as String,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ) as $Val);
   }
 }
@@ -125,7 +132,8 @@ abstract class _$$_CategoryCopyWith<$Res> implements $CategoryCopyWith<$Res> {
       String name,
       String description,
       int categoryQuestionCount,
-      String imagePath});
+      String imagePath,
+      DateTime createdAt});
 }
 
 /// @nodoc
@@ -147,6 +155,7 @@ class __$$_CategoryCopyWithImpl<$Res>
     Object? description = null,
     Object? categoryQuestionCount = null,
     Object? imagePath = null,
+    Object? createdAt = null,
   }) {
     return _then(_$_Category(
       id: freezed == id
@@ -181,6 +190,10 @@ class __$$_CategoryCopyWithImpl<$Res>
           ? _value.imagePath
           : imagePath // ignore: cast_nullable_to_non_nullable
               as String,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -196,7 +209,8 @@ class _$_Category extends _Category {
       required this.name,
       required this.description,
       required this.categoryQuestionCount,
-      required this.imagePath})
+      required this.imagePath,
+      required this.createdAt})
       : super._();
 
   factory _$_Category.fromJson(Map<String, dynamic> json) =>
@@ -218,10 +232,12 @@ class _$_Category extends _Category {
   final int categoryQuestionCount;
   @override
   final String imagePath;
+  @override
+  final DateTime createdAt;
 
   @override
   String toString() {
-    return 'Category(id: $id, categoryId: $categoryId, categoryDocRef: $categoryDocRef, quizDocRef: $quizDocRef, name: $name, description: $description, categoryQuestionCount: $categoryQuestionCount, imagePath: $imagePath)';
+    return 'Category(id: $id, categoryId: $categoryId, categoryDocRef: $categoryDocRef, quizDocRef: $quizDocRef, name: $name, description: $description, categoryQuestionCount: $categoryQuestionCount, imagePath: $imagePath, createdAt: $createdAt)';
   }
 
   @override
@@ -242,13 +258,24 @@ class _$_Category extends _Category {
             (identical(other.categoryQuestionCount, categoryQuestionCount) ||
                 other.categoryQuestionCount == categoryQuestionCount) &&
             (identical(other.imagePath, imagePath) ||
-                other.imagePath == imagePath));
+                other.imagePath == imagePath) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, categoryId, categoryDocRef,
-      quizDocRef, name, description, categoryQuestionCount, imagePath);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      categoryId,
+      categoryDocRef,
+      quizDocRef,
+      name,
+      description,
+      categoryQuestionCount,
+      imagePath,
+      createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -273,7 +300,8 @@ abstract class _Category extends Category {
       required final String name,
       required final String description,
       required final int categoryQuestionCount,
-      required final String imagePath}) = _$_Category;
+      required final String imagePath,
+      required final DateTime createdAt}) = _$_Category;
   const _Category._() : super._();
 
   factory _Category.fromJson(Map<String, dynamic> json) = _$_Category.fromJson;
@@ -294,6 +322,8 @@ abstract class _Category extends Category {
   int get categoryQuestionCount;
   @override
   String get imagePath;
+  @override
+  DateTime get createdAt;
   @override
   @JsonKey(ignore: true)
   _$$_CategoryCopyWith<_$_Category> get copyWith =>
