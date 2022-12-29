@@ -45,15 +45,20 @@ class QuizHistoryScreen extends HookConsumerWidget {
                     )
                   : Center(
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: List<QuizHistory>.from(quizHistoryList.data!)
-                            .map(
-                              (quizHistory) => QuizHistoryCard(
-                                quizHistory: quizHistory,
-                              ),
-                            )
-                            .toList(),
-                      ),
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          // children: [
+                          //   for (int i = 0; i < 10; i++) ...{
+                          //     quizHistoryList.data.toList()[i]
+                          //   },
+                          // ]
+                          children: List<QuizHistory>.from(quizHistoryList.data!)
+                              .map(
+                                (quizHistory) => QuizHistoryCard(
+                                  quizHistory: quizHistory,
+                                ),
+                              )
+                              .toList(),
+                          ),
                     );
             } else {
               return const Center(child: Text("履歴はまだありません\n クイズに挑戦してみましょう！"));

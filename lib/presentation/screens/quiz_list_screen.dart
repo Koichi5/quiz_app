@@ -6,18 +6,55 @@ import 'package:quiz_app/presentation/screens/quiz_screen.dart';
 
 import '../../domain/category/category.dart';
 import '../../domain/question/question.dart';
+import '../../domain/quiz/quiz.dart';
 import '../controller/quiz_controller.dart';
 
 class QuizListScreen extends HookConsumerWidget {
-  QuizListScreen({this.category, this.questionList, Key? key})
+  QuizListScreen({this.category, this.questionList, this.quizList, Key? key})
       : super(key: key);
 
   Category? category;
   List<Question>? questionList;
+  List<Quiz>? quizList;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // print(quizList);
+    // if (quizList != null && category != null) {
+    //   print("quizList と category あります");
+    //   final questionListState =
+    //       ref.watch(questionControllerProvider(quizList!.first));
+    //   return Scaffold(
+    //     appBar: AppBar(
+    //       title: Text(category!.name),
+    //     ),
+    //     body: SingleChildScrollView(
+    //       child: Column(
+    //         crossAxisAlignment: CrossAxisAlignment.center,
+    //         mainAxisSize: MainAxisSize.min,
+    //         children: [
+    //           questionListState.when(
+    //             data: (questions) => questions.isEmpty
+    //                 ? const Center(
+    //                     child: Text("問題が用意されていません"),
+    //                   )
+    //                 : QuizScreen(
+    //                     reader: ref.watch,
+    //                     category: category,
+    //                     questionList: questions),
+    //             error: (error, _) => const Text("エラー"),
+    //             loading: () => Center(
+    //               child: Lottie.asset("assets/loading.json",
+    //                   width: 200, height: 200),
+    //             ),
+    //           ),
+    //         ],
+    //       ),
+    //     ),
+    //   );
+
     if (category != null) {
+      print("category だけあります");
       final quizListState = ref.watch(quizControllerProvider(category!));
       return Scaffold(
           appBar: AppBar(
@@ -41,13 +78,14 @@ class QuizListScreen extends HookConsumerWidget {
                                       child: Text("問題が用意されていません"),
                                     )
                                   : QuizScreen(
-                                reader: ref.watch,
+                                      reader: ref.watch,
                                       category: category,
                                       quiz: quizzes.first,
                                       questionList: questions),
                               error: (error, _) => const Text("エラー"),
                               loading: () => Center(
-                                    child: Lottie.asset("assets/loading.json", width: 200, height: 200),
+                                    child: Lottie.asset("assets/loading.json",
+                                        width: 200, height: 200),
                                   )),
                   //     : ListView.builder(
                   //   shrinkWrap: true,
@@ -60,7 +98,8 @@ class QuizListScreen extends HookConsumerWidget {
                   // ),
                   error: (error, _) => const Center(child: Text("エラー")),
                   loading: () => Center(
-                    child: Lottie.asset("assets/loading.json", width: 200, height: 200),
+                    child: Lottie.asset("assets/loading.json",
+                        width: 200, height: 200),
                   ),
                 )
               ])));
@@ -80,8 +119,9 @@ class QuizListScreen extends HookConsumerWidget {
       // ),
       // )
     } else {
-      return const Scaffold(
-        body: Center(
+      return Scaffold(
+        appBar: AppBar(),
+        body: const Center(
           child: Text("エラーが発生しています"),
         ),
       );

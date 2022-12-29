@@ -3,6 +3,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quiz_app/domain/category/category.dart';
 import 'package:quiz_app/presentation/screens/quiz_list_screen.dart';
 
+import '../../domain/quiz/quiz.dart';
+import '../controller/quiz_controller.dart';
+
 final weakQuestionInCategoryCountProvider = StateProvider((ref) => 0);
 
 class CategoryDetailScreen extends HookConsumerWidget {
@@ -89,7 +92,8 @@ class CategoryDetailScreen extends HookConsumerWidget {
                                       left: 40),
                                   child: Icon(
                                     Icons.question_mark,
-                                    color: Theme.of(context).colorScheme.tertiary,
+                                    color:
+                                        Theme.of(context).colorScheme.tertiary,
                                   ),
                                 ),
                                 const Text("問題数"),
@@ -120,7 +124,8 @@ class CategoryDetailScreen extends HookConsumerWidget {
                                       left: 40),
                                   child: Icon(
                                     Icons.timer,
-                                    color: Theme.of(context).colorScheme.tertiary,
+                                    color:
+                                        Theme.of(context).colorScheme.tertiary,
                                   ),
                                 ),
                                 const Text("所要時間"),
@@ -151,7 +156,8 @@ class CategoryDetailScreen extends HookConsumerWidget {
                                       left: 40),
                                   child: Icon(
                                     Icons.star,
-                                    color: Theme.of(context).colorScheme.tertiary,
+                                    color:
+                                        Theme.of(context).colorScheme.tertiary,
                                   ),
                                 ),
                                 const Text("苦手問題"),
@@ -178,13 +184,18 @@ class CategoryDetailScreen extends HookConsumerWidget {
                         child: SizedBox(
                           width: MediaQuery.of(context).size.width * 0.9,
                           child: ElevatedButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => QuizListScreen(
-                                              category: category,
-                                            )));
+                              onPressed: ([bool mounted = true]) async {
+                                // final quizList =
+                                //    await ref.watch(quizControllerProvider(category)).asData!.value;
+                                // print(quizList);
+                                if (!mounted) return;
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => QuizListScreen(
+                                                category: category,
+                                                // quizList: quizList,
+                                              )));
                               },
                               style: ElevatedButton.styleFrom(
                                   backgroundColor:

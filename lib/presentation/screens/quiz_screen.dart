@@ -17,11 +17,11 @@ import '../../domain/quiz/quiz.dart';
 import '../../general/general_provider.dart';
 import '../controller/quiz_history_controller.dart';
 
-final remainTimeProvider = StateProvider<int>((ref) => 0);
+// final remainTimeProvider = StateProvider<int>((ref) => 0);
 final questionAnswerProvider =
     StateProvider<Map<int, bool>>((ref) => {0: false});
 final optionGestureProvider = StateProvider((ref) => false);
-final currentQuestionIndexProvider = StateProvider((ref) => 0);
+// final currentQuestionIndexProvider = StateProvider((ref) => 0);
 
 class QuizScreen extends StatefulHookConsumerWidget {
   static const routeName = '/quiz';
@@ -34,7 +34,7 @@ class QuizScreen extends StatefulHookConsumerWidget {
       {this.category,
       this.quiz,
       required this.questionList,
-        required this.reader,
+      required this.reader,
       Key? key})
       : super(key: key);
 
@@ -42,7 +42,10 @@ class QuizScreen extends StatefulHookConsumerWidget {
   ConsumerState<QuizScreen> createState() =>
       // ignore: no_logic_in_create_state
       _QuizScreenState(
-          category: category, quiz: quiz, questionList: questionList, reader: reader);
+          category: category,
+          quiz: quiz,
+          questionList: questionList,
+          reader: reader);
 }
 
 class _QuizScreenState extends ConsumerState<QuizScreen>
@@ -66,7 +69,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
     required this.questionList,
   }) {
     engine = QuizEngine(
-      reader: reader,
+        reader: reader,
         category: category,
         questionList: questionList,
         onNext: onNextQuestion,
@@ -87,7 +90,6 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
     appState = state;
-    // print(state);
   }
 
   @override
@@ -103,23 +105,21 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // screenHeader(),
-              quizQuestion(),
-              questionOptions(),
-              // quizProgress(),
-              QuizProgress(question, progressTimer,
-                  remainTime: _remainTime,
-                  engine: engine,
-                  questionList: questionList,
-                  playIncorrectSoundFile: _playIncorrectSoundFile),
-              footerButton(context),
-            ],
-          ),
-        );
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          quizQuestion(),
+          questionOptions(),
+          QuizProgress(question, progressTimer,
+              remainTime: _remainTime,
+              engine: engine,
+              questionList: questionList,
+              playIncorrectSoundFile: _playIncorrectSoundFile),
+          // footerButton(context),
+        ],
+      ),
+    );
   }
 
   // Widget screenHeader() {
@@ -141,7 +141,8 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text("${ref.watch(currentQuestionIndexProvider)} / ${questionList.length}"),
+            // Text(
+            //     "${ref.watch(currentQuestionIndexProvider)} / ${questionList.length}"),
             Text(
               question?.text ?? "",
             ),
@@ -261,21 +262,22 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         ElevatedButton(
-            onPressed: () {
-              setState(() {
-                engine.stop();
-                ref.watch(optionGestureProvider.notifier).state = false;
-                ref.watch(questionAnswerProvider.notifier).state = {0: false};
-                if (progressTimer != null && progressTimer!.isActive) {
-                  progressTimer!.cancel();
-                }
-              });
-              Navigator.pop(context);
-            },
-            child: const Text(
-              "キャンセル",
-              style: TextStyle(fontSize: 20),
-            )),
+          onPressed: () {
+            setState(() {
+              engine.stop();
+              ref.watch(optionGestureProvider.notifier).state = false;
+              ref.watch(questionAnswerProvider.notifier).state = {0: false};
+              if (progressTimer != null && progressTimer!.isActive) {
+                progressTimer!.cancel();
+              }
+            });
+            Navigator.pop(context);
+          },
+          child: const Text(
+            "キャンセル",
+            style: TextStyle(fontSize: 20),
+          ),
+        ),
         // ElevatedButton(
         //   onPressed: () {
         //     engine.next();
@@ -389,18 +391,16 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
     // progressTimer!.cancel();
     // print("quiz.categoryDocRef : ${quiz.categoryDocRef}");
     // Navigator.pop(context);
-    if(quiz != null) {
+    if (category != null) {
       // ref
       //     .watch(categoryControllerProvider.notifier)
       //     .retrieveCategoryById(quizCategoryDocRef: quiz!.categoryDocRef!)
       //     .then((category) =>
-          ref.watch(quizHistoryControllerProvider.notifier).addQuizHistory(
-            user: ref
-                .watch(firebaseAuthProvider)
-                .currentUser!,
-            quizDocRef: quiz!.quizDocRef!,
-            categoryDocRef: quiz!.categoryDocRef!,
-            quizTitle: quiz!.title,
+      ref.watch(quizHistoryControllerProvider.notifier).addQuizHistory(
+            user: ref.watch(firebaseAuthProvider).currentUser!,
+            quizDocRef: category.quizDocRef!,
+            categoryDocRef: category.categoryDocRef!,
+            quizTitle: category.name,
             score: total.round(),
             questionCount: questionList.length,
             timeTakenMinutes: -takenTime.inMinutes,
@@ -409,42 +409,27 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
             status: "Complete",
             takenQuestions: takenQuestions,
             answerIsCorrectList: answerIsCorrectList,
-          // )
-    );
-      // push にすると、この画面は単一の画面ではないため、画面遷移が乱れる
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  QuizResultScreen(
-                      category: category,
-                      result: QuizResult(
-                          questionList: questionList,
-                          totalCorrect: total),
-                      takenQuestions: takenQuestions,
-                      answerIsCorrectList: answerIsCorrectList)));
-    } else {
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  QuizResultScreen(
-                      category: category,
-                      result: QuizResult(
-                          questionList: questionList,
-                          totalCorrect: total),
-                      takenQuestions: takenQuestions,
-                      answerIsCorrectList: answerIsCorrectList)));
+            // )
+          );
     }
-    // Navigator.push(
-    //     context,
-    //     MaterialPageRoute(
-    //         builder: (context) => QuizResultScreen(
-    //             result: QuizResult(
-    //                 quiz: quiz,
-    //                 questionList: questionList,
-    //                 totalCorrect: total))));
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => QuizResultScreen(
+                category: category,
+                result:
+                    QuizResult(questionList: questionList, totalCorrect: total),
+                takenQuestions: takenQuestions,
+                answerIsCorrectList: answerIsCorrectList)));
   }
+  // Navigator.push(
+  //     context,
+  //     MaterialPageRoute(
+  //         builder: (context) => QuizResultScreen(
+  //             result: QuizResult(
+  //                 quiz: quiz,
+  //                 questionList: questionList,
+  //                 totalCorrect: total))));
 
   void onStop() {
     _remainTime = 0;

@@ -74,7 +74,7 @@ class QuizEngine {
             // updateAnswer(
             //     questionIndex: questionList.indexOf(question),);
             print("questionIndex : $questionIndex");
-            reader(currentQuestionIndexProvider.notifier).state = questionIndex;
+            // reader(currentQuestionIndexProvider.notifier).state = questionIndex;
           }
         }
         if (question != null) {
@@ -82,11 +82,10 @@ class QuizEngine {
               questionStartTime.add(Duration(seconds: question.duration));
           var timeDiff = questionTimeEnd.difference(DateTime.now()).inSeconds;
           if (timeDiff <= 0) {
-            takeNewQuestion = true;
-          }
-          if (reader(remainTimeProvider) < 0) {
+            // 未回答の場合は updateAnswer で answer : null
             updateAnswer(
               questionIndex: questionList.indexOf(question),);
+            takeNewQuestion = true;
           }
         }
         //　_nextQuestion関数でとってきたクイズが null だった時 ＝ クイズが終わった時
