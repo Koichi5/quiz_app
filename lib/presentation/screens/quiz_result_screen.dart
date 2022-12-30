@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:quiz_app/presentation/screens/home_screen.dart';
 import 'package:quiz_app/presentation/screens/quiz_list_screen.dart';
 import 'package:quiz_app/presentation/screens/quiz_screen.dart';
 import 'package:quiz_app/presentation/widgets/result_question_list_card.dart';
@@ -9,6 +8,7 @@ import '../../domain/category/category.dart';
 import '../../domain/dto/quiz_result.dart';
 import '../../domain/question/question.dart';
 import '../controller/category_controller.dart';
+import 'home_screen.dart';
 
 class QuizResultScreen extends HookConsumerWidget {
   static const routeName = '/quizResult';
@@ -95,9 +95,9 @@ class QuizResultScreen extends HookConsumerWidget {
         children: [
           ElevatedButton(
             onPressed: () {
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => const HomeScreen()));
-              Navigator.pop(context);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const HomeScreen()));
+              // Navigator.pop(context);
             },
             child: const Text(
               "Close",
@@ -108,13 +108,14 @@ class QuizResultScreen extends HookConsumerWidget {
           ),
           category != null ?
           TextButton(
-              onPressed: () {
+              onPressed: ([bool mounted = true]) {
                 ref.watch(optionGestureProvider.notifier).state = false;
                 ref
                     .watch(categoryControllerProvider.notifier)
                     .retrieveCategoryById(
                     quizCategoryDocRef: category!.categoryDocRef!)
                     .then((value) {
+                  if (!mounted) return;
                   Navigator.push(
                       context,
                       MaterialPageRoute(

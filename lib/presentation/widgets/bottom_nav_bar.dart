@@ -9,7 +9,7 @@ class BottomNavBar extends HookConsumerWidget {
   BottomNavBar({Key? key}) : super(key: key);
 
   final Map<String, IconData> bottomContentList = {
-    "Home": Icons.home,
+    "ホーム": Icons.home,
     "復習": Icons.star,
     "追加": Icons.add,
     "設定": Icons.settings,

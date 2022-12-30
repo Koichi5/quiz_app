@@ -21,7 +21,7 @@ import '../controller/quiz_history_controller.dart';
 final questionAnswerProvider =
     StateProvider<Map<int, bool>>((ref) => {0: false});
 final optionGestureProvider = StateProvider((ref) => false);
-// final currentQuestionIndexProvider = StateProvider((ref) => 0);
+final currentQuestionIndexProvider = StateProvider((ref) => 1);
 
 class QuizScreen extends StatefulHookConsumerWidget {
   static const routeName = '/quiz';
@@ -104,12 +104,15 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
 
   @override
   Widget build(BuildContext context) {
+    // final currentQuestionIndex = ref.watch(currentQuestionIndexProvider);
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          quizQuestion(),
+          quizQuestion(
+              // currentQuestionIndex: currentQuestionIndex
+          ),
           questionOptions(),
           QuizProgress(question, progressTimer,
               remainTime: _remainTime,
@@ -132,7 +135,9 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
   //   );
   // }
 
-  Widget quizQuestion() {
+  Widget quizQuestion(
+      // {required int currentQuestionIndex}
+      ) {
     return Container(
       alignment: Alignment.centerLeft,
       padding: const EdgeInsets.all(20),
@@ -141,8 +146,8 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Text(
-            //     "${ref.watch(currentQuestionIndexProvider)} / ${questionList.length}"),
+            Text(
+                "${reader(currentQuestionIndexProvider)} / ${questionList.length}"),
             Text(
               question?.text ?? "",
             ),
@@ -181,6 +186,8 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
                     // 2.5秒後に次の問題へ
                     Future.delayed(const Duration(milliseconds: 2500), () {
                       engine.next();
+                      // 一問終了することごとに現在の問題の数が日と続く増える
+                      reader(currentQuestionIndexProvider.notifier).state++;
                       // 何かしらの選択肢を選択したら true になる provider, 画面遷移時には次の問題へ移行するため、false にする必要がある
                       ref.watch(optionGestureProvider.notifier).state = false;
                     });

@@ -4,9 +4,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quiz_app/domain/category/category.dart';
-import 'package:quiz_app/presentation/screens/quiz_screen.dart';
 
 import '../domain/question/question.dart';
+import '../presentation/screens/quiz_screen.dart';
 
 typedef OnQuizNext = void Function(Question question);
 typedef OnQuizCompleted = void Function(
@@ -68,6 +68,7 @@ class QuizEngine {
             questionIndex++;
             questionStartTime = DateTime.now();
             onNext(question);
+            // reader(currentQuestionIndexProvider.notifier).state = questionIndex;
             // reader(remainTimeProvider) == 0 ?
             //   updateAnswer(
             //       questionIndex: questionList.indexOf(question),) : null;
@@ -99,6 +100,7 @@ class QuizEngine {
           var takenTime = examStartTime.difference(DateTime.now());
           print("takenQuestions : $takenQuestions");
           onCompleted(context, category, totalCorrect, takenTime, takenQuestions, questionAnswer.values.toList());
+          reader(currentQuestionIndexProvider.notifier).state = 0;
         }
         await Future.delayed(const Duration(milliseconds: 500));
       } while (question != null && isRunning);

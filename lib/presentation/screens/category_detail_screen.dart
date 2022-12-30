@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quiz_app/domain/category/category.dart';
 import 'package:quiz_app/presentation/screens/quiz_list_screen.dart';
+import 'package:quiz_app/presentation/screens/quiz_screen.dart';
 
 import '../../domain/quiz/quiz.dart';
 import '../controller/quiz_controller.dart';
@@ -184,12 +185,12 @@ class CategoryDetailScreen extends HookConsumerWidget {
                         child: SizedBox(
                           width: MediaQuery.of(context).size.width * 0.9,
                           child: ElevatedButton(
-                              onPressed: ([bool mounted = true]) async {
+                              onPressed: ([bool mounted = true]) {
                                 // final quizList =
                                 //    await ref.watch(quizControllerProvider(category)).asData!.value;
                                 // print(quizList);
                                 if (!mounted) return;
-                                  Navigator.push(
+                                Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => QuizListScreen(
