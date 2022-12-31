@@ -46,6 +46,7 @@ class OriginalQuestionListScreen extends HookConsumerWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
+                              SizedBox(height: MediaQuery.of(context).size.height * 0.1,),
                               const Text("自分で問題を追加して解いてみましょう！"),
                               Lottie.asset(
                                 "assets/original_question.json",

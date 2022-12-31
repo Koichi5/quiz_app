@@ -7,18 +7,14 @@ import '../screens/quiz_screen.dart';
 class QuestionOption extends HookConsumerWidget {
   final Option option;
   final bool isSelected;
-  // final String optionText;
   final int index;
   final bool optionIsCorrect;
 
   const QuestionOption({
     required this.index,
     required this.option,
-    // required this.optionText,
-    // required this.optionText,
     required this.optionIsCorrect,
     required this.isSelected,
-    // required this.optionIsCorrect,
     Key? key,
   }) : super(key: key);
 
@@ -26,15 +22,20 @@ class QuestionOption extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
         decoration: BoxDecoration(
-            // border: Border.all(width: 0.7),
-            border: ref.watch(optionGestureProvider)
+            color: ref.watch(optionGestureProvider)
                 ? option.isCorrect
-                    ? Border.all(
-                        width: 4.0,
-                        color: Theme.of(context).colorScheme.primary)
-                    : Border.all(
-                        width: 0.7,)
-                : Border.all(width: 0.7),
+                    ? Theme.of(context).colorScheme.primaryContainer
+                    : Theme.of(context).colorScheme.background
+                : Theme.of(context).colorScheme.background,
+            border: Border.all(width: 0.7),
+            // border: ref.watch(optionGestureProvider)
+            //     ? option.isCorrect
+            //         ? Border.all(
+            //             width: 4.0,
+            //             color: Theme.of(context).colorScheme.primary)
+            //         : Border.all(
+            //             width: 0.7,)
+            //     : Border.all(width: 0.7),
             borderRadius: const BorderRadius.all(Radius.circular(50))),
         width: MediaQuery.of(context).size.width * 0.9,
         padding: const EdgeInsets.all(10),

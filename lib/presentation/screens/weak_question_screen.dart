@@ -38,6 +38,8 @@ class WeakQuestionScreen extends HookConsumerWidget {
                 if (retrievedWeakQuestionList.hasData) {
                   // print(retrievedWeakQuestionList);
                   return Column(
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       ListView.builder(
                           shrinkWrap: true,
@@ -52,7 +54,9 @@ class WeakQuestionScreen extends HookConsumerWidget {
                       retrievedWeakQuestionList.data!.isEmpty
                           ? Center(
                               child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
+                                  SizedBox(height: MediaQuery.of(context).size.height * 0.1,),
                                   const Text("苦手問題を登録して復習しましょう！"),
                                   Lottie.asset("assets/weak_question.json",
                                       width: MediaQuery.of(context).size.width *

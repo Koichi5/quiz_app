@@ -29,28 +29,25 @@ class QuizHistoryScreen extends HookConsumerWidget {
               return Text(quizHistoryList.error.toString());
             }
             if (quizHistoryList.hasData) {
-              return quizHistoryList.data!.isEmpty
-                  ? Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text("クイズを解いて実力をつけましょう！"),
-                          Lottie.asset(
-                            "assets/quiz_history.json",
-                            width: MediaQuery.of(context).size.width * 0.7,
-                            fit: BoxFit.fitWidth,
-                          ),
-                        ],
+              if (quizHistoryList.data!.isEmpty) {
+                return Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.1,),
+                      const Text("クイズを解いて実力をつけましょう！"),
+                      Lottie.asset(
+                        "assets/quiz_history.json",
+                        width: MediaQuery.of(context).size.width * 0.7,
+                        fit: BoxFit.fitWidth,
                       ),
-                    )
-                  : Center(
+                    ],
+                  ),
+                );
+              } else {
+                return Center(
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
-                          // children: [
-                          //   for (int i = 0; i < 10; i++) ...{
-                          //     quizHistoryList.data.toList()[i]
-                          //   },
-                          // ]
                           children: List<QuizHistory>.from(quizHistoryList.data!)
                               .map(
                                 (quizHistory) => QuizHistoryCard(
@@ -60,6 +57,7 @@ class QuizHistoryScreen extends HookConsumerWidget {
                               .toList(),
                           ),
                     );
+              }
             } else {
               return const Center(child: Text("履歴はまだありません\n クイズに挑戦してみましょう！"));
             }

@@ -17,7 +17,6 @@ import '../../domain/quiz/quiz.dart';
 import '../../general/general_provider.dart';
 import '../controller/quiz_history_controller.dart';
 
-// final remainTimeProvider = StateProvider<int>((ref) => 0);
 final questionAnswerProvider =
     StateProvider<Map<int, bool>>((ref) => {0: false});
 final optionGestureProvider = StateProvider((ref) => false);
@@ -135,23 +134,31 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
   //   );
   // }
 
-  Widget quizQuestion(
-      // {required int currentQuestionIndex}
-      ) {
+  Widget quizQuestion() {
     return Container(
       alignment: Alignment.centerLeft,
-      padding: const EdgeInsets.all(20),
-      margin: const EdgeInsets.only(bottom: 10),
       child: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-                "${reader(currentQuestionIndexProvider)} / ${questionList.length}"),
-            Text(
-              question?.text ?? "",
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Text(
+                    "${reader(currentQuestionIndexProvider)} / ${questionList.length}"),
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Text(
+                    question?.text ?? "",
+                    style: const TextStyle(fontSize: 18),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
