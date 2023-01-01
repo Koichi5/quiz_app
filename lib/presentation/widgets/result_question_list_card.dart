@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:lottie/lottie.dart';
 import 'package:quiz_app/domain/question/question.dart';
 import 'package:quiz_app/domain/weak_question/weak_question.dart';
 import 'package:quiz_app/presentation/controller/weak_question_controller.dart';
@@ -53,54 +52,62 @@ class ResultQuestionListCard extends HookConsumerWidget {
                 .watch(weakQuestionControllerProvider.notifier)
                 .retrieveWeakQuestionList(),
             builder: (BuildContext context,
-                AsyncSnapshot<List<WeakQuestion>> snapshot) {
-              if (snapshot.connectionState != ConnectionState.done) {
-                return Center(child: Lottie.asset("assets/loading.json", width: 200, height: 200),);
+                AsyncSnapshot<List<WeakQuestion>> weakQuestionList) {
+              if (weakQuestionList.connectionState != ConnectionState.done) {
+                // return Center(child: Lottie.asset("assets/json_files/loading.json", width: 200, height: 200),);
+                return const SizedBox();
               }
               // エラー発生時はエラーメッセージを表示
-              if (snapshot.hasError) {
-                return Text(snapshot.error.toString());
+              if (weakQuestionList.hasError) {
+                return Text(weakQuestionList.error.toString());
               }
               // データがnullでないかチェック
-              if (snapshot.hasData) {
-                return snapshot.data!.any((element) =>
-                        element.questionDocRef == question.questionDocRef)
-                    // return snapshot.data!.contains(WeakQuestion(
-                    //         categoryDocRef: question.categoryDocRef!,
-                    //         quizDocRef: question.quizDocRef!,
-                    //         questionDocRef: question.questionDocRef!,
-                    // ))
-                    //   return snapshot.data!.then((retrievedWeakQuestionList) => retrievedWeakQuestionList.forEach((e) => e.questionDocRef == question.questionDocRef))
-                    ? IconButton(
-                        onPressed: () {
-                          // print(snapshot.data!.contains(WeakQuestion(
-                          //     categoryDocRef: question.categoryDocRef!,
-                          //     quizDocRef: question.quizDocRef!,
-                          //     questionDocRef: question.questionDocRef!)));
-                          // print(snapshot.data!.map((e) =>
-                          //     e.questionDocRef == question.questionDocRef));
-                          ref
-                              .watch(weakQuestionControllerProvider.notifier)
-                              .deleteWeakQuestion(
-                                  quizDocRef: question.quizDocRef!,
+              if (weakQuestionList.hasData) {
+                if (weakQuestionList.data!.isEmpty) {
+                  return const SizedBox();
+                } else {
+                  return weakQuestionList.data!.any((element) =>
+                          element.questionDocRef == question.questionDocRef)
+                      // return snapshot.data!.contains(WeakQuestion(
+                      //         categoryDocRef: question.categoryDocRef!,
+                      //         quizDocRef: question.quizDocRef!,
+                      //         questionDocRef: question.questionDocRef!,
+                      // ))
+                      //   return snapshot.data!.then((retrievedWeakQuestionList) => retrievedWeakQuestionList.forEach((e) => e.questionDocRef == question.questionDocRef))
+                      ? IconButton(
+                          onPressed: () async {
+                            // print(weakQuestionList.data!.contains(WeakQuestion(
+                            //     categoryDocRef: question.categoryDocRef!,
+                            //     quizDocRef: question.quizDocRef!,
+                            //     questionDocRef: question.questionDocRef!)));
+                            // print(snapshot.data!.map((e) =>
+                            //     e.questionDocRef == question.questionDocRef));
+                            await ref
+                                .watch(weakQuestionControllerProvider.notifier)
+                                .deleteWeakQuestion(
                                   categoryDocRef: question.categoryDocRef!,
-                                  questionDocRef: question.questionDocRef!);
-                        },
-                        icon: const Icon(Icons.check_box_outlined))
-                    : IconButton(
-                        onPressed: () {
-                          print(snapshot.data!.contains(WeakQuestion(
-                              categoryDocRef: question.categoryDocRef!,
-                              quizDocRef: question.quizDocRef!,
-                              questionDocRef: question.questionDocRef!)));
-                          ref
-                              .watch(weakQuestionControllerProvider.notifier)
-                              .addWeakQuestion(
                                   quizDocRef: question.quizDocRef!,
-                                  categoryDocRef: question.categoryDocRef!,
-                                  questionDocRef: question.questionDocRef!);
-                        },
-                        icon: const Icon(Icons.check_box_outline_blank));
+                                  questionDocRef: question.questionDocRef!,
+                                );
+                            ref.watch(weakQuestionControllerProvider);
+                          },
+                          icon: const Icon(Icons.check_box_outlined))
+                      : IconButton(
+                          onPressed: () async {
+                            print(weakQuestionList.data!.contains(WeakQuestion(
+                                categoryDocRef: question.categoryDocRef!,
+                                quizDocRef: question.quizDocRef!,
+                                questionDocRef: question.questionDocRef!)));
+                            await ref
+                                .watch(weakQuestionControllerProvider.notifier)
+                                .addWeakQuestion(
+                                    categoryDocRef: question.categoryDocRef!,
+                                    quizDocRef: question.quizDocRef!,
+                                    questionDocRef: question.questionDocRef!);
+                            ref.watch(weakQuestionControllerProvider);
+                          },
+                          icon: const Icon(Icons.check_box_outline_blank));
+                }
               } else {
                 return const SizedBox(
                   width: 0,

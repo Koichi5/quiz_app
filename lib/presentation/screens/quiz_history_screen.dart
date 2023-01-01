@@ -21,7 +21,7 @@ class QuizHistoryScreen extends HookConsumerWidget {
               AsyncSnapshot<List<QuizHistory>> quizHistoryList) {
             if (quizHistoryList.connectionState != ConnectionState.done) {
               return Center(
-                child: Lottie.asset("assets/loading.json",
+                child: Lottie.asset("assets/json_files/loading.json",
                     width: 200, height: 200),
               );
             }

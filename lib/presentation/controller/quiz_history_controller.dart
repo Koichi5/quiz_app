@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quiz_app/general/custom_exception.dart';
 import 'package:quiz_app/presentation/controller/auth_controller.dart';
 
+import '../../domain/question/question.dart';
 import '../../domain/quiz_history/quiz_history.dart';
 import '../../domain/repository/quiz_history_repository.dart';
 
@@ -54,6 +55,7 @@ class QuizHistoryController
     required String status,
     required List<int> takenQuestions,
     required List<bool> answerIsCorrectList,
+    required List<Question> questionList,
   }) async {
     final quizHistory = QuizHistory(
       quizDocRef: quizDocRef,
@@ -67,6 +69,7 @@ class QuizHistoryController
       status: status,
       takenQuestions: takenQuestions,
       answerIsCorrectList: answerIsCorrectList,
+      questionList: questionList,
     );
     final quizHistoryDocRef = await _reader(quizHistoryRepositoryProvider)
         .addQuizHistory(quizHistory: quizHistory, user: user);

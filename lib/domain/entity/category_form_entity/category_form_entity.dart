@@ -18,5 +18,6 @@ class CategoryFormEntity with _$CategoryFormEntity {
         name: Field(value: ""),
         description: Field(value: ""),
       );
-  bool get isValid => id.isValid && name.isValid && description.isValid;
+  // bool get isValid => id.isValid && name.isValid && description.isValid;
+  bool get isValid => true;
 }

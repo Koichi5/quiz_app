@@ -60,7 +60,7 @@ class TakenQuizPercentIndicator extends HookConsumerWidget {
         builder: (BuildContext context,
             AsyncSnapshot<List<QuizHistory>> userQuizHistory) {
           if (userQuizHistory.connectionState != ConnectionState.done) {
-            return Center(child: Lottie.asset("assets/loading.json", width: 200, height: 200),);
+            return Center(child: Lottie.asset("assets/json_files/loading.json", width: 200, height: 200),);
           }
           if (userQuizHistory.hasError) {
             return Text(userQuizHistory.error.toString());

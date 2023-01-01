@@ -31,7 +31,7 @@ class WeakQuestionRepository implements BaseWeakQuestionRepository {
           .doc(userId)
           .collection("weakQuestion");
       final weakQuestionDocRef = weakQuestionRef.doc().id;
-      await weakQuestionRef.doc(weakQuestionDocRef).set(WeakQuestion(
+      await weakQuestionRef.doc(weakQuestion.questionDocRef).set(WeakQuestion(
             id: weakQuestion.id,
             categoryDocRef: weakQuestion.categoryDocRef,
             quizDocRef: weakQuestion.quizDocRef,
@@ -52,7 +52,7 @@ class WeakQuestionRepository implements BaseWeakQuestionRepository {
           .collection("user")
           .doc(userId)
           .collection("weakQuestion")
-          .doc(weakQuestion.weakQuestionDocRef)
+          .doc(weakQuestion.questionDocRef)
           .delete();
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message);

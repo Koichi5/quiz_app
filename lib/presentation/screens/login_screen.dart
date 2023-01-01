@@ -11,12 +11,13 @@ class LoginScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final emailControllerProvider = ref.watch(loginEmailControllerStateProvider);
+    final emailControllerProvider =
+        ref.watch(loginEmailControllerStateProvider);
     final passwordControllerProvider =
-    ref.watch(loginPasswordControllerStateProvider);
+        ref.watch(loginPasswordControllerStateProvider);
     final obscureText = ref.watch(loginObscureTextStateProvider);
     final obscureTextControllerNotifier =
-    ref.watch(loginObscureTextStateProvider.notifier);
+        ref.watch(loginObscureTextStateProvider.notifier);
     final loginValidator = ref.watch(loginValidatorProvider);
     final loginValidatorNotifier = ref.watch(loginValidatorProvider.notifier);
     return Scaffold(
@@ -31,7 +32,6 @@ class LoginScreen extends HookConsumerWidget {
               height: MediaQuery.of(context).size.height * 0.1,
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.1,
               child: CustomTextField(
                 title: "メールアドレス",
                 controller: emailControllerProvider,
@@ -45,7 +45,6 @@ class LoginScreen extends HookConsumerWidget {
               height: MediaQuery.of(context).size.height * 0.02,
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.1,
               child: CustomTextField(
                   title: "パスワード",
                   controller: passwordControllerProvider,
@@ -56,20 +55,21 @@ class LoginScreen extends HookConsumerWidget {
                   },
                   suffixIcon: obscureText
                       ? IconButton(
-                      onPressed: () {
-                        obscureTextControllerNotifier.state = false;
-                      },
-                      icon: const Icon(Icons.visibility_off))
+                          onPressed: () {
+                            obscureTextControllerNotifier.state = false;
+                          },
+                          icon: const Icon(Icons.visibility_off))
                       : IconButton(
-                      onPressed: () {
-                        obscureTextControllerNotifier.state = true;
-                      },
-                      icon: const Icon(Icons.visibility))),
+                          onPressed: () {
+                            obscureTextControllerNotifier.state = true;
+                          },
+                          icon: const Icon(Icons.visibility))),
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.02,
             ),
-            LoginButton(emailControllerProvider.text, passwordControllerProvider.text),
+            LoginButton(
+                emailControllerProvider.text, passwordControllerProvider.text),
           ],
         ),
       ),

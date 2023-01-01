@@ -24,6 +24,9 @@ _$_QuizHistory _$$_QuizHistoryFromJson(Map<String, dynamic> json) =>
       answerIsCorrectList: (json['answerIsCorrectList'] as List<dynamic>)
           .map((e) => e as bool)
           .toList(),
+      questionList: (json['questionList'] as List<dynamic>)
+          .map((e) => Question.fromJson(e))
+          .toList(),
     );
 
 Map<String, dynamic> _$$_QuizHistoryToJson(_$_QuizHistory instance) =>
@@ -40,4 +43,5 @@ Map<String, dynamic> _$$_QuizHistoryToJson(_$_QuizHistory instance) =>
       'status': instance.status,
       'takenQuestions': instance.takenQuestions,
       'answerIsCorrectList': instance.answerIsCorrectList,
+      'questionList': instance.questionList,
     };

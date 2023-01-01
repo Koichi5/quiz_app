@@ -32,6 +32,7 @@ mixin _$QuizHistory {
   String get status => throw _privateConstructorUsedError;
   List<int> get takenQuestions => throw _privateConstructorUsedError;
   List<bool> get answerIsCorrectList => throw _privateConstructorUsedError;
+  List<Question> get questionList => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -57,7 +58,8 @@ abstract class $QuizHistoryCopyWith<$Res> {
       DateTime quizDate,
       String status,
       List<int> takenQuestions,
-      List<bool> answerIsCorrectList});
+      List<bool> answerIsCorrectList,
+      List<Question> questionList});
 }
 
 /// @nodoc
@@ -85,6 +87,7 @@ class _$QuizHistoryCopyWithImpl<$Res, $Val extends QuizHistory>
     Object? status = null,
     Object? takenQuestions = null,
     Object? answerIsCorrectList = null,
+    Object? questionList = null,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -135,6 +138,10 @@ class _$QuizHistoryCopyWithImpl<$Res, $Val extends QuizHistory>
           ? _value.answerIsCorrectList
           : answerIsCorrectList // ignore: cast_nullable_to_non_nullable
               as List<bool>,
+      questionList: null == questionList
+          ? _value.questionList
+          : questionList // ignore: cast_nullable_to_non_nullable
+              as List<Question>,
     ) as $Val);
   }
 }
@@ -159,7 +166,8 @@ abstract class _$$_QuizHistoryCopyWith<$Res>
       DateTime quizDate,
       String status,
       List<int> takenQuestions,
-      List<bool> answerIsCorrectList});
+      List<bool> answerIsCorrectList,
+      List<Question> questionList});
 }
 
 /// @nodoc
@@ -185,6 +193,7 @@ class __$$_QuizHistoryCopyWithImpl<$Res>
     Object? status = null,
     Object? takenQuestions = null,
     Object? answerIsCorrectList = null,
+    Object? questionList = null,
   }) {
     return _then(_$_QuizHistory(
       id: freezed == id
@@ -235,6 +244,10 @@ class __$$_QuizHistoryCopyWithImpl<$Res>
           ? _value._answerIsCorrectList
           : answerIsCorrectList // ignore: cast_nullable_to_non_nullable
               as List<bool>,
+      questionList: null == questionList
+          ? _value._questionList
+          : questionList // ignore: cast_nullable_to_non_nullable
+              as List<Question>,
     ));
   }
 }
@@ -254,9 +267,11 @@ class _$_QuizHistory extends _QuizHistory {
       required this.quizDate,
       required this.status,
       required final List<int> takenQuestions,
-      required final List<bool> answerIsCorrectList})
+      required final List<bool> answerIsCorrectList,
+      required final List<Question> questionList})
       : _takenQuestions = takenQuestions,
         _answerIsCorrectList = answerIsCorrectList,
+        _questionList = questionList,
         super._();
 
   factory _$_QuizHistory.fromJson(Map<String, dynamic> json) =>
@@ -296,9 +311,16 @@ class _$_QuizHistory extends _QuizHistory {
     return EqualUnmodifiableListView(_answerIsCorrectList);
   }
 
+  final List<Question> _questionList;
+  @override
+  List<Question> get questionList {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_questionList);
+  }
+
   @override
   String toString() {
-    return 'QuizHistory(id: $id, categoryDocRef: $categoryDocRef, quizDocRef: $quizDocRef, quizTitle: $quizTitle, score: $score, questionCount: $questionCount, timeTakenMinutes: $timeTakenMinutes, timeTakenSeconds: $timeTakenSeconds, quizDate: $quizDate, status: $status, takenQuestions: $takenQuestions, answerIsCorrectList: $answerIsCorrectList)';
+    return 'QuizHistory(id: $id, categoryDocRef: $categoryDocRef, quizDocRef: $quizDocRef, quizTitle: $quizTitle, score: $score, questionCount: $questionCount, timeTakenMinutes: $timeTakenMinutes, timeTakenSeconds: $timeTakenSeconds, quizDate: $quizDate, status: $status, takenQuestions: $takenQuestions, answerIsCorrectList: $answerIsCorrectList, questionList: $questionList)';
   }
 
   @override
@@ -326,7 +348,9 @@ class _$_QuizHistory extends _QuizHistory {
             const DeepCollectionEquality()
                 .equals(other._takenQuestions, _takenQuestions) &&
             const DeepCollectionEquality()
-                .equals(other._answerIsCorrectList, _answerIsCorrectList));
+                .equals(other._answerIsCorrectList, _answerIsCorrectList) &&
+            const DeepCollectionEquality()
+                .equals(other._questionList, _questionList));
   }
 
   @JsonKey(ignore: true)
@@ -344,7 +368,8 @@ class _$_QuizHistory extends _QuizHistory {
       quizDate,
       status,
       const DeepCollectionEquality().hash(_takenQuestions),
-      const DeepCollectionEquality().hash(_answerIsCorrectList));
+      const DeepCollectionEquality().hash(_answerIsCorrectList),
+      const DeepCollectionEquality().hash(_questionList));
 
   @JsonKey(ignore: true)
   @override
@@ -373,7 +398,8 @@ abstract class _QuizHistory extends QuizHistory {
       required final DateTime quizDate,
       required final String status,
       required final List<int> takenQuestions,
-      required final List<bool> answerIsCorrectList}) = _$_QuizHistory;
+      required final List<bool> answerIsCorrectList,
+      required final List<Question> questionList}) = _$_QuizHistory;
   _QuizHistory._() : super._();
 
   factory _QuizHistory.fromJson(Map<String, dynamic> json) =
@@ -403,6 +429,8 @@ abstract class _QuizHistory extends QuizHistory {
   List<int> get takenQuestions;
   @override
   List<bool> get answerIsCorrectList;
+  @override
+  List<Question> get questionList;
   @override
   @JsonKey(ignore: true)
   _$$_QuizHistoryCopyWith<_$_QuizHistory> get copyWith =>

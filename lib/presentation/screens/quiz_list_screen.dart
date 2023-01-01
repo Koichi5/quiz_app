@@ -44,7 +44,7 @@ class QuizListScreen extends HookConsumerWidget {
     //                     questionList: questions),
     //             error: (error, _) => const Text("エラー"),
     //             loading: () => Center(
-    //               child: Lottie.asset("assets/loading.json",
+    //               child: Lottie.asset("assets/json_files/loading.json",
     //                   width: 200, height: 200),
     //             ),
     //           ),
@@ -84,7 +84,7 @@ class QuizListScreen extends HookConsumerWidget {
                                       questionList: questions),
                               error: (error, _) => const Text("エラー"),
                               loading: () => Center(
-                                    child: Lottie.asset("assets/loading.json",
+                                    child: Lottie.asset("assets/json_files/loading.json",
                                         width: 200, height: 200),
                                   )),
                   //     : ListView.builder(
@@ -98,7 +98,7 @@ class QuizListScreen extends HookConsumerWidget {
                   // ),
                   error: (error, _) => const Center(child: Text("エラー")),
                   loading: () => Center(
-                    child: Lottie.asset("assets/loading.json",
+                    child: Lottie.asset("assets/json_files/loading.json",
                         width: 200, height: 200),
                   ),
                 )

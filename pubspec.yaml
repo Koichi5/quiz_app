@@ -29,6 +29,7 @@ dependencies:
   material_segmented_control: ^4.0.0
   just_audio: ^0.9.30
   expandable: ^5.0.1
+  bordered_text: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -68,5 +69,7 @@ flutter:
 
   assets:
     - assets/
+    - assets/sounds/
+    - assets/json_files/
     - assets/images/
     - assets/images/category_images/

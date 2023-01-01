@@ -324,7 +324,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
 
   Future<void> _loadCorrectAudioFile() async {
     try {
-      await _correctPlayer.setAsset('assets/correct_sound.mp3');
+      await _correctPlayer.setAsset('assets/sounds/correct_sound.mp3');
     } catch (e) {
       throw CustomException(message: e.toString());
     }
@@ -345,7 +345,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
 
   Future<void> _loadIncorrectAudioFile() async {
     try {
-      await _incorrectPlayer.setAsset("assets/incorrect_sound.mp3");
+      await _incorrectPlayer.setAsset("assets/sounds/incorrect_sound.mp3");
     } catch (e) {
       throw CustomException(message: e.toString());
     }
@@ -423,6 +423,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
             status: "Complete",
             takenQuestions: takenQuestions,
             answerIsCorrectList: answerIsCorrectList,
+            questionList: questionList,
             // )
           );
     }
@@ -430,11 +431,12 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
         context,
         MaterialPageRoute(
             builder: (context) => QuizResultScreen(
-                category: category,
                 result:
                     QuizResult(questionList: questionList, totalCorrect: total),
                 takenQuestions: takenQuestions,
-                answerIsCorrectList: answerIsCorrectList)));
+                answerIsCorrectList: answerIsCorrectList,
+              questionList: questionList,
+            )));
   }
   // Navigator.push(
   //     context,

@@ -32,7 +32,7 @@ class IntroSliderScreen extends ConsumerWidget {
               ContentConfig(
                 title: "高校情報レベルの単語を出題",
                 // pathImage: "assets/images/google_logo.png",
-                centerWidget: Lottie.asset("assets/intro_slider1.json",
+                centerWidget: Lottie.asset("assets/json_files/intro_slider1.json",
                     width: MediaQuery.of(context).size.width * 0.9,
                     height: MediaQuery.of(context).size.height * 0.3),
                 styleTitle: const TextStyle(color: Colors.cyan, fontSize: 20),
@@ -45,7 +45,7 @@ class IntroSliderScreen extends ConsumerWidget {
               ContentConfig(
                   title: "自分の問題を作成しよう！",
                   // pathImage: "assets/intro_slider2.json",
-                  centerWidget: Lottie.asset("assets/intro_slider2.json",
+                  centerWidget: Lottie.asset("assets/json_files/intro_slider2.json",
                       width: MediaQuery.of(context).size.width * 0.9,
                       height: MediaQuery.of(context).size.height * 0.3),
                   styleTitle: const TextStyle(color: Colors.cyan, fontSize: 20),
@@ -57,7 +57,7 @@ class IntroSliderScreen extends ConsumerWidget {
               ContentConfig(
                 title: "苦手な問題を登録しよう！",
                 // pathImage: "assets/intro_slider3.json",
-                centerWidget: Lottie.asset("assets/intro_slider3.json",
+                centerWidget: Lottie.asset("assets/json_files/intro_slider3.json",
                     width: MediaQuery.of(context).size.width * 0.9,
                     height: MediaQuery.of(context).size.height * 0.3),
                 styleTitle: const TextStyle(color: Colors.cyan, fontSize: 20),

@@ -12,7 +12,6 @@ class CategoryValidatorProvider extends StateNotifier<CategoryFormState> {
   CategoryValidatorProvider()
       : super(CategoryFormState(CategoryFormEntity.empty()));
 
-  // id, name, imagePath
   void setCategoryId(String categoryId) {
     final bool isCategoryId = RegExp("[0-9]").hasMatch(categoryId);
     CategoryFormEntity form = state.form.copyWith(id: Field(value: categoryId));

@@ -73,7 +73,7 @@ class CategoryController extends StateNotifier<AsyncValue<List<Category>>> {
       createdAt: createdAt,
       // google のロゴで代用
       imagePath:
-          "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",
+          "assets/images/category_images/category_image1.png",
     );
     final categoryWithDocRef = await _reader(categoryRepositoryProvider)
         .addCategory(category: category);

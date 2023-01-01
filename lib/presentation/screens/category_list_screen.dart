@@ -30,7 +30,7 @@ class CategoryListScreen extends HookConsumerWidget {
                     ),
               error: (error, _) => const Text("エラー"),
               loading: () => Center(
-                    child: Lottie.asset("assets/loading.json", width: 200, height: 200),
+                    child: Lottie.asset("assets/json_files/loading.json", width: 200, height: 200),
                   ))
         ],
       ),

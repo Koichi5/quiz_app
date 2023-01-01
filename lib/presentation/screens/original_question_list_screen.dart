@@ -6,6 +6,8 @@ import 'package:quiz_app/presentation/screens/original_question_set_screen.dart'
 import 'package:quiz_app/presentation/screens/quiz_screen.dart';
 import 'package:quiz_app/presentation/widgets/original_question_list_card.dart';
 
+import 'category_set_screen.dart';
+
 class OriginalQuestionListScreen extends HookConsumerWidget {
   const OriginalQuestionListScreen({Key? key}) : super(key: key);
 
@@ -74,17 +76,17 @@ class OriginalQuestionListScreen extends HookConsumerWidget {
                         ),
                   error: (error, _) => const Center(child: Text("エラー")),
                   loading: () => Center(
-                      child: Lottie.asset("assets/loading.json",
+                      child: Lottie.asset("assets/json_files/loading.json",
                           width: 200, height: 200)),
                 ),
-                // ElevatedButton(
-                //     onPressed: () {
-                //       Navigator.push(
-                //           context,
-                //           MaterialPageRoute(
-                //               builder: (context) => const CategorySetScreen()));
-                //     },
-                //     child: const Text("管理者用 問題作成")),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const CategorySetScreen()));
+                    },
+                    child: const Text("管理者用 問題作成")),
               ],
             ),
           ),

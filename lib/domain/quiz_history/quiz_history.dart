@@ -23,6 +23,7 @@ abstract class QuizHistory implements _$QuizHistory {
     required String status,
     required List<int> takenQuestions,
     required List<bool> answerIsCorrectList,
+    required List<Question> questionList,
   }) = _QuizHistory;
 
   factory QuizHistory.empty() => QuizHistory(
@@ -36,7 +37,8 @@ abstract class QuizHistory implements _$QuizHistory {
         quizDate: DateTime.now(),
         status: "",
         takenQuestions: [],
-      answerIsCorrectList: [],
+        answerIsCorrectList: [],
+        questionList: [],
       );
 
   factory QuizHistory.fromJson(json) => _$QuizHistoryFromJson(json);

@@ -13,7 +13,7 @@ class CategoryCard extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
-      onTap: () async {
+      onTap: ([bool mounted = true]) async {
         await ref
             .watch(weakQuestionRepositoryProvider)
             .retrieveWeakQuestionList()
@@ -27,6 +27,7 @@ class CategoryCard extends HookConsumerWidget {
         // final List<QuizHistory> quizHistoryList = await ref
         //     .watch(quizHistoryControllerProvider.notifier)
         //     .retrieveQuizHistoryList();
+        if (!mounted) return;
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -47,7 +48,7 @@ class CategoryCard extends HookConsumerWidget {
               height: 240,
               child: Image.asset(
                 category.imagePath,
-                fit: BoxFit.cover,
+                fit: BoxFit.fitHeight,
               ),
             ),
             Positioned(

@@ -12,15 +12,15 @@ import 'home_screen.dart';
 
 class QuizResultScreen extends HookConsumerWidget {
   static const routeName = '/quizResult';
-  Category? category;
   final QuizResult result;
   final List<int> takenQuestions;
   final List<bool> answerIsCorrectList;
+  final List<Question> questionList;
   QuizResultScreen(
-      {this.category,
-        required this.result,
+      {required this.result,
       required this.takenQuestions,
       required this.answerIsCorrectList,
+      required this.questionList,
       Key? key})
       : super(key: key);
   // int totalQuestions = 0;
@@ -106,28 +106,33 @@ class QuizResultScreen extends HookConsumerWidget {
             // width: 150,
             // height: 50,
           ),
-          category != null ?
+          // category != null ?
           TextButton(
               onPressed: ([bool mounted = true]) {
-                ref.watch(optionGestureProvider.notifier).state = false;
-                ref
-                    .watch(categoryControllerProvider.notifier)
-                    .retrieveCategoryById(
-                    quizCategoryDocRef: category!.categoryDocRef!)
-                    .then((value) {
-                  if (!mounted) return;
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              QuizListScreen(category: value.first)));
-                });
+                // ref.watch(optionGestureProvider.notifier).state = false;
+                // ref
+                //     .watch(categoryControllerProvider.notifier)
+                //     .retrieveCategoryById(
+                //     quizCategoryDocRef: category!.categoryDocRef!)
+                //     .then((value) {
+                if (!mounted) return;
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Scaffold(
+                            appBar: AppBar(
+                              title: const Text("再挑戦"),
+                            ),
+                            body: QuizScreen(
+                              questionList: result.questionList,
+                              reader: ref.watch,
+                            ))));
               },
               child: Text(
                 "再チャレンジ",
-                style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary),
-              )) : const SizedBox(),
+                style: TextStyle(color: Theme.of(context).colorScheme.primary),
+              ))
+          // : const SizedBox(),
           // ElevatedButton(
           //   onPressed: () {
           //     Navigator.pushReplacement(

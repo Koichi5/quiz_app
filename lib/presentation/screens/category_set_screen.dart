@@ -53,7 +53,7 @@ class CategorySetScreen extends HookConsumerWidget {
               height: MediaQuery.of(context).size.height * 0.02,
             ),
             CustomTextField(
-              title: "カテゴリ名",
+              title: "カテゴリ詳細",
               controller: descriptionControllerProvider,
               error: categoryValidator.form.description.errorMessage,
               onChanged: (categoryDescription) {
