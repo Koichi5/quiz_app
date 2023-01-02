@@ -37,7 +37,7 @@ class QuizHistoryScreen extends HookConsumerWidget {
                       SizedBox(height: MediaQuery.of(context).size.height * 0.1,),
                       const Text("クイズを解いて実力をつけましょう！"),
                       Lottie.asset(
-                        "assets/quiz_history.json",
+                        "assets/json_files/quiz_history.json",
                         width: MediaQuery.of(context).size.width * 0.7,
                         fit: BoxFit.fitWidth,
                       ),

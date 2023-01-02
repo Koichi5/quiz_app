@@ -51,7 +51,7 @@ class OriginalQuestionListScreen extends HookConsumerWidget {
                               SizedBox(height: MediaQuery.of(context).size.height * 0.1,),
                               const Text("自分で問題を追加して解いてみましょう！"),
                               Lottie.asset(
-                                "assets/original_question.json",
+                                "assets/json_files/original_question.json",
                                 width: MediaQuery.of(context).size.width * 0.7,
                                 fit: BoxFit.fitWidth,
                               ),

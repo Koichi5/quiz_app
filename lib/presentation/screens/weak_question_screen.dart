@@ -58,7 +58,7 @@ class WeakQuestionScreen extends HookConsumerWidget {
                                 children: [
                                   SizedBox(height: MediaQuery.of(context).size.height * 0.1,),
                                   const Text("苦手問題を登録して復習しましょう！"),
-                                  Lottie.asset("assets/weak_question.json",
+                                  Lottie.asset("assets/json_files/weak_question.json",
                                       width: MediaQuery.of(context).size.width *
                                           0.7,
                                     fit: BoxFit.fitWidth,
