@@ -44,24 +44,30 @@ class QuizSetScreen extends HookConsumerWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.02,
             ),
-            CustomTextField(
-              title: "クイズ名",
-              controller: titleControllerProvider,
-              error: quizValidator.form.title.errorMessage,
-              onChanged: (quizTitle) {
-                quizValidatorNotifier.setQuizTitle(quizTitle);
-              },
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.9,
+              child: CustomTextField(
+                title: "クイズ名",
+                controller: titleControllerProvider,
+                error: quizValidator.form.title.errorMessage,
+                onChanged: (quizTitle) {
+                  quizValidatorNotifier.setQuizTitle(quizTitle);
+                },
+              ),
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.02,
             ),
-            CustomTextField(
-              title: "クイズ詳細",
-              controller: descriptionControllerProvider,
-              error: quizValidator.form.description.errorMessage,
-              onChanged: (quizDescribe) {
-                quizValidatorNotifier.setQuizDescription(quizDescribe);
-              },
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.9,
+              child: CustomTextField(
+                title: "クイズ詳細",
+                controller: descriptionControllerProvider,
+                error: quizValidator.form.description.errorMessage,
+                onChanged: (quizDescribe) {
+                  quizValidatorNotifier.setQuizDescription(quizDescribe);
+                },
+              ),
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.02,

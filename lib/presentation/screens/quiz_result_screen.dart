@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:quiz_app/presentation/screens/quiz_list_screen.dart';
 import 'package:quiz_app/presentation/screens/quiz_screen.dart';
 import 'package:quiz_app/presentation/widgets/result_question_list_card.dart';
 
-import '../../domain/category/category.dart';
 import '../../domain/dto/quiz_result.dart';
 import '../../domain/question/question.dart';
-import '../controller/category_controller.dart';
 import 'home_screen.dart';
 
 class QuizResultScreen extends HookConsumerWidget {
@@ -40,6 +37,7 @@ class QuizResultScreen extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
+        // title: const Text("結果"),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -56,20 +54,23 @@ class QuizResultScreen extends HookConsumerWidget {
   }
 
   Widget quizResultInfo(BuildContext context, QuizResult result) {
-    final totalCorrect = result.totalCorrect;
-    final totalQuestions = result.questionList.length;
-    final correctAnswerRate = (totalCorrect / totalQuestions * 100).round();
-    return Column(
-      children: [
-        Text(
-          "正答率",
-          style: Theme.of(context).textTheme.headline6,
-        ),
-        Text(
-          "$correctAnswerRate%",
-          style: Theme.of(context).textTheme.headline2,
-        ),
-      ],
+    final double totalCorrect = result.totalCorrect;
+    final int totalQuestions = result.questionList.length;
+    final int correctAnswerRate = (totalCorrect / totalQuestions * 100).round();
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          const Text(
+            "正答率",
+            style: TextStyle(fontSize: 15),
+          ),
+          Text(
+            "$correctAnswerRate%",
+            style: Theme.of(context).textTheme.headline2,
+          ),
+        ],
+      ),
     );
   }
 

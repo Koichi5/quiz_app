@@ -107,18 +107,16 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          quizQuestion(
-              // currentQuestionIndex: currentQuestionIndex
-          ),
+          quizQuestion(),
           questionOptions(),
           QuizProgress(question, progressTimer,
               remainTime: _remainTime,
               engine: engine,
               questionList: questionList,
               playIncorrectSoundFile: _playIncorrectSoundFile),
-          // footerButton(context),
         ],
       ),
     );

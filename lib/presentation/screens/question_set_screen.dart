@@ -54,36 +54,32 @@ class QuestionSetScreen extends HookConsumerWidget {
                 height: MediaQuery.of(context).size.height * 0.02,
               ),
               const Text("問題文を入力してください"),
-              CustomTextField(
-                title: "問題文",
-                controller: textControllerProvider,
-                error: questionValidator.form.text.errorMessage,
-                onChanged: (questionText) {
-                  questionValidatorNotifier.setQuestionText(questionText);
-                },
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: CustomTextField(
+                  title: "問題文",
+                  controller: textControllerProvider,
+                  // keyboardType: TextInputType.multiline,
+                  // maxLines: 3,
+                  error: questionValidator.form.text.errorMessage,
+                  onChanged: (questionText) {
+                    questionValidatorNotifier.setQuestionText(questionText);
+                  },
+                ),
               ),
-              // SizedBox(
-              //   height: MediaQuery.of(context).size.height * 0.02,
-              // ),
-              // CustomTextField(
-              //   title: "制限時間",
-              //   controller: durationControllerProvider,
-              //   error: questionValidator.form.duration.errorMessage,
-              //   onChanged: (questionDuration) {
-              //     questionValidatorNotifier
-              //         .setQuestionDuration(questionDuration);
-              //   },
-              // ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.02,
               ),
-              CustomTextField(
-                title: "選択肢１",
-                controller: ref.watch(firstOptionTextControllerProvider),
-                error: optionValidator.form.text.errorMessage,
-                onChanged: (optionText) {
-                  optionValidatorNotifier.setOptionText(optionText);
-                },
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: CustomTextField(
+                  title: "選択肢１",
+                  controller: ref.watch(firstOptionTextControllerProvider),
+                  error: optionValidator.form.text.errorMessage,
+                  onChanged: (optionText) {
+                    optionValidatorNotifier.setOptionText(optionText);
+                  },
+                ),
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.01,
@@ -97,13 +93,16 @@ class QuestionSetScreen extends HookConsumerWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.02,
               ),
-              CustomTextField(
-                title: "選択肢２",
-                controller: ref.watch(secondOptionTextControllerProvider),
-                error: optionValidator.form.text.errorMessage,
-                onChanged: (optionText) {
-                  optionValidatorNotifier.setOptionText(optionText);
-                },
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: CustomTextField(
+                  title: "選択肢２",
+                  controller: ref.watch(secondOptionTextControllerProvider),
+                  error: optionValidator.form.text.errorMessage,
+                  onChanged: (optionText) {
+                    optionValidatorNotifier.setOptionText(optionText);
+                  },
+                ),
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.01,
@@ -117,13 +116,16 @@ class QuestionSetScreen extends HookConsumerWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.02,
               ),
-              CustomTextField(
-                title: "選択肢３",
-                controller: ref.watch(thirdOptionTextControllerProvider),
-                error: optionValidator.form.text.errorMessage,
-                onChanged: (optionText) {
-                  optionValidatorNotifier.setOptionText(optionText);
-                },
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: CustomTextField(
+                  title: "選択肢３",
+                  controller: ref.watch(thirdOptionTextControllerProvider),
+                  error: optionValidator.form.text.errorMessage,
+                  onChanged: (optionText) {
+                    optionValidatorNotifier.setOptionText(optionText);
+                  },
+                ),
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.01,
@@ -137,13 +139,16 @@ class QuestionSetScreen extends HookConsumerWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.02,
               ),
-              CustomTextField(
-                title: "選択肢４",
-                controller: ref.watch(fourthOptionTextControllerProvider),
-                error: optionValidator.form.text.errorMessage,
-                onChanged: (optionText) {
-                  optionValidatorNotifier.setOptionText(optionText);
-                },
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: CustomTextField(
+                  title: "選択肢４",
+                  controller: ref.watch(fourthOptionTextControllerProvider),
+                  error: optionValidator.form.text.errorMessage,
+                  onChanged: (optionText) {
+                    optionValidatorNotifier.setOptionText(optionText);
+                  },
+                ),
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.01,

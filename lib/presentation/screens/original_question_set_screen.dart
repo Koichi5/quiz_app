@@ -39,62 +39,77 @@ class OriginalQuestionSetScreen extends HookConsumerWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.03,
               ),
-              CustomTextField(
-                title: "問題文",
-                controller: textControllerProvider,
-                error: questionValidator.form.text.errorMessage,
-                onChanged: (questionText) {
-                  questionValidatorNotifier.setQuestionText(questionText);
-                },
-                helperText: "問題文を入力してください",
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: CustomTextField(
+                  title: "問題文",
+                  controller: textControllerProvider,
+                  error: questionValidator.form.text.errorMessage,
+                  onChanged: (questionText) {
+                    questionValidatorNotifier.setQuestionText(questionText);
+                  },
+                  helperText: "問題文を入力してください",
+                ),
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.02,
               ),
-              CustomTextField(
-                title: "選択肢１",
-                controller: ref.watch(firstOptionTextControllerProvider),
-                error: optionValidator.form.text.errorMessage,
-                onChanged: (optionText) {
-                  optionValidatorNotifier.setOptionText(optionText);
-                },
-                helperText: "１つ目の選択肢を入力してください",
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: CustomTextField(
+                  title: "選択肢１",
+                  controller: ref.watch(firstOptionTextControllerProvider),
+                  error: optionValidator.form.text.errorMessage,
+                  onChanged: (optionText) {
+                    optionValidatorNotifier.setOptionText(optionText);
+                  },
+                  helperText: "１つ目の選択肢を入力してください",
+                ),
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.02,
               ),
-              CustomTextField(
-                title: "選択肢２",
-                controller: ref.watch(secondOptionTextControllerProvider),
-                error: optionValidator.form.text.errorMessage,
-                onChanged: (optionText) {
-                  optionValidatorNotifier.setOptionText(optionText);
-                },
-                helperText: "２つ目の選択肢を入力してください",
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: CustomTextField(
+                  title: "選択肢２",
+                  controller: ref.watch(secondOptionTextControllerProvider),
+                  error: optionValidator.form.text.errorMessage,
+                  onChanged: (optionText) {
+                    optionValidatorNotifier.setOptionText(optionText);
+                  },
+                  helperText: "２つ目の選択肢を入力してください",
+                ),
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.02,
               ),
-              CustomTextField(
-                title: "選択肢３",
-                controller: ref.watch(thirdOptionTextControllerProvider),
-                error: optionValidator.form.text.errorMessage,
-                onChanged: (optionText) {
-                  optionValidatorNotifier.setOptionText(optionText);
-                },
-                helperText: "３つ目の選択肢を入力してください",
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: CustomTextField(
+                  title: "選択肢３",
+                  controller: ref.watch(thirdOptionTextControllerProvider),
+                  error: optionValidator.form.text.errorMessage,
+                  onChanged: (optionText) {
+                    optionValidatorNotifier.setOptionText(optionText);
+                  },
+                  helperText: "３つ目の選択肢を入力してください",
+                ),
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.02,
               ),
-              CustomTextField(
-                title: "選択肢４",
-                controller: ref.watch(fourthOptionTextControllerProvider),
-                error: optionValidator.form.text.errorMessage,
-                onChanged: (optionText) {
-                  optionValidatorNotifier.setOptionText(optionText);
-                },
-                helperText: "４つ目の選択肢を入力してください",
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: CustomTextField(
+                  title: "選択肢４",
+                  controller: ref.watch(fourthOptionTextControllerProvider),
+                  error: optionValidator.form.text.errorMessage,
+                  onChanged: (optionText) {
+                    optionValidatorNotifier.setOptionText(optionText);
+                  },
+                  helperText: "４つ目の選択肢を入力してください",
+                ),
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.02,

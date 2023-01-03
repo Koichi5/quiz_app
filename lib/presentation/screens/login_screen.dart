@@ -32,6 +32,7 @@ class LoginScreen extends HookConsumerWidget {
               height: MediaQuery.of(context).size.height * 0.1,
             ),
             SizedBox(
+              width: MediaQuery.of(context).size.width * 0.9,
               child: CustomTextField(
                 title: "メールアドレス",
                 controller: emailControllerProvider,
@@ -45,6 +46,7 @@ class LoginScreen extends HookConsumerWidget {
               height: MediaQuery.of(context).size.height * 0.02,
             ),
             SizedBox(
+              width: MediaQuery.of(context).size.width * 0.9,
               child: CustomTextField(
                   title: "パスワード",
                   controller: passwordControllerProvider,

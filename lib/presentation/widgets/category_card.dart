@@ -1,3 +1,4 @@
+import 'package:bordered_text/bordered_text.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quiz_app/presentation/screens/category_detail_screen.dart';
@@ -53,14 +54,17 @@ class CategoryCard extends HookConsumerWidget {
             ),
             Positioned(
               bottom: 20,
-              right: 20,
               left: 20,
-              child: Text(
-                category.name,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  fontSize: 24,
+              child: BorderedText(
+                strokeWidth: 0.8,
+                strokeColor: Theme.of(context).colorScheme.onSurface,
+                child: Text(
+                  category.name,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 22,
+                  ),
                 ),
               ),
             ),
