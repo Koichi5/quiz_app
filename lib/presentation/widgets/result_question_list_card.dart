@@ -129,9 +129,9 @@ class ResultQuestionListCard extends HookConsumerWidget {
                 }
                 // データがnullでないかチェック
                 if (weakQuestionList.hasData) {
-                  if (weakQuestionList.data!.isEmpty) {
-                    return const SizedBox();
-                  } else {
+                  // if (weakQuestionList.data!.isEmpty) {
+                  //   return const Text("エラーです");
+                  // } else {
                     return weakQuestionList.data!.any((element) =>
                     element.questionDocRef == question.questionDocRef)
                     // return snapshot.data!.contains(WeakQuestion(
@@ -141,21 +141,23 @@ class ResultQuestionListCard extends HookConsumerWidget {
                     // ))
                     //   return snapshot.data!.then((retrievedWeakQuestionList) => retrievedWeakQuestionList.forEach((e) => e.questionDocRef == question.questionDocRef))
                         ? IconButton(
-                        onPressed: () async {
+                        onPressed: ()
+                        // async
+                        {
                           // print(weakQuestionList.data!.contains(WeakQuestion(
                           //     categoryDocRef: question.categoryDocRef!,
                           //     quizDocRef: question.quizDocRef!,
                           //     questionDocRef: question.questionDocRef!)));
                           // print(snapshot.data!.map((e) =>
                           //     e.questionDocRef == question.questionDocRef));
-                          await ref
-                              .watch(weakQuestionControllerProvider.notifier)
-                              .deleteWeakQuestion(
-                            categoryDocRef: question.categoryDocRef!,
-                            quizDocRef: question.quizDocRef!,
-                            questionDocRef: question.questionDocRef!,
-                          );
-                          ref.watch(weakQuestionControllerProvider);
+                          // await ref
+                          //     .watch(weakQuestionControllerProvider.notifier)
+                          //     .deleteWeakQuestion(
+                          //   categoryDocRef: question.categoryDocRef!,
+                          //   quizDocRef: question.quizDocRef!,
+                          //   questionDocRef: question.questionDocRef!,
+                          // );
+                          // ref.watch(weakQuestionControllerProvider);
                         },
                         icon: const Icon(Icons.check_box_outlined))
                         : IconButton(
@@ -173,12 +175,9 @@ class ResultQuestionListCard extends HookConsumerWidget {
                           ref.watch(weakQuestionControllerProvider);
                         },
                         icon: const Icon(Icons.check_box_outline_blank));
-                  }
+                  // }
                 } else {
-                  return const SizedBox(
-                    width: 0,
-                    height: 0,
-                  );
+                  return Container(color: Colors.red,);
                 }
               })
         ],

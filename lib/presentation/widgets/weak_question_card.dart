@@ -3,16 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../domain/question/question.dart';
+import '../controller/weak_question_controller.dart';
 
-final weakQuestionCardGestureProvider = StateProvider((ref) => false);
+// final weakQuestionCardGestureProvider = StateProvider((ref) => false);
 
-class WeakQuestionCard extends StatelessWidget {
+class WeakQuestionCard extends HookConsumerWidget {
   const WeakQuestionCard({required this.question, Key? key}) : super(key: key);
 
   final Question question;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -27,10 +28,29 @@ class WeakQuestionCard extends StatelessWidget {
           ),
           expanded: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(question.options
-                .elementAt(question.options
-                    .indexWhere((element) => element.isCorrect == true))
-                .text),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(question.options
+                    .elementAt(question.options
+                        .indexWhere((element) => element.isCorrect == true))
+                    .text),
+                TextButton(
+                    onPressed: () async {
+                      await ref
+                          .watch(weakQuestionControllerProvider.notifier)
+                          .deleteWeakQuestion(
+                            categoryDocRef: question.categoryDocRef!,
+                            quizDocRef: question.quizDocRef!,
+                            questionDocRef: question.questionDocRef!,
+                          );
+                      // await ref
+                      //     .watch(weakQuestionControllerProvider.notifier)
+                      //     .retrieveWeakQuestionList();
+                    },
+                    child: const Text("覚えた！"))
+              ],
+            ),
           ),
         ),
       ),
