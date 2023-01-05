@@ -12,7 +12,6 @@ class SignupScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final nameControllerProvider = ref.watch(signupNameControllerStateProvider);
     final emailControllerProvider =
         ref.watch(signupEmailControllerStateProvider);
     final passwordControllerProvider =
@@ -31,9 +30,6 @@ class SignupScreen extends HookConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.05,
-            ),
             // CustomTextField(
             //   title: "ニックネーム",
             //   controller: nameControllerProvider,
@@ -43,7 +39,7 @@ class SignupScreen extends HookConsumerWidget {
             //   },
             // ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.02,
+              height: MediaQuery.of(context).size.height * 0.07,
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.9,
@@ -82,19 +78,25 @@ class SignupScreen extends HookConsumerWidget {
                           icon: const Icon(Icons.visibility))),
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.02,
+              height: MediaQuery.of(context).size.height * 0.04,
             ),
             SignUpButton(
                 emailControllerProvider.text, passwordControllerProvider.text),
             Divider(
-              height: MediaQuery.of(context).size.height * 0.03,
+              height: MediaQuery.of(context).size.height * 0.05,
               thickness: 0.5,
               indent: MediaQuery.of(context).size.width * 0.05,
               endIndent: MediaQuery.of(context).size.width * 0.05,
               color: Theme.of(context).colorScheme.primary,
             ),
-            const GoogleSignInButton(),
-            const AppleSignInButton(),
+            const Padding(
+              padding: EdgeInsets.all(6.0),
+              child: GoogleSignInButton(),
+            ),
+            const Padding(
+              padding: EdgeInsets.all(6.0),
+              child: AppleSignInButton(),
+            ),
             Padding(
               padding: const EdgeInsets.all(5.0),
               child: SizedBox(

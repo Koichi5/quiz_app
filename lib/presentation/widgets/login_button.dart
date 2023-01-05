@@ -14,8 +14,7 @@ class LoginButton extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final authControllerProviderNotifier =
-    ref.watch(authControllerProvider.notifier);
-    final authRepositoryProviderNotifier = ref.watch(authRepositoryProvider);
+        ref.watch(authControllerProvider.notifier);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: SizedBox(
@@ -26,17 +25,36 @@ class LoginButton extends HookConsumerWidget {
                 backgroundColor: ref.watch(loginValidatorProvider).form.isValid
                     ? Theme.of(context).colorScheme.primary
                     : Theme.of(context).colorScheme.secondary),
-            onPressed: () async {
+            onPressed: ([bool mounted = true]) async {
               if (ref.watch(loginValidatorProvider).form.isValid) {
-                await authControllerProviderNotifier.signInWithEmailAndPassword(
-                    email, password);
-                User? user = authRepositoryProviderNotifier.getCurrentUser();
+                User? user = await authControllerProviderNotifier
+                    .signInWithEmailAndPassword(email, password);
+                // User? user = authRepositoryProviderNotifier.getCurrentUser();
+                if (!mounted) return;
                 if (user != null) {
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
                       builder: (context) => const HomeScreen()));
+                } else {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return SimpleDialog(children: [
+                          const Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: Center(
+                                child: Text(
+                              "メールアドレスまたはパスワードが\n 正しくありません",
+                              textAlign: TextAlign.center,
+                            )),
+                          ),
+                          TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text("戻る"))
+                        ]);
+                      });
                 }
-              } else {
-                null;
               }
             },
             child: Text(

@@ -10,6 +10,8 @@ abstract class BaseOriginalQuestionRepository {
   Future<Question> addOriginalQuestion(
       {required String userId, required Question question});
   Future<List<Question>> retrieveOriginalQuestionList({required String userId});
+  Future<void> deleteOriginalQuestion(
+      {required String userId, required String originalQuestionDocRef});
 }
 
 final originalQuestionRepositoryProvider = Provider<OriginalQuestionRepository>(
@@ -64,6 +66,21 @@ class OriginalQuestionRepository implements BaseOriginalQuestionRepository {
           .collection("originalQuestion")
           .get();
       return snap.docs.map((doc) => Question.fromDocument(doc)).toList();
+    } on FirebaseException catch (e) {
+      throw CustomException(message: e.message);
+    }
+  }
+
+  @override
+  Future<void> deleteOriginalQuestion(
+      {required String userId, required String originalQuestionDocRef}) async {
+    try {
+      await _reader(firebaseFirestoreProvider)
+          .collection("user")
+          .doc(userId)
+          .collection("originalQuestion")
+          .doc(originalQuestionDocRef)
+          .delete();
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message);
     }

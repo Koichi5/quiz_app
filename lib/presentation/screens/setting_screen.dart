@@ -8,7 +8,7 @@ class SettingScreen extends StatelessWidget {
   final List<String> _labelTextList = [
     "利用規約",
     "公式Twitter",
-    "公式Instagram"
+    "公式Instagram",
   ];
   final List<String> _linkURLList = [
     "https://koichi5.github.io/finder_seller/",

@@ -20,8 +20,7 @@ class ResultQuestionListCard extends HookConsumerWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-              children: [
+          Row(children: [
             answerIsCorrect
                 ? Padding(
                     padding: const EdgeInsets.all(10.0),
@@ -47,7 +46,8 @@ class ResultQuestionListCard extends HookConsumerWidget {
                   child: Text(question.text),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right: 10.0, left: 10.0, bottom: 10.0),
+                  padding: const EdgeInsets.only(
+                      right: 10.0, left: 10.0, bottom: 10.0),
                   child: Text(
                       "答え : ${question.options.elementAt(question.options.indexWhere((element) => element.isCorrect == true)).text}"),
                 ),
@@ -132,54 +132,84 @@ class ResultQuestionListCard extends HookConsumerWidget {
                   // if (weakQuestionList.data!.isEmpty) {
                   //   return const Text("エラーです");
                   // } else {
-                    return weakQuestionList.data!.any((element) =>
-                    element.questionDocRef == question.questionDocRef)
-                    // return snapshot.data!.contains(WeakQuestion(
-                    //         categoryDocRef: question.categoryDocRef!,
-                    //         quizDocRef: question.quizDocRef!,
-                    //         questionDocRef: question.questionDocRef!,
-                    // ))
-                    //   return snapshot.data!.then((retrievedWeakQuestionList) => retrievedWeakQuestionList.forEach((e) => e.questionDocRef == question.questionDocRef))
-                        ? IconButton(
-                        onPressed: ()
-                        // async
-                        {
-                          // print(weakQuestionList.data!.contains(WeakQuestion(
-                          //     categoryDocRef: question.categoryDocRef!,
-                          //     quizDocRef: question.quizDocRef!,
-                          //     questionDocRef: question.questionDocRef!)));
-                          // print(snapshot.data!.map((e) =>
-                          //     e.questionDocRef == question.questionDocRef));
-                          // await ref
-                          //     .watch(weakQuestionControllerProvider.notifier)
-                          //     .deleteWeakQuestion(
-                          //   categoryDocRef: question.categoryDocRef!,
-                          //   quizDocRef: question.quizDocRef!,
-                          //   questionDocRef: question.questionDocRef!,
-                          // );
-                          // ref.watch(weakQuestionControllerProvider);
-                        },
-                        icon: const Icon(Icons.check_box_outlined))
-                        : IconButton(
-                        onPressed: () async {
-                          print(weakQuestionList.data!.contains(WeakQuestion(
-                              categoryDocRef: question.categoryDocRef!,
-                              quizDocRef: question.quizDocRef!,
-                              questionDocRef: question.questionDocRef!)));
-                          await ref
-                              .watch(weakQuestionControllerProvider.notifier)
-                              .addWeakQuestion(
-                              categoryDocRef: question.categoryDocRef!,
-                              quizDocRef: question.quizDocRef!,
-                              questionDocRef: question.questionDocRef!);
-                          ref.watch(weakQuestionControllerProvider);
-                        },
-                        icon: const Icon(Icons.check_box_outline_blank));
+                  return weakQuestionList.data!.any((element) =>
+                          element.questionDocRef == question.questionDocRef)
+                      // return snapshot.data!.contains(WeakQuestion(
+                      //         categoryDocRef: question.categoryDocRef!,
+                      //         quizDocRef: question.quizDocRef!,
+                      //         questionDocRef: question.questionDocRef!,
+                      // ))
+                      //   return snapshot.data!.then((retrievedWeakQuestionList) => retrievedWeakQuestionList.forEach((e) => e.questionDocRef == question.questionDocRef))
+                      ? IconButton(
+                          onPressed: ()
+                              // async
+                              {
+                            // print(weakQuestionList.data!.contains(WeakQuestion(
+                            //     categoryDocRef: question.categoryDocRef!,
+                            //     quizDocRef: question.quizDocRef!,
+                            //     questionDocRef: question.questionDocRef!)));
+                            // print(snapshot.data!.map((e) =>
+                            //     e.questionDocRef == question.questionDocRef));
+                            // await ref
+                            //     .watch(weakQuestionControllerProvider.notifier)
+                            //     .deleteWeakQuestion(
+                            //   categoryDocRef: question.categoryDocRef!,
+                            //   quizDocRef: question.quizDocRef!,
+                            //   questionDocRef: question.questionDocRef!,
+                            // );
+                            // ref.watch(weakQuestionControllerProvider);
+                          },
+                          icon: const Icon(Icons.check_box_outlined))
+                      : IconButton(
+                          onPressed: () async {
+                            print(weakQuestionList.data!.contains(WeakQuestion(
+                                categoryDocRef: question.categoryDocRef!,
+                                quizDocRef: question.quizDocRef!,
+                                questionDocRef: question.questionDocRef!)));
+                            await ref
+                                .watch(weakQuestionControllerProvider.notifier)
+                                .addWeakQuestion(
+                                    categoryDocRef: question.categoryDocRef!,
+                                    quizDocRef: question.quizDocRef!,
+                                    questionDocRef: question.questionDocRef!);
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return SimpleDialog(children: [
+                                    const Padding(
+                                      padding: EdgeInsets.all(10.0),
+                                      child: Center(
+                                        child: Text(
+                                          "追加しました",
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                    TextButton(
+                                      onPressed: ([bool mounted = true]) async {
+                                        await ref
+                                            .watch(
+                                                weakQuestionControllerProvider
+                                                    .notifier)
+                                            .retrieveWeakQuestionList();
+                                        if (!mounted) return;
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text("戻る"),
+                                    ),
+                                  ]);
+                                });
+                            // ref.watch(weakQuestionControllerProvider);
+                          },
+                          icon: const Icon(Icons.check_box_outline_blank),
+                        );
                   // }
                 } else {
-                  return Container(color: Colors.red,);
+                  return Container(
+                    color: Colors.red,
+                  );
                 }
-              })
+              }),
         ],
       ),
     );

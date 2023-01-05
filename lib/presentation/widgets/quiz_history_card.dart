@@ -69,8 +69,8 @@ class QuizHistoryCard extends HookConsumerWidget {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text((quizHistory.timeTakenMinutes == 0)
-                            ? "${quizHistory.timeTakenSeconds}秒"
-                            : "${quizHistory.timeTakenMinutes}分${quizHistory.timeTakenSeconds}秒"),
+                            ? "${quizHistory.timeTakenSeconds} 秒"
+                            : "${quizHistory.timeTakenMinutes} 分 ${quizHistory.timeTakenSeconds} 秒"),
                       ),
                     ],
                   ),
@@ -83,7 +83,7 @@ class QuizHistoryCard extends HookConsumerWidget {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                            "${quizHistory.quizDate.month} / ${quizHistory.quizDate.day} ${quizHistory.quizDate.hour} : ${quizHistory.quizDate.minute}"),
+                            "${quizHistory.quizDate.month} / ${quizHistory.quizDate.day}   ${quizHistory.quizDate.hour} 時 ${quizHistory.quizDate.minute} 分"),
                       ),
                     ],
                   ),

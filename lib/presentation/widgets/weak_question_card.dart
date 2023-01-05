@@ -44,11 +44,36 @@ class WeakQuestionCard extends HookConsumerWidget {
                             quizDocRef: question.quizDocRef!,
                             questionDocRef: question.questionDocRef!,
                           );
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return SimpleDialog(children: [
+                              const Padding(
+                                padding: EdgeInsets.all(10.0),
+                                child: Center(
+                                    child: Text(
+                                      "削除しました",
+                                      textAlign: TextAlign.center,
+                                    )),
+                              ),
+                              TextButton(
+                                  onPressed: ([bool mounted = true]) async {
+                                    await ref
+                                        .watch(
+                                        weakQuestionControllerProvider
+                                            .notifier)
+                                        .retrieveWeakQuestionList();
+                                    if (!mounted) return;
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text("戻る"))
+                            ]);
+                          });
                       // await ref
                       //     .watch(weakQuestionControllerProvider.notifier)
                       //     .retrieveWeakQuestionList();
                     },
-                    child: const Text("覚えた！"))
+                    child: const Text("覚えた！"),),
               ],
             ),
           ),

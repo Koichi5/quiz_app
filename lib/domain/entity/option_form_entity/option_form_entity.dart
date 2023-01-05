@@ -15,5 +15,5 @@ class OptionFormEntity with _$OptionFormEntity {
     id: Field(value: ""),
     text: Field(value: ""),
   );
-  bool get isValid => id.isValid && text.isValid;
+  bool get isValid => text.isValid;
 }

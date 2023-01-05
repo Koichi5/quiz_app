@@ -52,7 +52,8 @@ class AuthRepository implements BaseAuthRepository {
       await _reader(firebaseAuthProvider)
           .signInWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
-      throw CustomException(message: e.message);
+      // throw CustomException(message: e.message);
+      return null;
     }
     return user;
   }
