@@ -77,25 +77,6 @@ class OriginalQuestionListCard extends HookConsumerWidget {
           ),
         ),
       ),
-      // child: Padding(
-      //   padding: const EdgeInsets.all(8.0),
-      //   child: Column(
-      //     crossAxisAlignment: CrossAxisAlignment.start,
-      //     children: [
-      //       Padding(
-      //         padding: const EdgeInsets.all(8.0),
-      //         child: Text(originalQuestion.text),
-      //       ),
-      //       Padding(
-      //         padding: const EdgeInsets.all(8.0),
-      //         child: Text(originalQuestion.options
-      //             .elementAt(originalQuestion.options
-      //             .indexWhere((element) => element.isCorrect == true))
-      //             .text),
-      //       )
-      //     ],
-      //   ),
-      // ),
     );
   }
 }
