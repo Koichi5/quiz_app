@@ -54,11 +54,10 @@ class QuizListScreen extends HookConsumerWidget {
     //   );
 
     if (category != null) {
-      print("category だけあります");
       final quizListState = ref.watch(quizControllerProvider(category!));
       return Scaffold(
           appBar: AppBar(
-            title: Text(category != null ? category!.name : ""),
+            title: Text(category!.name),
           ),
           body: SingleChildScrollView(
               child: Column(
@@ -104,9 +103,12 @@ class QuizListScreen extends HookConsumerWidget {
                 )
               ])));
     } else if (questionList != null) {
-      return QuizScreen(
-        reader: ref.watch,
-        questionList: questionList!,
+      return Scaffold(
+        appBar: AppBar(),
+        body: QuizScreen(
+          reader: ref.watch,
+          questionList: questionList!,
+        ),
       );
       //     : ListView.builder(
       //   shrinkWrap: true,

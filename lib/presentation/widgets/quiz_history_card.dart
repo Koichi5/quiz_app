@@ -91,17 +91,17 @@ class QuizHistoryCard extends HookConsumerWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: TextButton(
                         onPressed: ([bool mounted = true]) async {
-                          final value = await ref
+                          final category = await ref
                               .watch(categoryControllerProvider.notifier)
                               .retrieveCategoryById(
                                   quizCategoryDocRef:
                                       quizHistory.categoryDocRef);
                           if (!mounted) return;
-                          Navigator.push(
+                          Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      QuizListScreen(category: value.first)));
+                                      QuizListScreen(category: category)));
                         },
                         child: Text(
                           "再チャレンジ",

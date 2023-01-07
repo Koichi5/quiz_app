@@ -31,6 +31,10 @@ class QuizHistoryRepository implements BaseQuizHistoryRepository {
           .doc(user.uid)
           .collection("quizHistory");
       final quizHistoryDocRef = quizHistoryRef.doc().id;
+      // final quizHistoryQuestionList = quizHistory.questionList.forEach((question) {
+      //   final questionList = question;
+      //   return questionList;
+      // });
       // await quizHistoryRef.add(quizHistory.toDocument());
       await quizHistoryRef.doc(quizHistoryDocRef).set(QuizHistory(
             id: quizHistory.id,
@@ -50,14 +54,40 @@ class QuizHistoryRepository implements BaseQuizHistoryRepository {
 
       await quizHistoryRef.doc(quizHistoryDocRef).update({
         "questionList": quizHistory.questionList
-            .map((question) => question.copyWith(options: []).toDocument())
-            .toList(),
-
+            .map((question) => question.copyWith(options: []).toDocument()).toList()
+        // .map((question) => question.copyWith(
+            // options: []).toDocument())
+            // .toList(),
         // await quizHistoryRef.doc(quizHistoryDocRef).update({
         // "questionList": quizHistory.questionList
         //     .map((question) => question.copyWith(options: []).toDocument())
         //     .toList(),
       });
+
+      // await quizHistoryRef.doc(quizHistoryDocRef).update({
+      //   "options" : quizHistory.questionList.map((question) => question.options)
+      // });
+      //
+      // await quizHistoryRef.doc(quizHistoryDocRef).update({
+      //   "questionList": {
+      //     "options": '1'
+      //     // quizHistory.questionList
+      //     //     .map((question) => question.options.forEach((element) {
+      //     //           element.copyWith().toDocument();
+      //     //         }))
+      //   }
+      // }
+          //     {
+          //   "questionList": quizHistory.questionList
+          //       .map((question) => question.copyWith(options: []).toDocument())
+          //       .toList(),
+          //   // await quizHistoryRef.doc(quizHistoryDocRef).update({
+          //   // "questionList": quizHistory.questionList
+          //   //     .map((question) => question.copyWith(options: []).toDocument())
+          //   //     .toList(),
+          // }
+          // );
+
       // final List userCompletedCategoryList = [];
 
       // _reader(userCompletedCategoryListProvider.notifier).state =

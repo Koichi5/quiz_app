@@ -34,7 +34,9 @@ class QuizHistoryScreen extends HookConsumerWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.1,),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.1,
+                      ),
                       const Text("クイズを解いて実力をつけましょう！"),
                       Lottie.asset(
                         "assets/json_files/quiz_history.json",
@@ -46,17 +48,18 @@ class QuizHistoryScreen extends HookConsumerWidget {
                 );
               } else {
                 return Center(
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: List<QuizHistory>.from(quizHistoryList.data!)
-                              .map(
-                                (quizHistory) => QuizHistoryCard(
-                                  quizHistory: quizHistory,
-                                ),
-                              )
-                              .toList(),
-                          ),
-                    );
+                  child: SingleChildScrollView(
+                    child: ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: quizHistoryList.data!.length > 11 ? 10 : quizHistoryList.data!.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return QuizHistoryCard(
+                            quizHistory: quizHistoryList.data![index]);
+                      },
+                    ),
+                  ),
+                );
               }
             } else {
               return const Center(child: Text("履歴はまだありません\n クイズに挑戦してみましょう！"));

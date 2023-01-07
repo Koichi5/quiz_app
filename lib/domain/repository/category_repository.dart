@@ -9,7 +9,7 @@ import '../quiz/quiz.dart';
 abstract class BaseCategoryRepository {
   Future<Category> addCategory({required Category category});
   Future<List<Category>> retrieveCategoryList();
-  Future<List<Category>> retrieveCategoryById(
+  Future<Category> retrieveCategoryById(
       {required String quizCategoryDocRef});
   Future<void> editCategoryQuestionCount(
       {required int categoryQuestionCount, required String categoryDocRef});
@@ -71,7 +71,7 @@ class CategoryRepository implements BaseCategoryRepository {
   }
 
   @override
-  Future<List<Category>> retrieveCategoryById(
+  Future<Category> retrieveCategoryById(
       {required String quizCategoryDocRef}) async {
     try {
       final snap = await _reader(firebaseFirestoreProvider)
@@ -79,7 +79,7 @@ class CategoryRepository implements BaseCategoryRepository {
           .doc(quizCategoryDocRef)
           .get();
       // return snap.docs.map((doc) => Category.fromDocument(doc)).toList();
-      return [Category.fromDocument(snap)];
+      return Category.fromDocument(snap);
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message);
     }

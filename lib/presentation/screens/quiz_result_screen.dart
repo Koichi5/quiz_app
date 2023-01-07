@@ -81,6 +81,15 @@ class QuizResultScreen extends HookConsumerWidget {
         physics: const NeverScrollableScrollPhysics(),
         itemCount: questionList.length,
         itemBuilder: (BuildContext context, int index) {
+          // if (index > questionList.length) {
+          //   showDialog(context: context, builder: (context) {
+          //     print("エラーが発生しています");
+          //     return const SimpleDialog(title: Text("エラーが発生しています"),);
+          //   });
+          // }
+          // print("questionList[takenQuestions[index]] : ${questionList[takenQuestions[index]]}");
+          // print(index);
+          // print("answerIsCorrectList[index] : ${answerIsCorrectList[index]}");
           final question = questionList[takenQuestions[index]];
           final answerIsCorrect = answerIsCorrectList[index];
           return ResultQuestionListCard(

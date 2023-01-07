@@ -34,7 +34,7 @@ class TimeIndicator extends HookConsumerWidget {
           height: 15,
           decoration: BoxDecoration(
             border: Border.all(color: Colors.grey),
-            borderRadius: BorderRadius.all(Radius.circular(15 * 0.50)),
+            borderRadius: const BorderRadius.all(Radius.circular(15 * 0.50)),
           ),
         ),
         Container(

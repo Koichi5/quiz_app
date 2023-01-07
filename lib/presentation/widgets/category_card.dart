@@ -18,24 +18,33 @@ class CategoryCard extends HookConsumerWidget {
         await ref
             .watch(weakQuestionRepositoryProvider)
             .retrieveWeakQuestionList()
-            .then((value) => value.forEach((element) {
-                  if (element.categoryDocRef == category.categoryDocRef) {
-                    ref
-                        .watch(weakQuestionInCategoryCountProvider.notifier)
-                        .state++;
-                  }
-                }));
+            .then((weakQuestionList) {
+              for (var weakQuestion in weakQuestionList) {
+                if (weakQuestion.categoryDocRef == category.categoryDocRef) {
+                  ref.watch(weakQuestionInCategoryCountProvider.notifier).state++;
+                }
+              }
+          // value.forEach(
+          //   (element) {
+          //     if (element.categoryDocRef == category.categoryDocRef) {
+          //       ref.watch(weakQuestionInCategoryCountProvider.notifier).state++;
+          //     }
+          //   },
+          // );
+        });
         // final List<QuizHistory> quizHistoryList = await ref
         //     .watch(quizHistoryControllerProvider.notifier)
         //     .retrieveQuizHistoryList();
         if (!mounted) return;
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => CategoryDetailScreen(
-                      category: category,
-                      // quizHistoryList: quizHistoryList,
-                    )));
+          context,
+          MaterialPageRoute(
+            builder: (context) => CategoryDetailScreen(
+              category: category,
+              // quizHistoryList: quizHistoryList,
+            ),
+          ),
+        );
       },
       child: Card(
         clipBehavior: Clip.antiAlias,

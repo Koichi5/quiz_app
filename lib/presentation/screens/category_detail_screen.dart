@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quiz_app/domain/category/category.dart';
 import 'package:quiz_app/presentation/screens/quiz_list_screen.dart';
-import 'package:quiz_app/presentation/screens/quiz_screen.dart';
-
-import '../../domain/quiz/quiz.dart';
-import '../controller/quiz_controller.dart';
 
 final weakQuestionInCategoryCountProvider = StateProvider((ref) => 0);
 
@@ -191,12 +187,12 @@ class CategoryDetailScreen extends HookConsumerWidget {
                                 // print(quizList);
                                 if (!mounted) return;
                                 Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => QuizListScreen(
-                                                category: category,
-                                                // quizList: quizList,
-                                              )));
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => QuizListScreen(
+                                              category: category,
+                                              // quizList: quizList,
+                                            )));
                               },
                               style: ElevatedButton.styleFrom(
                                   backgroundColor:

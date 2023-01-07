@@ -172,8 +172,8 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
             children: List<Option>.from(question?.options ?? []).map((option) {
               int optionIndex = question!.options.indexOf(option);
               var optionWidget = GestureDetector(
-                onTap: () {
-                  if (!ref.watch(optionGestureProvider)) {
+                onTap: ref.watch(optionGestureProvider) ? null : () {
+                  // if (!ref.watch(optionGestureProvider)) {
                     ref.watch(optionGestureProvider.notifier).state = true;
                     setState(() {
                       _remainTime = 0;
@@ -196,9 +196,9 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
                       // 何かしらの選択肢を選択したら true になる provider, 画面遷移時には次の問題へ移行するため、false にする必要がある
                       ref.watch(optionGestureProvider.notifier).state = false;
                     });
-                  } else {
-                    null;
-                  }
+                  // } else {
+                  //   null;
+                  // }
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
