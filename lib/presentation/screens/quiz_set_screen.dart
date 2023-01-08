@@ -24,6 +24,7 @@ class QuizSetScreen extends HookConsumerWidget {
     final quizValidatorNotifier = ref.watch(quizValidatorProvider.notifier);
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: const Text("カテゴリ追加"),
       ),
       body: Center(

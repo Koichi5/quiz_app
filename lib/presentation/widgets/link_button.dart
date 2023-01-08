@@ -11,9 +11,9 @@ class LinkButton {
   );
 
   Future launchUriWithString(BuildContext context, String url) async {
-    if (await canLaunchUrlString(url)) {
+    try {
       await launchUrlString(url);
-    } else {
+    } catch (e) {
       alertSnackBar;
       ScaffoldMessenger.of(context).showSnackBar(alertSnackBar);
     }

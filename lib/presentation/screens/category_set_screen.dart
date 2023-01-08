@@ -20,6 +20,7 @@ class CategorySetScreen extends HookConsumerWidget {
         ref.watch(categoryValidatorProvider.notifier);
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: const Text("カテゴリ追加"),
         automaticallyImplyLeading: false,
       ),

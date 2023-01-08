@@ -21,12 +21,13 @@ class SignInPage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: const Text("新規登録"),
       ),
       body: Column(
         children: [
           Padding(
-            padding: EdgeInsets.only(left: 10.0, bottom: 20),
+            padding: const EdgeInsets.only(left: 10.0, bottom: 20),
             child: TextFormField(
               autofocus: true,
               // テキスト入力のラベルを設定

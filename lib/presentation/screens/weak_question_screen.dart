@@ -73,6 +73,7 @@ class WeakQuestionScreen extends HookConsumerWidget {
                                     MaterialPageRoute(
                                         builder: (context) => Scaffold(
                                               appBar: AppBar(
+                                                centerTitle: true,
                                                 title: const Text("苦手問題"),
                                               ),
                                               body: QuizScreen(

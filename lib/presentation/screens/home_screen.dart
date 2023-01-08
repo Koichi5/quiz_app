@@ -26,6 +26,7 @@ class HomeScreen extends HookConsumerWidget {
       appBar: bottomNavBarSelectedIndex == 2
           ? null
           : AppBar(
+              centerTitle: true,
               automaticallyImplyLeading: false,
               title: bottomNavBarSelectedIndex == 0
                   ? const Text("ホーム")
@@ -46,6 +47,7 @@ class HomeScreen extends HookConsumerWidget {
       //                           MaterialPageRoute(
       //                               builder: (context) => Scaffold(
       //                                     appBar: AppBar(
+      //              centerTitle: true,
       //                                       title: const Text("苦手問題"),
       //                                       automaticallyImplyLeading: false,
       //                                     ),
@@ -62,46 +64,47 @@ class HomeScreen extends HookConsumerWidget {
       //               child: CircularProgressIndicator(),
       //             ),
       //           )
-              // ? FutureBuilder(
-              //     future: ref
-              //         .watch(questionRepositoryProvider)
-              //         .retrieveWeakQuestionList(),
-              //     builder: (BuildContext context,
-              //         AsyncSnapshot<List<Question>> userWeakQuestionList) {
-              //       if (userWeakQuestionList.connectionState !=
-              //           ConnectionState.done) {
-              //         return const Center(child: CircularProgressIndicator());
-              //       }
-              //       // エラー発生時はエラーメッセージを表示
-              //       if (userWeakQuestionList.hasError) {
-              //         return Text(userWeakQuestionList.error.toString());
-              //       }
-              //       // データがnullでないかチェック
-              //       if (userWeakQuestionList.hasData) {
-              //         return FloatingActionButton(
-              //           onPressed: () {
-              //             Navigator.push(
-              //                 context,
-              //                 MaterialPageRoute(
-              //                     builder: (context) => Scaffold(
-              //                           appBar: AppBar(
-              //                             title: const Text("苦手問題"),
-              //                             automaticallyImplyLeading: false,
-              //                           ),
-              //                           body: QuizScreen(
-              //                               reader: ref.watch,
-              //                               questionList:
-              //                                   userWeakQuestionList.data!),
-              //                         )));
-              //           },
-              //           child: const Icon(Icons.play_arrow),
-              //         );
-              //       } else {
-              //         return const SizedBox();
-              //       }
-              //     })
-          //     : null
-          // : null,
+      // ? FutureBuilder(
+      //     future: ref
+      //         .watch(questionRepositoryProvider)
+      //         .retrieveWeakQuestionList(),
+      //     builder: (BuildContext context,
+      //         AsyncSnapshot<List<Question>> userWeakQuestionList) {
+      //       if (userWeakQuestionList.connectionState !=
+      //           ConnectionState.done) {
+      //         return const Center(child: CircularProgressIndicator());
+      //       }
+      //       // エラー発生時はエラーメッセージを表示
+      //       if (userWeakQuestionList.hasError) {
+      //         return Text(userWeakQuestionList.error.toString());
+      //       }
+      //       // データがnullでないかチェック
+      //       if (userWeakQuestionList.hasData) {
+      //         return FloatingActionButton(
+      //           onPressed: () {
+      //             Navigator.push(
+      //                 context,
+      //                 MaterialPageRoute(
+      //                     builder: (context) => Scaffold(
+      //                           appBar: AppBar(
+      //              centerTitle: true,
+      //                             title: const Text("苦手問題"),
+      //                             automaticallyImplyLeading: false,
+      //                           ),
+      //                           body: QuizScreen(
+      //                               reader: ref.watch,
+      //                               questionList:
+      //                                   userWeakQuestionList.data!),
+      //                         )));
+      //           },
+      //           child: const Icon(Icons.play_arrow),
+      //         );
+      //       } else {
+      //         return const SizedBox();
+      //       }
+      //     })
+      //     : null
+      // : null,
     );
   }
 

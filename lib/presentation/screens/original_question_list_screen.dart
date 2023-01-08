@@ -16,6 +16,7 @@ class OriginalQuestionListScreen extends HookConsumerWidget {
     final originalQuestionState = ref.watch(originalQuestionControllerProvider);
     return Scaffold(
         appBar: AppBar(
+          centerTitle: true,
           automaticallyImplyLeading: false,
           title: const Text("オリジナル問題"),
           actions: [
@@ -101,6 +102,7 @@ class OriginalQuestionListScreen extends HookConsumerWidget {
                           MaterialPageRoute(
                               builder: (context) => Scaffold(
                                     appBar: AppBar(
+                                      centerTitle: true,
                                       title: const Text("オリジナル問題"),
                                     ),
                                     body: QuizScreen(

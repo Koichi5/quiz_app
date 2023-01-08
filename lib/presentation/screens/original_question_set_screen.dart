@@ -21,6 +21,7 @@ class OriginalQuestionSetScreen extends HookConsumerWidget {
     final optionValidatorNotifier = ref.watch(optionValidatorProvider.notifier);
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: const Text("問題文追加"),
       ),
       body: Center(

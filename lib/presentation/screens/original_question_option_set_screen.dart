@@ -29,6 +29,7 @@
 //     final optionValidatorNotifier = ref.watch(optionValidatorProvider.notifier);
 //     return Scaffold(
 //       appBar: AppBar(
+//              centerTitle: true,
 //         title: const Text("選択肢追加"),
 //       ),
 //       body: SingleChildScrollView(

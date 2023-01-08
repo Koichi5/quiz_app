@@ -26,6 +26,7 @@ class QuizListScreen extends HookConsumerWidget {
     //       ref.watch(questionControllerProvider(quizList!.first));
     //   return Scaffold(
     //     appBar: AppBar(
+    //              centerTitle: true,
     //       title: Text(category!.name),
     //     ),
     //     body: SingleChildScrollView(
@@ -57,6 +58,11 @@ class QuizListScreen extends HookConsumerWidget {
       final quizListState = ref.watch(quizControllerProvider(category!));
       return Scaffold(
           appBar: AppBar(
+            leading: IconButton(onPressed: (){
+              Navigator.pop(context);
+              ref.watch(currentQuestionIndexProvider.notifier).state = 1;
+            }, icon: const Icon(Icons.arrow_back_ios),),
+            centerTitle: true,
             title: Text(category!.name),
           ),
           body: SingleChildScrollView(

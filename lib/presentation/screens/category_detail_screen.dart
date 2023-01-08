@@ -215,6 +215,7 @@ class CategoryDetailScreen extends HookConsumerWidget {
         ],
       ),
       // appBar: AppBar(
+      //              centerTitle: true,
       //   leading: IconButton(onPressed: () {
       //     Navigator.pop(context);
       //   },

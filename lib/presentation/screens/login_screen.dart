@@ -22,6 +22,7 @@ class LoginScreen extends HookConsumerWidget {
     final loginValidatorNotifier = ref.watch(loginValidatorProvider.notifier);
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: const Text("ログイン"),
       ),
       body: Center(

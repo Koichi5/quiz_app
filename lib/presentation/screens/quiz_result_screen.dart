@@ -36,6 +36,7 @@ class QuizResultScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         automaticallyImplyLeading: false,
         // title: const Text("結果"),
       ),
@@ -89,7 +90,8 @@ class QuizResultScreen extends HookConsumerWidget {
           // }
           // print("questionList[takenQuestions[index]] : ${questionList[takenQuestions[index]]}");
           // print(index);
-          // print("answerIsCorrectList[index] : ${answerIsCorrectList[index]}");
+          print("answerIsCorrectList[index] : ${answerIsCorrectList[index]}");
+          print("answerIsCorrectList : ${answerIsCorrectList}");
           final question = questionList[takenQuestions[index]];
           final answerIsCorrect = answerIsCorrectList[index];
           return ResultQuestionListCard(
@@ -101,23 +103,12 @@ class QuizResultScreen extends HookConsumerWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          ElevatedButton(
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const HomeScreen()));
-              // Navigator.pop(context);
-            },
-            child: const Text(
-              "Close",
-              style: TextStyle(color: Colors.deepPurple, fontSize: 20),
-            ),
-            // width: 150,
-            // height: 50,
-          ),
           // category != null ?
-          TextButton(
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: TextButton(
               onPressed: ([bool mounted = true]) {
                 // ref.watch(optionGestureProvider.notifier).state = false;
                 // ref
@@ -131,6 +122,7 @@ class QuizResultScreen extends HookConsumerWidget {
                     MaterialPageRoute(
                         builder: (context) => Scaffold(
                             appBar: AppBar(
+                              centerTitle: true,
                               title: const Text("再挑戦"),
                             ),
                             body: QuizScreen(
@@ -139,9 +131,37 @@ class QuizResultScreen extends HookConsumerWidget {
                             ))));
               },
               child: Text(
-                "再チャレンジ",
+                "再 挑 戦",
                 style: TextStyle(color: Theme.of(context).colorScheme.primary),
-              ))
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const HomeScreen()));
+                // Navigator.pop(context);
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Theme.of(context).colorScheme.primary,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Text(
+                  "終 了",
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
+                ),
+              ),
+              // width: 150,
+              // height: 50,
+            ),
+          ),
           // : const SizedBox(),
           // ElevatedButton(
           //   onPressed: () {
