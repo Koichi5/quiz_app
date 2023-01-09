@@ -66,24 +66,32 @@ class WeakQuestionScreen extends HookConsumerWidget {
                                 ],
                               ),
                             )
-                          : ElevatedButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Scaffold(
-                                              appBar: AppBar(
-                                                centerTitle: true,
-                                                title: const Text("苦手問題"),
-                                              ),
-                                              body: QuizScreen(
-                                                  reader: ref.watch,
-                                                  questionList:
-                                                      retrievedWeakQuestionList
-                                                          .data!),
-                                            )));
-                              },
-                              child: const Text("クイズ"))
+                          : Align(
+                            alignment: Alignment.centerRight,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => Scaffold(
+                                                  appBar: AppBar(
+                                                    centerTitle: true,
+                                                    title: const Text("苦手問題"),
+                                                  ),
+                                                  body: QuizScreen(
+                                                      reader: ref.watch,
+                                                      questionList:
+                                                          retrievedWeakQuestionList
+                                                              .data!),
+                                                )));
+                                  },
+                        style: ElevatedButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.primary),
+                                  child: Text("クイズ", style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),),
+                      ),
+                            ),
+                          ),
                     ],
                   );
                 } else {
