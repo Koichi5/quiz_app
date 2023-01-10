@@ -41,7 +41,7 @@ class SignupScreen extends HookConsumerWidget {
               //   },
               // ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.07,
+                height: MediaQuery.of(context).size.height * 0.05,
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.9,

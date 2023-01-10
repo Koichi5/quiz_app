@@ -5,13 +5,13 @@ final timeLimitDangerProvider = StateProvider((ref) => false);
 
 class TimeIndicator extends HookConsumerWidget {
   final int duration;
-  final VoidCallback onComplete;
+  // final VoidCallback onComplete;
   final int progress;
   double borderWidth = 2;
 
   TimeIndicator(this.duration,
       this.progress,
-      this.onComplete,
+      // this.onComplete,
       {Key? key})
       : super(key: key);
 

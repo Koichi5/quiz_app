@@ -88,7 +88,7 @@ class WeakQuestionScreen extends HookConsumerWidget {
                                                 )));
                                   },
                         style: ElevatedButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.primary),
-                                  child: Text("クイズ", style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),),
+                                  child: Text("ク イ ズ", style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),),
                       ),
                             ),
                           ),

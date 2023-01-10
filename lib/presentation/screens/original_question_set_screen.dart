@@ -53,7 +53,7 @@ class OriginalQuestionSetScreen extends HookConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8.0),
+                      padding: EdgeInsets.symmetric(horizontal: 15.0),
                       child: Text("選択肢"),
                     ),
                     Padding(
@@ -83,12 +83,12 @@ class OriginalQuestionSetScreen extends HookConsumerWidget {
                       ),
                     ),
                     Switch(
-                        value: ref.watch(firstOptionIsCorrectProvider),
-                        onChanged: (value) {
-                          ref
-                              .watch(firstOptionIsCorrectProvider.notifier)
-                              .state = value;
-                        }),
+                      value: ref.watch(firstOptionIsCorrectProvider),
+                      onChanged: (value) {
+                        ref.watch(firstOptionIsCorrectProvider.notifier).state =
+                            value;
+                      },
+                    ),
                   ],
                 ),
               ),

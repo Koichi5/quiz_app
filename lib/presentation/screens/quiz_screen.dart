@@ -172,34 +172,38 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
             children: List<Option>.from(question?.options ?? []).map((option) {
               int optionIndex = question!.options.indexOf(option);
               var optionWidget = GestureDetector(
-                onTap: ref.watch(optionGestureProvider) ? null : () {
-                  // if (!ref.watch(optionGestureProvider)) {
-                    ref.watch(optionGestureProvider.notifier).state = true;
-                    setState(() {
-                      _remainTime = 0;
-                      ref.watch(questionAnswerProvider.notifier).state =
-                          engine.updateAnswer(
-                              questionIndex: questionList.indexOf(question!),
-                              answer: optionIndex);
-                      ref.watch(questionAnswerProvider).values.last
-                          ? _playCorrectSoundFile()
-                          : _playIncorrectSoundFile();
-                      if (progressTimer != null) {
-                        progressTimer!.cancel();
-                      }
-                    });
-                    // 2.5秒後に次の問題へ
-                    Future.delayed(const Duration(milliseconds: 2500), () {
-                      engine.next();
-                      // 一問終了することごとに現在の問題の数が日と続く増える
-                      reader(currentQuestionIndexProvider.notifier).state++;
-                      // 何かしらの選択肢を選択したら true になる provider, 画面遷移時には次の問題へ移行するため、false にする必要がある
-                      ref.watch(optionGestureProvider.notifier).state = false;
-                    });
-                  // } else {
-                  //   null;
-                  // }
-                },
+                onTap: ref.watch(optionGestureProvider)
+                    ? null
+                    : () {
+                        // if (!ref.watch(optionGestureProvider)) {
+                        ref.watch(optionGestureProvider.notifier).state = true;
+                        setState(() {
+                          _remainTime = 0;
+                          ref.watch(questionAnswerProvider.notifier).state =
+                              engine.updateAnswer(
+                                  questionIndex:
+                                      questionList.indexOf(question!),
+                                  answer: optionIndex);
+                          ref.watch(questionAnswerProvider).values.last
+                              ? _playCorrectSoundFile()
+                              : _playIncorrectSoundFile();
+                          if (progressTimer != null) {
+                            progressTimer!.cancel();
+                          }
+                        });
+                        // 2.5秒後に次の問題へ
+                        Future.delayed(const Duration(milliseconds: 2500), () {
+                          engine.next();
+                          // 一問終了することごとに現在の問題の数が日と続く増える
+                          reader(currentQuestionIndexProvider.notifier).state++;
+                          // 何かしらの選択肢を選択したら true になる provider, 画面遷移時には次の問題へ移行するため、false にする必要がある
+                          ref.watch(optionGestureProvider.notifier).state =
+                              false;
+                        });
+                        // } else {
+                        //   null;
+                        // }
+                      },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: QuestionOption(
@@ -429,12 +433,12 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
         context,
         MaterialPageRoute(
             builder: (context) => QuizResultScreen(
-                result:
-                    QuizResult(questionList: questionList, totalCorrect: total),
-                takenQuestions: takenQuestions,
-                answerIsCorrectList: answerIsCorrectList,
-              questionList: questionList,
-            )));
+                  result: QuizResult(
+                      questionList: questionList, totalCorrect: total),
+                  takenQuestions: takenQuestions,
+                  answerIsCorrectList: answerIsCorrectList,
+                  questionList: questionList,
+                )));
   }
   // Navigator.push(
   //     context,
@@ -488,35 +492,26 @@ class _QuizProgressState extends ConsumerState<QuizProgress> {
     }
     // timer = Timer(const Duration(seconds: 10), () {
     //   Navigator.push(context, MaterialPageRoute(builder: (context) => Page1()));
-    //   print("changedpage");
+    //   print("changed page");
     // });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      child: Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.only(top: 20),
-            child: widget.question != null
-                ? TimeIndicator(
-                    widget.question!.duration,
-                    widget.remainTime,
-                    () {
-                      // progressTimer!.cancel();
-                      // _remainTime = 0;
-                    },
-                  )
-                : null,
-          ),
-          // Text(
-          //   "$_remainTime秒",
-          //   style: const TextStyle(fontSize: 16),
-          // )
-        ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 40.0),
+      child: Container(
+        child: widget.question != null
+            ? TimeIndicator(
+                widget.question!.duration,
+                widget.remainTime,
+                // () {
+                  // progressTimer!.cancel();
+                  // _remainTime = 0;
+                // },
+              )
+            : null,
       ),
     );
   }
