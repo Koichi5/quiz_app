@@ -38,19 +38,22 @@ class QuizResultScreen extends HookConsumerWidget {
       appBar: AppBar(
         centerTitle: true,
         automaticallyImplyLeading: false,
-        // title: const Text("結果"),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            quizResultInfo(context, result),
-            resultQuestionList(context, result.questionList, takenQuestions,
-                answerIsCorrectList),
-            bottomButtons(context, ref),
-          ],
-        ),
-      ),
+      body: questionList.length != answerIsCorrectList.length
+          ? const Center(
+              child: Text("エラーです"),
+            )
+          : SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  quizResultInfo(context, result),
+                  resultQuestionList(context, result.questionList,
+                      takenQuestions, answerIsCorrectList),
+                  bottomButtons(context, ref),
+                ],
+              ),
+            ),
     );
   }
 

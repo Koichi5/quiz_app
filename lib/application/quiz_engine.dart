@@ -10,13 +10,13 @@ import '../presentation/screens/quiz_screen.dart';
 
 typedef OnQuizNext = void Function(Question question);
 typedef OnQuizCompleted = void Function(
-    BuildContext context,
-    Category? category,
-    double totalScore,
-    Duration takenTime,
-    List<int> takenQuestions,
-    List<bool> answerIsCorrectList,
-    );
+  BuildContext context,
+  Category? category,
+  double totalScore,
+  Duration takenTime,
+  List<int> takenQuestions,
+  List<bool> answerIsCorrectList,
+);
 typedef OnQuizStop = void Function();
 
 class QuizEngine {
@@ -38,10 +38,9 @@ class QuizEngine {
   OnQuizStop onStop;
 
   QuizEngine(
-      {
-        required this.reader,
-        this.category,
-        // required this.quiz,
+      {required this.reader,
+      this.category,
+      // required this.quiz,
       required this.questionList,
       required this.onNext,
       required this.onCompleted,
@@ -74,7 +73,8 @@ class QuizEngine {
             //       questionIndex: questionList.indexOf(question),) : null;
             // updateAnswer(
             //     questionIndex: questionList.indexOf(question),);
-            print("questionIndex : $questionIndex");
+            print("questionIndex1 : $questionIndex");
+            print("question : ${question}");
             // reader(currentQuestionIndexProvider.notifier).state = questionIndex;
           }
         }
@@ -85,21 +85,28 @@ class QuizEngine {
           if (timeDiff <= 0) {
             // 未回答の場合は updateAnswer で answer : null
             updateAnswer(
-              questionIndex: questionList.indexOf(question),);
+              questionIndex: questionIndex,
+            );
             takeNewQuestion = true;
           }
         }
         //　_nextQuestion関数でとってきたクイズが null だった時 ＝ クイズが終わった時
-        if (question == null || questionList.length == questionAnswer.length) {
+        if (question == null) {
+          print("question : $question");
+          // takeNewQuestion = false;
+          stop();
           double totalCorrect = 0.0;
-          questionAnswer.forEach((key, value) {
-            if (value == true) {
-              totalCorrect++;
-            }
-          });
+          questionAnswer.forEach(
+            (key, value) {
+              if (value == true) {
+                totalCorrect++;
+              }
+            },
+          );
           var takenTime = examStartTime.difference(DateTime.now());
           print("takenQuestions : $takenQuestions");
-          onCompleted(context, category, totalCorrect, takenTime, takenQuestions, questionAnswer.values.toList());
+          onCompleted(context, category, totalCorrect, takenTime,
+              takenQuestions, questionAnswer.values.toList());
           reader(currentQuestionIndexProvider.notifier).state = 0;
         }
         await Future.delayed(const Duration(milliseconds: 500));
@@ -119,14 +126,24 @@ class QuizEngine {
   }
 
   Map<int, bool> updateAnswer({required int questionIndex, int? answer}) {
+    print("update answer");
+    print("questionIndex : ${questionIndex}");
     var question = questionList[questionIndex];
     // final answerIsCorrect = questionAnswer[questionIndex] == question.options[answer].isCorrect;
-    if(answer == null) {
+    if (answer == null) {
       questionAnswer[questionIndex] = false;
+      reader(currentQuestionIndexProvider.notifier).state++;
       print("questionAnswer[questionIndex] : ${questionAnswer[questionIndex]}");
       print("未回答です");
     } else {
       questionAnswer[questionIndex] = question.options[answer].isCorrect;
+      print("answer :$answer");
+      print("questionAnswer : ${questionAnswer}");
+      print("questionAnswer[questionIndex] : ${questionAnswer[questionIndex]}");
+      // print("questionAnswer.values : ${questionAnswer.values}");
+      // print("questionAnswer.values.last : ${questionAnswer.values.last}");
+      // reader(currentQuestionIndexProvider.notifier).state++;
+      return questionAnswer;
     }
     // questionAnswer は Map<int, bool>
     // keys には Question の番号
@@ -140,7 +157,7 @@ class QuizEngine {
 
   Question? _nextQuestion(List<Question> questionList, int index) {
     while (true) {
-      if (takenQuestions.length >= questionList.length) {
+      if (takenQuestions.length == questionList.length) {
         return null;
       }
       // Change quiz.optionsShuffled to quiz.questionShuffled

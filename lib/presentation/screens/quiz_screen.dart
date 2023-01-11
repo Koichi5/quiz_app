@@ -177,28 +177,31 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
                     : () {
                         // if (!ref.watch(optionGestureProvider)) {
                         ref.watch(optionGestureProvider.notifier).state = true;
-                        setState(() {
-                          _remainTime = 0;
-                          ref.watch(questionAnswerProvider.notifier).state =
-                              engine.updateAnswer(
-                                  questionIndex:
-                                      questionList.indexOf(question!),
-                                  answer: optionIndex);
-                          ref.watch(questionAnswerProvider).values.last
-                              ? _playCorrectSoundFile()
-                              : _playIncorrectSoundFile();
+                        // setState(() {
+                        print("setState");
+                        _remainTime = 0;
+                        ref.watch(questionAnswerProvider.notifier).state =
+                            engine.updateAnswer(
+                                questionIndex: questionList.indexOf(question!),
+                                answer: optionIndex);
+                        ref.watch(questionAnswerProvider).values.last
+                            ? _playCorrectSoundFile()
+                            : _playIncorrectSoundFile();
+                        if (progressTimer != null) {
+                          progressTimer!.cancel();
+                        }
+                        // });
+                        // 2.5秒後に次の問題へ
+                        Future.delayed(const Duration(milliseconds: 2000), () {
                           if (progressTimer != null) {
                             progressTimer!.cancel();
                           }
-                        });
-                        // 2.5秒後に次の問題へ
-                        Future.delayed(const Duration(milliseconds: 2500), () {
                           engine.next();
-                          // 一問終了することごとに現在の問題の数が日と続く増える
-                          reader(currentQuestionIndexProvider.notifier).state++;
                           // 何かしらの選択肢を選択したら true になる provider, 画面遷移時には次の問題へ移行するため、false にする必要がある
                           ref.watch(optionGestureProvider.notifier).state =
                               false;
+                          // 一問終了することごとに現在の問題の数が一つづつ増える
+                          reader(currentQuestionIndexProvider.notifier).state++;
                         });
                         // } else {
                         //   null;
@@ -273,41 +276,41 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
   //   return remainTime == 0 ? Text("時間切れです") : Text("");
   // }
 
-  Widget footerButton(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        ElevatedButton(
-          onPressed: () {
-            setState(() {
-              engine.stop();
-              ref.watch(optionGestureProvider.notifier).state = false;
-              ref.watch(questionAnswerProvider.notifier).state = {0: false};
-              if (progressTimer != null && progressTimer!.isActive) {
-                progressTimer!.cancel();
-              }
-            });
-            Navigator.pop(context);
-          },
-          child: const Text(
-            "キャンセル",
-            style: TextStyle(fontSize: 20),
-          ),
-        ),
-        // ElevatedButton(
-        //   onPressed: () {
-        //     engine.next();
-        //     // 何かしらの選択肢を選択したら true になる provider, 画面遷移時には次の問題へ移行するため、false にする必要がある
-        //     ref.watch(optionGestureProvider.notifier).state = false;
-        //   },
-        //   child: const Text(
-        //     "次へ",
-        //     style: TextStyle(fontSize: 20),
-        //   ),
-        // ),
-      ],
-    );
-  }
+  // Widget footerButton(BuildContext context) {
+  //   return Row(
+  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //     children: [
+  //       ElevatedButton(
+  //         onPressed: () {
+  //           setState(() {
+  //             engine.stop();
+  //             ref.watch(optionGestureProvider.notifier).state = false;
+  //             ref.watch(questionAnswerProvider.notifier).state = {0: false};
+  //             if (progressTimer != null && progressTimer!.isActive) {
+  //               progressTimer!.cancel();
+  //             }
+  //           });
+  //           Navigator.pop(context);
+  //         },
+  //         child: const Text(
+  //           "キャンセル",
+  //           style: TextStyle(fontSize: 20),
+  //         ),
+  //       ),
+  //       // ElevatedButton(
+  //       //   onPressed: () {
+  //       //     engine.next();
+  //       //     // 何かしらの選択肢を選択したら true になる provider, 画面遷移時には次の問題へ移行するため、false にする必要がある
+  //       //     ref.watch(optionGestureProvider.notifier).state = false;
+  //       //   },
+  //       //   child: const Text(
+  //       //     "次へ",
+  //       //     style: TextStyle(fontSize: 20),
+  //       //   ),
+  //       // ),
+  //     ],
+  //   );
+  // }
 
   Future<void> _setupCorrectSession() async {
     _correctPlayer = AudioPlayer();
@@ -356,7 +359,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
   void onNextQuestion(Question inputQuestion) {
     setState(() {
       if (progressTimer != null && progressTimer!.isActive) {
-        _remainTime = 0;
+        // _remainTime = 0;
         progressTimer!.cancel();
       }
       question = inputQuestion;
@@ -430,15 +433,16 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
           );
     }
     Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-            builder: (context) => QuizResultScreen(
-                  result: QuizResult(
-                      questionList: questionList, totalCorrect: total),
-                  takenQuestions: takenQuestions,
-                  answerIsCorrectList: answerIsCorrectList,
-                  questionList: questionList,
-                )));
+      context,
+      MaterialPageRoute(
+        builder: (context) => QuizResultScreen(
+          result: QuizResult(questionList: questionList, totalCorrect: total),
+          takenQuestions: takenQuestions,
+          answerIsCorrectList: answerIsCorrectList,
+          questionList: questionList,
+        ),
+      ),
+    );
   }
   // Navigator.push(
   //     context,
@@ -477,19 +481,19 @@ class QuizProgress extends StatefulHookConsumerWidget {
 class _QuizProgressState extends ConsumerState<QuizProgress> {
   @override
   void initState() {
-    if (widget.remainTime == 0) {
-      ref.watch(questionAnswerProvider.notifier).state = widget.engine
-          .updateAnswer(
-              questionIndex: widget.questionList.indexOf(widget.question!),
-              answer: null);
-      widget.playIncorrectSoundFile();
-      // print(
-      //     "ref.watch(questionAnswerProvider.notifier).state : ${ref.watch(questionAnswerProvider.notifier).state}");
-      // print(
-      //     "question!.options[optionIndex].isSelected : ${question!.options[optionIndex].isSelected}");
-      // ref.watch(optionGestureProvider.notifier).state = true;
-      widget.progressTimer!.cancel();
-    }
+    // if (widget.remainTime == 0) {
+    //   ref.watch(questionAnswerProvider.notifier).state = widget.engine
+    //       .updateAnswer(
+    //           questionIndex: widget.questionList.indexOf(widget.question!),
+    //           answer: null);
+    //   widget.playIncorrectSoundFile();
+    //   // print(
+    //   //     "ref.watch(questionAnswerProvider.notifier).state : ${ref.watch(questionAnswerProvider.notifier).state}");
+    //   // print(
+    //   //     "question!.options[optionIndex].isSelected : ${question!.options[optionIndex].isSelected}");
+    //   // ref.watch(optionGestureProvider.notifier).state = true;
+    //   widget.progressTimer!.cancel();
+    // }
     // timer = Timer(const Duration(seconds: 10), () {
     //   Navigator.push(context, MaterialPageRoute(builder: (context) => Page1()));
     //   print("changed page");
@@ -507,8 +511,8 @@ class _QuizProgressState extends ConsumerState<QuizProgress> {
                 widget.question!.duration,
                 widget.remainTime,
                 // () {
-                  // progressTimer!.cancel();
-                  // _remainTime = 0;
+                // progressTimer!.cancel();
+                // _remainTime = 0;
                 // },
               )
             : null,
