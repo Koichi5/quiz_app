@@ -5,6 +5,7 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import '../../domain/quiz_history/quiz_history.dart';
 import '../controller/category_controller.dart';
 import '../screens/quiz_list_screen.dart';
+import '../screens/quiz_screen.dart';
 
 class QuizHistoryCard extends HookConsumerWidget {
   const QuizHistoryCard({required this.quizHistory, Key? key})
@@ -96,6 +97,7 @@ class QuizHistoryCard extends HookConsumerWidget {
                               .retrieveCategoryById(
                                   quizCategoryDocRef:
                                       quizHistory.categoryDocRef);
+                          ref.watch(currentQuestionIndexProvider.notifier).state = 1;
                           if (!mounted) return;
                           Navigator.pushReplacement(
                               context,

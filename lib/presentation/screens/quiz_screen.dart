@@ -192,17 +192,21 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
                         }
                         // });
                         // 2.5秒後に次の問題へ
-                        Future.delayed(const Duration(milliseconds: 2000), () {
-                          if (progressTimer != null) {
-                            progressTimer!.cancel();
-                          }
-                          engine.next();
-                          // 何かしらの選択肢を選択したら true になる provider, 画面遷移時には次の問題へ移行するため、false にする必要がある
-                          ref.watch(optionGestureProvider.notifier).state =
-                              false;
-                          // 一問終了することごとに現在の問題の数が一つづつ増える
-                          reader(currentQuestionIndexProvider.notifier).state++;
-                        });
+                        Future.delayed(
+                          const Duration(milliseconds: 2000),
+                          () {
+                            if (progressTimer != null) {
+                              progressTimer!.cancel();
+                            }
+                            engine.next();
+                            // 何かしらの選択肢を選択したら true になる provider, 画面遷移時には次の問題へ移行するため、false にする必要がある
+                            ref.watch(optionGestureProvider.notifier).state =
+                                false;
+                            // 一問終了することごとに現在の問題の数が一つづつ増える
+                            reader(currentQuestionIndexProvider.notifier)
+                                .state++;
+                          },
+                        );
                         // } else {
                         //   null;
                         // }

@@ -58,10 +58,13 @@ class QuizListScreen extends HookConsumerWidget {
       final quizListState = ref.watch(quizControllerProvider(category!));
       return Scaffold(
           appBar: AppBar(
-            leading: IconButton(onPressed: (){
-              Navigator.pop(context);
-              ref.watch(currentQuestionIndexProvider.notifier).state = 1;
-            }, icon: const Icon(Icons.arrow_back_ios),),
+            leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+                ref.watch(currentQuestionIndexProvider.notifier).state = 1;
+              },
+              icon: const Icon(Icons.arrow_back_ios),
+            ),
             centerTitle: true,
             title: Text(category!.name),
           ),
@@ -89,8 +92,10 @@ class QuizListScreen extends HookConsumerWidget {
                                       questionList: questions),
                               error: (error, _) => const Text("エラー"),
                               loading: () => Center(
-                                    child: Lottie.asset("assets/json_files/loading.json",
-                                        width: 200, height: 200),
+                                    child: Lottie.asset(
+                                        "assets/json_files/loading.json",
+                                        width: 200,
+                                        height: 200),
                                   )),
                   //     : ListView.builder(
                   //   shrinkWrap: true,

@@ -56,22 +56,30 @@ class WeakQuestionScreen extends HookConsumerWidget {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  SizedBox(height: MediaQuery.of(context).size.height * 0.1,),
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.1,
+                                  ),
                                   const Text("苦手問題を登録して復習しましょう！"),
-                                  Lottie.asset("assets/json_files/weak_question.json",
-                                      width: MediaQuery.of(context).size.width *
-                                          0.7,
+                                  Lottie.asset(
+                                    "assets/json_files/weak_question.json",
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.7,
                                     fit: BoxFit.fitWidth,
                                   ),
                                 ],
                               ),
                             )
                           : Align(
-                            alignment: Alignment.centerRight,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ElevatedButton(
+                              alignment: Alignment.centerRight,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ElevatedButton(
                                   onPressed: () {
+                                    ref
+                                        .watch(currentQuestionIndexProvider
+                                            .notifier)
+                                        .state = 1;
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -87,11 +95,20 @@ class WeakQuestionScreen extends HookConsumerWidget {
                                                               .data!),
                                                 )));
                                   },
-                        style: ElevatedButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.primary),
-                                  child: Text("ク イ ズ", style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),),
-                      ),
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: Theme.of(context)
+                                          .colorScheme
+                                          .primary),
+                                  child: Text(
+                                    "ク イ ズ",
+                                    style: TextStyle(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onPrimary),
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
                     ],
                   );
                 } else {

@@ -113,6 +113,7 @@ class QuizResultScreen extends HookConsumerWidget {
             padding: const EdgeInsets.all(10.0),
             child: TextButton(
               onPressed: ([bool mounted = true]) {
+                ref.watch(currentQuestionIndexProvider.notifier).state = 1;
                 // ref.watch(optionGestureProvider.notifier).state = false;
                 // ref
                 //     .watch(categoryControllerProvider.notifier)
@@ -121,17 +122,20 @@ class QuizResultScreen extends HookConsumerWidget {
                 //     .then((value) {
                 if (!mounted) return;
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => Scaffold(
-                            appBar: AppBar(
-                              centerTitle: true,
-                              title: const Text("再挑戦"),
-                            ),
-                            body: QuizScreen(
-                              questionList: result.questionList,
-                              reader: ref.watch,
-                            ))));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Scaffold(
+                      appBar: AppBar(
+                        centerTitle: true,
+                        title: const Text("再挑戦"),
+                      ),
+                      body: QuizScreen(
+                        questionList: result.questionList,
+                        reader: ref.watch,
+                      ),
+                    ),
+                  ),
+                );
               },
               child: Text(
                 "再 挑 戦",
