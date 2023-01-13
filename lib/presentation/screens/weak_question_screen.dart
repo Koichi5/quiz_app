@@ -100,7 +100,7 @@ class WeakQuestionScreen extends HookConsumerWidget {
                                           .colorScheme
                                           .primary),
                                   child: Text(
-                                    "ク イ ズ",
+                                    "クイズ",
                                     style: TextStyle(
                                         color: Theme.of(context)
                                             .colorScheme
