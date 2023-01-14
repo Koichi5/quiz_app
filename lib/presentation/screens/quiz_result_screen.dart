@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:lottie/lottie.dart';
 import 'package:quiz_app/presentation/screens/quiz_screen.dart';
 import 'package:quiz_app/presentation/widgets/result_question_list_card.dart';
 
@@ -37,11 +38,21 @@ class QuizResultScreen extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading:
+            questionList.length != answerIsCorrectList.length ? true : false,
       ),
       body: questionList.length != answerIsCorrectList.length
-          ? const Center(
-              child: Text("エラーです"),
+          ? Center(
+              child: Container(
+                color: Colors.white,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("エラーが発生しています"),
+                    Lottie.asset("assets/json_files/error.json"),
+                  ],
+                ),
+              ),
             )
           : SingleChildScrollView(
               child: Column(
@@ -138,7 +149,7 @@ class QuizResultScreen extends HookConsumerWidget {
                 );
               },
               child: Text(
-                "再 挑 戦",
+                "再挑戦",
                 style: TextStyle(color: Theme.of(context).colorScheme.primary),
               ),
             ),
