@@ -47,6 +47,7 @@ class QuizEngine {
       required this.onStop});
 
   void start(BuildContext context) {
+    print("engine started");
     questionIndex = 0;
     questionDuration = 0;
     takenQuestions = [];
@@ -67,6 +68,10 @@ class QuizEngine {
             questionIndex++;
             questionStartTime = DateTime.now();
             onNext(question);
+            // 連打対策のため必要
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              reader(optionGestureProvider.notifier).state = false;
+            });
             // reader(currentQuestionIndexProvider.notifier).state = questionIndex;
             // reader(remainTimeProvider) == 0 ?
             //   updateAnswer(
@@ -92,6 +97,16 @@ class QuizEngine {
         }
         //　_nextQuestion関数でとってきたクイズが null だった時 ＝ クイズが終わった時
         if (question == null) {
+          // var questionTimeEnd =
+          // questionStartTime.add(Duration(seconds: question.duration));
+          // var timeDiff = questionTimeEnd.difference(DateTime.now()).inSeconds;
+          // if (timeDiff <= 0) {
+          //   // 未回答の場合は updateAnswer で answer : null
+          //   updateAnswer(
+          //     questionIndex: questionIndex,
+          //   );
+          //   takeNewQuestion = true;
+          // }
           print("question : $question");
           // takeNewQuestion = false;
           stop();
@@ -107,7 +122,7 @@ class QuizEngine {
           print("takenQuestions : $takenQuestions");
           onCompleted(context, category, totalCorrect, takenTime,
               takenQuestions, questionAnswer.values.toList());
-          reader(currentQuestionIndexProvider.notifier).state = 0;
+          reader(currentQuestionIndexProvider.notifier).state = 1;
         }
         await Future.delayed(const Duration(milliseconds: 500));
       } while (question != null && isRunning);
@@ -133,8 +148,12 @@ class QuizEngine {
     if (answer == null) {
       questionAnswer[questionIndex] = false;
       reader(currentQuestionIndexProvider.notifier).state++;
+      print("answer :$answer");
+      print("questionAnswer : ${questionAnswer}");
       print("questionAnswer[questionIndex] : ${questionAnswer[questionIndex]}");
       print("未回答です");
+      // next();
+      return questionAnswer;
     } else {
       questionAnswer[questionIndex] = question.options[answer].isCorrect;
       print("answer :$answer");
@@ -163,7 +182,7 @@ class QuizEngine {
       // Change quiz.optionsShuffled to quiz.questionShuffled
       // if (!quiz.questionsShuffled) {
       index = Random().nextInt(questionList.length);
-      if (takenQuestions.contains(index) == false) {
+      if (questionAnswer.keys.contains(index) == false) {
         takenQuestions.add(index);
         return questionList[index];
       }

@@ -42,18 +42,18 @@ class QuizResultScreen extends HookConsumerWidget {
             questionList.length != answerIsCorrectList.length ? true : false,
       ),
       body: questionList.length != answerIsCorrectList.length
-          ? Center(
-              child: Container(
-                color: Colors.white,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text("エラーが発生しています"),
-                    Lottie.asset("assets/json_files/error.json"),
-                  ],
-                ),
-              ),
-            )
+          ? Container(
+            color: Colors.white,
+            width: double.infinity,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text("エラーが発生しています\n テスト結果を正確に取得できませんでした", textAlign: TextAlign.center,),
+                Lottie.asset("assets/json_files/error.json", width: MediaQuery.of(context).size.width * 0.7, fit: BoxFit.fitWidth),
+              ],
+            ),
+          )
           : SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

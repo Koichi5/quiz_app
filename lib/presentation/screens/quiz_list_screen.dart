@@ -134,9 +134,18 @@ class QuizListScreen extends HookConsumerWidget {
     } else {
       return Scaffold(
         appBar: AppBar(),
-        body: const Center(
-          child: Text("エラーが発生しています"),
-        ),
+        body: Container(
+          color: Colors.white,
+          width: double.infinity,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Text("エラーが発生しています", textAlign: TextAlign.center,),
+              Lottie.asset("assets/json_files/error.json", width: MediaQuery.of(context).size.width * 0.7, fit: BoxFit.fitWidth),
+            ],
+          ),
+        )
       );
     }
   }
