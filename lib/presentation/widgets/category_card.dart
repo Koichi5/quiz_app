@@ -15,6 +15,7 @@ class CategoryCard extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
       onTap: ([bool mounted = true]) async {
+        ref.watch(weakQuestionInCategoryCountProvider.notifier).state = 0;
         await ref
             .watch(weakQuestionRepositoryProvider)
             .retrieveWeakQuestionList()

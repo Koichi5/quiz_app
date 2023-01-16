@@ -32,9 +32,9 @@ class CategoryDetailScreen extends HookConsumerWidget {
             child: IconButton(
                 onPressed: () {
                   Navigator.pop(context);
-                  ref
-                      .watch(weakQuestionInCategoryCountProvider.notifier)
-                      .state = 0;
+                  // ref
+                  //     .watch(weakQuestionInCategoryCountProvider.notifier)
+                  //     .state = 0;
                 },
                 icon: const Icon(Icons.arrow_back_ios)),
           ),

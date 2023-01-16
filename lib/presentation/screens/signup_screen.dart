@@ -32,14 +32,6 @@ class SignupScreen extends HookConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // CustomTextField(
-              //   title: "ニックネーム",
-              //   controller: nameControllerProvider,
-              //   error: signupValidator.form.name.errorMessage,
-              //   onChanged: (name) {
-              //     signupValidatorNotifier.setName(name);
-              //   },
-              // ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.05,
               ),
