@@ -49,7 +49,7 @@ class IntroSliderScreen extends ConsumerWidget {
                       width: MediaQuery.of(context).size.width * 0.9,
                       height: MediaQuery.of(context).size.height * 0.3),
                   styleTitle: const TextStyle(color: Colors.cyan, fontSize: 20),
-                  description: "問題を作成してアプリを\nカスタマイズしよう！",
+                  description: "問題を作成して効率的に\n学習しよう！",
                   styleDescription: const TextStyle(color: Colors.cyan, fontSize: 18),
                   backgroundColor: Colors.white),
             );

@@ -74,8 +74,8 @@ class SignupScreen extends HookConsumerWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.04,
               ),
-              SignUpButton(
-                  emailControllerProvider.text, passwordControllerProvider.text),
+              SignUpButton(emailControllerProvider.text,
+                  passwordControllerProvider.text),
               Divider(
                 height: MediaQuery.of(context).size.height * 0.05,
                 thickness: 0.5,
@@ -94,15 +94,17 @@ class SignupScreen extends HookConsumerWidget {
               Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    child: TextButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/login');
-                        },
-                        child: const Text(
-                          "アカウントをお持ちの方はこちら",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ))),
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/login');
+                    },
+                    child: const Text(
+                      "アカウントをお持ちの方はこちら",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
               ),
             ],
           ),
