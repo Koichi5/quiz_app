@@ -33,7 +33,7 @@ class BottomNavBar extends HookConsumerWidget {
                   // color: Theme.of(context).colorScheme.primary
               ),
               activeColor: Theme.of(context).colorScheme.primary,
-            inactiveColor: Theme.of(context).colorScheme.tertiary,
+            inactiveColor: Theme.of(context).colorScheme.inversePrimary,
           ),
         }
       ],

@@ -30,10 +30,11 @@ class CategoryDetailScreen extends HookConsumerWidget {
             padding:
                 const EdgeInsets.symmetric(horizontal: 10.0, vertical: 50.0),
             child: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: const Icon(Icons.arrow_back_ios)),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: const Icon(Icons.arrow_back_ios),
+            ),
           ),
           Align(
             alignment: Alignment.bottomCenter,
@@ -69,7 +70,7 @@ class CategoryDetailScreen extends HookConsumerWidget {
                           child: Text(categoryDescription),
                         ),
                         Divider(
-                          color: Theme.of(context).colorScheme.tertiary,
+                          color: Theme.of(context).colorScheme.inversePrimary,
                           indent: 20.0,
                           endIndent: 20.0,
                         ),
@@ -87,7 +88,7 @@ class CategoryDetailScreen extends HookConsumerWidget {
                                   child: Icon(
                                     Icons.question_mark,
                                     color:
-                                        Theme.of(context).colorScheme.tertiary,
+                                        Theme.of(context).colorScheme.inversePrimary,
                                   ),
                                 ),
                                 const Text("問題数"),
@@ -101,7 +102,7 @@ class CategoryDetailScreen extends HookConsumerWidget {
                           ],
                         ),
                         Divider(
-                          color: Theme.of(context).colorScheme.tertiary,
+                          color: Theme.of(context).colorScheme.inversePrimary,
                           indent: 20.0,
                           endIndent: 20.0,
                         ),
@@ -119,7 +120,7 @@ class CategoryDetailScreen extends HookConsumerWidget {
                                   child: Icon(
                                     Icons.timer,
                                     color:
-                                        Theme.of(context).colorScheme.tertiary,
+                                        Theme.of(context).colorScheme.inversePrimary,
                                   ),
                                 ),
                                 const Text("所要時間"),
@@ -133,7 +134,7 @@ class CategoryDetailScreen extends HookConsumerWidget {
                           ],
                         ),
                         Divider(
-                          color: Theme.of(context).colorScheme.tertiary,
+                          color: Theme.of(context).colorScheme.inversePrimary,
                           indent: 20.0,
                           endIndent: 20.0,
                         ),
@@ -151,7 +152,7 @@ class CategoryDetailScreen extends HookConsumerWidget {
                                   child: Icon(
                                     Icons.star,
                                     color:
-                                        Theme.of(context).colorScheme.tertiary,
+                                        Theme.of(context).colorScheme.inversePrimary,
                                   ),
                                 ),
                                 const Text("苦手問題"),
@@ -165,7 +166,7 @@ class CategoryDetailScreen extends HookConsumerWidget {
                           ],
                         ),
                         Divider(
-                          color: Theme.of(context).colorScheme.tertiary,
+                          color: Theme.of(context).colorScheme.inversePrimary,
                           indent: 20.0,
                           endIndent: 20.0,
                         ),
