@@ -89,10 +89,29 @@ class QuizEngine {
           var timeDiff = questionTimeEnd.difference(DateTime.now()).inSeconds;
           if (timeDiff <= 0) {
             // 未回答の場合は updateAnswer で answer : null
-            updateAnswer(
+            questionAnswer = updateAnswer(
               questionIndex: questionIndex,
             );
-            takeNewQuestion = true;
+            print("制限時間が過ぎました");
+            if(questionAnswer.keys.length == questionList.length) {
+              print("最終問題で制限時間が過ぎました");
+              stop();
+              double totalCorrect = 0.0;
+              questionAnswer.forEach(
+                    (key, value) {
+                  if (value == true) {
+                    totalCorrect++;
+                  }
+                },
+              );
+              var takenTime = examStartTime.difference(DateTime.now());
+              print("takenQuestions : $takenQuestions");
+              onCompleted(context, category, totalCorrect, takenTime,
+                  takenQuestions, questionAnswer.values.toList());
+              reader(currentQuestionIndexProvider.notifier).state = 1;
+            } else {
+              takeNewQuestion = true;
+            }
           }
         }
         //　_nextQuestion関数でとってきたクイズが null だった時 ＝ クイズが終わった時
