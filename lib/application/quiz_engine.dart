@@ -116,18 +116,7 @@ class QuizEngine {
         }
         //　_nextQuestion関数でとってきたクイズが null だった時 ＝ クイズが終わった時
         if (question == null) {
-          // var questionTimeEnd =
-          // questionStartTime.add(Duration(seconds: question.duration));
-          // var timeDiff = questionTimeEnd.difference(DateTime.now()).inSeconds;
-          // if (timeDiff <= 0) {
-          //   // 未回答の場合は updateAnswer で answer : null
-          //   updateAnswer(
-          //     questionIndex: questionIndex,
-          //   );
-          //   takeNewQuestion = true;
-          // }
           print("question : $question");
-          // takeNewQuestion = false;
           stop();
           double totalCorrect = 0.0;
           questionAnswer.forEach(
