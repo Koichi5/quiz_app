@@ -54,10 +54,11 @@ class QuizHistoryRepository implements BaseQuizHistoryRepository {
 
       await quizHistoryRef.doc(quizHistoryDocRef).update({
         "questionList": quizHistory.questionList
-            .map((question) => question.copyWith(options: []).toDocument()).toList()
+            .map((question) => question.copyWith(options: []).toDocument())
+            .toList()
         // .map((question) => question.copyWith(
-            // options: []).toDocument())
-            // .toList(),
+        // options: []).toDocument())
+        // .toList(),
         // await quizHistoryRef.doc(quizHistoryDocRef).update({
         // "questionList": quizHistory.questionList
         //     .map((question) => question.copyWith(options: []).toDocument())
@@ -77,16 +78,16 @@ class QuizHistoryRepository implements BaseQuizHistoryRepository {
       //     //         }))
       //   }
       // }
-          //     {
-          //   "questionList": quizHistory.questionList
-          //       .map((question) => question.copyWith(options: []).toDocument())
-          //       .toList(),
-          //   // await quizHistoryRef.doc(quizHistoryDocRef).update({
-          //   // "questionList": quizHistory.questionList
-          //   //     .map((question) => question.copyWith(options: []).toDocument())
-          //   //     .toList(),
-          // }
-          // );
+      //     {
+      //   "questionList": quizHistory.questionList
+      //       .map((question) => question.copyWith(options: []).toDocument())
+      //       .toList(),
+      //   // await quizHistoryRef.doc(quizHistoryDocRef).update({
+      //   // "questionList": quizHistory.questionList
+      //   //     .map((question) => question.copyWith(options: []).toDocument())
+      //   //     .toList(),
+      // }
+      // );
 
       // final List userCompletedCategoryList = [];
 
@@ -167,18 +168,30 @@ class QuizHistoryRepository implements BaseQuizHistoryRepository {
   @override
   Future<List<QuizHistory>> retrieveQuizHistoryList() async {
     final User? currentUser = _reader(firebaseAuthProvider).currentUser;
+    const int quizHistoryLimitCount = 10;
     try {
       final snap = await _reader(firebaseFirestoreProvider)
           .collection("user")
           .doc(currentUser!.uid)
           .collection("quizHistory")
           .orderBy("quizDate", descending: true)
+          .limit(quizHistoryLimitCount)
           .get();
       return snap.docs.map((doc) => QuizHistory.fromDocument(doc)).toList();
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message);
     }
   }
+
+  // Future<void> deleteQuizHistoryList() async {
+  //   final User? currentUser = _reader(firebaseAuthProvider).currentUser;
+  //   try{
+  //     final snap = await _reader(firebaseFirestoreProvider)
+  //         .collection("user")
+  //         .doc(currentUser!.uid)
+  //         .collection("quizHistory").doc().delete();
+  //   }
+  // }
 
   @override
   Future<List<String>> retrieveUserCompletedCategoryNameList() async {

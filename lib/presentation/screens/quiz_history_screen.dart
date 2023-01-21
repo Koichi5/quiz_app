@@ -52,7 +52,7 @@ class QuizHistoryScreen extends HookConsumerWidget {
                     child: ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: quizHistoryList.data!.length > 11 ? 10 : quizHistoryList.data!.length,
+                      itemCount: quizHistoryList.data!.length,
                       itemBuilder: (BuildContext context, int index) {
                         return QuizHistoryCard(
                             quizHistory: quizHistoryList.data![index]);
