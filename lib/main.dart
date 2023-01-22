@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
         '/home': (BuildContext context) => const HomeScreen(),
         '/signup': (BuildContext context) => const SignupScreen(),
         '/login': (BuildContext context) => const LoginScreen(),
-        '/profile_edit' : (BuildContext context) => const ProfileEditScreen(),
+        // '/profile_edit' : (BuildContext context) => const ProfileEditScreen(),
         // '/category_set': (BuildContext context) => const CategorySetScreen(),
         // '/quiz_set': (BuildContext context) => const QuizSetScreen(),
         // '/question_set': (BuildContext context) => const QuestionSetScreen(),
