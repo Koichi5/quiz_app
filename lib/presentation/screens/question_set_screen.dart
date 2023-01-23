@@ -16,6 +16,7 @@ class QuestionSetScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    const String defaultDuration = "15";
     // final idControllerProvider = ref.watch(questionIdControllerProvider);
     final textControllerProvider = ref.watch(questionTextControllerProvider);
     final durationControllerProvider =
@@ -164,7 +165,7 @@ class QuestionSetScreen extends HookConsumerWidget {
                 // id: idControllerProvider.text,
                 text: textControllerProvider.text,
                 // duration: durationControllerProvider.text,
-                duration: '10',
+                duration: defaultDuration,
                 quiz: quiz,
               ),
               SizedBox(

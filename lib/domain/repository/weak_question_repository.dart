@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../general/custom_exception.dart';
 import '../../general/general_provider.dart';
+import '../../presentation/widgets/weak_question_card.dart';
 import '../weak_question/weak_question.dart';
 
 abstract class BaseWeakQuestionRepository {
@@ -53,7 +55,7 @@ class WeakQuestionRepository implements BaseWeakQuestionRepository {
           .doc(userId)
           .collection("weakQuestion")
           .doc(weakQuestion.questionDocRef)
-          .delete();
+          .delete().whenComplete(() => _reader(weakQuestionDeleteStateProvider.notifier).state = true);
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message);
     }
@@ -74,3 +76,15 @@ class WeakQuestionRepository implements BaseWeakQuestionRepository {
     }
   }
 }
+
+class Counter extends ChangeNotifier {
+  int _counter = 0;
+  get counter => _counter;
+
+  void countUp() {
+    _counter++;
+    notifyListeners();
+  }
+}
+
+final _provider = ChangeNotifierProvider((ref) => Counter());

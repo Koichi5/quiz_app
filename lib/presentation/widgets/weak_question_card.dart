@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../domain/question/question.dart';
 import '../controller/weak_question_controller.dart';
 
-// final weakQuestionCardGestureProvider = StateProvider((ref) => false);
+final weakQuestionDeleteStateProvider = StateProvider((ref) => false);
 
 class WeakQuestionCard extends HookConsumerWidget {
   const WeakQuestionCard({required this.question, Key? key}) : super(key: key);
@@ -36,7 +36,7 @@ class WeakQuestionCard extends HookConsumerWidget {
                         .indexWhere((element) => element.isCorrect == true))
                     .text),
                 TextButton(
-                    onPressed: () async {
+                    onPressed: ([bool mounted = true]) async {
                       await ref
                           .watch(weakQuestionControllerProvider.notifier)
                           .deleteWeakQuestion(
@@ -44,6 +44,7 @@ class WeakQuestionCard extends HookConsumerWidget {
                             quizDocRef: question.quizDocRef!,
                             questionDocRef: question.questionDocRef!,
                           );
+                      if (!mounted) return;
                       showDialog(
                           context: context,
                           builder: (context) {
@@ -52,18 +53,18 @@ class WeakQuestionCard extends HookConsumerWidget {
                                 padding: EdgeInsets.all(10.0),
                                 child: Center(
                                     child: Text(
-                                      "削除しました",
+                                      "削除しました \n 再更新時に反映されます",
                                       textAlign: TextAlign.center,
-                                    )),
+                                    ),),
                               ),
                               TextButton(
                                   onPressed: ([bool mounted = true]) async {
-                                    await ref
-                                        .watch(
-                                        weakQuestionControllerProvider
-                                            .notifier)
-                                        .retrieveWeakQuestionList();
-                                    if (!mounted) return;
+                                    // await ref
+                                    //     .watch(
+                                    //     weakQuestionControllerProvider
+                                    //         .notifier)
+                                    //     .retrieveWeakQuestionList();
+                                    // if (!mounted) return;
                                     Navigator.pop(context);
                                   },
                                   child: const Text("戻る"))
