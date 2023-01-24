@@ -11,7 +11,7 @@ abstract class BaseQuestionRepository {
   Future<Question> addQuestion(
       {required Quiz quiz, required Question question});
   Future<List<Question>> retrieveQuestionList({required Quiz quiz});
-  Future<List<Question>> retrieveWeakQuestionList();
+  Stream<List<Question>> retrieveWeakQuestionList();
 }
 
 final questionRepositoryProvider =
@@ -115,7 +115,7 @@ class QuestionRepository implements BaseQuestionRepository {
   }
 
   @override
-  Future<List<Question>> retrieveWeakQuestionList() async {
+  Stream<List<Question>> retrieveWeakQuestionList() async* {
     try {
       final weakQuestionList = await _reader(weakQuestionRepositoryProvider)
           .retrieveWeakQuestionList();
@@ -132,7 +132,7 @@ class QuestionRepository implements BaseQuestionRepository {
             .get();
         questionList.add(Question.fromDocument(snap));
       }
-      return questionList;
+      yield questionList;
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message);
     }

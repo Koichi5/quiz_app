@@ -6,7 +6,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../general/custom_exception.dart';
 import '../../general/general_provider.dart';
 import '../../presentation/widgets/weak_question_card.dart';
+import '../question/question.dart';
 import '../weak_question/weak_question.dart';
+import '../weak_question_list/weak_question_list.dart';
 
 abstract class BaseWeakQuestionRepository {
   Future<String> addWeakQuestion(
@@ -77,14 +79,48 @@ class WeakQuestionRepository implements BaseWeakQuestionRepository {
   }
 }
 
-class Counter extends ChangeNotifier {
-  int _counter = 0;
-  get counter => _counter;
+class WeakQuestionScrollListView extends StateNotifier<WeakQuestionList> {
+  WeakQuestionScrollListView(this._reader) : super(WeakQuestionList(weakQuestionList: [])) {
+    fetchList();
+  }
+  final Reader _reader;
 
-  void countUp() {
-    _counter++;
-    notifyListeners();
+  Future<void> fetchList() async {
+    print("fetchList");
+    state = state.copyWith(isLoading: true, error: null);
+    try {
+      final newList = await fetchNextListByDummyRepository();
+      state = state.copyWith(weakQuestionList: newList, isLoading: false, error: null);
+    } on Exception catch (error) {
+      state = state.copyWith(error: error.toString(), isLoading: false);
+    }
+  }
+
+  Future<List<Question>> fetchNextListByDummyRepository() async {
+    print('fetchNextListByDummyRepository');
+    try {
+      final weakQuestionList = await _reader(weakQuestionRepositoryProvider)
+          .retrieveWeakQuestionList();
+      final List<Question> questionList = [];
+      for (int i = 0; i < weakQuestionList.length; i++) {
+        final weakQuestion = weakQuestionList[i];
+        final snap = await _reader(firebaseFirestoreProvider)
+            .collection("category")
+            .doc(weakQuestion.categoryDocRef)
+            .collection("quiz")
+            .doc(weakQuestion.quizDocRef)
+            .collection("questions")
+            .doc(weakQuestion.questionDocRef)
+            .get();
+        questionList.add(Question.fromDocument(snap));
+      }
+      return questionList;
+    } on FirebaseException catch (e) {
+      throw CustomException(message: e.message);
+    }
   }
 }
 
-final _provider = ChangeNotifierProvider((ref) => Counter());
+final weakQuestionScrollListViewProvider = StateNotifierProvider(
+      (ref) => WeakQuestionScrollListView(ref.read),
+);

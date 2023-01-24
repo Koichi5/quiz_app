@@ -21,17 +21,6 @@ class QuizResultScreen extends HookConsumerWidget {
       required this.questionList,
       Key? key})
       : super(key: key);
-  // int totalQuestions = 0;
-  // double totalCorrect = 0;
-
-  // @override
-  // void initState() {
-  //   setState(() {
-  //     totalCorrect = result.totalCorrect;
-  //     totalQuestions = result.questionList.length;
-  //   });
-  //   super.initState();
-  // }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -181,21 +170,8 @@ class QuizResultScreen extends HookConsumerWidget {
                   ),
                 ),
               ),
-              // width: 150,
-              // height: 50,
             ),
           ),
-          // : const SizedBox(),
-          // ElevatedButton(
-          //   onPressed: () {
-          //     Navigator.pushReplacement(
-          //         context, MaterialPageRoute(builder: (context) => const QuizHistoryScreen()));
-          //   },
-          //   child: const Text(
-          //     "History",
-          //     style: TextStyle(color: Colors.white, fontSize: 20),
-          //   ),
-          // ),
         ],
       ),
     );

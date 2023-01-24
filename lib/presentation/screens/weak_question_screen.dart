@@ -17,8 +17,8 @@ class WeakQuestionScreen extends HookConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          FutureBuilder(
-              future: ref
+          StreamBuilder(
+              stream: ref
                   .watch(questionRepositoryProvider)
                   .retrieveWeakQuestionList(),
               builder: (BuildContext context,

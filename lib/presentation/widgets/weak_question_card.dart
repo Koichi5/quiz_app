@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../domain/question/question.dart';
+import '../../domain/repository/weak_question_repository.dart';
 import '../controller/weak_question_controller.dart';
 
 final weakQuestionDeleteStateProvider = StateProvider((ref) => false);
@@ -44,6 +45,7 @@ class WeakQuestionCard extends HookConsumerWidget {
                             quizDocRef: question.quizDocRef!,
                             questionDocRef: question.questionDocRef!,
                           );
+                      await ref.watch(weakQuestionScrollListViewProvider.notifier).fetchList();
                       if (!mounted) return;
                       showDialog(
                           context: context,
@@ -59,12 +61,14 @@ class WeakQuestionCard extends HookConsumerWidget {
                               ),
                               TextButton(
                                   onPressed: ([bool mounted = true]) async {
+                                    await ref.watch(weakQuestionScrollListViewProvider.notifier).fetchList();
                                     // await ref
                                     //     .watch(
                                     //     weakQuestionControllerProvider
                                     //         .notifier)
                                     //     .retrieveWeakQuestionList();
                                     // if (!mounted) return;
+                                    if (!mounted) return;
                                     Navigator.pop(context);
                                   },
                                   child: const Text("戻る"))
