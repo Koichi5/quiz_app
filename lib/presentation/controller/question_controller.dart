@@ -110,4 +110,42 @@ class QuestionController extends StateNotifier<AsyncValue<List<Question>>> {
         questionList..add(question.copyWith(id: questionWithDocRef.id))));
     return question;
   }
+
+  Future<Question> addWeakQuestion({
+    String? id,
+    required String text,
+    required String duration,
+    required bool optionsShuffled,
+    required Quiz quiz,
+  }) async {
+    final question = Question(
+      id: id,
+      text: text,
+      duration: int.parse(duration),
+      optionsShuffled: optionsShuffled,
+      options: [
+        Option(
+            text: _reader(firstOptionTextControllerProvider).text,
+            isCorrect: _reader(firstOptionIsCorrectProvider),
+            isSelected: false),
+        Option(
+            text: _reader(secondOptionTextControllerProvider).text,
+            isCorrect: _reader(secondOptionIsCorrectProvider),
+            isSelected: false),
+        Option(
+            text: _reader(thirdOptionTextControllerProvider).text,
+            isCorrect: _reader(thirdOptionIsCorrectProvider),
+            isSelected: false),
+        Option(
+            text: _reader(fourthOptionTextControllerProvider).text,
+            isCorrect: _reader(fourthOptionIsCorrectProvider),
+            isSelected: false),
+      ],
+    );
+    final questionWithDocRef = await _reader(questionRepositoryProvider)
+        .addQuestion(quiz: quiz, question: question);
+    state.whenData((questionList) => state = AsyncValue.data(
+        questionList..add(question.copyWith(id: questionWithDocRef.id))));
+    return question;
+  }
 }

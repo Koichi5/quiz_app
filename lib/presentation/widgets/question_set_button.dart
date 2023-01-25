@@ -45,12 +45,12 @@ class QuestionSetButton extends HookConsumerWidget {
                     quiz: quiz,
                   );
               ref.watch(categoryQuestionCountProvider.notifier).state++;
-              ref
-                  .watch(categoryControllerProvider.notifier)
-                  .editCategoryQuestionCount(
-                      categoryQuestionCount:
-                          ref.watch(categoryQuestionCountProvider),
-                      categoryDocRef: quiz.categoryDocRef!);
+              // ref
+              //     .watch(categoryControllerProvider.notifier)
+              //     .editCategoryQuestionCount(
+              //         categoryQuestionCount:
+              //             ref.watch(categoryQuestionCountProvider),
+              //         categoryDocRef: quiz.categoryDocRef!);
               Navigator.pop(context);
             }
           },

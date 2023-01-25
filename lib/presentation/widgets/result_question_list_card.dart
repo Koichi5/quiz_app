@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quiz_app/domain/question/question.dart';
+import 'package:quiz_app/domain/repository/question_repository.dart';
 import 'package:quiz_app/domain/weak_question/weak_question.dart';
+import 'package:quiz_app/presentation/controller/question_controller.dart';
 import 'package:quiz_app/presentation/controller/weak_question_controller.dart';
 
 // final questionIsRegisteredWeakQuestionProvider = StateProvider((ref) => false);
@@ -115,10 +117,10 @@ class ResultQuestionListCard extends HookConsumerWidget {
               ),
           FutureBuilder(
               future: ref
-                  .watch(weakQuestionControllerProvider.notifier)
+                  .watch(questionRepositoryProvider)
                   .retrieveWeakQuestionList(),
               builder: (BuildContext context,
-                  AsyncSnapshot<List<WeakQuestion>> weakQuestionList) {
+                  AsyncSnapshot<List<Question>> weakQuestionList) {
                 if (weakQuestionList.connectionState != ConnectionState.done) {
                   // return Center(child: Lottie.asset("assets/json_files/loading.json", width: 200, height: 200),);
                   return const SizedBox();
@@ -162,43 +164,67 @@ class ResultQuestionListCard extends HookConsumerWidget {
                           icon: const Icon(Icons.check_box_outlined))
                       : IconButton(
                           onPressed: () async {
-                            print(weakQuestionList.data!.contains(WeakQuestion(
-                                categoryDocRef: question.categoryDocRef!,
-                                quizDocRef: question.quizDocRef!,
-                                questionDocRef: question.questionDocRef!)));
-                            await ref
-                                .watch(weakQuestionControllerProvider.notifier)
-                                .addWeakQuestion(
-                                    categoryDocRef: question.categoryDocRef!,
-                                    quizDocRef: question.quizDocRef!,
-                                    questionDocRef: question.questionDocRef!);
-                            showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return SimpleDialog(children: [
-                                    const Padding(
-                                      padding: EdgeInsets.all(10.0),
-                                      child: Center(
-                                        child: Text(
-                                          "追加しました",
-                                          textAlign: TextAlign.center,
-                                        ),
+                            if (question.categoryDocRef == null) {
+                              showDialog(context: context, builder: (context) {
+                                return SimpleDialog(children: [
+                                  const Padding(
+                                    padding: EdgeInsets.all(10.0),
+                                    child: Center(
+                                      child: Text(
+                                        "オリジナル問題は追加できません",
+                                        textAlign: TextAlign.center,
                                       ),
                                     ),
-                                    TextButton(
-                                      onPressed: ([bool mounted = true]) async {
-                                        await ref
-                                            .watch(
-                                                weakQuestionControllerProvider
-                                                    .notifier)
-                                            .retrieveWeakQuestionList();
-                                        if (!mounted) return;
-                                        Navigator.pop(context);
-                                      },
-                                      child: const Text("戻る"),
-                                    ),
-                                  ]);
-                                });
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text("戻る"),
+                                  ),
+                                ],);
+                              });
+                            } else {
+                              // print(
+                              //     weakQuestionList.data!.contains(WeakQuestion(
+                              //         categoryDocRef: question.categoryDocRef!,
+                              //         quizDocRef: question.quizDocRef!,
+                              //         questionDocRef: question
+                              //             .questionDocRef!)));
+                              await ref
+                                  .watch(
+                                  questionRepositoryProvider)
+                                  .addWeakQuestion(
+                                question: question
+                              );
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return SimpleDialog(children: [
+                                      const Padding(
+                                        padding: EdgeInsets.all(10.0),
+                                        child: Center(
+                                          child: Text(
+                                            "追加しました",
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      ),
+                                      TextButton(
+                                        onPressed: (
+                                            [bool mounted = true]) async {
+                                          await ref
+                                              .watch(
+                                              questionRepositoryProvider)
+                                              .retrieveWeakQuestionList();
+                                          if (!mounted) return;
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text("戻る"),
+                                      ),
+                                    ]);
+                                  });
+                            }
                             // ref.watch(weakQuestionControllerProvider);
                           },
                           icon: const Icon(Icons.check_box_outline_blank),

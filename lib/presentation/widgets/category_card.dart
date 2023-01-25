@@ -1,6 +1,7 @@
 import 'package:bordered_text/bordered_text.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:quiz_app/domain/repository/question_repository.dart';
 import 'package:quiz_app/presentation/screens/category_detail_screen.dart';
 
 import '../../domain/category/category.dart';
@@ -17,7 +18,7 @@ class CategoryCard extends HookConsumerWidget {
       onTap: ([bool mounted = true]) async {
         ref.watch(weakQuestionInCategoryCountProvider.notifier).state = 0;
         await ref
-            .watch(weakQuestionRepositoryProvider)
+            .watch(questionRepositoryProvider)
             .retrieveWeakQuestionList()
             .then((weakQuestionList) {
               for (var weakQuestion in weakQuestionList) {

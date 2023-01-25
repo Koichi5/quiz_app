@@ -1,6 +1,7 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:quiz_app/domain/repository/question_repository.dart';
 
 import '../../domain/question/question.dart';
 import '../../domain/repository/weak_question_repository.dart';
@@ -37,48 +38,60 @@ class WeakQuestionCard extends HookConsumerWidget {
                         .indexWhere((element) => element.isCorrect == true))
                     .text),
                 TextButton(
-                    onPressed: ([bool mounted = true]) async {
-                      await ref
-                          .watch(weakQuestionControllerProvider.notifier)
-                          .deleteWeakQuestion(
-                            categoryDocRef: question.categoryDocRef!,
-                            quizDocRef: question.quizDocRef!,
-                            questionDocRef: question.questionDocRef!,
-                          );
-                      await ref.watch(weakQuestionScrollListViewProvider.notifier).fetchList();
-                      if (!mounted) return;
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return SimpleDialog(children: [
-                              const Padding(
-                                padding: EdgeInsets.all(10.0),
-                                child: Center(
-                                    child: Text(
-                                      "削除しました \n 再更新時に反映されます",
-                                      textAlign: TextAlign.center,
-                                    ),),
+                  onPressed: ([bool mounted = true]) async {
+                    await ref
+                        .watch(questionRepositoryProvider)
+                        .deleteWeakQuestion(
+                      weakQuestionDocRef: question.questionDocRef!
+                          // categoryDocRef: question.categoryDocRef!,
+                          // quizDocRef: question.quizDocRef!,
+                          // questionDocRef: question.questionDocRef!,
+                        );
+                    // Future.delayed(const Duration(milliseconds: 1000), () {
+                    //   ref.watch(weakQuestionScrollListViewProvider.notifier)
+                    //       .retrieveWeakQuestionList();
+                    // });
+                    // await ref
+                    //     .watch(weakQuestionScrollListViewProvider.notifier)
+                    //     .fetchNextListByDummyRepository();
+                    if (!mounted) return;
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return SimpleDialog(children: [
+                            const Padding(
+                              padding: EdgeInsets.all(10.0),
+                              child: Center(
+                                child: Text(
+                                  "削除しました \n 再更新時に反映されます",
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
-                              TextButton(
-                                  onPressed: ([bool mounted = true]) async {
-                                    await ref.watch(weakQuestionScrollListViewProvider.notifier).fetchList();
-                                    // await ref
-                                    //     .watch(
-                                    //     weakQuestionControllerProvider
-                                    //         .notifier)
-                                    //     .retrieveWeakQuestionList();
-                                    // if (!mounted) return;
-                                    if (!mounted) return;
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Text("戻る"))
-                            ]);
-                          });
-                      // await ref
-                      //     .watch(weakQuestionControllerProvider.notifier)
-                      //     .retrieveWeakQuestionList();
-                    },
-                    child: const Text("覚えた！"),),
+                            ),
+                            TextButton(
+                                onPressed: ([bool mounted = true]) async {
+                                  // await ref
+                                  //     .watch(weakQuestionScrollListViewProvider
+                                  //         .notifier)
+                                  //     .fetchList();
+                                  // await ref
+                                  //     .watch(
+                                  //     weakQuestionControllerProvider
+                                  //         .notifier)
+                                  //     .retrieveWeakQuestionList();
+                                  // if (!mounted) return;
+                                  if (!mounted) return;
+                                  Navigator.pop(context);
+                                },
+                                child: const Text("戻る"))
+                          ]);
+                        });
+                    // await ref
+                    //     .watch(weakQuestionControllerProvider.notifier)
+                    //     .retrieveWeakQuestionList();
+                  },
+                  child: const Text("覚えた！"),
+                ),
               ],
             ),
           ),

@@ -6,7 +6,7 @@ import 'package:quiz_app/presentation/screens/weak_question_screen.dart';
 import 'package:quiz_app/presentation/widgets/segmented_button.dart';
 
 final List<Widget> reviewScreenList = [
-  const WeakQuestionScrollListView(),
+  const WeakQuestionScreen(),
   const QuizHistoryScreen(),
 ];
 

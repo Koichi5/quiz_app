@@ -20,13 +20,13 @@ final userTakenQuestionInCategoryProvider = StateProvider((ref) => false);
 class TakenQuizPercentIndicator extends HookConsumerWidget {
   const TakenQuizPercentIndicator(
       {required this.category,
-      required this.weakQuestionList,
+      // required this.weakQuestionList,
       // required this.quizHistoryList,
       Key? key})
       : super(key: key);
 
   final Category category;
-  final List<WeakQuestion> weakQuestionList;
+  // final List<WeakQuestion> weakQuestionList;
 
   // final List<QuizHistory> quizHistoryList;
 
