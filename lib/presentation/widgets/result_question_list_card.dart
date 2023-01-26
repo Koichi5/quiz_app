@@ -117,7 +117,7 @@ class ResultQuestionListCard extends HookConsumerWidget {
               ),
           FutureBuilder(
               future: ref
-                  .watch(questionRepositoryProvider)
+                  .watch(weakQuestionRepositoryProvider)
                   .retrieveWeakQuestionList(),
               builder: (BuildContext context,
                   AsyncSnapshot<List<Question>> weakQuestionList) {
@@ -193,7 +193,7 @@ class ResultQuestionListCard extends HookConsumerWidget {
                               //             .questionDocRef!)));
                               await ref
                                   .watch(
-                                  questionRepositoryProvider)
+                                  weakQuestionRepositoryProvider)
                                   .addWeakQuestion(
                                 question: question
                               );
@@ -215,7 +215,7 @@ class ResultQuestionListCard extends HookConsumerWidget {
                                             [bool mounted = true]) async {
                                           await ref
                                               .watch(
-                                              questionRepositoryProvider)
+                                              weakQuestionRepositoryProvider)
                                               .retrieveWeakQuestionList();
                                           if (!mounted) return;
                                           Navigator.pop(context);

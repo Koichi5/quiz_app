@@ -4,8 +4,8 @@ import 'package:material_segmented_control/material_segmented_control.dart';
 
 final currentSelectedIndexProvider = StateProvider((ref) => 0);
 
-class SegmentedButton extends HookConsumerWidget {
-  const SegmentedButton({Key? key}) : super(key: key);
+class OriginalSegmentedButton extends HookConsumerWidget {
+  const OriginalSegmentedButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -10,14 +10,10 @@ import '../quiz/quiz.dart';
 abstract class BaseQuestionRepository {
   Future<Question> addQuestion(
       {required Quiz quiz, required Question question});
-
-  Future<Question> addWeakQuestion({required Question question});
-
+  // Future<Question> addWeakQuestion({required Question question});
   Future<List<Question>> retrieveQuestionList({required Quiz quiz});
-
-  Future<List<Question>> retrieveWeakQuestionList();
-
-  Future<void> deleteWeakQuestion({required String weakQuestionDocRef});
+  // Future<List<Question>> retrieveWeakQuestionList();
+  // Future<void> deleteWeakQuestion({required String weakQuestionDocRef});
 }
 
 final questionRepositoryProvider =
@@ -25,7 +21,6 @@ final questionRepositoryProvider =
 
 class QuestionRepository implements BaseQuestionRepository {
   final Reader _reader;
-
   QuestionRepository(this._reader);
 
   @override
@@ -103,6 +98,125 @@ class QuestionRepository implements BaseQuestionRepository {
       throw CustomException(message: e.message);
     }
   }
+  //
+  // @override
+  // Future<Question> addWeakQuestion({required Question question}) async {
+  //   final User? currentUser = _reader(firebaseAuthProvider).currentUser;
+  //   try {
+  //     print(question);
+  //     final questionRef = _reader(firebaseFirestoreProvider)
+  //         .collection("user")
+  //         .doc(currentUser!.uid)
+  //         .collection("weakQuestion");
+  //     final questionWithDocRef = Question(
+  //       id: question.id,
+  //       categoryDocRef: question.categoryDocRef,
+  //       quizDocRef: question.quizDocRef,
+  //       questionDocRef: question.questionDocRef,
+  //       text: question.text,
+  //       duration: question.duration,
+  //       optionsShuffled: question.optionsShuffled,
+  //       options: [],
+  //     );
+  //     await questionRef
+  //         .doc(question.questionDocRef)
+  //         .set(questionWithDocRef.toDocument());
+  //     await questionRef
+  //         .doc(question.questionDocRef)
+  //         .update(questionWithDocRef.toDocument());
+  //     await questionRef.doc(question.questionDocRef).update({
+  //       "options":
+  //           question.options.map((option) => option.toDocument()).toList(),
+  //     });
+  //     return questionWithDocRef;
+  //   } on FirebaseException catch (e) {
+  //     throw CustomException(message: e.message);
+  //   }
+  // }
+
+  @override
+  Future<List<Question>> retrieveQuestionList({required Quiz quiz}) async {
+    try {
+      final snap = await _reader(firebaseFirestoreProvider)
+          .collection("category")
+          .doc(quiz.categoryDocRef)
+          .collection("quiz")
+          .doc(quiz.quizDocRef)
+          .collection("questions")
+          .get();
+      return snap.docs.map((doc) => Question.fromDocument(doc)).toList();
+    } on FirebaseException catch (e) {
+      throw CustomException(message: e.message);
+    }
+  }
+  //
+  // @override
+  // Future<List<Question>> retrieveWeakQuestionList() async {
+  //   try {
+  //     final User? currentUser = _reader(firebaseAuthProvider).currentUser;
+  //     final snap = await _reader(firebaseFirestoreProvider)
+  //         .collection("user")
+  //         .doc(currentUser!.uid)
+  //         .collection("weakQuestion")
+  //         .get();
+  //     return snap.docs.map((doc) => Question.fromDocument(doc)).toList();
+  //   } on FirebaseException catch (e) {
+  //     throw CustomException(message: e.message);
+  //   }
+  // }
+  //
+  // @override
+  // Future<void> deleteWeakQuestion({required String weakQuestionDocRef}) async {
+  //   final User? currentUser = _reader(firebaseAuthProvider).currentUser;
+  //   try {
+  //     await _reader(firebaseFirestoreProvider)
+  //         .collection('user')
+  //         .doc(currentUser!.uid)
+  //         .collection("weakQuestion")
+  //         .doc(weakQuestionDocRef)
+  //         .delete();
+  //   } on FirebaseException catch (e) {
+  //     throw CustomException(message: e.message);
+  //   }
+  // }
+  // @override
+  // Future<List<Question>> retrieveWeakQuestionList() async {
+  //   try {
+  //     final weakQuestionList = await _reader(weakQuestionRepositoryProvider)
+  //         .retrieveWeakQuestionList();
+  //     final List<Question> questionList = [];
+  //     for (int i = 0; i < weakQuestionList.length; i++) {
+  //       final weakQuestion = weakQuestionList[i];
+  //       final snap = await _reader(firebaseFirestoreProvider)
+  //           .collection("category")
+  //           .doc(weakQuestion.categoryDocRef)
+  //           .collection("quiz")
+  //           .doc(weakQuestion.quizDocRef)
+  //           .collection("questions")
+  //           .doc(weakQuestion.questionDocRef)
+  //           .get();
+  //       questionList.add(Question.fromDocument(snap));
+  //     }
+  //     return questionList;
+  //   } on FirebaseException catch (e) {
+  //     throw CustomException(message: e.message);
+  //   }
+  // }
+}
+
+
+abstract class BaseWeakQuestionRepository {
+  Future<Question> addWeakQuestion({required Question question});
+  Future<List<Question>> retrieveWeakQuestionList();
+  Future<void> deleteWeakQuestion({required String weakQuestionDocRef});
+}
+
+final weakQuestionRepositoryProvider =
+Provider<WeakQuestionRepository>((ref) => WeakQuestionRepository(ref.read));
+
+class WeakQuestionRepository implements BaseWeakQuestionRepository {
+  final Reader _reader;
+  WeakQuestionRepository(this._reader);
 
   @override
   Future<Question> addWeakQuestion({required Question question}) async {
@@ -131,25 +245,9 @@ class QuestionRepository implements BaseQuestionRepository {
           .update(questionWithDocRef.toDocument());
       await questionRef.doc(question.questionDocRef).update({
         "options":
-            question.options.map((option) => option.toDocument()).toList(),
+        question.options.map((option) => option.toDocument()).toList(),
       });
       return questionWithDocRef;
-    } on FirebaseException catch (e) {
-      throw CustomException(message: e.message);
-    }
-  }
-
-  @override
-  Future<List<Question>> retrieveQuestionList({required Quiz quiz}) async {
-    try {
-      final snap = await _reader(firebaseFirestoreProvider)
-          .collection("category")
-          .doc(quiz.categoryDocRef)
-          .collection("quiz")
-          .doc(quiz.quizDocRef)
-          .collection("questions")
-          .get();
-      return snap.docs.map((doc) => Question.fromDocument(doc)).toList();
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message);
     }
@@ -184,27 +282,4 @@ class QuestionRepository implements BaseQuestionRepository {
       throw CustomException(message: e.message);
     }
   }
-  // @override
-  // Future<List<Question>> retrieveWeakQuestionList() async {
-  //   try {
-  //     final weakQuestionList = await _reader(weakQuestionRepositoryProvider)
-  //         .retrieveWeakQuestionList();
-  //     final List<Question> questionList = [];
-  //     for (int i = 0; i < weakQuestionList.length; i++) {
-  //       final weakQuestion = weakQuestionList[i];
-  //       final snap = await _reader(firebaseFirestoreProvider)
-  //           .collection("category")
-  //           .doc(weakQuestion.categoryDocRef)
-  //           .collection("quiz")
-  //           .doc(weakQuestion.quizDocRef)
-  //           .collection("questions")
-  //           .doc(weakQuestion.questionDocRef)
-  //           .get();
-  //       questionList.add(Question.fromDocument(snap));
-  //     }
-  //     return questionList;
-  //   } on FirebaseException catch (e) {
-  //     throw CustomException(message: e.message);
-  //   }
-  // }
 }

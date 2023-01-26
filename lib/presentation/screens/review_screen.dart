@@ -18,7 +18,7 @@ class ReviewScreen extends HookConsumerWidget {
     return SingleChildScrollView(
       child: Column(
             children: [
-              const SegmentedButton(),
+              const OriginalSegmentedButton(),
               reviewScreenPageController(ref.watch(currentSelectedIndexProvider)),
             ],
           ),

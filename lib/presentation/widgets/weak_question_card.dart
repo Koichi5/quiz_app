@@ -40,13 +40,13 @@ class WeakQuestionCard extends HookConsumerWidget {
                 TextButton(
                   onPressed: ([bool mounted = true]) async {
                     await ref
-                        .watch(questionRepositoryProvider)
+                        .watch(weakQuestionRepositoryProvider)
                         .deleteWeakQuestion(
-                      weakQuestionDocRef: question.questionDocRef!
-                          // categoryDocRef: question.categoryDocRef!,
-                          // quizDocRef: question.quizDocRef!,
-                          // questionDocRef: question.questionDocRef!,
-                        );
+                            weakQuestionDocRef: question.questionDocRef!
+                            // categoryDocRef: question.categoryDocRef!,
+                            // quizDocRef: question.quizDocRef!,
+                            // questionDocRef: question.questionDocRef!,
+                            );
                     // Future.delayed(const Duration(milliseconds: 1000), () {
                     //   ref.watch(weakQuestionScrollListViewProvider.notifier)
                     //       .retrieveWeakQuestionList();
@@ -54,7 +54,7 @@ class WeakQuestionCard extends HookConsumerWidget {
                     // await ref
                     //     .watch(weakQuestionScrollListViewProvider.notifier)
                     //     .fetchNextListByDummyRepository();
-                    if (!mounted) return;
+                    // if (!mounted) return;
                     showDialog(
                         context: context,
                         builder: (context) {
@@ -70,6 +70,9 @@ class WeakQuestionCard extends HookConsumerWidget {
                             ),
                             TextButton(
                                 onPressed: ([bool mounted = true]) async {
+                                  await ref
+                                      .watch(weakQuestionRepositoryProvider)
+                                      .retrieveWeakQuestionList();
                                   // await ref
                                   //     .watch(weakQuestionScrollListViewProvider
                                   //         .notifier)

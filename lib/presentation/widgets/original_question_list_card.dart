@@ -30,10 +30,12 @@ class OriginalQuestionListCard extends HookConsumerWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(originalQuestion.options
-                    .elementAt(originalQuestion.options
-                        .indexWhere((element) => element.isCorrect == true))
-                    .text),
+                child: Text(
+                  originalQuestion.options
+                      .elementAt(originalQuestion.options
+                          .indexWhere((element) => element.isCorrect == true))
+                      .text,
+                ),
               ),
               TextButton(
                   onPressed: () async {

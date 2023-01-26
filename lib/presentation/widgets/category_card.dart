@@ -18,7 +18,7 @@ class CategoryCard extends HookConsumerWidget {
       onTap: ([bool mounted = true]) async {
         ref.watch(weakQuestionInCategoryCountProvider.notifier).state = 0;
         await ref
-            .watch(questionRepositoryProvider)
+            .watch(weakQuestionRepositoryProvider)
             .retrieveWeakQuestionList()
             .then((weakQuestionList) {
               for (var weakQuestion in weakQuestionList) {
