@@ -26,11 +26,7 @@ class QuestionController extends StateNotifier<AsyncValue<List<Question>>> {
   QuestionController(this._reader, this._userId, this.quiz)
       : super(const AsyncValue.loading()) {
     if (_userId != null) {
-      if (quiz != Quiz.empty()) {
-        retrieveQuestionList(quiz: quiz);
-      } else {
-        retrieveWeakQuestionList();
-      }
+      retrieveQuestionList(quiz: quiz);
     }
   }
 
@@ -45,33 +41,6 @@ class QuestionController extends StateNotifier<AsyncValue<List<Question>>> {
       throw CustomException(message: e.message);
     }
   }
-
-  Future<void> retrieveWeakQuestionList() async {
-    try {
-      final weakQuestionList = await _reader(weakQuestionRepositoryProvider)
-          .retrieveWeakQuestionList();
-      if (mounted) {
-        state = AsyncValue.data(weakQuestionList);
-      }
-    } on FirebaseException catch (e) {
-      throw CustomException(message: e.message);
-    }
-  }
-
-  // Future<List<Question>> retrieveWeakQuestionList(
-  //     {required List<WeakQuestion> weakQuestionList}) async {
-  //   try {
-  //     final retrievedWeakQuestionList =
-  //         await _reader(questionRepositoryProvider)
-  //             .retrieveWeakQuestionList(weakQuestionList: weakQuestionList);
-  //     if (mounted) {
-  //       state = AsyncValue.data(retrievedWeakQuestionList);
-  //     }
-  //     return retrievedWeakQuestionList;
-  //   } on FirebaseException catch (e) {
-  //     throw CustomException(message: e.message);
-  //   }
-  // }
 
   Future<Question> addQuestion({
     String? id,
@@ -104,46 +73,8 @@ class QuestionController extends StateNotifier<AsyncValue<List<Question>>> {
             isSelected: false),
       ],
     );
-    final questionWithDocRef = await _reader(questionRepositoryProvider)
-        .addQuestion(quiz: quiz, question: question);
-    state.whenData((questionList) => state = AsyncValue.data(
-        questionList..add(question.copyWith(id: questionWithDocRef.id))));
-    return question;
-  }
-
-  Future<Question> addWeakQuestion({
-    String? id,
-    required String text,
-    required String duration,
-    required bool optionsShuffled,
-    required Quiz quiz,
-  }) async {
-    final question = Question(
-      id: id,
-      text: text,
-      duration: int.parse(duration),
-      optionsShuffled: optionsShuffled,
-      options: [
-        Option(
-            text: _reader(firstOptionTextControllerProvider).text,
-            isCorrect: _reader(firstOptionIsCorrectProvider),
-            isSelected: false),
-        Option(
-            text: _reader(secondOptionTextControllerProvider).text,
-            isCorrect: _reader(secondOptionIsCorrectProvider),
-            isSelected: false),
-        Option(
-            text: _reader(thirdOptionTextControllerProvider).text,
-            isCorrect: _reader(thirdOptionIsCorrectProvider),
-            isSelected: false),
-        Option(
-            text: _reader(fourthOptionTextControllerProvider).text,
-            isCorrect: _reader(fourthOptionIsCorrectProvider),
-            isSelected: false),
-      ],
-    );
-    final questionWithDocRef = await _reader(questionRepositoryProvider)
-        .addQuestion(quiz: quiz, question: question);
+    final questionWithDocRef = await _reader(weakQuestionRepositoryProvider)
+        .addWeakQuestion(question: question);
     state.whenData((questionList) => state = AsyncValue.data(
         questionList..add(question.copyWith(id: questionWithDocRef.id))));
     return question;
@@ -153,19 +84,18 @@ class QuestionController extends StateNotifier<AsyncValue<List<Question>>> {
 final weakQuestionExceptionProvider =
     StateProvider<CustomException?>((_) => null);
 
-final weakQuestionControllerProvider = StateNotifierProvider.family
-    .autoDispose<WeakQuestionController, AsyncValue<List<Question>>, Quiz>(
-        (ref, quiz) {
+final weakQuestionControllerProvider = StateNotifierProvider.autoDispose<
+    WeakQuestionController, AsyncValue<List<Question>>>((ref) {
   final user = ref.watch(authControllerProvider);
-  return WeakQuestionController(ref.read, user?.uid, quiz);
+  return WeakQuestionController(ref.read, user?.uid);
 });
 
 class WeakQuestionController extends StateNotifier<AsyncValue<List<Question>>> {
   final Reader _reader;
   final String? _userId;
-  final Quiz quiz;
+  // final Quiz quiz;
 
-  WeakQuestionController(this._reader, this._userId, this.quiz)
+  WeakQuestionController(this._reader, this._userId)
       : super(const AsyncValue.loading()) {
     if (_userId != null) {
       retrieveWeakQuestionList();
@@ -184,54 +114,9 @@ class WeakQuestionController extends StateNotifier<AsyncValue<List<Question>>> {
     }
   }
 
-  // Future<List<Question>> retrieveWeakQuestionList(
-  //     {required List<WeakQuestion> weakQuestionList}) async {
-  //   try {
-  //     final retrievedWeakQuestionList =
-  //         await _reader(questionRepositoryProvider)
-  //             .retrieveWeakQuestionList(weakQuestionList: weakQuestionList);
-  //     if (mounted) {
-  //       state = AsyncValue.data(retrievedWeakQuestionList);
-  //     }
-  //     return retrievedWeakQuestionList;
-  //   } on FirebaseException catch (e) {
-  //     throw CustomException(message: e.message);
-  //   }
-  // }
-
-  Future<Question> addWeakQuestion({
-    String? id,
-    required String text,
-    required String duration,
-    required bool optionsShuffled,
-    required Quiz quiz,
-  }) async {
-    final question = Question(
-      id: id,
-      text: text,
-      duration: int.parse(duration),
-      optionsShuffled: optionsShuffled,
-      options: [
-        Option(
-            text: _reader(firstOptionTextControllerProvider).text,
-            isCorrect: _reader(firstOptionIsCorrectProvider),
-            isSelected: false),
-        Option(
-            text: _reader(secondOptionTextControllerProvider).text,
-            isCorrect: _reader(secondOptionIsCorrectProvider),
-            isSelected: false),
-        Option(
-            text: _reader(thirdOptionTextControllerProvider).text,
-            isCorrect: _reader(thirdOptionIsCorrectProvider),
-            isSelected: false),
-        Option(
-            text: _reader(fourthOptionTextControllerProvider).text,
-            isCorrect: _reader(fourthOptionIsCorrectProvider),
-            isSelected: false),
-      ],
-    );
-    final questionWithDocRef = await _reader(questionRepositoryProvider)
-        .addQuestion(quiz: quiz, question: question);
+  Future<Question> addWeakQuestion({required Question question}) async {
+    final questionWithDocRef = await _reader(weakQuestionRepositoryProvider)
+        .addWeakQuestion(question: question);
     state.whenData((questionList) => state = AsyncValue.data(
         questionList..add(question.copyWith(id: questionWithDocRef.id))));
     return question;

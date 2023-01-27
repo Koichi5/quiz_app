@@ -48,7 +48,7 @@ class CategoryListScreen extends HookConsumerWidget {
               loading: () => Center(
                     child: Lottie.asset("assets/json_files/loading.json",
                         width: 200, height: 200),
-                  ))
+                  ),),
         ],
       ),
     );

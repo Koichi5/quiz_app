@@ -184,17 +184,15 @@ class CategoryDetailScreen extends HookConsumerWidget {
                           width: MediaQuery.of(context).size.width * 0.9,
                           child: ElevatedButton(
                               onPressed: ([bool mounted = true]) {
-                                // final quizList =
-                                //    await ref.watch(quizControllerProvider(category)).asData!.value;
-                                // print(quizList);
                                 if (!mounted) return;
                                 Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => QuizListScreen(
-                                              category: category,
-                                              // quizList: quizList,
-                                            )));
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => QuizListScreen(
+                                      category: category,
+                                    ),
+                                  ),
+                                );
                               },
                               style: ElevatedButton.styleFrom(
                                   backgroundColor:
@@ -216,20 +214,6 @@ class CategoryDetailScreen extends HookConsumerWidget {
           ),
         ],
       ),
-      // appBar: AppBar(
-      //              centerTitle: true,
-      //   leading: IconButton(onPressed: () {
-      //     Navigator.pop(context);
-      //   },
-      //     icon: const Icon(Icons.arrow_back_ios),
-      //   ),
-      //   flexibleSpace: Image.network(
-      //   'https://images.unsplash.com/photo-1513407030348-c983a97b98d8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80',
-      //   fit: BoxFit.cover,
-      //   ),
-      //   toolbarHeight: 200,
-      //   backgroundColor: Colors.transparent,
-      // ),
     );
   }
 }

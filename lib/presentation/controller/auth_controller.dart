@@ -12,7 +12,6 @@ final authControllerProvider = StateNotifierProvider<AuthController, User?>(
         (ref) => AuthController(ref.read));
 
 class AuthController extends StateNotifier<User?> {
-  //_read to _reader
   final Reader _reader;
   StreamSubscription<User?>? _authStateChangesSubscription;
 

@@ -2,10 +2,9 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quiz_app/domain/repository/question_repository.dart';
+import 'package:quiz_app/presentation/controller/question_controller.dart';
 
 import '../../domain/question/question.dart';
-import '../../domain/repository/weak_question_repository.dart';
-import '../controller/weak_question_controller.dart';
 
 final weakQuestionDeleteStateProvider = StateProvider((ref) => false);
 
@@ -33,29 +32,25 @@ class WeakQuestionCard extends HookConsumerWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(question.options
-                    .elementAt(question.options
-                        .indexWhere((element) => element.isCorrect == true))
-                    .text),
+                Text(
+                  question.options
+                      .elementAt(
+                        question.options.indexWhere(
+                          (element) => element.isCorrect == true,
+                        ),
+                      )
+                      .text,
+                ),
                 TextButton(
                   onPressed: ([bool mounted = true]) async {
                     await ref
                         .watch(weakQuestionRepositoryProvider)
                         .deleteWeakQuestion(
-                            weakQuestionDocRef: question.questionDocRef!
-                            // categoryDocRef: question.categoryDocRef!,
-                            // quizDocRef: question.quizDocRef!,
-                            // questionDocRef: question.questionDocRef!,
-                            );
-                    // Future.delayed(const Duration(milliseconds: 1000), () {
-                    //   ref.watch(weakQuestionScrollListViewProvider.notifier)
-                    //       .retrieveWeakQuestionList();
-                    // });
-                    // await ref
-                    //     .watch(weakQuestionScrollListViewProvider.notifier)
-                    //     .fetchNextListByDummyRepository();
-                    // if (!mounted) return;
+                          weakQuestionDocRef: question.questionDocRef!,
+                        );
+                    if (!mounted) return;
                     showDialog(
+                        barrierDismissible: false,
                         context: context,
                         builder: (context) {
                           return SimpleDialog(children: [
@@ -63,7 +58,7 @@ class WeakQuestionCard extends HookConsumerWidget {
                               padding: EdgeInsets.all(10.0),
                               child: Center(
                                 child: Text(
-                                  "削除しました \n 再更新時に反映されます",
+                                  "削除しました",
                                   textAlign: TextAlign.center,
                                 ),
                               ),
@@ -71,27 +66,15 @@ class WeakQuestionCard extends HookConsumerWidget {
                             TextButton(
                                 onPressed: ([bool mounted = true]) async {
                                   await ref
-                                      .watch(weakQuestionRepositoryProvider)
+                                      .watch(weakQuestionControllerProvider
+                                          .notifier)
                                       .retrieveWeakQuestionList();
-                                  // await ref
-                                  //     .watch(weakQuestionScrollListViewProvider
-                                  //         .notifier)
-                                  //     .fetchList();
-                                  // await ref
-                                  //     .watch(
-                                  //     weakQuestionControllerProvider
-                                  //         .notifier)
-                                  //     .retrieveWeakQuestionList();
-                                  // if (!mounted) return;
                                   if (!mounted) return;
                                   Navigator.pop(context);
                                 },
                                 child: const Text("戻る"))
                           ]);
                         });
-                    // await ref
-                    //     .watch(weakQuestionControllerProvider.notifier)
-                    //     .retrieveWeakQuestionList();
                   },
                   child: const Text("覚えた！"),
                 ),

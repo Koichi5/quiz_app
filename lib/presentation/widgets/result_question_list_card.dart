@@ -18,6 +18,7 @@ class ResultQuestionListCard extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final weakQuestionsState = ref.watch(weakQuestionControllerProvider);
     return Card(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -115,127 +116,211 @@ class ResultQuestionListCard extends HookConsumerWidget {
               //       Icon(Icons.check_box_outlined),
               //     ],
               ),
-          FutureBuilder(
-              future: ref
-                  .watch(weakQuestionRepositoryProvider)
-                  .retrieveWeakQuestionList(),
-              builder: (BuildContext context,
-                  AsyncSnapshot<List<Question>> weakQuestionList) {
-                if (weakQuestionList.connectionState != ConnectionState.done) {
-                  // return Center(child: Lottie.asset("assets/json_files/loading.json", width: 200, height: 200),);
-                  return const SizedBox();
-                }
-                // エラー発生時はエラーメッセージを表示
-                if (weakQuestionList.hasError) {
-                  return Text(weakQuestionList.error.toString());
-                }
-                // データがnullでないかチェック
-                if (weakQuestionList.hasData) {
-                  // if (weakQuestionList.data!.isEmpty) {
-                  //   return const Text("エラーです");
-                  // } else {
-                  return weakQuestionList.data!.any((element) =>
-                          element.questionDocRef == question.questionDocRef)
-                      // return snapshot.data!.contains(WeakQuestion(
-                      //         categoryDocRef: question.categoryDocRef!,
-                      //         quizDocRef: question.quizDocRef!,
-                      //         questionDocRef: question.questionDocRef!,
-                      // ))
-                      //   return snapshot.data!.then((retrievedWeakQuestionList) => retrievedWeakQuestionList.forEach((e) => e.questionDocRef == question.questionDocRef))
-                      ? IconButton(
-                          onPressed: ()
-                              // async
-                              {
-                            // print(weakQuestionList.data!.contains(WeakQuestion(
-                            //     categoryDocRef: question.categoryDocRef!,
-                            //     quizDocRef: question.quizDocRef!,
-                            //     questionDocRef: question.questionDocRef!)));
-                            // print(snapshot.data!.map((e) =>
-                            //     e.questionDocRef == question.questionDocRef));
-                            // await ref
-                            //     .watch(weakQuestionControllerProvider.notifier)
-                            //     .deleteWeakQuestion(
-                            //   categoryDocRef: question.categoryDocRef!,
-                            //   quizDocRef: question.quizDocRef!,
-                            //   questionDocRef: question.questionDocRef!,
-                            // );
-                            // ref.watch(weakQuestionControllerProvider);
-                          },
-                          icon: const Icon(Icons.check_box_outlined))
-                      : IconButton(
-                          onPressed: () async {
-                            if (question.categoryDocRef == null) {
-                              showDialog(context: context, builder: (context) {
-                                return SimpleDialog(children: [
-                                  const Padding(
-                                    padding: EdgeInsets.all(10.0),
-                                    child: Center(
-                                      child: Text(
-                                        "オリジナル問題は追加できません",
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text("戻る"),
-                                  ),
-                                ],);
-                              });
-                            } else {
-                              // print(
-                              //     weakQuestionList.data!.contains(WeakQuestion(
-                              //         categoryDocRef: question.categoryDocRef!,
-                              //         quizDocRef: question.quizDocRef!,
-                              //         questionDocRef: question
-                              //             .questionDocRef!)));
-                              await ref
-                                  .watch(
-                                  weakQuestionRepositoryProvider)
-                                  .addWeakQuestion(
-                                question: question
-                              );
-                              showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return SimpleDialog(children: [
+          weakQuestionsState.when(
+              data: (weakQuestionList) {
+                return weakQuestionList.any((element) =>
+                        element.questionDocRef == question.questionDocRef)
+                    ? IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.check_box_outlined))
+                    : IconButton(
+                        onPressed: () async {
+                          if (question.categoryDocRef == null) {
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return SimpleDialog(
+                                    children: [
                                       const Padding(
                                         padding: EdgeInsets.all(10.0),
                                         child: Center(
                                           child: Text(
-                                            "追加しました",
+                                            "オリジナル問題は追加できません",
                                             textAlign: TextAlign.center,
                                           ),
                                         ),
                                       ),
                                       TextButton(
-                                        onPressed: (
-                                            [bool mounted = true]) async {
-                                          await ref
-                                              .watch(
-                                              weakQuestionRepositoryProvider)
-                                              .retrieveWeakQuestionList();
-                                          if (!mounted) return;
+                                        onPressed: () {
                                           Navigator.pop(context);
                                         },
                                         child: const Text("戻る"),
                                       ),
-                                    ]);
-                                  });
-                            }
-                            // ref.watch(weakQuestionControllerProvider);
-                          },
-                          icon: const Icon(Icons.check_box_outline_blank),
-                        );
-                  // }
-                } else {
-                  return Container(
-                    color: Colors.red,
-                  );
-                }
+                                    ],
+                                  );
+                                });
+                          } else {
+                            // print(
+                            //     weakQuestionList.data!.contains(WeakQuestion(
+                            //         categoryDocRef: question.categoryDocRef!,
+                            //         quizDocRef: question.quizDocRef!,
+                            //         questionDocRef: question
+                            //             .questionDocRef!)));
+                            await ref
+                                .watch(weakQuestionControllerProvider.notifier)
+                                .addWeakQuestion(question: question);
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return SimpleDialog(children: [
+                                    const Padding(
+                                      padding: EdgeInsets.all(10.0),
+                                      child: Center(
+                                        child: Text(
+                                          "追加しました",
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                    TextButton(
+                                      onPressed: ([bool mounted = true]) async {
+                                        await ref
+                                            .watch(
+                                                weakQuestionRepositoryProvider)
+                                            .retrieveWeakQuestionList();
+                                        if (!mounted) return;
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text("戻る"),
+                                    ),
+                                  ]);
+                                });
+                          }
+                          // ref.watch(weakQuestionControllerProvider);
+                        },
+                        icon: const Icon(Icons.check_box_outline_blank),
+                      );
+              },
+              error: (error, _) => const Center(
+                    child: Text("エラー"),
+                  ),
+              loading: () {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
               }),
+          // FutureBuilder(
+          //     future: ref
+          //         .watch(weakQuestionRepositoryProvider)
+          //         .retrieveWeakQuestionList(),
+          //     builder: (BuildContext context,
+          //         AsyncSnapshot<List<Question>> weakQuestionList) {
+          //       if (weakQuestionList.connectionState != ConnectionState.done) {
+          //         // return Center(child: Lottie.asset("assets/json_files/loading.json", width: 200, height: 200),);
+          //         return const SizedBox();
+          //       }
+          //       // エラー発生時はエラーメッセージを表示
+          //       if (weakQuestionList.hasError) {
+          //         return Text(weakQuestionList.error.toString());
+          //       }
+          //       // データがnullでないかチェック
+          //       if (weakQuestionList.hasData) {
+          //         // if (weakQuestionList.data!.isEmpty) {
+          //         //   return const Text("エラーです");
+          //         // } else {
+          //         return weakQuestionList.data!.any((element) =>
+          //                 element.questionDocRef == question.questionDocRef)
+          //             // return snapshot.data!.contains(WeakQuestion(
+          //             //         categoryDocRef: question.categoryDocRef!,
+          //             //         quizDocRef: question.quizDocRef!,
+          //             //         questionDocRef: question.questionDocRef!,
+          //             // ))
+          //             //   return snapshot.data!.then((retrievedWeakQuestionList) => retrievedWeakQuestionList.forEach((e) => e.questionDocRef == question.questionDocRef))
+          //             ? IconButton(
+          //                 onPressed: ()
+          //                     // async
+          //                     {
+          //                   // print(weakQuestionList.data!.contains(WeakQuestion(
+          //                   //     categoryDocRef: question.categoryDocRef!,
+          //                   //     quizDocRef: question.quizDocRef!,
+          //                   //     questionDocRef: question.questionDocRef!)));
+          //                   // print(snapshot.data!.map((e) =>
+          //                   //     e.questionDocRef == question.questionDocRef));
+          //                   // await ref
+          //                   //     .watch(weakQuestionControllerProvider.notifier)
+          //                   //     .deleteWeakQuestion(
+          //                   //   categoryDocRef: question.categoryDocRef!,
+          //                   //   quizDocRef: question.quizDocRef!,
+          //                   //   questionDocRef: question.questionDocRef!,
+          //                   // );
+          //                   // ref.watch(weakQuestionControllerProvider);
+          //                 },
+          //                 icon: const Icon(Icons.check_box_outlined))
+          //             : IconButton(
+          //                 onPressed: () async {
+          //                   if (question.categoryDocRef == null) {
+          //                     showDialog(
+          //                         context: context,
+          //                         builder: (context) {
+          //                           return SimpleDialog(
+          //                             children: [
+          //                               const Padding(
+          //                                 padding: EdgeInsets.all(10.0),
+          //                                 child: Center(
+          //                                   child: Text(
+          //                                     "オリジナル問題は追加できません",
+          //                                     textAlign: TextAlign.center,
+          //                                   ),
+          //                                 ),
+          //                               ),
+          //                               TextButton(
+          //                                 onPressed: () {
+          //                                   Navigator.pop(context);
+          //                                 },
+          //                                 child: const Text("戻る"),
+          //                               ),
+          //                             ],
+          //                           );
+          //                         });
+          //                   } else {
+          //                     // print(
+          //                     //     weakQuestionList.data!.contains(WeakQuestion(
+          //                     //         categoryDocRef: question.categoryDocRef!,
+          //                     //         quizDocRef: question.quizDocRef!,
+          //                     //         questionDocRef: question
+          //                     //             .questionDocRef!)));
+          //                     await ref
+          //                         .watch(weakQuestionRepositoryProvider)
+          //                         .addWeakQuestion(question: question);
+          //                     showDialog(
+          //                         context: context,
+          //                         builder: (context) {
+          //                           return SimpleDialog(children: [
+          //                             const Padding(
+          //                               padding: EdgeInsets.all(10.0),
+          //                               child: Center(
+          //                                 child: Text(
+          //                                   "追加しました",
+          //                                   textAlign: TextAlign.center,
+          //                                 ),
+          //                               ),
+          //                             ),
+          //                             TextButton(
+          //                               onPressed: (
+          //                                   [bool mounted = true]) async {
+          //                                 await ref
+          //                                     .watch(
+          //                                         weakQuestionRepositoryProvider)
+          //                                     .retrieveWeakQuestionList();
+          //                                 if (!mounted) return;
+          //                                 Navigator.pop(context);
+          //                               },
+          //                               child: const Text("戻る"),
+          //                             ),
+          //                           ]);
+          //                         });
+          //                   }
+          //                   // ref.watch(weakQuestionControllerProvider);
+          //                 },
+          //                 icon: const Icon(Icons.check_box_outline_blank),
+          //               );
+          //         // }
+          //       } else {
+          //         return Container(
+          //           color: Colors.red,
+          //         );
+          //       }
+          //     }),
         ],
       ),
     );

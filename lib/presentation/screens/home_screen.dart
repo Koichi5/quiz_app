@@ -21,7 +21,6 @@ class HomeScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final bottomNavBarSelectedIndex =
         ref.watch(bottomNavBarSelectedIndexProvider);
-    // final weakQuestionListState = ref.watch(questionControllerProvider(Quiz.empty()));
     return Scaffold(
       appBar: bottomNavBarSelectedIndex == 2
           ? null

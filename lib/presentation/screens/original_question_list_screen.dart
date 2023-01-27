@@ -31,7 +31,7 @@ class OriginalQuestionListScreen extends HookConsumerWidget {
               icon: Icon(
                 Icons.add,
                 color: Theme.of(context).colorScheme.primary,
-              ))
+              ),),
         ],
       ),
       body: SingleChildScrollView(

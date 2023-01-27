@@ -38,24 +38,27 @@ class OriginalQuestionListCard extends HookConsumerWidget {
                 ),
               ),
               TextButton(
-                  onPressed: () async {
+                  onPressed: ([bool mounted = true]) async {
                     if (originalQuestion.originalQuestionDocRef != null) {
                       await ref
                           .watch(originalQuestionControllerProvider.notifier)
                           .deleteOriginalQuestion(
                               originalQuestionDocRef:
                                   originalQuestion.originalQuestionDocRef!);
+                      if (!mounted) return;
                       showDialog(
+                          barrierDismissible: false,
                           context: context,
                           builder: (context) {
                             return SimpleDialog(children: [
                               const Padding(
                                 padding: EdgeInsets.all(10.0),
                                 child: Center(
-                                    child: Text(
-                                  "削除しました",
-                                  textAlign: TextAlign.center,
-                                )),
+                                  child: Text(
+                                    "削除しました",
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
                               ),
                               TextButton(
                                   onPressed: ([bool mounted = true]) async {

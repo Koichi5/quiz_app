@@ -151,26 +151,32 @@ class QuizEngine {
   Map<int, bool> updateAnswer({required int questionIndex, int? answer}) {
     print("update answer");
     print("questionIndex : ${questionIndex}");
-    var question = questionList[questionIndex];
-    // final answerIsCorrect = questionAnswer[questionIndex] == question.options[answer].isCorrect;
-    if (answer == null) {
-      questionAnswer[questionIndex] = false;
-      reader(currentQuestionIndexProvider.notifier).state++;
-      print("answer :$answer");
-      print("questionAnswer : ${questionAnswer}");
-      print("questionAnswer[questionIndex] : ${questionAnswer[questionIndex]}");
-      print("未回答です");
-      // next();
-      return questionAnswer;
+    if (questionIndex >= questionList.length) {
+      print("この問題の問題数はリストからはみ出ています");
     } else {
-      questionAnswer[questionIndex] = question.options[answer].isCorrect;
-      print("answer :$answer");
-      print("questionAnswer : ${questionAnswer}");
-      print("questionAnswer[questionIndex] : ${questionAnswer[questionIndex]}");
-      // print("questionAnswer.values : ${questionAnswer.values}");
-      // print("questionAnswer.values.last : ${questionAnswer.values.last}");
-      // reader(currentQuestionIndexProvider.notifier).state++;
-      return questionAnswer;
+      var question = questionList[questionIndex];
+      // final answerIsCorrect = questionAnswer[questionIndex] == question.options[answer].isCorrect;
+      if (answer == null) {
+        questionAnswer[questionIndex] = false;
+        reader(currentQuestionIndexProvider.notifier).state++;
+        print("answer :$answer");
+        print("questionAnswer : ${questionAnswer}");
+        print(
+            "questionAnswer[questionIndex] : ${questionAnswer[questionIndex]}");
+        print("未回答です");
+        // next();
+        return questionAnswer;
+      } else {
+        questionAnswer[questionIndex] = question.options[answer].isCorrect;
+        print("answer :$answer");
+        print("questionAnswer : ${questionAnswer}");
+        print(
+            "questionAnswer[questionIndex] : ${questionAnswer[questionIndex]}");
+        // print("questionAnswer.values : ${questionAnswer.values}");
+        // print("questionAnswer.values.last : ${questionAnswer.values.last}");
+        // reader(currentQuestionIndexProvider.notifier).state++;
+        return questionAnswer;
+      }
     }
     // questionAnswer は Map<int, bool>
     // keys には Question の番号

@@ -88,12 +88,6 @@ class IntroSliderExampleSlidePage extends ConsumerWidget {
     );
   }
 
-  // Widget renderNextBtn() {
-  //   return TextButton(
-  //       onPressed: (){},
-  //       child: const Text("NEXT"));
-  // }
-
   Widget renderDoneBtn(BuildContext context) {
     return TextButton(
         onPressed: () {

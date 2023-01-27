@@ -10,10 +10,7 @@ import '../quiz/quiz.dart';
 abstract class BaseQuestionRepository {
   Future<Question> addQuestion(
       {required Quiz quiz, required Question question});
-  // Future<Question> addWeakQuestion({required Question question});
   Future<List<Question>> retrieveQuestionList({required Quiz quiz});
-  // Future<List<Question>> retrieveWeakQuestionList();
-  // Future<void> deleteWeakQuestion({required String weakQuestionDocRef});
 }
 
 final questionRepositoryProvider =
