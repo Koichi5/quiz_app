@@ -17,13 +17,14 @@ class ReviewScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return SingleChildScrollView(
       child: Column(
-            children: [
-              const OriginalSegmentedButton(),
-              reviewScreenPageController(ref.watch(currentSelectedIndexProvider)),
-            ],
-          ),
+        children: [
+          const OriginalSegmentedButton(),
+          reviewScreenPageController(ref.watch(currentSelectedIndexProvider)),
+        ],
+      ),
     );
   }
+
   reviewScreenPageController(int currentPageIndex) {
     return reviewScreenList[currentPageIndex];
   }
