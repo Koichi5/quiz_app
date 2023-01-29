@@ -37,45 +37,44 @@ class HomeScreen extends HookConsumerWidget {
                       : const Text("設定")),
       bottomNavigationBar: BottomNavBar(),
       body: pageController(bottomNavBarSelectedIndex),
-      // floatingActionButton: bottomNavBarSelectedIndex == 1
-      //     ? ref.watch(currentSelectedIndexProvider) == 0
-      //         ? ref.watch(weakQuestionControllerProvider).when(
-      //               data: (weakQuestionList) {
-      //                 print("weakQuestionList : $weakQuestionList");
-      //                 weakQuestionList.isEmpty
-      //                     ? Text("なし")
-      //                     :
-      //                 FloatingActionButton(
-      //                         onPressed: () {
-      //                           Navigator.push(
-      //                             context,
-      //                             MaterialPageRoute(
-      //                               builder: (context) => Scaffold(
-      //                                 appBar: AppBar(
-      //                                   centerTitle: true,
-      //                                   title: const Text("苦手問題"),
-      //                                   automaticallyImplyLeading: false,
-      //                                 ),
-      //                                 body: QuizScreen(
-      //                                   reader: ref.watch,
-      //                                   questionList: weakQuestionList,
-      //                                 ),
-      //                               ),
-      //                             ),
-      //                           );
-      //                         },
-      //                         child: const Icon(Icons.play_arrow),
-      //                       );
-      //                 return null;
-      //               },
-      //               error: (error, _) => const Center(
-      //                 child: Text("エラーが発生しています"),
-      //               ),
-      //               loading: () => const Center(
-      //                 child: CircularProgressIndicator(),
-      //               ),
-      //             )
-      //         : null
+      floatingActionButton: bottomNavBarSelectedIndex == 1
+          ? ref.watch(currentSelectedIndexProvider) == 0
+              ? ref.watch(weakQuestionControllerProvider).when(
+                    data: (weakQuestionList) {
+                      if (weakQuestionList.isNotEmpty) {
+                        return FloatingActionButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Scaffold(
+                                  appBar: AppBar(
+                                    centerTitle: true,
+                                    title: const Text("苦手問題"),
+                                    automaticallyImplyLeading: false,
+                                  ),
+                                  body: QuizScreen(
+                                    reader: ref.watch,
+                                    questionList: weakQuestionList,
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                          child: const Icon(Icons.play_arrow),
+                        );
+                      } else {
+                        return null;
+                      }
+                    },
+                    error: (error, _) => const Center(
+                      child: Text("エラーが発生しています"),
+                    ),
+                    loading: () => const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  )
+              : null
 
           //         ? weakQuestionListState.when(
           //             data: (userWeakQuestionList) => userWeakQuestionList.isEmpty
@@ -144,7 +143,7 @@ class HomeScreen extends HookConsumerWidget {
           //       }
           //     })
           //     : null
-          // : null,
+          : null,
     );
   }
 
