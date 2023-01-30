@@ -5,7 +5,7 @@ import 'package:quiz_app/domain/repository/question_repository.dart';
 import 'package:quiz_app/presentation/screens/category_detail_screen.dart';
 
 import '../../domain/category/category.dart';
-import '../../domain/repository/weak_question_repository.dart';
+// import '../../domain/repository/weak_question_repository.dart';
 
 class CategoryCard extends HookConsumerWidget {
   const CategoryCard({required this.category, Key? key}) : super(key: key);
