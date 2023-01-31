@@ -3,10 +3,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quiz_app/domain/question/question.dart';
 import 'package:quiz_app/domain/repository/question_repository.dart';
 import 'package:quiz_app/presentation/controller/question_controller.dart';
-// import 'package:quiz_app/presentation/controller/weak_question_controller.dart';
-
-// final questionIsRegisteredWeakQuestionProvider = StateProvider((ref) => false);
-// final weakQuestionToggleProvider = StateProvider((ref) => false);
 
 class ResultQuestionListCard extends HookConsumerWidget {
   const ResultQuestionListCard(
@@ -123,7 +119,7 @@ class ResultQuestionListCard extends HookConsumerWidget {
                         onPressed: () {},
                         icon: const Icon(Icons.check_box_outlined))
                     : IconButton(
-                        onPressed: () async {
+                        onPressed: ([bool mounted = true]) async {
                           if (question.categoryDocRef == null) {
                             showDialog(
                                 context: context,
@@ -158,6 +154,7 @@ class ResultQuestionListCard extends HookConsumerWidget {
                             await ref
                                 .watch(weakQuestionControllerProvider.notifier)
                                 .addWeakQuestion(question: question);
+                            if (!mounted) return;
                             showDialog(
                                 context: context,
                                 builder: (context) {
