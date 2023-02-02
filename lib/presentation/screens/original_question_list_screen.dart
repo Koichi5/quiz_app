@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
+import 'package:quiz_app/general/general_provider.dart';
 import 'package:quiz_app/presentation/controller/original_question_controller.dart';
 import 'package:quiz_app/presentation/screens/quiz_screen.dart';
 import 'package:quiz_app/presentation/widgets/original_question_list_card.dart';
@@ -9,7 +10,10 @@ import 'category_set_screen.dart';
 import 'original_question_set_screen.dart';
 
 class OriginalQuestionListScreen extends HookConsumerWidget {
-  const OriginalQuestionListScreen({Key? key}) : super(key: key);
+  OriginalQuestionListScreen({Key? key}) : super(key: key);
+
+  final List<String> dictionaryWords = ["key1", "key2", "key3"];
+  final List<String> dictionaryUrls = ["value1", "value2", "value3"];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -21,17 +25,17 @@ class OriginalQuestionListScreen extends HookConsumerWidget {
         title: const Text("オリジナル問題"),
         actions: [
           IconButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            const OriginalQuestionSetScreen()));
-              },
-              icon: Icon(
-                Icons.add,
-                color: Theme.of(context).colorScheme.primary,
-              ),),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const OriginalQuestionSetScreen()));
+            },
+            icon: Icon(
+              Icons.add,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+          ),
         ],
       ),
       body: SingleChildScrollView(
@@ -83,13 +87,30 @@ class OriginalQuestionListScreen extends HookConsumerWidget {
                         width: 200, height: 200)),
               ),
               ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const CategorySetScreen()));
-                  },
-                  child: const Text("管理者用 問題作成")),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const CategorySetScreen()));
+                },
+                child: const Text("管理者用 問題作成"),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  for (int i = 0; i < dictionaryWords.length; i++) {
+                    await ref
+                        .watch(firebaseFirestoreProvider)
+                        .collection("dictionary")
+                        .add({
+                      "word": dictionaryWords[i],
+                      "url": dictionaryUrls[i]
+                    });
+                  }
+                },
+                child: const Text(
+                  "辞書追加",
+                ),
+              ),
             ],
           ),
         ),

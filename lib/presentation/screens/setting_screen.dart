@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/presentation/screens/word_collection_screen.dart';
 
 import '../widgets/link_button.dart';
 
@@ -9,6 +10,7 @@ class SettingScreen extends StatelessWidget {
     "利用規約",
     "公式Twitter",
     "公式Instagram",
+    "単語集",
   ];
   final List<String> _linkURLList = [
     "https://koichi5.github.io/finder_seller/",
@@ -21,7 +23,11 @@ class SettingScreen extends StatelessWidget {
       size: 30,
     ),
     Image.asset(width: 30, height: 30, "assets/images/twitter.png"),
-    Image.asset(width: 30, height: 30, "assets/images/instagram.png")
+    Image.asset(width: 30, height: 30, "assets/images/instagram.png"),
+    const Icon(
+      Icons.bookmark,
+      size: 30,
+    ),
   ];
 
   final _linkButton = LinkButton();
@@ -32,6 +38,12 @@ class SettingScreen extends StatelessWidget {
       () => _linkButton.launchUriWithString(context, _linkURLList[0]),
       () => _linkButton.launchUriWithString(context, _linkURLList[1]),
       () => _linkButton.launchUriWithString(context, _linkURLList[2]),
+      () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const WordCollectionScreen()));
+      }
     ];
     return ListView.builder(
         scrollDirection: Axis.vertical,
@@ -46,7 +58,7 @@ class SettingScreen extends StatelessWidget {
                 size: 20,
               ),
               onTap: onTapList[index]);
-        }
+        },
     );
   }
 }

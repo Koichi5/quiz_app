@@ -13,7 +13,7 @@ import 'setting_screen.dart';
 final List homePageList = [
   const CategoryListScreen(),
   const ReviewScreen(),
-  const OriginalQuestionListScreen(),
+  OriginalQuestionListScreen(),
   SettingScreen(),
 ];
 

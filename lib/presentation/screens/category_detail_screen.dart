@@ -183,27 +183,27 @@ class CategoryDetailScreen extends HookConsumerWidget {
                         child: SizedBox(
                           width: MediaQuery.of(context).size.width * 0.9,
                           child: ElevatedButton(
-                              onPressed: ([bool mounted = true]) {
-                                if (!mounted) return;
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => QuizListScreen(
-                                      category: category,
-                                    ),
+                            onPressed: ([bool mounted = true]) {
+                              if (!mounted) return;
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => QuizListScreen(
+                                    category: category,
                                   ),
-                                );
-                              },
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor:
-                                      Theme.of(context).colorScheme.primary),
-                              child: Text(
-                                "スタート",
-                                style: TextStyle(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onPrimary),
-                              )),
+                                ),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.primary),
+                            child: Text(
+                              "スタート",
+                              style: TextStyle(
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary),
+                            ),
+                          ),
                         ),
                       ),
                     ),
