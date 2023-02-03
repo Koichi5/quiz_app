@@ -9,7 +9,8 @@ import '../../general/general_provider.dart';
 
 abstract class BaseAuthRepository {
   Stream<User?> get authStateChanges;
-  Future<UserCredential> createUserWithEmailAndPassword(String email, String password);
+  Future<UserCredential> createUserWithEmailAndPassword(
+      String email, String password);
   Future<User?> signInWithEmailAndPassword(String email, String password);
   Future<User?> signInWithGoogle();
   Future<UserCredential> signInWithApple();
@@ -31,7 +32,8 @@ class AuthRepository implements BaseAuthRepository {
       _reader(firebaseAuthProvider).authStateChanges();
 
   @override
-  Future<UserCredential> createUserWithEmailAndPassword(String email, String password) async {
+  Future<UserCredential> createUserWithEmailAndPassword(
+      String email, String password) async {
     try {
       final result =
           await _reader(firebaseAuthProvider).createUserWithEmailAndPassword(
@@ -49,11 +51,12 @@ class AuthRepository implements BaseAuthRepository {
       String email, String password) async {
     User? user;
     try {
-      await _reader(firebaseAuthProvider)
-          .signInWithEmailAndPassword(email: email, password: password);
+      user = (await _reader(firebaseAuthProvider)
+              .signInWithEmailAndPassword(email: email, password: password))
+          .user;
+      print('Singed in: ${user!.uid}');
     } on FirebaseAuthException catch (e) {
-      // throw CustomException(message: e.message);
-      return null;
+      throw CustomException(message: e.message);
     }
     return user;
   }

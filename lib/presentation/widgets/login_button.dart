@@ -30,11 +30,12 @@ class LoginButton extends HookConsumerWidget {
                 User? user = await authControllerProviderNotifier
                     .signInWithEmailAndPassword(email, password);
                 // User? user = authRepositoryProviderNotifier.getCurrentUser();
-                if (!mounted) return;
                 if (user != null) {
+                  if (!mounted) return;
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
                       builder: (context) => const HomeScreen()));
                 } else {
+                  if (!mounted) return;
                   showDialog(
                       context: context,
                       builder: (context) {

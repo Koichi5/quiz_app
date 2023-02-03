@@ -1,14 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quiz_app/firebase_options.dart';
-import 'package:quiz_app/presentation/screens/category_set_screen.dart';
 import 'package:quiz_app/presentation/screens/home_screen.dart';
 import 'package:quiz_app/presentation/screens/login_screen.dart';
-import 'package:quiz_app/presentation/screens/option_set_screen.dart';
-import 'package:quiz_app/presentation/screens/profile_edit_screen.dart';
-import 'package:quiz_app/presentation/screens/question_set_screen.dart';
-import 'package:quiz_app/presentation/screens/quiz_set_screen.dart';
 import 'package:quiz_app/presentation/screens/signup_screen.dart';
 
 import 'color_schemes.g.dart';
@@ -42,7 +38,21 @@ class MyApp extends StatelessWidget {
         // '/question_set': (BuildContext context) => const QuestionSetScreen(),
         // '/option_set': (BuildContext context) => const OptionSetScreen(),
       },
-      home: const IntroSliderScreen(),
+      home: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            // スプラッシュ画面などに書き換えても良い
+            return const SizedBox();
+          }
+          if (snapshot.hasData) {
+            // User が null でなない、つまりサインイン済みのホーム画面へ
+            return HomeScreen();
+          }
+          // User が null である、つまり未サインインのサインイン画面へ
+          return IntroSliderScreen();
+        },
+      ),
     );
   }
 }

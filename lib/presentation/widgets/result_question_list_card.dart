@@ -39,15 +39,24 @@ class ResultQuestionListCard extends HookConsumerWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // SizedBox(
+                //   width: MediaQuery.of(context).size.width * 0.7,
+                //   child: Flexible(
+                //     flex: 1,
+                //     child: Padding(
+                //       padding: const EdgeInsets.all(8.0),
+                //       child: Text(question.text,
+                //         overflow: TextOverflow.ellipsis,
+                //         maxLines: 1,
+                //         style: const TextStyle(fontSize: 10),),
+                //     ),
+                //   ),
+                // ),
                 Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Text(question.text),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      right: 10.0, left: 10.0, bottom: 10.0),
+                  padding: const EdgeInsets.all(15),
                   child: Text(
-                      "答え : ${question.options.elementAt(question.options.indexWhere((element) => element.isCorrect == true)).text}"),
+                    "${question.options.elementAt(question.options.indexWhere((element) => element.isCorrect == true)).text}",
+                  ),
                 ),
               ],
             ),

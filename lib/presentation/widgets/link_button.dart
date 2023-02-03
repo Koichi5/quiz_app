@@ -10,11 +10,18 @@ class LinkButton {
     ),
   );
 
-  Future launchUriWithString(BuildContext context, String url) async {
-    try {
-      await launchUrlString(url);
-    } catch (e) {
-      alertSnackBar;
+  Future launchUriWithString(BuildContext context, String url, [bool mounted = true]) async {
+    final canLaunch = await canLaunchUrlString(url);
+    if(canLaunch) {
+      try {
+        await launchUrlString(url);
+      } catch (e) {
+        // alertSnackBar;
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(alertSnackBar);
+      }
+    } else {
+      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(alertSnackBar);
     }
   }

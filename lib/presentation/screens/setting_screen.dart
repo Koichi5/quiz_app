@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_app/presentation/screens/word_collection_screen.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:quiz_app/general/general_provider.dart';
+import 'package:quiz_app/presentation/controller/auth_controller.dart';
+import 'package:quiz_app/presentation/screens/dictionary_screen.dart';
+import 'package:quiz_app/presentation/screens/login_screen.dart';
 
 import '../widgets/link_button.dart';
 
-class SettingScreen extends StatelessWidget {
+class SettingScreen extends HookConsumerWidget {
   SettingScreen({Key? key}) : super(key: key);
 
   final List<String> _labelTextList = [
@@ -11,6 +15,7 @@ class SettingScreen extends StatelessWidget {
     "公式Twitter",
     "公式Instagram",
     "単語集",
+    "ログアウト"
   ];
   final List<String> _linkURLList = [
     "https://koichi5.github.io/finder_seller/",
@@ -28,37 +33,82 @@ class SettingScreen extends StatelessWidget {
       Icons.bookmark,
       size: 30,
     ),
+    const Icon(
+      Icons.logout,
+      size: 30,
+    )
   ];
 
   final _linkButton = LinkButton();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final onTapList = [
       () => _linkButton.launchUriWithString(context, _linkURLList[0]),
       () => _linkButton.launchUriWithString(context, _linkURLList[1]),
       () => _linkButton.launchUriWithString(context, _linkURLList[2]),
       () {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => const WordCollectionScreen()));
+          context,
+          MaterialPageRoute(
+            builder: (context) => const DictionaryScreen(),
+          ),
+        );
+      },
+      () {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return SimpleDialog(children: [
+                const Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: Center(
+                    child: Text(
+                      "ログアウトしますか？",
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+                Row(
+                  children: [
+                    TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text("いいえ")),
+                    TextButton(
+                      onPressed: ([bool mounted = true]) async {
+                        await ref
+                            .watch(authControllerProvider.notifier)
+                            .signOut();
+                        if (ref.watch(firebaseAuthProvider).currentUser == null) {
+                          if (!mounted) return;
+                          Navigator.pushReplacement(context, MaterialPageRoute(
+                              builder: (context) => const LoginScreen()));
+                        }
+                      },
+                      child: const Text("はい"),
+                    ),
+                  ],
+                ),
+              ]);
+            });
       }
     ];
     return ListView.builder(
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        itemCount: _labelTextList.length,
-        itemBuilder: (BuildContext context, int index) {
-          return ListTile(
-              title: Text(_labelTextList[index]),
-              leading: _leadingWidget[index],
-              trailing: const Icon(
-                Icons.arrow_forward_ios,
-                size: 20,
-              ),
-              onTap: onTapList[index]);
-        },
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      itemCount: _labelTextList.length,
+      itemBuilder: (BuildContext context, int index) {
+        return ListTile(
+            title: Text(_labelTextList[index]),
+            leading: _leadingWidget[index],
+            trailing: const Icon(
+              Icons.arrow_forward_ios,
+              size: 20,
+            ),
+            onTap: onTapList[index]);
+      },
     );
   }
 }

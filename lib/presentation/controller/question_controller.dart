@@ -73,8 +73,8 @@ class QuestionController extends StateNotifier<AsyncValue<List<Question>>> {
             isSelected: false),
       ],
     );
-    final questionWithDocRef = await _reader(weakQuestionRepositoryProvider)
-        .addWeakQuestion(question: question);
+    final questionWithDocRef = await _reader(questionRepositoryProvider)
+        .addQuestion(question: question, quiz: quiz);
     state.whenData((questionList) => state = AsyncValue.data(
         questionList..add(question.copyWith(id: questionWithDocRef.id))));
     return question;

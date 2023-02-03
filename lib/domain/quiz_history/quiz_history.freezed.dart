@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'quiz_history.dart';
 
@@ -300,6 +300,7 @@ class _$_QuizHistory extends _QuizHistory {
   final List<int> _takenQuestions;
   @override
   List<int> get takenQuestions {
+    if (_takenQuestions is EqualUnmodifiableListView) return _takenQuestions;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_takenQuestions);
   }
@@ -307,6 +308,8 @@ class _$_QuizHistory extends _QuizHistory {
   final List<bool> _answerIsCorrectList;
   @override
   List<bool> get answerIsCorrectList {
+    if (_answerIsCorrectList is EqualUnmodifiableListView)
+      return _answerIsCorrectList;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_answerIsCorrectList);
   }
@@ -314,6 +317,7 @@ class _$_QuizHistory extends _QuizHistory {
   final List<Question> _questionList;
   @override
   List<Question> get questionList {
+    if (_questionList is EqualUnmodifiableListView) return _questionList;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_questionList);
   }

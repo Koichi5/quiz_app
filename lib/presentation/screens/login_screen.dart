@@ -4,7 +4,9 @@ import 'package:quiz_app/presentation/widgets/login_button.dart';
 
 import '../controller/login_text_controller.dart';
 import '../controller/validator/login_validator_provider.dart';
+import '../widgets/apple_signin_button.dart';
 import '../widgets/custom_text_field.dart';
+import '../widgets/google_signin_button.dart';
 
 class LoginScreen extends HookConsumerWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -73,6 +75,21 @@ class LoginScreen extends HookConsumerWidget {
             ),
             LoginButton(
                 emailControllerProvider.text, passwordControllerProvider.text),
+            Divider(
+              height: MediaQuery.of(context).size.height * 0.05,
+              thickness: 0.5,
+              indent: MediaQuery.of(context).size.width * 0.05,
+              endIndent: MediaQuery.of(context).size.width * 0.05,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            const Padding(
+              padding: EdgeInsets.all(6.0),
+              child: GoogleSignInButton(),
+            ),
+            const Padding(
+              padding: EdgeInsets.all(6.0),
+              child: AppleSignInButton(),
+            ),
           ],
         ),
       ),
