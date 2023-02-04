@@ -31,7 +31,6 @@ class AuthController extends StateNotifier<User?> {
     super.dispose();
   }
 
-  //change to other name
   void appStarted() async {
     final user = _reader(authRepositoryProvider).getCurrentUser();
     if (user == null) {

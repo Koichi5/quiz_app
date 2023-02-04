@@ -50,6 +50,7 @@ class MyApp extends StatelessWidget {
             return HomeScreen();
           }
           // User が null である、つまり未サインインのサインイン画面へ
+
           return IntroSliderScreen();
         },
       ),

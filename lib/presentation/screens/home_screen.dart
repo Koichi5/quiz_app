@@ -70,9 +70,7 @@ class HomeScreen extends HookConsumerWidget {
                     error: (error, _) => const Center(
                       child: Text("エラーが発生しています"),
                     ),
-                    loading: () => const Center(
-                      child: CircularProgressIndicator(),
-                    ),
+                    loading: () => const SizedBox()
                   )
               : null
 

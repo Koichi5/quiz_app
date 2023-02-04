@@ -15,7 +15,7 @@ class SettingScreen extends HookConsumerWidget {
     "公式Twitter",
     "公式Instagram",
     "単語集",
-    "ログアウト"
+    "ログアウト",
   ];
   final List<String> _linkURLList = [
     "https://koichi5.github.io/finder_seller/",
@@ -30,7 +30,7 @@ class SettingScreen extends HookConsumerWidget {
     Image.asset(width: 30, height: 30, "assets/images/twitter.png"),
     Image.asset(width: 30, height: 30, "assets/images/instagram.png"),
     const Icon(
-      Icons.bookmark,
+      Icons.bookmark_outline,
       size: 30,
     ),
     const Icon(
