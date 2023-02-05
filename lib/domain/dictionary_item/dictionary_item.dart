@@ -11,11 +11,13 @@ abstract class DictionaryItem implements _$DictionaryItem {
   const factory DictionaryItem({
     String? id,
     required String dictionaryWord,
+    required String dictionaryDescription,
     required String dictionaryUrl,
   }) = _DictionaryItem;
 
   factory DictionaryItem.empty() => const DictionaryItem(
         dictionaryWord: "",
+        dictionaryDescription: "",
         dictionaryUrl: "",
       );
 

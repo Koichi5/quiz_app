@@ -6,8 +6,9 @@ import 'package:quiz_app/general/general_provider.dart';
 import '../dictionary_item/dictionary_item.dart';
 
 abstract class BaseDictionaryItemRepository {
-  Future addDictionaryItem(
-      {required List<String> dictionaryWordList,
+  Future addDictionaryItem({
+      required List<String> dictionaryWordList,
+      required List<String> dictionaryDescriptionList,
       required List<String> dictionaryWordUrlList});
   Future<List<DictionaryItem>> retrieveDictionaryItem();
 }
@@ -21,13 +22,18 @@ class DictionaryItemRepository implements BaseDictionaryItemRepository {
   DictionaryItemRepository(this._read);
 
   @override
-  Future addDictionaryItem(
-      {required List<String> dictionaryWordList,
-      required List<String> dictionaryWordUrlList}) async {
+  Future addDictionaryItem({
+    required List<String> dictionaryWordList,
+    required List<String> dictionaryDescriptionList,
+    required List<String> dictionaryWordUrlList,
+  }) async {
     try {
       for (int i = 0; i < dictionaryWordList.length; i++) {
-        await _read(firebaseFirestoreProvider).collection("dictionary").add(
-            {"dictionaryWord": dictionaryWordList[i], "dictionaryUrl": dictionaryWordUrlList[i]});
+        await _read(firebaseFirestoreProvider).collection("dictionary").add({
+          "dictionaryWord": dictionaryWordList[i],
+          "dictionaryDescription": dictionaryDescriptionList[i],
+          "dictionaryUrl": dictionaryWordUrlList[i],
+        });
       }
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message);

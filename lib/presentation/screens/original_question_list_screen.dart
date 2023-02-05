@@ -12,8 +12,9 @@ import 'original_question_set_screen.dart';
 class OriginalQuestionListScreen extends HookConsumerWidget {
   OriginalQuestionListScreen({Key? key}) : super(key: key);
 
-  final List<String> dictionaryWords = ["key1", "key2", "key3"];
-  final List<String> dictionaryUrls = ["value1", "value2", "value3"];
+  final List<String> dictionaryWordList = ["word1", "word2", "word3"];
+  final List<String> dictionaryDescriptionList = ["description1", "description2", "description3"];
+  final List<String> dictionaryUrlList = ["value1", "value2", "value3"];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -97,13 +98,14 @@ class OriginalQuestionListScreen extends HookConsumerWidget {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  for (int i = 0; i < dictionaryWords.length; i++) {
+                  for (int i = 0; i < dictionaryWordList.length; i++) {
                     await ref
                         .watch(firebaseFirestoreProvider)
                         .collection("dictionary")
                         .add({
-                      "word": dictionaryWords[i],
-                      "url": dictionaryUrls[i]
+                      "dictionaryWord": dictionaryWordList[i],
+                      "dictionaryDescription": dictionaryDescriptionList[i],
+                      "dictionaryUrl": dictionaryUrlList[i],
                     });
                   }
                 },

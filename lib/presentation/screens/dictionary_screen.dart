@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:quiz_app/presentation/controller/dictionary_item_controller.dart';
+import 'package:quiz_app/presentation/widgets/dictionary_card.dart';
 import 'package:quiz_app/presentation/widgets/link_button.dart';
 
 class DictionaryScreen extends HookConsumerWidget {
@@ -27,19 +28,7 @@ class DictionaryScreen extends HookConsumerWidget {
                 itemCount: dictionaryItemList.length,
                 itemBuilder: (BuildContext context, int index) {
                   final dictionaryItem = dictionaryItemList[index];
-                  return ListTile(
-                    title: Text(dictionaryItem.dictionaryWord),
-                    trailing: const Icon(
-                      Icons.arrow_forward_ios,
-                      size: 20,
-                    ),
-                    onTap: () {
-                      LinkButton().launchUriWithString(
-                        context,
-                        dictionaryItem.dictionaryUrl,
-                      );
-                    }
-                  );
+                  return DictionaryCard(dictionaryItem: dictionaryItem);
                 },
               ),
         error: (error, _) => Container(

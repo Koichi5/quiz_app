@@ -22,6 +22,7 @@ DictionaryItem _$DictionaryItemFromJson(Map<String, dynamic> json) {
 mixin _$DictionaryItem {
   String? get id => throw _privateConstructorUsedError;
   String get dictionaryWord => throw _privateConstructorUsedError;
+  String get dictionaryDescription => throw _privateConstructorUsedError;
   String get dictionaryUrl => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -36,7 +37,11 @@ abstract class $DictionaryItemCopyWith<$Res> {
           DictionaryItem value, $Res Function(DictionaryItem) then) =
       _$DictionaryItemCopyWithImpl<$Res, DictionaryItem>;
   @useResult
-  $Res call({String? id, String dictionaryWord, String dictionaryUrl});
+  $Res call(
+      {String? id,
+      String dictionaryWord,
+      String dictionaryDescription,
+      String dictionaryUrl});
 }
 
 /// @nodoc
@@ -54,6 +59,7 @@ class _$DictionaryItemCopyWithImpl<$Res, $Val extends DictionaryItem>
   $Res call({
     Object? id = freezed,
     Object? dictionaryWord = null,
+    Object? dictionaryDescription = null,
     Object? dictionaryUrl = null,
   }) {
     return _then(_value.copyWith(
@@ -64,6 +70,10 @@ class _$DictionaryItemCopyWithImpl<$Res, $Val extends DictionaryItem>
       dictionaryWord: null == dictionaryWord
           ? _value.dictionaryWord
           : dictionaryWord // ignore: cast_nullable_to_non_nullable
+              as String,
+      dictionaryDescription: null == dictionaryDescription
+          ? _value.dictionaryDescription
+          : dictionaryDescription // ignore: cast_nullable_to_non_nullable
               as String,
       dictionaryUrl: null == dictionaryUrl
           ? _value.dictionaryUrl
@@ -81,7 +91,11 @@ abstract class _$$_DictionaryItemCopyWith<$Res>
       __$$_DictionaryItemCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? id, String dictionaryWord, String dictionaryUrl});
+  $Res call(
+      {String? id,
+      String dictionaryWord,
+      String dictionaryDescription,
+      String dictionaryUrl});
 }
 
 /// @nodoc
@@ -97,6 +111,7 @@ class __$$_DictionaryItemCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? dictionaryWord = null,
+    Object? dictionaryDescription = null,
     Object? dictionaryUrl = null,
   }) {
     return _then(_$_DictionaryItem(
@@ -107,6 +122,10 @@ class __$$_DictionaryItemCopyWithImpl<$Res>
       dictionaryWord: null == dictionaryWord
           ? _value.dictionaryWord
           : dictionaryWord // ignore: cast_nullable_to_non_nullable
+              as String,
+      dictionaryDescription: null == dictionaryDescription
+          ? _value.dictionaryDescription
+          : dictionaryDescription // ignore: cast_nullable_to_non_nullable
               as String,
       dictionaryUrl: null == dictionaryUrl
           ? _value.dictionaryUrl
@@ -120,7 +139,10 @@ class __$$_DictionaryItemCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_DictionaryItem extends _DictionaryItem {
   const _$_DictionaryItem(
-      {this.id, required this.dictionaryWord, required this.dictionaryUrl})
+      {this.id,
+      required this.dictionaryWord,
+      required this.dictionaryDescription,
+      required this.dictionaryUrl})
       : super._();
 
   factory _$_DictionaryItem.fromJson(Map<String, dynamic> json) =>
@@ -131,11 +153,13 @@ class _$_DictionaryItem extends _DictionaryItem {
   @override
   final String dictionaryWord;
   @override
+  final String dictionaryDescription;
+  @override
   final String dictionaryUrl;
 
   @override
   String toString() {
-    return 'DictionaryItem(id: $id, dictionaryWord: $dictionaryWord, dictionaryUrl: $dictionaryUrl)';
+    return 'DictionaryItem(id: $id, dictionaryWord: $dictionaryWord, dictionaryDescription: $dictionaryDescription, dictionaryUrl: $dictionaryUrl)';
   }
 
   @override
@@ -146,14 +170,16 @@ class _$_DictionaryItem extends _DictionaryItem {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.dictionaryWord, dictionaryWord) ||
                 other.dictionaryWord == dictionaryWord) &&
+            (identical(other.dictionaryDescription, dictionaryDescription) ||
+                other.dictionaryDescription == dictionaryDescription) &&
             (identical(other.dictionaryUrl, dictionaryUrl) ||
                 other.dictionaryUrl == dictionaryUrl));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, dictionaryWord, dictionaryUrl);
+  int get hashCode => Object.hash(
+      runtimeType, id, dictionaryWord, dictionaryDescription, dictionaryUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -173,6 +199,7 @@ abstract class _DictionaryItem extends DictionaryItem {
   const factory _DictionaryItem(
       {final String? id,
       required final String dictionaryWord,
+      required final String dictionaryDescription,
       required final String dictionaryUrl}) = _$_DictionaryItem;
   const _DictionaryItem._() : super._();
 
@@ -183,6 +210,8 @@ abstract class _DictionaryItem extends DictionaryItem {
   String? get id;
   @override
   String get dictionaryWord;
+  @override
+  String get dictionaryDescription;
   @override
   String get dictionaryUrl;
   @override
