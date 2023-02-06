@@ -13,7 +13,11 @@ class OriginalQuestionListScreen extends HookConsumerWidget {
   OriginalQuestionListScreen({Key? key}) : super(key: key);
 
   final List<String> dictionaryWordList = ["word1", "word2", "word3"];
-  final List<String> dictionaryDescriptionList = ["description1", "description2", "description3"];
+  final List<String> dictionaryDescriptionList = [
+    "description1",
+    "description2",
+    "description3",
+  ];
   final List<String> dictionaryUrlList = ["value1", "value2", "value3"];
 
   @override
