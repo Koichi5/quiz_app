@@ -32,7 +32,7 @@ class QuestionSetButton extends HookConsumerWidget {
               backgroundColor: ref.watch(questionValidatorProvider).form.isValid
                   ? Theme.of(context).colorScheme.primary
                   : Theme.of(context).colorScheme.secondary),
-          onPressed: () async {
+          onPressed: ([bool mounted = true]) async {
             if (ref.watch(questionValidatorProvider).form.isValid) {
               // final question = Question(id: id, text: text, duration: duration, optionsShuffled: false)
               await ref
@@ -45,12 +45,7 @@ class QuestionSetButton extends HookConsumerWidget {
                     quiz: quiz,
                   );
               ref.watch(categoryQuestionCountProvider.notifier).state++;
-              // ref
-              //     .watch(categoryControllerProvider.notifier)
-              //     .editCategoryQuestionCount(
-              //         categoryQuestionCount:
-              //             ref.watch(categoryQuestionCountProvider),
-              //         categoryDocRef: quiz.categoryDocRef!);
+              if (!mounted) return;
               Navigator.pop(context);
             }
           },
