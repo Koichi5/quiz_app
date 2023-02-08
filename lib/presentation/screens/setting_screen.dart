@@ -57,9 +57,10 @@ class SettingScreen extends HookConsumerWidget {
       },
       () {
         showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return SimpleDialog(children: [
+          context: context,
+          builder: (BuildContext context) {
+            return SimpleDialog(
+              children: [
                 const Padding(
                   padding: EdgeInsets.all(10.0),
                   child: Center(
@@ -70,6 +71,7 @@ class SettingScreen extends HookConsumerWidget {
                   ),
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextButton(
                         onPressed: () {
@@ -81,19 +83,27 @@ class SettingScreen extends HookConsumerWidget {
                         await ref
                             .watch(authControllerProvider.notifier)
                             .signOut();
-                        if (ref.watch(firebaseAuthProvider).currentUser == null) {
+                        if (ref.watch(firebaseAuthProvider).currentUser ==
+                            null) {
                           if (!mounted) return;
-                          Navigator.pushReplacement(context, MaterialPageRoute(
-                              builder: (context) => const LoginScreen()));
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginScreen()));
                         }
                       },
-                      child: const Text("はい"),
+                      child: const Text(
+                        "はい",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ],
                 ),
-              ]);
-            });
-      }
+              ],
+            );
+          },
+        );
+      },
     ];
     return ListView.builder(
       scrollDirection: Axis.vertical,

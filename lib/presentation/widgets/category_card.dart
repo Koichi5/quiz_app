@@ -5,7 +5,6 @@ import 'package:quiz_app/domain/repository/question_repository.dart';
 import 'package:quiz_app/presentation/screens/category_detail_screen.dart';
 
 import '../../domain/category/category.dart';
-// import '../../domain/repository/weak_question_repository.dart';
 
 class CategoryCard extends HookConsumerWidget {
   const CategoryCard({required this.category, Key? key}) : super(key: key);
@@ -21,22 +20,12 @@ class CategoryCard extends HookConsumerWidget {
             .watch(weakQuestionRepositoryProvider)
             .retrieveWeakQuestionList()
             .then((weakQuestionList) {
-              for (var weakQuestion in weakQuestionList) {
-                if (weakQuestion.categoryDocRef == category.categoryDocRef) {
-                  ref.watch(weakQuestionInCategoryCountProvider.notifier).state++;
-                }
-              }
-          // value.forEach(
-          //   (element) {
-          //     if (element.categoryDocRef == category.categoryDocRef) {
-          //       ref.watch(weakQuestionInCategoryCountProvider.notifier).state++;
-          //     }
-          //   },
-          // );
+          for (var weakQuestion in weakQuestionList) {
+            if (weakQuestion.categoryDocRef == category.categoryDocRef) {
+              ref.watch(weakQuestionInCategoryCountProvider.notifier).state++;
+            }
+          }
         });
-        // final List<QuizHistory> quizHistoryList = await ref
-        //     .watch(quizHistoryControllerProvider.notifier)
-        //     .retrieveQuizHistoryList();
         if (!mounted) return;
         Navigator.push(
           context,
@@ -67,14 +56,14 @@ class CategoryCard extends HookConsumerWidget {
               bottom: 20,
               left: 20,
               child: BorderedText(
-                strokeWidth: 0.8,
-                strokeColor: Theme.of(context).colorScheme.onSurface,
+                strokeWidth: 0.9,
+                strokeColor: Colors.black,
                 child: Text(
                   category.name,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
-                    fontSize: 22,
+                    fontSize: 20,
                   ),
                 ),
               ),
