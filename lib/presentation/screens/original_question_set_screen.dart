@@ -200,33 +200,6 @@ class OriginalQuestionSetScreen extends HookConsumerWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.04,
               ),
-              // SizedBox(
-              //   width: MediaQuery.of(context).size.width * 0.9,
-              //   child: ElevatedButton(
-              //     style: ElevatedButton.styleFrom(
-              //         backgroundColor: questionValidator.form.text.isValid
-              //             ? Theme.of(context).colorScheme.primary
-              //             : Theme.of(context).colorScheme.secondary),
-              //     onPressed: () {
-              //       if (questionValidator.form.text.isValid) {
-              //         Navigator.push(
-              //             context,
-              //             MaterialPageRoute(
-              //                 builder: (context) =>
-              //                     const OriginalQuestionOptionSetScreen()));
-              //       } else {
-              //         null;
-              //       }
-              //     },
-              //     child: Text(
-              //       "選択肢設定へ",
-              //       style: TextStyle(
-              //           color: questionValidator.form.text.isValid
-              //               ? Theme.of(context).colorScheme.onPrimary
-              //               : Theme.of(context).colorScheme.onSecondary),
-              //     ),
-              //   ),
-              // ),
             ],
           ),
         ),
