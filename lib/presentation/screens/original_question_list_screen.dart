@@ -86,7 +86,25 @@ class OriginalQuestionListScreen extends HookConsumerWidget {
                           ),
                         ],
                       ),
-                error: (error, _) => const Center(child: Text("エラー")),
+                error: (error, _) => Center(
+                  child: Container(
+                    color: Colors.white,
+                    width: double.infinity,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Text(
+                          "エラーが発生しています",
+                          textAlign: TextAlign.center,
+                        ),
+                        Lottie.asset("assets/json_files/error.json",
+                            width: MediaQuery.of(context).size.width * 0.7,
+                            fit: BoxFit.fitWidth),
+                      ],
+                    ),
+                  ),
+                ),
                 loading: () => Center(
                     child: Lottie.asset("assets/json_files/loading.json",
                         width: 200, height: 200)),
@@ -143,7 +161,25 @@ class OriginalQuestionListScreen extends HookConsumerWidget {
                 },
                 child: const Icon(Icons.play_arrow),
               ),
-        error: (error, _) => const Center(child: Text("エラー")),
+        error: (error, _) => Center(
+          child: Container(
+            color: Colors.white,
+            width: double.infinity,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text(
+                  "エラーが発生しています",
+                  textAlign: TextAlign.center,
+                ),
+                Lottie.asset("assets/json_files/error.json",
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    fit: BoxFit.fitWidth),
+              ],
+            ),
+          ),
+        ),
         loading: () => const Center(
           child: SizedBox(),
         ),

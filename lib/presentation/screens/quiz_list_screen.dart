@@ -90,7 +90,25 @@ class QuizListScreen extends HookConsumerWidget {
                                       category: category,
                                       quiz: quizzes.first,
                                       questionList: questions),
-                              error: (error, _) => const Text("エラー"),
+                              error: (error, _) => Center(
+                                child: Container(
+                                  color: Colors.white,
+                                  width: double.infinity,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      const Text(
+                                        "エラーが発生しています",
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      Lottie.asset("assets/json_files/error.json",
+                                          width: MediaQuery.of(context).size.width * 0.7,
+                                          fit: BoxFit.fitWidth),
+                                    ],
+                                  ),
+                                ),
+                              ),
                               loading: () => Center(
                                     child: Lottie.asset(
                                         "assets/json_files/loading.json",
@@ -106,7 +124,25 @@ class QuizListScreen extends HookConsumerWidget {
                   //     return QuizCard(quiz: quiz);
                   //   },
                   // ),
-                  error: (error, _) => const Center(child: Text("エラー")),
+                  error: (error, _) => Center(
+    child: Container(
+    color: Colors.white,
+    width: double.infinity,
+    child: Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+    const Text(
+    "エラーが発生しています",
+    textAlign: TextAlign.center,
+    ),
+    Lottie.asset("assets/json_files/error.json",
+    width: MediaQuery.of(context).size.width * 0.7,
+    fit: BoxFit.fitWidth),
+    ],
+    ),
+    ),
+    ),
                   loading: () => Center(
                     child: Lottie.asset("assets/json_files/loading.json",
                         width: 200, height: 200),

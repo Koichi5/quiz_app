@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:lottie/lottie.dart';
 import 'package:quiz_app/presentation/controller/question_controller.dart';
 import 'package:quiz_app/presentation/screens/category_list_screen.dart';
 import 'package:quiz_app/presentation/screens/quiz_screen.dart';
@@ -67,8 +68,25 @@ class HomeScreen extends HookConsumerWidget {
                       return null;
                     }
                   },
-                  error: (error, _) => const Center(
-                        child: Text("エラーが発生しています"),
+                  error: (error, _) => Center(
+                        child: Container(
+                          color: Colors.white,
+                          width: double.infinity,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const Text(
+                                "エラーが発生しています",
+                                textAlign: TextAlign.center,
+                              ),
+                              Lottie.asset("assets/json_files/error.json",
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.7,
+                                  fit: BoxFit.fitWidth),
+                            ],
+                          ),
+                        ),
                       ),
                   loading: () => const SizedBox())
               : null

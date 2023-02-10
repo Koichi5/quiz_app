@@ -3,7 +3,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:quiz_app/presentation/controller/dictionary_item_controller.dart';
 import 'package:quiz_app/presentation/widgets/dictionary_card.dart';
-import 'package:quiz_app/presentation/widgets/link_button.dart';
 
 class DictionaryScreen extends HookConsumerWidget {
   const DictionaryScreen({Key? key}) : super(key: key);
@@ -22,15 +21,32 @@ class DictionaryScreen extends HookConsumerWidget {
             ? const Center(
                 child: Text("辞書に単語が追加されていません"),
               )
-            : ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: dictionaryItemList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final dictionaryItem = dictionaryItemList[index];
-                  return DictionaryCard(dictionaryItem: dictionaryItem);
-                },
-              ),
+            : Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: dictionaryItemList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final dictionaryItem = dictionaryItemList[index];
+                      return DictionaryCard(dictionaryItem: dictionaryItem);
+                    },
+                  ),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text("引用元", style: TextStyle(fontSize: 12),),
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text("総務省『国民のためのサイバーセキュリティサイト』（https://www.soumu.go.jp/main_sosiki/cybersecurity/kokumin/glossary/glossary_01.html）を加工して作成", style: TextStyle(fontSize: 12),),
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text("Wikipedia (https://ja.wikipedia.org/wiki/%E3%83%A1%E3%82%A4%E3%83%B3%E3%83%9A%E3%83%BC%E3%82%B8)", style: TextStyle(fontSize: 12),),
+                ),
+              ],
+            ),
         error: (error, _) => Container(
           color: Colors.white,
           width: double.infinity,

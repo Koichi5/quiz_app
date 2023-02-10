@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quiz_app/presentation/screens/quiz_history_screen.dart';
-import 'package:quiz_app/presentation/screens/weak_question_list_screen.dart';
 import 'package:quiz_app/presentation/screens/weak_question_screen.dart';
 import 'package:quiz_app/presentation/widgets/segmented_button.dart';
 

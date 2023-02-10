@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:lottie/lottie.dart';
 import 'package:quiz_app/domain/question/question.dart';
 import 'package:quiz_app/domain/repository/question_repository.dart';
 import 'package:quiz_app/presentation/controller/question_controller.dart';
@@ -196,9 +197,25 @@ class ResultQuestionListCard extends HookConsumerWidget {
                         icon: const Icon(Icons.check_box_outline_blank),
                       );
               },
-              error: (error, _) => const Center(
-                    child: Text("エラー"),
+              error: (error, _) => Center(
+                child: Container(
+                  color: Colors.white,
+                  width: double.infinity,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "エラーが発生しています",
+                        textAlign: TextAlign.center,
+                      ),
+                      Lottie.asset("assets/json_files/error.json",
+                          width: MediaQuery.of(context).size.width * 0.7,
+                          fit: BoxFit.fitWidth),
+                    ],
                   ),
+                ),
+              ),
               loading: () {
                 return const Center(
                   child: CircularProgressIndicator(),

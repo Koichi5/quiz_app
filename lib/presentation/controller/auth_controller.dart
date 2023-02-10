@@ -1,10 +1,7 @@
 import 'dart:async';
-// import 'dart:html';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:quiz_app/presentation/screens/login_screen.dart';
 
 import '../../domain/repository/auth_repository.dart';
 
@@ -39,11 +36,14 @@ class AuthController extends StateNotifier<User?> {
     }
   }
 
-  Future<void> createUserWithEmailAndPassword(String email, String password) async {
-    await _reader(authRepositoryProvider).createUserWithEmailAndPassword(email, password);
+  Future<void> createUserWithEmailAndPassword(
+      String email, String password) async {
+    await _reader(authRepositoryProvider)
+        .createUserWithEmailAndPassword(email, password);
   }
 
-  Future<User?> signInWithEmailAndPassword(String email, String password) async {
+  Future<User?> signInWithEmailAndPassword(
+      String email, String password) async {
     User? user = await _reader(authRepositoryProvider)
         .signInWithEmailAndPassword(email, password);
     return user;
@@ -56,7 +56,8 @@ class AuthController extends StateNotifier<User?> {
 
   // Apple sign in
   Future<UserCredential> signInWithApple() async {
-    UserCredential userCredential = await _reader(authRepositoryProvider).signInWithApple();
+    UserCredential userCredential =
+        await _reader(authRepositoryProvider).signInWithApple();
     return userCredential;
   }
 

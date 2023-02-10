@@ -28,21 +28,23 @@ class CategoryListScreen extends HookConsumerWidget {
                       return CategoryCard(category: category);
                     },
                   ),
-            error: (error, _) => Container(
-              color: Colors.white,
-              width: double.infinity,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Text(
-                    "エラーが発生しています",
-                    textAlign: TextAlign.center,
-                  ),
-                  Lottie.asset("assets/json_files/error.json",
-                      width: MediaQuery.of(context).size.width * 0.7,
-                      fit: BoxFit.fitWidth),
-                ],
+            error: (error, _) => Center(
+              child: Container(
+                color: Colors.white,
+                width: double.infinity,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "エラーが発生しています",
+                      textAlign: TextAlign.center,
+                    ),
+                    Lottie.asset("assets/json_files/error.json",
+                        width: MediaQuery.of(context).size.width * 0.7,
+                        fit: BoxFit.fitWidth),
+                  ],
+                ),
               ),
             ),
             loading: () => Center(
