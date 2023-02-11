@@ -50,9 +50,18 @@ class HomeScreen extends HookConsumerWidget {
                             MaterialPageRoute(
                               builder: (context) => Scaffold(
                                 appBar: AppBar(
+                                  leading: IconButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                      ref
+                                          .watch(currentQuestionIndexProvider
+                                              .notifier)
+                                          .state = 1;
+                                    },
+                                    icon: const Icon(Icons.arrow_back_ios),
+                                  ),
                                   centerTitle: true,
                                   title: const Text("苦手問題"),
-                                  automaticallyImplyLeading: false,
                                 ),
                                 body: QuizScreen(
                                   reader: ref.watch,
@@ -93,7 +102,6 @@ class HomeScreen extends HookConsumerWidget {
           : null,
     );
   }
-
   pageController(i) {
     return homePageList[i];
   }

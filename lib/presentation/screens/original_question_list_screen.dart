@@ -149,6 +149,13 @@ class OriginalQuestionListScreen extends HookConsumerWidget {
                     MaterialPageRoute(
                       builder: (context) => Scaffold(
                         appBar: AppBar(
+                          leading: IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              ref.watch(currentQuestionIndexProvider.notifier).state = 1;
+                            },
+                            icon: const Icon(Icons.arrow_back_ios),
+                          ),
                           centerTitle: true,
                           title: const Text("オリジナル問題"),
                         ),
