@@ -56,7 +56,7 @@ class CategoryCard extends HookConsumerWidget {
               bottom: 20,
               left: 20,
               child: BorderedText(
-                strokeWidth: 0.9,
+                strokeWidth: 1.2,
                 strokeColor: Colors.black,
                 child: Text(
                   category.name,

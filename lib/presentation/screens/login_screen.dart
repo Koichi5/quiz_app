@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:quiz_app/presentation/screens/signup_screen.dart';
 import 'package:quiz_app/presentation/widgets/login_button.dart';
 
 import '../controller/login_text_controller.dart';
@@ -24,6 +25,7 @@ class LoginScreen extends HookConsumerWidget {
     final loginValidatorNotifier = ref.watch(loginValidatorProvider.notifier);
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         centerTitle: true,
         title: const Text("ログイン"),
       ),
@@ -90,6 +92,20 @@ class LoginScreen extends HookConsumerWidget {
               padding: EdgeInsets.all(6.0),
               child: AppleSignInButton(),
             ),
+            Padding(
+              padding: const EdgeInsets.all(6.0),
+              child: TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SignupScreen()));
+                  },
+                  child: const Text(
+                    "新規登録はこちら",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  )),
+            )
           ],
         ),
       ),

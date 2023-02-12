@@ -152,7 +152,9 @@ class OriginalQuestionListScreen extends HookConsumerWidget {
                           leading: IconButton(
                             onPressed: () {
                               Navigator.pop(context);
-                              ref.watch(currentQuestionIndexProvider.notifier).state = 1;
+                              ref
+                                  .watch(currentQuestionIndexProvider.notifier)
+                                  .state = 1;
                             },
                             icon: const Icon(Icons.arrow_back_ios),
                           ),

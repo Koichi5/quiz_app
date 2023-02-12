@@ -28,85 +28,88 @@ class SignupScreen extends HookConsumerWidget {
         automaticallyImplyLeading: false,
       ),
       body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.05,
-              ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.9,
-                child: CustomTextField(
-                  title: "メールアドレス",
-                  controller: emailControllerProvider,
-                  error: signupValidator.form.email.errorMessage,
-                  onChanged: (email) {
-                    signupValidatorNotifier.setEmail(email);
-                  },
+        child: Container(
+          alignment: Alignment.topCenter,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.1,
                 ),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.02,
-              ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.9,
-                child: CustomTextField(
-                    title: "パスワード",
-                    controller: passwordControllerProvider,
-                    obscureText: obscureText,
-                    error: signupValidator.form.password.errorMessage,
-                    onChanged: (password) {
-                      signupValidatorNotifier.setPassword(password);
-                    },
-                    suffixIcon: obscureText
-                        ? IconButton(
-                            onPressed: () {
-                              obscureTextControllerNotifier.state = false;
-                            },
-                            icon: const Icon(Icons.visibility_off))
-                        : IconButton(
-                            onPressed: () {
-                              obscureTextControllerNotifier.state = true;
-                            },
-                            icon: const Icon(Icons.visibility))),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.04,
-              ),
-              SignUpButton(emailControllerProvider.text,
-                  passwordControllerProvider.text),
-              Divider(
-                height: MediaQuery.of(context).size.height * 0.05,
-                thickness: 0.5,
-                indent: MediaQuery.of(context).size.width * 0.05,
-                endIndent: MediaQuery.of(context).size.width * 0.05,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              const Padding(
-                padding: EdgeInsets.all(6.0),
-                child: GoogleSignInButton(),
-              ),
-              const Padding(
-                padding: EdgeInsets.all(6.0),
-                child: AppleSignInButton(),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: SizedBox(
+                SizedBox(
                   width: MediaQuery.of(context).size.width * 0.9,
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/login');
+                  child: CustomTextField(
+                    title: "メールアドレス",
+                    controller: emailControllerProvider,
+                    error: signupValidator.form.email.errorMessage,
+                    onChanged: (email) {
+                      signupValidatorNotifier.setEmail(email);
                     },
-                    child: const Text(
-                      "アカウントをお持ちの方はこちら",
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.02,
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  child: CustomTextField(
+                      title: "パスワード",
+                      controller: passwordControllerProvider,
+                      obscureText: obscureText,
+                      error: signupValidator.form.password.errorMessage,
+                      onChanged: (password) {
+                        signupValidatorNotifier.setPassword(password);
+                      },
+                      suffixIcon: obscureText
+                          ? IconButton(
+                              onPressed: () {
+                                obscureTextControllerNotifier.state = false;
+                              },
+                              icon: const Icon(Icons.visibility_off))
+                          : IconButton(
+                              onPressed: () {
+                                obscureTextControllerNotifier.state = true;
+                              },
+                              icon: const Icon(Icons.visibility))),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.04,
+                ),
+                SignUpButton(emailControllerProvider.text,
+                    passwordControllerProvider.text),
+                Divider(
+                  height: MediaQuery.of(context).size.height * 0.05,
+                  thickness: 0.5,
+                  indent: MediaQuery.of(context).size.width * 0.05,
+                  endIndent: MediaQuery.of(context).size.width * 0.05,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(6.0),
+                  child: GoogleSignInButton(),
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(6.0),
+                  child: AppleSignInButton(),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/login');
+                      },
+                      child: const Text(
+                        "アカウントをお持ちの方はこちら",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
