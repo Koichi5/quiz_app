@@ -44,14 +44,6 @@ class QuestionSetScreen extends HookConsumerWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.1,
               ),
-              // CustomTextField(
-              //   title: "問題ID",
-              //   controller: idControllerProvider,
-              //   error: questionValidator.form.id.errorMessage,
-              //   onChanged: (questionId) {
-              //     questionValidatorNotifier.setQuestionId(questionId);
-              //   },
-              // ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.02,
               ),
