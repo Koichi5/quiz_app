@@ -66,7 +66,9 @@ class QuizEngine {
             questionIndex++;
             questionStartTime = DateTime.now();
             onNext(question);
+            reader(currentQuestionTextProvider.notifier).state = question.text;
             WidgetsBinding.instance.addPostFrameCallback((_) {
+              reader(currentQuestionTextProvider.notifier).state = question?.text ?? "";
               reader(optionGestureProvider.notifier).state = false;
             });
           }

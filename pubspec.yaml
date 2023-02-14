@@ -30,6 +30,7 @@ dependencies:
   just_audio: ^0.9.30
   expandable: ^5.0.1
   bordered_text: ^2.0.0
+  animated_text_kit: ^4.2.2
 
 dev_dependencies:
   flutter_test:

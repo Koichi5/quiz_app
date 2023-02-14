@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:just_audio/just_audio.dart';
@@ -21,6 +22,7 @@ final questionAnswerProvider =
     StateProvider<Map<int, bool>>((ref) => {0: false});
 final optionGestureProvider = StateProvider((ref) => false);
 final currentQuestionIndexProvider = StateProvider((ref) => 1);
+final currentQuestionTextProvider = StateProvider<String?>((ref) => "");
 
 class QuizScreen extends StatefulHookConsumerWidget {
   static const routeName = '/quiz';
@@ -83,6 +85,9 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
     engine.start(context);
     _setupCorrectSession();
     _setupIncorrectSession();
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   reader(currentQuestionTextProvider.notifier).state = question?.text ?? "";
+    // });
   }
 
   @override
@@ -133,7 +138,10 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
   // }
 
   Widget quizQuestion() {
-    return Container(
+    print("question.text : ${question?.text ?? ""}");
+    // print(reader(currentQuestionTextProvider));
+    // final questionText = reader(currentQuestionTextProvider);
+      return Container(
       alignment: Alignment.centerLeft,
       child: Center(
         child: Padding(
@@ -149,6 +157,13 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
                 alignment: Alignment.centerLeft,
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
+                  // child: AnimatedTextKit(
+                  //   isRepeatingAnimation: false,
+                  //   animatedTexts: [
+                  //     // TyperAnimatedText("${reader(currentQuestionTextProvider.notifier).state}",),
+                  //     TyperAnimatedText(reader(currentQuestionTextProvider)!),
+                  //   ],
+                  // ),
                   child: Text(
                     question?.text ?? "",
                     style: const TextStyle(fontSize: 18),
@@ -169,6 +184,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
         Container(
           alignment: Alignment.center,
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: List<Option>.from(question?.options ?? []).map((option) {
               int optionIndex = question!.options.indexOf(option);
               var optionWidget = GestureDetector(
