@@ -139,7 +139,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
 
   Widget quizQuestion() {
     print("question.text : ${question?.text ?? ""}");
-    // print(reader(currentQuestionTextProvider));
+    print(reader(currentQuestionTextProvider));
     // final questionText = reader(currentQuestionTextProvider);
       return Container(
       alignment: Alignment.centerLeft,
@@ -157,17 +157,18 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
                 alignment: Alignment.centerLeft,
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
-                  // child: AnimatedTextKit(
-                  //   isRepeatingAnimation: false,
-                  //   animatedTexts: [
-                  //     // TyperAnimatedText("${reader(currentQuestionTextProvider.notifier).state}",),
-                  //     TyperAnimatedText(reader(currentQuestionTextProvider)!),
-                  //   ],
-                  // ),
-                  child: Text(
-                    question?.text ?? "",
-                    style: const TextStyle(fontSize: 18),
+                  child: AnimatedTextKit(
+                    isRepeatingAnimation: false,
+                    animatedTexts: [
+                      // TyperAnimatedText("${reader(currentQuestionTextProvider.notifier).state}",),
+                      TyperAnimatedText(reader(currentQuestionTextProvider) ?? ""),
+                      // TyperAnimatedText(question?.text ?? ""),
+                    ],
                   ),
+                  // child: Text(
+                  //   question?.text ?? "",
+                  //   style: const TextStyle(fontSize: 18),
+                  // ),
                 ),
               ),
             ],

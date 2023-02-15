@@ -61,6 +61,8 @@ class QuizEngine {
       do {
         if (takeNewQuestion) {
           question = _nextQuestion(questionList, questionIndex);
+          reader(currentQuestionTextProvider.notifier).state =
+              question?.text ?? "";
           if (question != null) {
             takeNewQuestion = false;
             questionIndex++;
@@ -68,7 +70,6 @@ class QuizEngine {
             onNext(question);
             reader(currentQuestionTextProvider.notifier).state = question.text;
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              reader(currentQuestionTextProvider.notifier).state = question?.text ?? "";
               reader(optionGestureProvider.notifier).state = false;
             });
           }
