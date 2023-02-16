@@ -86,7 +86,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
     _setupCorrectSession();
     _setupIncorrectSession();
     // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   reader(currentQuestionTextProvider.notifier).state = question?.text ?? "";
+      reader(currentQuestionTextProvider.notifier).state = question?.text ?? "";
     // });
   }
 
@@ -138,6 +138,8 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
   // }
 
   Widget quizQuestion() {
+    reader(currentQuestionTextProvider.notifier).state =
+        question?.text ?? "";
     print("question.text : ${question?.text ?? ""}");
     print(reader(currentQuestionTextProvider));
     // final questionText = reader(currentQuestionTextProvider);
@@ -194,6 +196,8 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
                     : () {
                         // if (!ref.watch(optionGestureProvider)) {
                         ref.watch(optionGestureProvider.notifier).state = true;
+                        reader(currentQuestionTextProvider.notifier).state =
+                            question?.text ?? "";
                         // setState(() {
                         print("setState");
                         _remainTime = 0;
@@ -219,6 +223,8 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
                             // 一問終了することごとに現在の問題の数が一つづつ増える
                             reader(currentQuestionIndexProvider.notifier)
                                 .state++;
+                            reader(currentQuestionTextProvider.notifier).state =
+                                question?.text ?? "";
                             // 何かしらの選択肢を選択したら true になる provider, 画面遷移時には次の問題へ移行するため、false にする必要がある
                             // ref.watch(optionGestureProvider.notifier).state =
                             // false;
@@ -387,6 +393,8 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
         progressTimer!.cancel();
       }
       question = inputQuestion;
+      reader(currentQuestionTextProvider.notifier).state =
+          question?.text ?? "";
       _remainTime = inputQuestion.duration;
       // for (int i = 0; i < inputQuestion.options.length; i++) {
       //   inputQuestion.options[i].copyWith(text: "");
@@ -398,6 +406,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
         try {
           if (mounted) {
             setState(() {
+                // reader(currentQuestionTextProvider.notifier).state = question?.text ?? "";
               progressTimer = timer;
               _remainTime--;
               // print(_remainTime);
