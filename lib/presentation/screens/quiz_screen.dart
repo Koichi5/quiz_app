@@ -138,8 +138,8 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
   // }
 
   Widget quizQuestion() {
-    reader(currentQuestionTextProvider.notifier).state =
-        question?.text ?? "";
+    // reader(currentQuestionTextProvider.notifier).state =
+    //     question?.text ?? "";
     print("question.text : ${question?.text ?? ""}");
     print(reader(currentQuestionTextProvider));
     // final questionText = reader(currentQuestionTextProvider);
@@ -159,18 +159,18 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
                 alignment: Alignment.centerLeft,
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
-                  child: AnimatedTextKit(
-                    isRepeatingAnimation: false,
-                    animatedTexts: [
-                      // TyperAnimatedText("${reader(currentQuestionTextProvider.notifier).state}",),
-                      TyperAnimatedText(reader(currentQuestionTextProvider) ?? ""),
-                      // TyperAnimatedText(question?.text ?? ""),
-                    ],
-                  ),
-                  // child: Text(
-                  //   question?.text ?? "",
-                  //   style: const TextStyle(fontSize: 18),
+                  // child: AnimatedTextKit(
+                  //   isRepeatingAnimation: false,
+                  //   animatedTexts: [
+                  //     // TyperAnimatedText("${reader(currentQuestionTextProvider.notifier).state}",),
+                  //     TyperAnimatedText(reader(currentQuestionTextProvider) ?? ""),
+                  //     // TyperAnimatedText(question?.text ?? ""),
+                  //   ],
                   // ),
+                  child: Text(
+                    question?.text ?? "",
+                    style: const TextStyle(fontSize: 18),
+                  ),
                 ),
               ),
             ],
@@ -196,8 +196,8 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
                     : () {
                         // if (!ref.watch(optionGestureProvider)) {
                         ref.watch(optionGestureProvider.notifier).state = true;
-                        reader(currentQuestionTextProvider.notifier).state =
-                            question?.text ?? "";
+                        // reader(currentQuestionTextProvider.notifier).state =
+                        //     question?.text ?? "";
                         // setState(() {
                         print("setState");
                         _remainTime = 0;
@@ -223,8 +223,8 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
                             // 一問終了することごとに現在の問題の数が一つづつ増える
                             reader(currentQuestionIndexProvider.notifier)
                                 .state++;
-                            reader(currentQuestionTextProvider.notifier).state =
-                                question?.text ?? "";
+                            // reader(currentQuestionTextProvider.notifier).state =
+                            //     question?.text ?? "";
                             // 何かしらの選択肢を選択したら true になる provider, 画面遷移時には次の問題へ移行するため、false にする必要がある
                             // ref.watch(optionGestureProvider.notifier).state =
                             // false;
