@@ -5,6 +5,13 @@ final optionIdControllerProvider = StateProvider.autoDispose((ref) {
   return TextEditingController(text: '');
 });
 
+//  1 + 1 = ?
+
+// 1
+// 2 true
+// 3
+// 4
+
 final firstOptionTextControllerProvider = StateProvider.autoDispose((ref) {
   return TextEditingController(text: '');
 });

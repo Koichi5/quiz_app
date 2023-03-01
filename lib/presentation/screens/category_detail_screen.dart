@@ -13,6 +13,19 @@ class CategoryDetailScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    String calcProcessTime(int categoryCount) {
+      final processTime = categoryCount * 10;
+      var processTimeMin = 0;
+      var processTimeSec = 0;
+      if (categoryCount < 6) {
+        return "${processTime * 10} 秒";
+      } else {
+        processTimeMin = (processTime / 60).floor();
+        processTimeSec = processTime % 60;
+        return "$processTimeMin 分 $processTimeSec 秒";
+      }
+    }
+
     final String categoryName = category.name;
     final String categoryDescription = category.description;
     final String categoryImagePath = category.imagePath;
@@ -131,7 +144,8 @@ class CategoryDetailScreen extends HookConsumerWidget {
                             Padding(
                               padding: const EdgeInsets.symmetric(
                                   vertical: 15.0, horizontal: 40.0),
-                              child: Text("${categoryQuestionCount * 10} 秒"),
+                              // child: Text("${categoryQuestionCount * 10} 秒"),
+                              child: Text(calcProcessTime(category.categoryQuestionCount)),
                             ),
                           ],
                         ),

@@ -91,24 +91,30 @@ class QuizListScreen extends HookConsumerWidget {
                                       quiz: quizzes.first,
                                       questionList: questions),
                               error: (error, _) => Center(
-                                child: Container(
-                                  color: Colors.white,
-                                  width: double.infinity,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      const Text(
-                                        "エラーが発生しています",
-                                        textAlign: TextAlign.center,
+                                    child: Container(
+                                      color: Colors.white,
+                                      width: double.infinity,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          const Text(
+                                            "エラーが発生しています",
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          Lottie.asset(
+                                              "assets/json_files/error.json",
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.7,
+                                              fit: BoxFit.fitWidth),
+                                        ],
                                       ),
-                                      Lottie.asset("assets/json_files/error.json",
-                                          width: MediaQuery.of(context).size.width * 0.7,
-                                          fit: BoxFit.fitWidth),
-                                    ],
+                                    ),
                                   ),
-                                ),
-                              ),
                               loading: () => Center(
                                     child: Lottie.asset(
                                         "assets/json_files/loading.json",
@@ -125,24 +131,24 @@ class QuizListScreen extends HookConsumerWidget {
                   //   },
                   // ),
                   error: (error, _) => Center(
-    child: Container(
-    color: Colors.white,
-    width: double.infinity,
-    child: Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children: [
-    const Text(
-    "エラーが発生しています",
-    textAlign: TextAlign.center,
-    ),
-    Lottie.asset("assets/json_files/error.json",
-    width: MediaQuery.of(context).size.width * 0.7,
-    fit: BoxFit.fitWidth),
-    ],
-    ),
-    ),
-    ),
+                    child: Container(
+                      color: Colors.white,
+                      width: double.infinity,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const Text(
+                            "エラーが発生しています",
+                            textAlign: TextAlign.center,
+                          ),
+                          Lottie.asset("assets/json_files/error.json",
+                              width: MediaQuery.of(context).size.width * 0.7,
+                              fit: BoxFit.fitWidth),
+                        ],
+                      ),
+                    ),
+                  ),
                   loading: () => Center(
                     child: Lottie.asset("assets/json_files/loading.json",
                         width: 200, height: 200),
@@ -169,20 +175,24 @@ class QuizListScreen extends HookConsumerWidget {
       // )
     } else {
       return Scaffold(
-        appBar: AppBar(),
-        body: Container(
-          color: Colors.white,
-          width: double.infinity,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Text("エラーが発生しています", textAlign: TextAlign.center,),
-              Lottie.asset("assets/json_files/error.json", width: MediaQuery.of(context).size.width * 0.7, fit: BoxFit.fitWidth),
-            ],
-          ),
-        )
-      );
+          appBar: AppBar(),
+          body: Container(
+            color: Colors.white,
+            width: double.infinity,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text(
+                  "エラーが発生しています",
+                  textAlign: TextAlign.center,
+                ),
+                Lottie.asset("assets/json_files/error.json",
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    fit: BoxFit.fitWidth),
+              ],
+            ),
+          ));
     }
   }
 }

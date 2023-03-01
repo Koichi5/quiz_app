@@ -86,7 +86,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
     _setupCorrectSession();
     _setupIncorrectSession();
     // WidgetsBinding.instance.addPostFrameCallback((_) {
-      reader(currentQuestionTextProvider.notifier).state = question?.text ?? "";
+    //   reader(currentQuestionTextProvider.notifier).state = question?.text ?? "";
     // });
   }
 
@@ -141,7 +141,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
     // reader(currentQuestionTextProvider.notifier).state =
     //     question?.text ?? "";
     print("question.text : ${question?.text ?? ""}");
-    print(reader(currentQuestionTextProvider));
+    // print(reader(currentQuestionTextProvider));
     // final questionText = reader(currentQuestionTextProvider);
       return Container(
       alignment: Alignment.centerLeft,
@@ -169,7 +169,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
                   // ),
                   child: Text(
                     question?.text ?? "",
-                    style: const TextStyle(fontSize: 18),
+                    style: const TextStyle(fontSize: 18,),
                   ),
                 ),
               ),
@@ -393,8 +393,8 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
         progressTimer!.cancel();
       }
       question = inputQuestion;
-      reader(currentQuestionTextProvider.notifier).state =
-          question?.text ?? "";
+      // reader(currentQuestionTextProvider.notifier).state =
+      //     question?.text ?? "";
       _remainTime = inputQuestion.duration;
       // for (int i = 0; i < inputQuestion.options.length; i++) {
       //   inputQuestion.options[i].copyWith(text: "");

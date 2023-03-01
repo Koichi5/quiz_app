@@ -19,7 +19,7 @@ class SettingScreen extends HookConsumerWidget {
   ];
   final List<String> _linkURLList = [
     "https://koichi5.github.io/finder_seller/",
-    "https://twitter.com/VTA79597664",
+    "https://twitter.com/TechJourneyApp",
     "https://www.instagram.com/",
   ];
   final List<Widget> _leadingWidget = [

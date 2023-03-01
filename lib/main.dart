@@ -6,6 +6,7 @@ import 'package:quiz_app/firebase_options.dart';
 import 'package:quiz_app/presentation/screens/home_screen.dart';
 import 'package:quiz_app/presentation/screens/login_screen.dart';
 import 'package:quiz_app/presentation/screens/signup_screen.dart';
+import 'package:quiz_app/sample_page.dart';
 
 import 'color_schemes.g.dart';
 import 'presentation/screens/intro_slider_screen.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         // '/question_set': (BuildContext context) => const QuestionSetScreen(),
         // '/option_set': (BuildContext context) => const OptionSetScreen(),
       },
+
       home: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
@@ -47,13 +49,13 @@ class MyApp extends StatelessWidget {
           }
           if (snapshot.hasData) {
             // User が null でなない、つまりサインイン済みのホーム画面へ
-            return HomeScreen();
+            return const HomeScreen();
           }
           // User が null である、つまり未サインインのサインイン画面へ
-
           return IntroSliderScreen();
         },
       ),
+      // home: SamplePage(),
     );
   }
 }

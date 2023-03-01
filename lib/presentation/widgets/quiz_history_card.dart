@@ -25,7 +25,9 @@ class QuizHistoryCard extends HookConsumerWidget {
         Padding(
           padding: const EdgeInsets.all(15),
           child: Text(
-            quizHistory.quizTitle.isEmpty ? "Quiz" : quizHistory.quizTitle,
+            quizHistory.quizTitle.isEmpty
+                ? "Quiz Title"
+                : quizHistory.quizTitle,
             style: const TextStyle(fontSize: 24),
           ),
         ),
@@ -91,25 +93,28 @@ class QuizHistoryCard extends HookConsumerWidget {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextButton(
-                        onPressed: ([bool mounted = true]) async {
-                          final category = await ref
-                              .watch(categoryControllerProvider.notifier)
-                              .retrieveCategoryById(
-                                  quizCategoryDocRef:
-                                      quizHistory.categoryDocRef);
-                          ref.watch(currentQuestionIndexProvider.notifier).state = 1;
-                          if (!mounted) return;
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      QuizListScreen(category: category)));
-                        },
-                        child: Text(
-                          "再チャレンジ",
-                          style: TextStyle(
-                              color: Theme.of(context).colorScheme.primary),
-                        )),
+                      onPressed: ([bool mounted = true]) async {
+                        final category = await ref
+                            .watch(categoryControllerProvider.notifier)
+                            .retrieveCategoryById(
+                                quizCategoryDocRef: quizHistory.categoryDocRef);
+                        ref.watch(currentQuestionIndexProvider.notifier).state =
+                            1;
+                        if (!mounted) return;
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                QuizListScreen(category: category),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        "再チャレンジ",
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary),
+                      ),
+                    ),
                   ),
                 ],
               ),

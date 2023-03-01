@@ -102,6 +102,7 @@ class HomeScreen extends HookConsumerWidget {
           : null,
     );
   }
+
   pageController(i) {
     return homePageList[i];
   }
