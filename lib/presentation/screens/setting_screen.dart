@@ -20,7 +20,7 @@ class SettingScreen extends HookConsumerWidget {
   final List<String> _linkURLList = [
     "https://koichi5.github.io/finder_seller/",
     "https://twitter.com/TechJourneyApp",
-    "https://www.instagram.com/",
+    "https://www.instagram.com/techjourneyapp/",
   ];
   final List<Widget> _leadingWidget = [
     const Icon(

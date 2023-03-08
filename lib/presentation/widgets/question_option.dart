@@ -45,7 +45,7 @@ class QuestionOption extends HookConsumerWidget {
           child: Text(
             option.text,
             style: TextStyle(
-              fontSize: 23,
+              fontSize: option.text.length > 13 ? 20 : 23,
               color: Theme.of(context).colorScheme.primary,
             ),
             textAlign: TextAlign.left,
