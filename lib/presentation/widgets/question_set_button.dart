@@ -9,13 +9,11 @@ import '../controller/validator/question_validator_provider.dart';
 class QuestionSetButton extends HookConsumerWidget {
   const QuestionSetButton(
       {
-      // required this.id,
       required this.text,
       required this.duration,
       required this.quiz,
       Key? key})
       : super(key: key);
-  // final String id;
   final String text;
   final String duration;
   final Quiz quiz;
@@ -34,11 +32,9 @@ class QuestionSetButton extends HookConsumerWidget {
                   : Theme.of(context).colorScheme.secondary),
           onPressed: ([bool mounted = true]) async {
             if (ref.watch(questionValidatorProvider).form.isValid) {
-              // final question = Question(id: id, text: text, duration: duration, optionsShuffled: false)
               await ref
                   .watch(questionControllerProvider(quiz).notifier)
                   .addQuestion(
-                    // id: id,
                     text: text,
                     duration: duration,
                     optionsShuffled: false,

@@ -12,19 +12,25 @@ class SettingScreen extends HookConsumerWidget {
 
   final List<String> _labelTextList = [
     "利用規約",
-    "公式Twitter",
-    "公式Instagram",
+    "プライバシーポリシー",
+    "Twitter",
+    "Instagram",
     "単語集",
     "ログアウト",
   ];
   final List<String> _linkURLList = [
-    "https://koichi5.github.io/finder_seller/",
+    "https://terms-of-service-tech.web.app/",
+    "https://quiz-app-dc8a1.web.app",
     "https://twitter.com/TechJourneyApp",
     "https://www.instagram.com/techjourneyapp/",
   ];
   final List<Widget> _leadingWidget = [
     const Icon(
       Icons.list_alt,
+      size: 30,
+    ),
+    const Icon(
+      Icons.privacy_tip_outlined,
       size: 30,
     ),
     Image.asset(width: 30, height: 30, "assets/images/twitter.png"),
@@ -47,6 +53,7 @@ class SettingScreen extends HookConsumerWidget {
       () => _linkButton.launchUriWithString(context, _linkURLList[0]),
       () => _linkButton.launchUriWithString(context, _linkURLList[1]),
       () => _linkButton.launchUriWithString(context, _linkURLList[2]),
+      () => _linkButton.launchUriWithString(context, _linkURLList[3]),
       () {
         Navigator.push(
           context,

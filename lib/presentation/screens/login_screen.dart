@@ -95,17 +95,18 @@ class LoginScreen extends HookConsumerWidget {
             Padding(
               padding: const EdgeInsets.all(6.0),
               child: TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const SignupScreen()));
-                  },
-                  child: const Text(
-                    "新規登録はこちら",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  )),
-            )
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SignupScreen()));
+                },
+                child: const Text(
+                  "新規登録はこちら",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
           ],
         ),
       ),

@@ -61,22 +61,17 @@ class QuizEngine {
       do {
         if (takeNewQuestion) {
           question = _nextQuestion(questionList, questionIndex);
-          // reader(currentQuestionTextProvider.notifier).state =
-          //     question?.text ?? "";
           if (question != null) {
             takeNewQuestion = false;
             questionIndex++;
             questionStartTime = DateTime.now();
             onNext(question);
-            // reader(currentQuestionTextProvider.notifier).state = question.text;
             WidgetsBinding.instance.addPostFrameCallback((_) {
               reader(optionGestureProvider.notifier).state = false;
             });
           }
         }
         if (question != null) {
-          // reader(currentQuestionTextProvider.notifier).state =
-          //     question.text;
           var questionTimeEnd =
               questionStartTime.add(Duration(seconds: question.duration));
           var timeDiff = questionTimeEnd.difference(DateTime.now()).inSeconds;
@@ -139,11 +134,9 @@ class QuizEngine {
     if (answer == null) {
       questionAnswer[questionIndex] = false;
       reader(currentQuestionIndexProvider.notifier).state++;
-        // reader(currentQuestionTextProvider.notifier).state = question?.text ?? "";
       return questionAnswer;
     } else {
       questionAnswer[questionIndex] = question.options[answer].isCorrect;
-        // reader(currentQuestionTextProvider.notifier).state = question?.text ?? "";
       return questionAnswer;
     }
   }
@@ -156,7 +149,6 @@ class QuizEngine {
       index = Random().nextInt(questionList.length);
       if (questionAnswer.keys.contains(index) == false) {
         takenQuestions.add(index);
-        // reader(currentQuestionTextProvider.notifier).state = questionList[index].text;
         return questionList[index];
       }
     }

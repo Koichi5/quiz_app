@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quiz_app/presentation/screens/home_screen.dart';
 
 import '../../domain/repository/auth_repository.dart';
+import '../../general/general_provider.dart';
 import '../controller/auth_controller.dart';
 
 class GoogleSignInButton extends HookConsumerWidget {
@@ -21,12 +22,15 @@ class GoogleSignInButton extends HookConsumerWidget {
         width: MediaQuery.of(context).size.width * 0.9,
         child: OutlinedButton(
             style: OutlinedButton.styleFrom(
-                side: const BorderSide(color: Colors.black)),
-            onPressed: () async {
+                side: BorderSide(color: isDarkMode(context)
+                    ? Theme.of(context).colorScheme.secondary
+                    : Theme.of(context).colorScheme.onBackground,)),
+            onPressed: ([bool mounted = true]) async {
               await authControllerProviderNotifier.signInWithGoogle();
               User? user =
               authRepositoryProviderNotifier.getCurrentUser();
               if (user != null) {
+                if(!mounted) return;
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const HomeScreen()));
               }
@@ -39,11 +43,13 @@ class GoogleSignInButton extends HookConsumerWidget {
                   width: 20,
                   height: 20,
                 ),
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: Text(
                     "Googleで続ける",
-                    style: TextStyle(color: Colors.black),
+                    style: TextStyle(color: isDarkMode(context)
+                        ? Theme.of(context).colorScheme.secondary
+                        : Theme.of(context).colorScheme.onBackground,),
                   ),
                 ),
               ],

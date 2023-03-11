@@ -17,18 +17,10 @@ class QuestionSetScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     const String defaultDuration = "15";
-    // final idControllerProvider = ref.watch(questionIdControllerProvider);
     final textControllerProvider = ref.watch(questionTextControllerProvider);
-    final durationControllerProvider =
-        ref.watch(questionDurationControllerProvider);
     final questionValidator = ref.watch(questionValidatorProvider);
     final questionValidatorNotifier =
         ref.watch(questionValidatorProvider.notifier);
-    // options
-    // final firstOptionTextController = ref.watch(firstOptionTextControllerProvider);
-    // final secondOptionTextController = ref.watch(secondOptionTextControllerProvider);
-    // final thirdOptionTextController = ref.watch(thirdOptionTextControllerProvider);
-    // final fourthOptionTextController = ref.watch(fourthOptionTextControllerProvider);
     final optionValidator = ref.watch(optionValidatorProvider);
     final optionValidatorNotifier = ref.watch(optionValidatorProvider.notifier);
     return Scaffold(
@@ -53,8 +45,6 @@ class QuestionSetScreen extends HookConsumerWidget {
                 child: CustomTextField(
                   title: "問題文",
                   controller: textControllerProvider,
-                  // keyboardType: TextInputType.multiline,
-                  // maxLines: 3,
                   error: questionValidator.form.text.errorMessage,
                   onChanged: (questionText) {
                     questionValidatorNotifier.setQuestionText(questionText);
@@ -154,9 +144,7 @@ class QuestionSetScreen extends HookConsumerWidget {
                         value;
                   }),
               QuestionSetButton(
-                // id: idControllerProvider.text,
                 text: textControllerProvider.text,
-                // duration: durationControllerProvider.text,
                 duration: defaultDuration,
                 quiz: quiz,
               ),

@@ -1,24 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
-import 'package:quiz_app/general/general_provider.dart';
 import 'package:quiz_app/presentation/controller/original_question_controller.dart';
 import 'package:quiz_app/presentation/screens/quiz_screen.dart';
 import 'package:quiz_app/presentation/widgets/original_question_list_card.dart';
 
-import 'category_set_screen.dart';
 import 'original_question_set_screen.dart';
 
 class OriginalQuestionListScreen extends HookConsumerWidget {
   OriginalQuestionListScreen({Key? key}) : super(key: key);
 
-  final List<String> dictionaryWordList = ["word1", "word2", "word3"];
-  final List<String> dictionaryDescriptionList = [
-    "description1",
-    "description2",
-    "description3",
-  ];
-  final List<String> dictionaryUrlList = ["value1", "value2", "value3"];
+  final List<String> dictionaryWordList = [];
+  final List<String> dictionaryDescriptionList = [];
+  final List<String> dictionaryUrlList = [];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -109,32 +103,32 @@ class OriginalQuestionListScreen extends HookConsumerWidget {
                     child: Lottie.asset("assets/json_files/loading.json",
                         width: 200, height: 200)),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const CategorySetScreen()));
-                },
-                child: const Text("管理者用 問題作成"),
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  for (int i = 0; i < dictionaryWordList.length; i++) {
-                    await ref
-                        .watch(firebaseFirestoreProvider)
-                        .collection("dictionary")
-                        .add({
-                      "dictionaryWord": dictionaryWordList[i],
-                      "dictionaryDescription": dictionaryDescriptionList[i],
-                      "dictionaryUrl": dictionaryUrlList[i],
-                    });
-                  }
-                },
-                child: const Text(
-                  "辞書追加",
-                ),
-              ),
+              // ElevatedButton(
+              //   onPressed: () {
+              //     Navigator.push(
+              //         context,
+              //         MaterialPageRoute(
+              //             builder: (context) => const CategorySetScreen()));
+              //   },
+              //   child: const Text("管理者用 問題作成"),
+              // ),
+              // ElevatedButton(
+              //   onPressed: () async {
+              //     for (int i = 0; i < dictionaryWordList.length; i++) {
+              //       await ref
+              //           .watch(firebaseFirestoreProvider)
+              //           .collection("dictionary")
+              //           .add({
+              //         "dictionaryWord": dictionaryWordList[i],
+              //         "dictionaryDescription": dictionaryDescriptionList[i],
+              //         "dictionaryUrl": dictionaryUrlList[i],
+              //       });
+              //     }
+              //   },
+              //   child: const Text(
+              //     "辞書追加",
+              //   ),
+              // ),
             ],
           ),
         ),

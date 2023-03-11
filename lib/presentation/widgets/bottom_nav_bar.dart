@@ -26,11 +26,9 @@ class BottomNavBar extends HookConsumerWidget {
         for (int i = 0; i < bottomContentList.length; i++) ...{
           BottomNavyBarItem(
               title: Text(
-                // style: TextStyle(color: Theme.of(context).colorScheme.primary),
                 bottomContentList.keys.toList()[i],
               ),
               icon: Icon(bottomContentList.values.toList()[i],
-                  // color: Theme.of(context).colorScheme.primary
               ),
               activeColor: Theme.of(context).colorScheme.primary,
             inactiveColor: Theme.of(context).colorScheme.inversePrimary,

@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:just_audio/just_audio.dart';
@@ -85,9 +84,6 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
     engine.start(context);
     _setupCorrectSession();
     _setupIncorrectSession();
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   reader(currentQuestionTextProvider.notifier).state = question?.text ?? "";
-    // });
   }
 
   @override
@@ -108,7 +104,6 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
 
   @override
   Widget build(BuildContext context) {
-    // final currentQuestionIndex = ref.watch(currentQuestionIndexProvider);
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -127,22 +122,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
     );
   }
 
-  // Widget screenHeader() {
-  //   return Container(
-  //     alignment: Alignment.center,
-  //     child: Text(
-  //       category != null ? category!.name : "",
-  //       style: const TextStyle(fontSize: 18),
-  //     ),
-  //   );
-  // }
-
   Widget quizQuestion() {
-    // reader(currentQuestionTextProvider.notifier).state =
-    //     question?.text ?? "";
-    print("question.text : ${question?.text ?? ""}");
-    // print(reader(currentQuestionTextProvider));
-    // final questionText = reader(currentQuestionTextProvider);
       return Container(
       alignment: Alignment.centerLeft,
       child: Center(
@@ -159,14 +139,6 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
                 alignment: Alignment.centerLeft,
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
-                  // child: AnimatedTextKit(
-                  //   isRepeatingAnimation: false,
-                  //   animatedTexts: [
-                  //     // TyperAnimatedText("${reader(currentQuestionTextProvider.notifier).state}",),
-                  //     TyperAnimatedText(reader(currentQuestionTextProvider) ?? ""),
-                  //     // TyperAnimatedText(question?.text ?? ""),
-                  //   ],
-                  // ),
                   child: Text(
                     question?.text ?? "",
                     style: const TextStyle(fontSize: 18,),
@@ -194,12 +166,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
                 onTap: ref.watch(optionGestureProvider)
                     ? null
                     : () {
-                        // if (!ref.watch(optionGestureProvider)) {
                         ref.watch(optionGestureProvider.notifier).state = true;
-                        // reader(currentQuestionTextProvider.notifier).state =
-                        //     question?.text ?? "";
-                        // setState(() {
-                        print("setState");
                         _remainTime = 0;
                         ref.watch(questionAnswerProvider.notifier).state =
                             engine.updateAnswer(
@@ -211,8 +178,6 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
                         if (progressTimer != null) {
                           progressTimer!.cancel();
                         }
-                        // });
-                        // 2.5秒後に次の問題へ
                         Future.delayed(
                           const Duration(milliseconds: 2000),
                           () {
@@ -220,22 +185,10 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
                               progressTimer!.cancel();
                             }
                             engine.next();
-                            // 一問終了することごとに現在の問題の数が一つづつ増える
                             reader(currentQuestionIndexProvider.notifier)
                                 .state++;
-                            // reader(currentQuestionTextProvider.notifier).state =
-                            //     question?.text ?? "";
-                            // 何かしらの選択肢を選択したら true になる provider, 画面遷移時には次の問題へ移行するため、false にする必要がある
-                            // ref.watch(optionGestureProvider.notifier).state =
-                            // false;
                           },
                         );
-                        // 何かしらの選択肢を選択したら true になる provider, 画面遷移時には次の問題へ移行するため、false にする必要がある
-                        // ref.watch(optionGestureProvider.notifier).state =
-                        // false;
-                        // } else {
-                        //   null;
-                        // }
                       },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -252,9 +205,6 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
             }).toList(),
           ),
         ),
-        // option が選択されているかどうかの条件分岐 * 選択された選択肢が正しいかどうかの条件分岐
-        // Icon の範囲が大きいため、テキストをタップしても Stack の下になって反応しないことがある
-        // Icon から外れた部分であれば Tap が反応
         ref.watch(optionGestureProvider)
             ? ref.watch(questionAnswerProvider).values.last
                 ? Icon(
@@ -275,82 +225,12 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
     );
   }
 
-  // Widget quizProgress() {
-  //   return Container(
-  //     alignment: Alignment.center,
-  //     child: Column(
-  //       children: [
-  //         Container(
-  //           margin: const EdgeInsets.only(top: 20),
-  //           child: question != null
-  //               ? TimeIndicator(
-  //                   question!.duration,
-  //                   _remainTime,
-  //                   () {
-  //                     // progressTimer!.cancel();
-  //                     // _remainTime = 0;
-  //                   },
-  //                 )
-  //               : null,
-  //         ),
-  //         // Text(
-  //         //   "$_remainTime秒",
-  //         //   style: const TextStyle(fontSize: 16),
-  //         // )
-  //       ],
-  //     ),
-  //   );
-  // }
-
-  // Widget timeLimitText (BuildContext context, int remainTime) {
-  //   return remainTime == 0 ? Text("時間切れです") : Text("");
-  // }
-
-  // Widget footerButton(BuildContext context) {
-  //   return Row(
-  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //     children: [
-  //       ElevatedButton(
-  //         onPressed: () {
-  //           setState(() {
-  //             engine.stop();
-  //             ref.watch(optionGestureProvider.notifier).state = false;
-  //             ref.watch(questionAnswerProvider.notifier).state = {0: false};
-  //             if (progressTimer != null && progressTimer!.isActive) {
-  //               progressTimer!.cancel();
-  //             }
-  //           });
-  //           Navigator.pop(context);
-  //         },
-  //         child: const Text(
-  //           "キャンセル",
-  //           style: TextStyle(fontSize: 20),
-  //         ),
-  //       ),
-  //       // ElevatedButton(
-  //       //   onPressed: () {
-  //       //     engine.next();
-  //       //     // 何かしらの選択肢を選択したら true になる provider, 画面遷移時には次の問題へ移行するため、false にする必要がある
-  //       //     ref.watch(optionGestureProvider.notifier).state = false;
-  //       //   },
-  //       //   child: const Text(
-  //       //     "次へ",
-  //       //     style: TextStyle(fontSize: 20),
-  //       //   ),
-  //       // ),
-  //     ],
-  //   );
-  // }
-
   Future<void> _setupCorrectSession() async {
     _correctPlayer = AudioPlayer();
-    // final session = await AudioSession.instance;
-    // await session.configure(AudioSessionConfiguration.speech());
     await _loadCorrectAudioFile();
   }
 
   Future<void> _playCorrectSoundFile() async {
-    // 再生終了状態の場合、新たなオーディオファイルを定義し再生できる状態にする
     if (_correctPlayer.processingState == ProcessingState.completed) {
       await _loadCorrectAudioFile();
     }
@@ -371,7 +251,6 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
   }
 
   Future<void> _playIncorrectSoundFile() async {
-    // 再生終了状態の場合、新たなオーディオファイルを定義し再生できる状態にする
     if (_incorrectPlayer.processingState == ProcessingState.completed) {
       await _loadIncorrectAudioFile();
     }
@@ -389,16 +268,10 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
   void onNextQuestion(Question inputQuestion) {
     setState(() {
       if (progressTimer != null && progressTimer!.isActive) {
-        // _remainTime = 0;
         progressTimer!.cancel();
       }
       question = inputQuestion;
-      // reader(currentQuestionTextProvider.notifier).state =
-      //     question?.text ?? "";
       _remainTime = inputQuestion.duration;
-      // for (int i = 0; i < inputQuestion.options.length; i++) {
-      //   inputQuestion.options[i].copyWith(text: "");
-      // }
     });
 
     Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -406,10 +279,8 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
         try {
           if (mounted) {
             setState(() {
-                // reader(currentQuestionTextProvider.notifier).state = question?.text ?? "";
               progressTimer = timer;
               _remainTime--;
-              // print(_remainTime);
             });
           }
         } catch (e) {
@@ -417,11 +288,6 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
           throw CustomException(message: e.toString());
         }
       }
-      // else {
-      //   ref.watch(questionAnswerProvider.notifier).state =
-      //       engine.updateAnswer(
-      //           questionIndex: questionList.indexOf(question!),);
-      // }
     });
   }
 
@@ -440,14 +306,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
         progressTimer!.cancel();
       });
     }
-    // progressTimer!.cancel();
-    // print("quiz.categoryDocRef : ${quiz.categoryDocRef}");
-    // Navigator.pop(context);
     if (category != null) {
-      // ref
-      //     .watch(categoryControllerProvider.notifier)
-      //     .retrieveCategoryById(quizCategoryDocRef: quiz!.categoryDocRef!)
-      //     .then((category) =>
       ref.watch(quizHistoryControllerProvider.notifier).addQuizHistory(
             user: ref.watch(firebaseAuthProvider).currentUser!,
             quizDocRef: category.quizDocRef!,
@@ -462,7 +321,6 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
             takenQuestions: takenQuestions,
             answerIsCorrectList: answerIsCorrectList,
             questionList: questionList,
-            // )
           );
     }
     Navigator.pushReplacement(
@@ -477,14 +335,6 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
       ),
     );
   }
-  // Navigator.push(
-  //     context,
-  //     MaterialPageRoute(
-  //         builder: (context) => QuizResultScreen(
-  //             result: QuizResult(
-  //                 quiz: quiz,
-  //                 questionList: questionList,
-  //                 totalCorrect: total))));
 
   void onStop() {
     _remainTime = 0;
@@ -514,23 +364,6 @@ class QuizProgress extends StatefulHookConsumerWidget {
 class _QuizProgressState extends ConsumerState<QuizProgress> {
   @override
   void initState() {
-    // if (widget.remainTime == 0) {
-    //   ref.watch(questionAnswerProvider.notifier).state = widget.engine
-    //       .updateAnswer(
-    //           questionIndex: widget.questionList.indexOf(widget.question!),
-    //           answer: null);
-    //   widget.playIncorrectSoundFile();
-    //   // print(
-    //   //     "ref.watch(questionAnswerProvider.notifier).state : ${ref.watch(questionAnswerProvider.notifier).state}");
-    //   // print(
-    //   //     "question!.options[optionIndex].isSelected : ${question!.options[optionIndex].isSelected}");
-    //   // ref.watch(optionGestureProvider.notifier).state = true;
-    //   widget.progressTimer!.cancel();
-    // }
-    // timer = Timer(const Duration(seconds: 10), () {
-    //   Navigator.push(context, MaterialPageRoute(builder: (context) => Page1()));
-    //   print("changed page");
-    // });
     super.initState();
   }
 
@@ -543,55 +376,9 @@ class _QuizProgressState extends ConsumerState<QuizProgress> {
             ? TimeIndicator(
                 widget.question!.duration,
                 widget.remainTime,
-                // () {
-                // progressTimer!.cancel();
-                // _remainTime = 0;
-                // },
               )
             : null,
       ),
     );
   }
 }
-
-// @override
-// Widget build(BuildContext context) {
-//   var percent = ((progress / duration) * 100) / 100;
-//   var innerWidth = ((width * percent) - borderWidth * 2);
-//   var innerHeight = height - borderWidth * 2;
-//   if (innerWidth < 0) {
-//     innerWidth = 0;
-//   }
-//   if (innerHeight < 0) {
-//     innerHeight = 0;
-//   }
-//   return Stack(
-//     children: [
-//       Container(
-//         width: width,
-//         height: height,
-//         decoration: BoxDecoration(
-//           color: Colors.white,
-//           borderRadius: BorderRadius.all(Radius.circular(height * 0.50)),
-//           border: Border.all(
-//             width: borderWidth,
-//             // color: ThemeHelper.primaryColor
-//           ),
-//         ),
-//       ),
-//       Container(
-//         width: innerWidth,
-//         height: innerHeight,
-//         margin: EdgeInsets.all(borderWidth),
-//         decoration: BoxDecoration(
-//           borderRadius: BorderRadius.all(Radius.circular(height * 0.50)),
-//           border: Border.all(
-//             width: 5,
-//             // color: ThemeHelper.accentColor
-//           ),
-//           // color: ThemeHelper.accentColor
-//         ),
-//       ),
-//     ],
-//   );
-// }

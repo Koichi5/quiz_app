@@ -21,32 +21,46 @@ class DictionaryScreen extends HookConsumerWidget {
             ? const Center(
                 child: Text("辞書に単語が追加されていません"),
               )
-            : Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: dictionaryItemList.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final dictionaryItem = dictionaryItemList[index];
-                      return DictionaryCard(dictionaryItem: dictionaryItem);
-                    },
-                  ),
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text("引用元", style: TextStyle(fontSize: 12),),
+            : SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: dictionaryItemList.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final dictionaryItem = dictionaryItemList[index];
+                        return DictionaryCard(dictionaryItem: dictionaryItem);
+                      },
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        "引用元",
+                        style: TextStyle(fontSize: 12),
+                      ),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        "総務省『国民のためのサイバーセキュリティサイト』\n（https://www.soumu.go.jp/main_sosiki/cybersecurity/kokumin/glossary/glossary_01.html）を一部加工して作成",
+                        style: TextStyle(fontSize: 12),
+                      ),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        "Wikipedia (https://ja.wikipedia.org/wiki/)",
+                        style: TextStyle(fontSize: 12),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 100,
+                    ),
+                  ],
                 ),
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text("総務省『国民のためのサイバーセキュリティサイト』（https://www.soumu.go.jp/main_sosiki/cybersecurity/kokumin/glossary/glossary_01.html）を加工して作成", style: TextStyle(fontSize: 12),),
-                ),
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text("Wikipedia (https://ja.wikipedia.org/wiki/%E3%83%A1%E3%82%A4%E3%83%B3%E3%83%9A%E3%83%BC%E3%82%B8)", style: TextStyle(fontSize: 12),),
-                ),
-              ],
-            ),
+              ),
         error: (error, _) => Container(
           color: Colors.white,
           width: double.infinity,

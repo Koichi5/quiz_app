@@ -90,16 +90,6 @@ class QuizResultScreen extends HookConsumerWidget {
         physics: const NeverScrollableScrollPhysics(),
         itemCount: questionList.length,
         itemBuilder: (BuildContext context, int index) {
-          // if (index > questionList.length) {
-          //   showDialog(context: context, builder: (context) {
-          //     print("エラーが発生しています");
-          //     return const SimpleDialog(title: Text("エラーが発生しています"),);
-          //   });
-          // }
-          // print("questionList[takenQuestions[index]] : ${questionList[takenQuestions[index]]}");
-          // print(index);
-          print("answerIsCorrectList[index] : ${answerIsCorrectList[index]}");
-          print("answerIsCorrectList : ${answerIsCorrectList}");
           final question = questionList[takenQuestions[index]];
           final answerIsCorrect = answerIsCorrectList[index];
           return ResultQuestionListCard(
@@ -113,24 +103,23 @@ class QuizResultScreen extends HookConsumerWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          // category != null ?
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: TextButton(
-              onPressed: ([bool mounted = true]) {
+              onPressed: () {
                 ref.watch(currentQuestionIndexProvider.notifier).state = 1;
-                // ref.watch(optionGestureProvider.notifier).state = false;
-                // ref
-                //     .watch(categoryControllerProvider.notifier)
-                //     .retrieveCategoryById(
-                //     quizCategoryDocRef: category!.categoryDocRef!)
-                //     .then((value) {
-                if (!mounted) return;
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => Scaffold(
                       appBar: AppBar(
+                        leading: IconButton(
+                          icon: const Icon(Icons.arrow_back_ios),
+                          onPressed: (){
+                            Navigator.pop(context);
+                            ref.watch(currentQuestionIndexProvider.notifier).state = 1;
+                          },
+                        ),
                         centerTitle: true,
                         title: const Text("再挑戦"),
                       ),

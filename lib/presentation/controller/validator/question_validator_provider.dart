@@ -42,21 +42,4 @@ class QuestionValidatorProvider extends StateNotifier<QuestionFormState> {
     }
     state = state.copyWith(form: form.copyWith(text: questionTextField));
   }
-
-  // void setQuestionDuration(String questionDuration) {
-  //   final bool isQuestionDuration = RegExp("[0-9]").hasMatch(questionDuration);
-  //   QuestionFormEntity form =
-  //       state.form.copyWith(duration: Field(value: questionDuration));
-  //
-  //   late Field questionDurationField;
-  //
-  //   if (isQuestionDuration) {
-  //     questionDurationField = form.id.copyWith(isValid: true, errorMessage: "");
-  //   } else {
-  //     questionDurationField = form.id
-  //         .copyWith(isValid: false, errorMessage: "クイズの制限時間は数字で入力してください");
-  //   }
-  //   state =
-  //       state.copyWith(form: form.copyWith(duration: questionDurationField));
-  // }
 }

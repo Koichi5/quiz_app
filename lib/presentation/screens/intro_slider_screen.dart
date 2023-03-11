@@ -62,9 +62,10 @@ class IntroSliderScreen extends StatelessWidget {
 
   Widget renderDoneBtn(BuildContext context) {
     return TextButton(
-        onPressed: () {
-          Navigator.pushNamed(context, "/signup");
-        },
-        child: const Text("終了"));
+      onPressed: () {
+        Navigator.pushNamed(context, "/signup");
+      },
+      child: const Text("終了"),
+    );
   }
 }

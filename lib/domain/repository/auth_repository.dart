@@ -54,7 +54,6 @@ class AuthRepository implements BaseAuthRepository {
       user = (await _reader(firebaseAuthProvider)
               .signInWithEmailAndPassword(email: email, password: password))
           .user;
-      print('Singed in: ${user!.uid}');
     } on FirebaseAuthException catch (e) {
       throw CustomException(message: e.message);
     }
@@ -94,7 +93,6 @@ class AuthRepository implements BaseAuthRepository {
 
   @override
   Future<UserCredential> signInWithApple() async {
-    print('AppSignInを実行');
     // To prevent replay attacks with the credential returned from Apple, we
     // include a nonce in the credential request. When signing in with
     // Firebase, the nonce in the id token returned by Apple, is expected to
@@ -108,7 +106,6 @@ class AuthRepository implements BaseAuthRepository {
         AppleIDAuthorizationScopes.fullName,
       ],
     );
-    print(appleCredential);
     // Create an `OAuthCredential` from the credential returned by Apple.
     final oauthCredential = OAuthProvider("apple.com").credential(
       idToken: appleCredential.identityToken,

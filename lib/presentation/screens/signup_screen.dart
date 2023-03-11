@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quiz_app/presentation/controller/signup_text_controller.dart';
@@ -5,6 +6,7 @@ import 'package:quiz_app/presentation/controller/validator/signup_validator_prov
 import 'package:quiz_app/presentation/widgets/apple_signin_button.dart';
 import 'package:quiz_app/presentation/widgets/custom_text_field.dart';
 import 'package:quiz_app/presentation/widgets/google_signin_button.dart';
+import 'package:quiz_app/presentation/widgets/link_button.dart';
 import 'package:quiz_app/presentation/widgets/signup_button.dart';
 
 class SignupScreen extends HookConsumerWidget {
@@ -12,6 +14,7 @@ class SignupScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final linkButton = LinkButton();
     final emailControllerProvider =
         ref.watch(signupEmailControllerStateProvider);
     final passwordControllerProvider =
@@ -35,7 +38,7 @@ class SignupScreen extends HookConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.1,
+                  height: MediaQuery.of(context).size.height * 0.05,
                 ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.9,
@@ -108,6 +111,39 @@ class SignupScreen extends HookConsumerWidget {
                     ),
                   ),
                 ),
+                RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    children: [
+                      const TextSpan(
+                        text: '登録をすることで',
+                        style: TextStyle(color: Colors.black, fontSize: 12),
+                      ),
+                      TextSpan(
+                          text: '利用規約',
+                          style: const TextStyle(color: Colors.blue, fontSize: 12),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              linkButton.launchUriWithString(context,
+                                  "https://terms-of-service-tech.web.app/");
+                            }),
+                      const TextSpan(
+                        text: "と",
+                        style: TextStyle(color: Colors.black, fontSize: 12),
+                      ),
+                      TextSpan(
+                          text: 'プライバシーポリシー',
+                          style: const TextStyle(color: Colors.blue, fontSize: 12),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              linkButton.launchUriWithString(
+                                  context, "https://quiz-app-dc8a1.web.app");
+                            }),
+                    ],
+                  ),
+                ),
+                const Text("に同意したことになります", style: TextStyle(fontSize: 12),),
+                const Text("ご利用になる前に必ずお読みください", style: TextStyle(fontSize: 12),)
               ],
             ),
           ),

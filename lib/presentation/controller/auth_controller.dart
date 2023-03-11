@@ -8,9 +8,6 @@ import '../../domain/repository/auth_repository.dart';
 final authControllerProvider = StateNotifierProvider<AuthController, User?>(
     (ref) => AuthController(ref.read)..appStarted());
 
-// final authControllerProvider = StateNotifierProvider<AuthController, User?>(
-//         (ref) => AuthController(ref.read));
-
 class AuthController extends StateNotifier<User?> {
   final Reader _reader;
   StreamSubscription<User?>? _authStateChangesSubscription;
@@ -31,7 +28,6 @@ class AuthController extends StateNotifier<User?> {
   void appStarted() async {
     final user = _reader(authRepositoryProvider).getCurrentUser();
     if (user == null) {
-      print("currentUser が null です");
       // Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
     }
   }

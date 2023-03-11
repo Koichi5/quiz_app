@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../domain/option/option.dart';
+import '../../general/general_provider.dart';
 import '../screens/quiz_screen.dart';
 
 class QuestionOption extends HookConsumerWidget {
@@ -27,15 +28,12 @@ class QuestionOption extends HookConsumerWidget {
                     ? Theme.of(context).colorScheme.primaryContainer
                     : Theme.of(context).colorScheme.background
                 : Theme.of(context).colorScheme.background,
-            border: Border.all(width: 0.7),
-            // border: ref.watch(optionGestureProvider)
-            //     ? option.isCorrect
-            //         ? Border.all(
-            //             width: 4.0,
-            //             color: Theme.of(context).colorScheme.primary)
-            //         : Border.all(
-            //             width: 0.7,)
-            //     : Border.all(width: 0.7),
+            border: Border.all(
+              width: 0.7,
+              color: isDarkMode(context)
+                  ? Theme.of(context).colorScheme.secondary
+                  : Theme.of(context).colorScheme.onBackground,
+            ),
             borderRadius: const BorderRadius.all(Radius.circular(50))),
         width: MediaQuery.of(context).size.width * 0.9,
         padding: const EdgeInsets.all(10),
@@ -51,62 +49,5 @@ class QuestionOption extends HookConsumerWidget {
             textAlign: TextAlign.left,
           ),
         ));
-    // Row(
-    //   children: [
-    // SizedBox(
-    //   width: 50,
-    //   height: 50,
-    //   child: Stack(
-    //     alignment: Alignment.center,
-    //     children: [
-    // Container(
-    //   alignment: Alignment.center,
-    //   width: 40,
-    //   height: 40,
-    //   decoration: BoxDecoration(
-    //       border: Border.all(
-    //           color: ref.watch(questionAnswerProvider.notifier).state.values.last
-    //               ? Theme.of(context).colorScheme.primary
-    //               : Theme.of(context).colorScheme.error,
-    //           width: 4),
-    //       borderRadius: const BorderRadius.all(Radius.circular(20)),
-    //       // color: isSelected
-    //       //     ? Theme.of(context).primaryColor
-    //       //     : Colors.white
-    //   ),
-    // ),
-    // Container(
-    //   alignment: Alignment.center,
-    //   child: Text(
-    //     optionText,
-    //     style: TextStyle(
-    //         color: isSelected
-    //             ? Colors.white
-    //             : Theme.of(context).primaryColor,
-    //         fontSize: 30),
-    //   ),
-    // ),
-    //   ],
-    // ),
-    // ),
-    // Expanded(
-    //   flex: 1,
-    //   child:
-    //   Container(
-    //     alignment: Alignment.centerLeft,
-    //     padding: const EdgeInsets.only(left: 10),
-    //     child: Text(
-    //       optionText,
-    //       style: TextStyle(
-    //         fontSize: 25,
-    //         // color: Theme.of(context).primaryColor,
-    //       ),
-    //       textAlign: TextAlign.left,
-    //     ),
-    //   ),
-    // );
-    //     ],
-    //   ),
-    // );
   }
 }

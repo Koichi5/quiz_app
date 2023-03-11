@@ -38,13 +38,11 @@ class CategorySetButton extends HookConsumerWidget {
                       description: description,
                       createdAt: DateTime.now());
 
-              //ここで渡している category に DocRef が含まれていないからエラー
               if (!mounted) return;
               Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => QuizSetScreen(category: category)));
-              // Navigator.pushNamed(context, '/quiz_set');
             }
           },
           child: Text(

@@ -19,180 +19,132 @@ class QuizListScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // print(quizList);
-    // if (quizList != null && category != null) {
-    //   print("quizList と category あります");
-    //   final questionListState =
-    //       ref.watch(questionControllerProvider(quizList!.first));
-    //   return Scaffold(
-    //     appBar: AppBar(
-    //              centerTitle: true,
-    //       title: Text(category!.name),
-    //     ),
-    //     body: SingleChildScrollView(
-    //       child: Column(
-    //         crossAxisAlignment: CrossAxisAlignment.center,
-    //         mainAxisSize: MainAxisSize.min,
-    //         children: [
-    //           questionListState.when(
-    //             data: (questions) => questions.isEmpty
-    //                 ? const Center(
-    //                     child: Text("問題が用意されていません"),
-    //                   )
-    //                 : QuizScreen(
-    //                     reader: ref.watch,
-    //                     category: category,
-    //                     questionList: questions),
-    //             error: (error, _) => const Text("エラー"),
-    //             loading: () => Center(
-    //               child: Lottie.asset("assets/json_files/loading.json",
-    //                   width: 200, height: 200),
-    //             ),
-    //           ),
-    //         ],
-    //       ),
-    //     ),
-    //   );
-
     if (category != null) {
       final quizListState = ref.watch(quizControllerProvider(category!));
       return Scaffold(
-          appBar: AppBar(
-            leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-                ref.watch(currentQuestionIndexProvider.notifier).state = 1;
-              },
-              icon: const Icon(Icons.arrow_back_ios),
-            ),
-            centerTitle: true,
-            title: Text(category!.name),
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+              ref.watch(currentQuestionIndexProvider.notifier).state = 1;
+            },
+            icon: const Icon(Icons.arrow_back_ios),
           ),
-          body: SingleChildScrollView(
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                quizListState.when(
-                  data: (quizzes) => quizzes.isEmpty
-                      ? const Center(
-                          child: Material(child: Text("クイズはありません")),
-                        )
-                      : ref
-                          .watch(questionControllerProvider(quizzes.first))
-                          .when(
-                              data: (questions) => questions.isEmpty
-                                  ? const Center(
-                                      child: Text("問題が用意されていません"),
-                                    )
-                                  : QuizScreen(
-                                      reader: ref.watch,
-                                      category: category,
-                                      quiz: quizzes.first,
-                                      questionList: questions),
-                              error: (error, _) => Center(
-                                    child: Container(
-                                      color: Colors.white,
-                                      width: double.infinity,
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          const Text(
-                                            "エラーが発生しています",
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          Lottie.asset(
-                                              "assets/json_files/error.json",
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.7,
-                                              fit: BoxFit.fitWidth),
-                                        ],
-                                      ),
-                                    ),
+          centerTitle: true,
+          title: Text(category!.name),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              quizListState.when(
+                data: (quizzes) => quizzes.isEmpty
+                    ? const Center(
+                        child: Material(child: Text("クイズはありません")),
+                      )
+                    : ref.watch(questionControllerProvider(quizzes.first)).when(
+                          data: (questions) => questions.isEmpty
+                              ? const Center(
+                                  child: Text("問題が用意されていません"),
+                                )
+                              : QuizScreen(
+                                  reader: ref.watch,
+                                  category: category,
+                                  quiz: quizzes.first,
+                                  questionList: questions),
+                          error: (error, _) => Center(
+                            child: Container(
+                              color: Colors.white,
+                              width: double.infinity,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const Text(
+                                    "エラーが発生しています",
+                                    textAlign: TextAlign.center,
                                   ),
-                              loading: () => Center(
-                                    child: Lottie.asset(
-                                        "assets/json_files/loading.json",
-                                        width: 200,
-                                        height: 200),
-                                  )),
-                  //     : ListView.builder(
-                  //   shrinkWrap: true,
-                  //   physics: const NeverScrollableScrollPhysics(),
-                  //   itemCount: quizzes.length,
-                  //   itemBuilder: (BuildContext context, int index) {
-                  //     final quiz = quizzes[index];
-                  //     return QuizCard(quiz: quiz);
-                  //   },
-                  // ),
-                  error: (error, _) => Center(
-                    child: Container(
-                      color: Colors.white,
-                      width: double.infinity,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const Text(
-                            "エラーが発生しています",
-                            textAlign: TextAlign.center,
+                                  Lottie.asset("assets/json_files/error.json",
+                                      width: MediaQuery.of(context).size.width *
+                                          0.7,
+                                      fit: BoxFit.fitWidth),
+                                ],
+                              ),
+                            ),
                           ),
-                          Lottie.asset("assets/json_files/error.json",
-                              width: MediaQuery.of(context).size.width * 0.7,
-                              fit: BoxFit.fitWidth),
-                        ],
-                      ),
+                          loading: () => Center(
+                            child: Lottie.asset(
+                                "assets/json_files/loading.json",
+                                width: 200,
+                                height: 200),
+                          ),
+                        ),
+                error: (error, _) => Center(
+                  child: Container(
+                    color: Colors.white,
+                    width: double.infinity,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Text(
+                          "エラーが発生しています",
+                          textAlign: TextAlign.center,
+                        ),
+                        Lottie.asset("assets/json_files/error.json",
+                            width: MediaQuery.of(context).size.width * 0.7,
+                            fit: BoxFit.fitWidth),
+                      ],
                     ),
                   ),
-                  loading: () => Center(
-                    child: Lottie.asset("assets/json_files/loading.json",
-                        width: 200, height: 200),
-                  ),
-                )
-              ])));
+                ),
+                loading: () => Center(
+                  child: Lottie.asset("assets/json_files/loading.json",
+                      width: 200, height: 200),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
     } else if (questionList != null) {
       return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios),
+            onPressed: () {
+              Navigator.pop(context);
+              ref.watch(currentQuestionIndexProvider.notifier).state = 1;
+            },
+          ),
+        ),
         body: QuizScreen(
           reader: ref.watch,
           questionList: questionList!,
         ),
       );
-      //     : ListView.builder(
-      //   shrinkWrap: true,
-      //   physics: const NeverScrollableScrollPhysics(),
-      //   itemCount: quizzes.length,
-      //   itemBuilder: (BuildContext context, int index) {
-      //     final quiz = quizzes[index];
-      //     return QuizCard(quiz: quiz);
-      //   },
-      // ),
-      // )
     } else {
       return Scaffold(
-          appBar: AppBar(),
-          body: Container(
-            color: Colors.white,
-            width: double.infinity,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Text(
-                  "エラーが発生しています",
-                  textAlign: TextAlign.center,
-                ),
-                Lottie.asset("assets/json_files/error.json",
-                    width: MediaQuery.of(context).size.width * 0.7,
-                    fit: BoxFit.fitWidth),
-              ],
-            ),
-          ));
+        appBar: AppBar(),
+        body: Container(
+          color: Colors.white,
+          width: double.infinity,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Text(
+                "エラーが発生しています",
+                textAlign: TextAlign.center,
+              ),
+              Lottie.asset("assets/json_files/error.json",
+                  width: MediaQuery.of(context).size.width * 0.7,
+                  fit: BoxFit.fitWidth),
+            ],
+          ),
+        ),
+      );
     }
   }
 }

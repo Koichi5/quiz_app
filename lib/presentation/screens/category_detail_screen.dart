@@ -197,8 +197,7 @@ class CategoryDetailScreen extends HookConsumerWidget {
                         child: SizedBox(
                           width: MediaQuery.of(context).size.width * 0.9,
                           child: ElevatedButton(
-                            onPressed: ([bool mounted = true]) {
-                              if (!mounted) return;
+                            onPressed: () {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(

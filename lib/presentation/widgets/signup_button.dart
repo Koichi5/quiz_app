@@ -26,12 +26,13 @@ class SignUpButton extends HookConsumerWidget {
                 backgroundColor: ref.watch(signupValidatorProvider).form.isValid
                     ? Theme.of(context).colorScheme.primary
                     : Theme.of(context).colorScheme.secondary),
-            onPressed: () async {
+            onPressed: ([bool mounted = true]) async {
               if (ref.watch(signupValidatorProvider).form.isValid) {
                 await authControllerProviderNotifier.createUserWithEmailAndPassword(
                     email, password);
                 User? user = authRepositoryProviderNotifier.getCurrentUser();
                 if (user != null) {
+                  if(!mounted) return;
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
                       builder: (context) => const HomeScreen()));
                 }

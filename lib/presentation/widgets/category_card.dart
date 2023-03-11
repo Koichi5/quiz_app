@@ -32,7 +32,6 @@ class CategoryCard extends HookConsumerWidget {
           MaterialPageRoute(
             builder: (context) => CategoryDetailScreen(
               category: category,
-              // quizHistoryList: quizHistoryList,
             ),
           ),
         );

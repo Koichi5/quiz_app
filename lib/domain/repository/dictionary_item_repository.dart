@@ -44,7 +44,7 @@ class DictionaryItemRepository implements BaseDictionaryItemRepository {
   Future<List<DictionaryItem>> retrieveDictionaryItem() async {
     try {
       final snap =
-          await _read(firebaseFirestoreProvider).collection("dictionary").get();
+          await _read(firebaseFirestoreProvider).collection("dictionary").orderBy("dictionaryWord").get();
       return snap.docs.map((doc) => DictionaryItem.fromDocument(doc)).toList();
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message);

@@ -73,7 +73,6 @@ class QuizHistoryController
     );
     final quizHistoryDocRef = await _reader(quizHistoryRepositoryProvider)
         .addQuizHistory(quizHistory: quizHistory, user: user);
-    // final userCompletedCategory = await _reader(q)
     state.whenData((categoryList) => state = AsyncValue.data(
         categoryList..add(quizHistory.copyWith(id: quizHistoryDocRef))));
     return quizHistoryDocRef;

@@ -45,18 +45,12 @@ class CategoryController extends StateNotifier<AsyncValue<List<Category>>> {
     try {
       final category = await _reader(categoryRepositoryProvider)
           .retrieveCategoryById(quizCategoryDocRef: quizCategoryDocRef);
-      // if (mounted) {
-      //   state = AsyncValue.data(category);
-      // }
       return category;
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message);
     }
   }
 
-  // finder_seller では id による管理で、documentId を id としていた
-  // repository の addProduct は返り値に String id を持っていたが、今回は持たせていない
-  // できるかどうか不透明　できなければ id が原因
   Future<Category> addCategory(
       {String? id,
       required int categoryId,
@@ -71,7 +65,6 @@ class CategoryController extends StateNotifier<AsyncValue<List<Category>>> {
       description: description,
       categoryQuestionCount: 0,
       createdAt: createdAt,
-      // google のロゴで代用
       imagePath:
           "assets/images/category_images/category_image1.png",
     );

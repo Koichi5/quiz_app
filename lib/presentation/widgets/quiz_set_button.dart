@@ -8,8 +8,7 @@ import '../controller/validator/quiz_validator_provider.dart';
 
 class QuizSetButton extends HookConsumerWidget {
   const QuizSetButton(
-      {
-      required this.title,
+      {required this.title,
       required this.description,
       required this.category,
       Key? key})
@@ -30,7 +29,7 @@ class QuizSetButton extends HookConsumerWidget {
               backgroundColor: ref.watch(quizValidatorProvider).form.isValid
                   ? Theme.of(context).colorScheme.primary
                   : Theme.of(context).colorScheme.secondary),
-          onPressed: () async {
+          onPressed: ([bool mounted = true]) async {
             if (ref.watch(quizValidatorProvider).form.isValid) {
               final quiz = await ref
                   .watch(quizControllerProvider(category).notifier)
@@ -41,14 +40,15 @@ class QuizSetButton extends HookConsumerWidget {
                       questionsShuffled: false,
                       imagePath: "",
                       categoryId: category.categoryId);
-              print("quiz.questionDocRef1 : ${quiz.questionDocRef}");
+              if (!mounted) return;
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => QuestionSetScreen(
-                            quiz: quiz,
-                          )));
-              print("quiz.questionDocRef2 : ${quiz.questionDocRef}");
+                context,
+                MaterialPageRoute(
+                  builder: (context) => QuestionSetScreen(
+                    quiz: quiz,
+                  ),
+                ),
+              );
             }
           },
           child: Text(
@@ -56,8 +56,7 @@ class QuizSetButton extends HookConsumerWidget {
             style: TextStyle(
                 color: ref.watch(quizValidatorProvider).form.isValid
                     ? Theme.of(context).colorScheme.onPrimary
-                    : Theme.of(context).colorScheme.onSecondary
-            ),
+                    : Theme.of(context).colorScheme.onSecondary),
           ),
         ),
       ),

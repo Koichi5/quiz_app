@@ -14,12 +14,9 @@ class QuizSetScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final idControllerProvider = ref.watch(quizIdControllerProvider);
     final titleControllerProvider = ref.watch(quizTitleControllerProvider);
     final descriptionControllerProvider =
         ref.watch(quizDescriptionControllerProvider);
-    // final categoryIdControllerProvider =
-    //     ref.watch(quizCategoryIdControllerProvider);
     final quizValidator = ref.watch(quizValidatorProvider);
     final quizValidatorNotifier = ref.watch(quizValidatorProvider.notifier);
     return Scaffold(
@@ -34,14 +31,6 @@ class QuizSetScreen extends HookConsumerWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.1,
             ),
-            // CustomTextField(
-            //   title: "クイズID",
-            //   controller: idControllerProvider,
-            //   error: quizValidator.form.id.errorMessage,
-            //   onChanged: (quizId) {
-            //     quizValidatorNotifier.setQuizId(quizId);
-            //   },
-            // ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.02,
             ),

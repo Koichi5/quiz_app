@@ -24,13 +24,23 @@ class DictionaryCard extends HookConsumerWidget {
             padding: EdgeInsets.all(8.0),
             child: Text("解説"),
           ),
-          expanded: Row(
+          expanded: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  dictionaryItem.dictionaryDescription,
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Flexible(
+                        child: Text(
+                          overflow: TextOverflow.clip,
+                          dictionaryItem.dictionaryDescription,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               TextButton(

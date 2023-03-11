@@ -4,8 +4,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'category.freezed.dart';
 part 'category.g.dart';
 
-// flutter pub run build_runner build --delete-conflicting-outputs
-
 @freezed
 abstract class Category implements _$Category {
   const Category._();

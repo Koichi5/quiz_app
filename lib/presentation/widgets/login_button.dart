@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quiz_app/presentation/screens/home_screen.dart';
 
-import '../../domain/repository/auth_repository.dart';
 import '../controller/auth_controller.dart';
 import '../controller/validator/login_validator_provider.dart';
 
@@ -29,7 +28,6 @@ class LoginButton extends HookConsumerWidget {
               if (ref.watch(loginValidatorProvider).form.isValid) {
                 User? user = await authControllerProviderNotifier
                     .signInWithEmailAndPassword(email, password);
-                // User? user = authRepositoryProviderNotifier.getCurrentUser();
                 if (user != null) {
                   if (!mounted) return;
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
