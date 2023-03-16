@@ -300,11 +300,19 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
     List<int> takenQuestions,
     List<bool> answerIsCorrectList,
   ) {
+    int timeTakenMinutes = 0;
+    int timeTakenSeconds = 0;
     if (mounted) {
       setState(() {
         _remainTime = 0;
         progressTimer!.cancel();
       });
+    }
+    if (-takenTime.inSeconds < 60) {
+      timeTakenSeconds = -takenTime.inSeconds;
+    } else {
+      timeTakenMinutes = (-takenTime.inSeconds / 60).floor();
+      timeTakenSeconds = -takenTime.inSeconds % 60;
     }
     if (category != null) {
       ref.watch(quizHistoryControllerProvider.notifier).addQuizHistory(
@@ -314,8 +322,8 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
             quizTitle: category.name,
             score: total.round(),
             questionCount: questionList.length,
-            timeTakenMinutes: -takenTime.inMinutes,
-            timeTakenSeconds: -takenTime.inSeconds,
+            timeTakenMinutes: timeTakenMinutes,
+            timeTakenSeconds: timeTakenSeconds,
             quizDate: DateTime.now(),
             status: "Complete",
             takenQuestions: takenQuestions,

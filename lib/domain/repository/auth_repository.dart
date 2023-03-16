@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:quiz_app/general/global_navigator.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 import '../../general/custom_exception.dart';
@@ -9,11 +10,11 @@ import '../../general/general_provider.dart';
 
 abstract class BaseAuthRepository {
   Stream<User?> get authStateChanges;
-  Future<UserCredential> createUserWithEmailAndPassword(
+  Future<UserCredential?> createUserWithEmailAndPassword(
       String email, String password);
   Future<User?> signInWithEmailAndPassword(String email, String password);
   Future<User?> signInWithGoogle();
-  Future<UserCredential> signInWithApple();
+  Future<User?> signInWithApple();
   User? getCurrentUser();
   Future<void> signOut();
 }
@@ -32,7 +33,7 @@ class AuthRepository implements BaseAuthRepository {
       _reader(firebaseAuthProvider).authStateChanges();
 
   @override
-  Future<UserCredential> createUserWithEmailAndPassword(
+  Future<UserCredential?> createUserWithEmailAndPassword(
       String email, String password) async {
     try {
       final result =
@@ -42,8 +43,19 @@ class AuthRepository implements BaseAuthRepository {
       );
       return result;
     } on FirebaseAuthException catch (e) {
-      throw CustomException(message: e.message);
+      if (e.toString() ==
+          '[firebase_auth/invalid-email] The email address is badly formatted.') {
+        GlobalNavigator.showErrorDialog(
+            "メールアドレスの形式が正しくありません", "メールアドレスの形式を直して入力してください");
+      } else if (e.toString() ==
+          '[firebase_auth/email-already-in-use] The email address is already in use by another account.') {
+        GlobalNavigator.showErrorDialog(
+            "このメールアドレスは既に使用されています", "他のメールアドレスを入力してください");
+      } else {
+        GlobalNavigator.showErrorDialog("不明なエラーです", "時間をおいて再度お試しください");
+      }
     }
+    return null;
   }
 
   @override
@@ -55,7 +67,22 @@ class AuthRepository implements BaseAuthRepository {
               .signInWithEmailAndPassword(email: email, password: password))
           .user;
     } on FirebaseAuthException catch (e) {
-      throw CustomException(message: e.message);
+      if (e.toString() ==
+          '[firebase_auth/user-not-found] There is no user record corresponding to this identifier. The user may have been deleted.') {
+        GlobalNavigator.showErrorDialog(
+            "このメールアドレスは登録されていません", "他のメールアドレスでお試しください");
+      }
+      if (e.toString() ==
+          '[firebase_auth/invalid-email] The email address is badly formatted.') {
+        GlobalNavigator.showErrorDialog(
+            "メールアドレスの形式が正しくありません", "メールアドレスの形式を直して入力してください");
+      }
+      if (e.toString() ==
+          '[firebase_auth/wrong-password] The password is invalid or the user does not have a password.') {
+        GlobalNavigator.showErrorDialog("パスワードが異なります", "他のパスワードをお試しください");
+      } else {
+        GlobalNavigator.showErrorDialog("不明なエラーです", "時間をおいて再度お試しください");
+      }
     }
     return user;
   }
@@ -85,35 +112,36 @@ class AuthRepository implements BaseAuthRepository {
         // final user = userCredential.user;
         user = userCredential.user;
       } on FirebaseAuthException catch (e) {
-        throw CustomException(message: e.message);
+        GlobalNavigator.showErrorDialog("Googleでのサインインに失敗しました", "再度お試しください");
+        // throw CustomException(message: e.message);
       }
     }
     return user;
   }
 
   @override
-  Future<UserCredential> signInWithApple() async {
-    // To prevent replay attacks with the credential returned from Apple, we
-    // include a nonce in the credential request. When signing in with
-    // Firebase, the nonce in the id token returned by Apple, is expected to
-    // match the sha256 hash of `rawNonce`.
-    final rawNonce = generateNonce();
-
-    // Request credential for the currently signed in Apple account.
-    final appleCredential = await SignInWithApple.getAppleIDCredential(
-      scopes: [
-        AppleIDAuthorizationScopes.email,
-        AppleIDAuthorizationScopes.fullName,
-      ],
-    );
-    // Create an `OAuthCredential` from the credential returned by Apple.
-    final oauthCredential = OAuthProvider("apple.com").credential(
-      idToken: appleCredential.identityToken,
-      rawNonce: rawNonce,
-    );
-    // Sign in the user with Firebase. If the nonce we generated earlier does
-    // not match the nonce in `appleCredential.identityToken`, sign in will fail.
-    return await FirebaseAuth.instance.signInWithCredential(oauthCredential);
+  Future<User?> signInWithApple() async {
+    User? user;
+    try {
+      final rawNonce = generateNonce();
+      final appleCredential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+      );
+      final oauthCredential = OAuthProvider("apple.com").credential(
+        idToken: appleCredential.identityToken,
+        rawNonce: rawNonce,
+      );
+      final userCredential =
+          await FirebaseAuth.instance.signInWithCredential(oauthCredential);
+      user = userCredential.user;
+      return user;
+    } on FirebaseException catch (e) {
+      GlobalNavigator.showErrorDialog("Appleでのサインインに失敗しました", "再度お試しください");
+    }
+    return null;
   }
 
   @override

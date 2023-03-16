@@ -31,6 +31,7 @@ dependencies:
   expandable: ^5.0.1
   bordered_text: ^2.0.0
   animated_text_kit: ^4.2.2
+  app_tracking_transparency: ^2.0.3
 
 dev_dependencies:
   flutter_test:

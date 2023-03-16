@@ -51,10 +51,10 @@ class AuthController extends StateNotifier<User?> {
   }
 
   // Apple sign in
-  Future<UserCredential> signInWithApple() async {
-    UserCredential userCredential =
+  Future<User?> signInWithApple() async {
+    User? user =
         await _reader(authRepositoryProvider).signInWithApple();
-    return userCredential;
+    return user;
   }
 
   Future<void> signOut() async {
