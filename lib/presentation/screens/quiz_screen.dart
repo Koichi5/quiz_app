@@ -23,6 +23,7 @@ final optionGestureProvider = StateProvider((ref) => false);
 final currentQuestionIndexProvider = StateProvider((ref) => 1);
 final currentQuestionTextProvider = StateProvider<String?>((ref) => "");
 
+// ignore: must_be_immutable
 class QuizScreen extends StatefulHookConsumerWidget {
   static const routeName = '/quiz';
   Category? category;
@@ -123,7 +124,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
   }
 
   Widget quizQuestion() {
-      return Container(
+    return Container(
       alignment: Alignment.centerLeft,
       child: Center(
         child: Padding(
@@ -141,7 +142,9 @@ class _QuizScreenState extends ConsumerState<QuizScreen>
                   padding: const EdgeInsets.all(15.0),
                   child: Text(
                     question?.text ?? "",
-                    style: const TextStyle(fontSize: 18,),
+                    style: const TextStyle(
+                      fontSize: 18,
+                    ),
                   ),
                 ),
               ),

@@ -7,7 +7,7 @@ class IntroSliderScreen extends StatelessWidget {
 
   final List<ContentConfig> slides = [
     const ContentConfig(
-        title: "ようこそ Information Quiz へ！",
+        title: "ようこそ Tech Journey へ！",
         styleTitle: TextStyle(color: Colors.cyan, fontSize: 20),
         pathImage: "assets/images/sample_logo.png",
         widthImage: 230,
